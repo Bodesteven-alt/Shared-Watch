@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Our Watch List</title>
-  <link rel="stylesheet" href="./styles.css?v=5">
+  <link rel="stylesheet" href="./styles.css?v=6">
 </head>
 <body>
   <main class="wrap">
@@ -12,24 +12,23 @@
       <h1>Our Watch List</h1>
     </header>
 
-    <div class="stats-toggle-wrap">
-      <button id="statsToggle" type="button" class="stats-toggle">Show stats</button>
-    </div>
-    <section class="stats hidden" id="stats"></section>
-
-    <section class="toolbar">
-      <input id="q" type="search" placeholder="Search title...">
-      <select id="source">
-        <option value="all">All</option>
-        <option value="both">Both</option>
-        <option value="letterboxd">Letterboxd only</option>
-        <option value="imdb">IMDb only</option>
-      </select>
-      <select id="genre">
-        <option value="all">All genres</option>
-      </select>
-      <button id="resetBtn" type="button">Reset</button>
+    <section class="source-filters">
+      <button id="filterLb" class="srcbtn active" data-source="letterboxd">
+        <span class="count" id="countLb">0</span> Letterboxd
+      </button>
+      <button id="filterBoth" class="srcbtn active" data-source="both">
+        <span class="count" id="countBoth">0</span> Both
+      </button>
+      <button id="filterImdb" class="srcbtn active" data-source="imdb">
+        <span class="count" id="countImdb">0</span> IMDb
+      </button>
     </section>
+
+    <div class="outlinks">
+      <a href="https://letterboxd.com/miscalim/watchlist/" target="_blank" class="outlink">View Letterboxd List ↗</a>
+      <a href="https://www.imdb.com/user/ur42352318/watchlist/" target="_blank" class="outlink">View IMDb List ↗</a>
+    </div>
+
     <section class="sortbar">
       <button id="sortTitleBtn" type="button" class="sortbtn active">
         Name
@@ -59,10 +58,10 @@
   </main>
 
   <footer class="footer">
-    <p>Made with love</p>
-    <p id="updatedAt" class="muted small">Loading...</p>
+    <p id="updatedAt">Loading...</p>
+    <p>Made by Stephen Bodie</p>
   </footer>
 
-  <script src="./app.js?v=5"></script>
+  <script src="./app.js?v=6"></script>
 </body>
 </html>

@@ -1,15 +1,16 @@
 /* global fetch */
 (async function init() {
-  const statsEl = document.getElementById("stats");
-  const statsToggle = document.getElementById("statsToggle");
   const gridEl = document.getElementById("grid");
   const emptyEl = document.getElementById("empty");
   const updatedAtEl = document.getElementById("updatedAt");
 
-  const qEl = document.getElementById("q");
-  const sourceEl = document.getElementById("source");
-  const genreEl = document.getElementById("genre");
-  const resetBtn = document.getElementById("resetBtn");
+  const filterLb = document.getElementById("filterLb");
+  const filterBoth = document.getElementById("filterBoth");
+  const filterImdb = document.getElementById("filterImdb");
+  const countLb = document.getElementById("countLb");
+  const countBoth = document.getElementById("countBoth");
+  const countImdb = document.getElementById("countImdb");
+
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
   const sortRatingBtn = document.getElementById("sortRatingBtn");
@@ -20,40 +21,32 @@
   const sortRatingUp = document.getElementById("sortRatingUp");
   const sortRatingDown = document.getElementById("sortRatingDown");
 
-  let statsVisible = false;
-  statsToggle.addEventListener("click", () => {
-    statsVisible = !statsVisible;
-    statsEl.classList.toggle("hidden", !statsVisible);
-    statsToggle.textContent = statsVisible ? "Hide stats" : "Show stats";
-  });
-
   const res = await fetch("./data/watchlist.json", { cache: "no-store" });
   if (!res.ok) {
-    updatedAtEl.textContent = "Failed to load watchlist.json";
+    updatedAtEl.textContent = "Failed to load";
     return;
   }
   const data = await res.json();
   const movies = Array.isArray(data.movies) ? data.movies : [];
-  const stats = data.stats || {};
-  const allGenres = new Set();
+
+  // Count movies by source
+  let lbCount = 0, bothCount = 0, imdbCount = 0;
   for (const m of movies) {
-    for (const g of (m.genres || [])) allGenres.add(String(g));
+    if (m.source === "letterboxd") lbCount++;
+    else if (m.source === "both") bothCount++;
+    else if (m.source === "imdb") imdbCount++;
   }
+  countLb.textContent = lbCount;
+  countBoth.textContent = bothCount;
+  countImdb.textContent = imdbCount;
 
-  updatedAtEl.textContent = "Last updated: " + (data.updated_at || "unknown");
-
-  const statEntries = [
-    ["Unique titles", stats.total || movies.length],
-    ["On both", stats.both || 0],
-    ["Letterboxd only", stats.letterboxd_only || 0],
-    ["IMDb only", stats.imdb_only || 0],
-    ["Posters resolved", stats.posters_resolved || 0],
-    ["With year", stats.metadata_with_year || 0],
-    ["With genre", stats.metadata_with_genres || 0]
-  ];
-  statsEl.innerHTML = statEntries.map(([k, v]) => (
-    `<div class="stat"><strong>${v}</strong><span class="muted small">${k}</span></div>`
-  )).join("");
+  // Format date
+  if (data.updated_at) {
+    const d = new Date(data.updated_at);
+    updatedAtEl.textContent = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  } else {
+    updatedAtEl.textContent = "Unknown date";
+  }
 
   function sourceBadge(m) {
     if (m.source === "both") return '<span class="badge both">Both</span>';
@@ -68,7 +61,6 @@
     let html = '<div class="stars">';
     for (let i = 0; i < 5; i++) {
       const fill = Math.max(0, Math.min(1, rating - i));
-      const clipId = `clip-${Math.random().toString(36).slice(2, 9)}`;
       html += `
         <span class="star">
           <svg viewBox="0 0 24 24">
@@ -91,11 +83,9 @@
     sortYearBtn.classList.toggle("active", sortField === "year");
     sortRatingBtn.classList.toggle("active", sortField === "rating");
 
-    // Reset all arrows
     [sortTitleUp, sortTitleDown, sortYearUp, sortYearDown, sortRatingUp, sortRatingDown]
       .forEach(el => el.classList.remove("active"));
 
-    // Highlight active arrow
     if (sortField === "title") {
       (sortDir === "asc" ? sortTitleUp : sortTitleDown).classList.add("active");
     } else if (sortField === "year") {
@@ -125,16 +115,20 @@
     });
   }
 
+  function getActiveSources() {
+    const sources = [];
+    if (filterLb.classList.contains("active")) sources.push("letterboxd");
+    if (filterBoth.classList.contains("active")) sources.push("both");
+    if (filterImdb.classList.contains("active")) sources.push("imdb");
+    return sources;
+  }
+
   function render() {
-    const q = (qEl.value || "").trim().toLowerCase();
-    const source = sourceEl.value;
-    const genre = genreEl.value;
+    const activeSources = getActiveSources();
 
     let rows = movies.filter((m) => {
-      if (source !== "all" && m.source !== source) return false;
-      if (q && !String(m.title || "").toLowerCase().includes(q)) return false;
-      if (genre !== "all" && !(m.genres || []).includes(genre)) return false;
-      return true;
+      if (activeSources.length === 0 || activeSources.length === 3) return true;
+      return activeSources.includes(m.source);
     });
 
     sortRows(rows);
@@ -160,9 +154,15 @@
     `).join("");
   }
 
-  genreEl.innerHTML += [...allGenres].sort((a, b) => a.localeCompare(b)).map((g) => `<option value="${g}">${g}</option>`).join("");
+  // Source filter toggle handlers
+  [filterLb, filterBoth, filterImdb].forEach(btn => {
+    btn.addEventListener("click", () => {
+      btn.classList.toggle("active");
+      render();
+    });
+  });
 
-  [qEl, sourceEl, genreEl].forEach((el) => el.addEventListener("input", render));
+  // Sort button handlers
   sortTitleBtn.addEventListener("click", () => {
     if (sortField === "title") sortDir = sortDir === "asc" ? "desc" : "asc";
     else { sortField = "title"; sortDir = "asc"; }
@@ -181,15 +181,7 @@
     updateSortUi();
     render();
   });
-  resetBtn.addEventListener("click", () => {
-    qEl.value = "";
-    sourceEl.value = "all";
-    genreEl.value = "all";
-    sortField = "title";
-    sortDir = "asc";
-    updateSortUi();
-    render();
-  });
+
   updateSortUi();
   render();
 })();
