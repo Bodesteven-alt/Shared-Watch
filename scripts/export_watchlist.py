@@ -171,9 +171,9 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
 def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) -> dict:
     """
     Fetch metadata from OMDb API (requires free API key from omdbapi.com).
-    Returns year, genres[], rating_imdb_10.
+    Returns year, genres[], rating_imdb_10, content_type.
     """
-    out = {"year": None, "genres": [], "rating_imdb_10": None}
+    out = {"year": None, "genres": [], "rating_imdb_10": None, "content_type": None}
     if not OMDB_API_KEY:
         return out
     params = {"apikey": OMDB_API_KEY}
@@ -208,6 +208,7 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
             out["rating_imdb_10"] = float(rating_str)
         except ValueError:
             pass
+    out["content_type"] = data.get("Type")  # "movie", "series", or "episode"
     return out
 
 
@@ -334,39 +335,50 @@ def main() -> int:
         )
 
         source_used = "cached"
+        content_type = c.get("content_type")
         if imdb_id and needs_refresh:
             parsed = parse_imdb_title_page(imdb_id)
             source_used = "IMDb"
+            content_type = None
             # Fallback chain: IMDb title page -> TMDB web -> OMDb API
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_tmdb_metadata_by_title(title)
                 source_used = "TMDB"
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_omdb_metadata(imdb_id=imdb_id, title=title)
+                content_type = parsed.get("content_type")
                 source_used = "OMDb" if (parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10")) else "no data"
+            # If we still don't have content_type, fetch it from OMDb
+            if content_type is None and OMDB_API_KEY:
+                omdb_check = fetch_omdb_metadata(imdb_id=imdb_id)
+                content_type = omdb_check.get("content_type")
             c = {
                 "imdb_id": imdb_id,
                 "year": parsed.get("year") or hint.get("year"),
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
+                "content_type": content_type,
             }
             meta_cache[norm] = c
         elif not imdb_id and needs_refresh:
             # No imdb_id - try TMDB and OMDb by title only
             parsed = fetch_tmdb_metadata_by_title(title)
             source_used = "TMDB"
+            content_type = None
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_omdb_metadata(title=title)
+                content_type = parsed.get("content_type")
                 source_used = "OMDb" if (parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10")) else "no data"
             c = {
                 "imdb_id": None,
                 "year": parsed.get("year") or hint.get("year"),
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
+                "content_type": content_type,
             }
             meta_cache[norm] = c
         elif not c:
-            c = {"imdb_id": imdb_id, "year": None, "genres": [], "rating_imdb_10": None}
+            c = {"imdb_id": imdb_id, "year": None, "genres": [], "rating_imdb_10": None, "content_type": None}
             meta_cache[norm] = c
             source_used = "no data"
 
@@ -402,8 +414,14 @@ def main() -> int:
                 "rating_imdb_10": round2(rating_imdb_10 if rating_imdb_10 is not None else None),
                 "rating_letterboxd_5": round2(rating_letterboxd_5 if rating_letterboxd_5 is not None else None),
                 "rating_avg_5": rating_avg_5,
+                "content_type": c.get("content_type"),
             }
         )
+
+    # Filter out TV series and episodes - keep only movies
+    total_before_filter = len(movies)
+    movies = [m for m in movies if m.get("content_type") in (None, "movie")]
+    filtered_count = total_before_filter - len(movies)
 
     movies.sort(key=lambda m: m["title"].lower())
 
@@ -431,6 +449,8 @@ def main() -> int:
 
     print()
     print(f"Exported {len(movies)} movies to {output_path}")
+    if filtered_count > 0:
+        print(f"  Filtered out: {filtered_count} TV series/episodes")
     print(f"  With year: {len(movies) - missing_year}/{len(movies)}")
     print(f"  With genre: {len(movies) - missing_genre}/{len(movies)}")
     print(f"  With rating: {len(movies) - missing_rating}/{len(movies)}")

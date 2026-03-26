@@ -38,7 +38,7 @@ body {
 .toolbar {
   margin-top: .9rem;
   display: grid;
-  grid-template-columns: 1fr 170px 170px 140px auto;
+  grid-template-columns: 1fr 170px 170px auto;
   gap: .6rem;
 }
 .sortbar {
@@ -46,6 +46,10 @@ body {
   display: flex;
   align-items: center;
   gap: .5rem;
+  flex-wrap: nowrap;
+}
+.sortbtn {
+  flex-shrink: 0;
 }
 input, select, button {
   border: 1px solid var(--line);
@@ -58,10 +62,12 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .sortbtn {
   display: inline-flex;
   align-items: center;
-  gap: .4rem;
+  gap: .35rem;
   background: rgba(22, 33, 62, 0.8);
   border: 1px solid var(--line);
   transition: transform 0.15s, background 0.15s;
+  font-size: .85rem;
+  padding: .45rem .6rem;
 }
 .sortbtn.active {
   background: linear-gradient(135deg, #ff71ce, #b967ff);
@@ -206,7 +212,16 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     grid-template-columns: 1fr;
   }
   .sortbar {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    justify-content: center;
+  }
+  .sortbtn {
+    font-size: .7rem;
+    padding: .4rem .45rem;
+    gap: .25rem;
+  }
+  .arrows {
+    font-size: .5rem;
   }
   .grid {
     grid-template-columns: 1fr;

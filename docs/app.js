@@ -9,7 +9,6 @@
   const qEl = document.getElementById("q");
   const sourceEl = document.getElementById("source");
   const genreEl = document.getElementById("genre");
-  const yearEl = document.getElementById("year");
   const resetBtn = document.getElementById("resetBtn");
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
@@ -37,10 +36,8 @@
   const movies = Array.isArray(data.movies) ? data.movies : [];
   const stats = data.stats || {};
   const allGenres = new Set();
-  const allYears = new Set();
   for (const m of movies) {
     for (const g of (m.genres || [])) allGenres.add(String(g));
-    if (m.year) allYears.add(Number(m.year));
   }
 
   updatedAtEl.textContent = "Last updated: " + (data.updated_at || "unknown");
@@ -132,13 +129,11 @@
     const q = (qEl.value || "").trim().toLowerCase();
     const source = sourceEl.value;
     const genre = genreEl.value;
-    const year = yearEl.value;
 
     let rows = movies.filter((m) => {
       if (source !== "all" && m.source !== source) return false;
       if (q && !String(m.title || "").toLowerCase().includes(q)) return false;
       if (genre !== "all" && !(m.genres || []).includes(genre)) return false;
-      if (year !== "all" && Number(m.year || 0) !== Number(year)) return false;
       return true;
     });
 
@@ -166,9 +161,8 @@
   }
 
   genreEl.innerHTML += [...allGenres].sort((a, b) => a.localeCompare(b)).map((g) => `<option value="${g}">${g}</option>`).join("");
-  yearEl.innerHTML += [...allYears].sort((a, b) => b - a).map((y) => `<option value="${y}">${y}</option>`).join("");
 
-  [qEl, sourceEl, genreEl, yearEl].forEach((el) => el.addEventListener("input", render));
+  [qEl, sourceEl, genreEl].forEach((el) => el.addEventListener("input", render));
   sortTitleBtn.addEventListener("click", () => {
     if (sortField === "title") sortDir = sortDir === "asc" ? "desc" : "asc";
     else { sortField = "title"; sortDir = "asc"; }
@@ -191,7 +185,6 @@
     qEl.value = "";
     sourceEl.value = "all";
     genreEl.value = "all";
-    yearEl.value = "all";
     sortField = "title";
     sortDir = "asc";
     updateSortUi();

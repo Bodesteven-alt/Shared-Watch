@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-03-26T17:00:27.226608+00:00",
+  "updated_at": "2026-03-26T22:14:04.667594+00:00",
   "stats": {
     "total": 318,
     "both": 9,
     "letterboxd_only": 78,
     "imdb_only": 231,
-    "posters_resolved": 240,
-    "metadata_with_year": 287,
-    "metadata_with_genres": 242,
-    "metadata_with_rating": 232
+    "posters_resolved": 269,
+    "metadata_with_year": 318,
+    "metadata_with_genres": 253,
+    "metadata_with_rating": 248
   },
   "movies": [
     {
@@ -16,11 +16,16 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/q8A39vcBDruhvoDTJd6L8a4lnTi.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1179933",
-      "year": 2016,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2015,
+      "genres": [
+        "Thriller",
+        "Science Fiction",
+        "Drama",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.0,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.5
     },
     {
       "title": "21 Jump Street",
@@ -560,11 +565,15 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
       "source": "both",
       "imdb_id": "tt0109424",
-      "year": 2023,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 8.0,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 4.0
     },
     {
       "title": "Close Encounters of the Third Kind",
@@ -585,14 +594,11 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/q6FhABXGf3TaYKoKNwzGAEzW7bt.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0458253",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.83,
+      "year": 2005,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.42
+      "rating_avg_5": null
     },
     {
       "title": "Cocktail",
@@ -756,14 +762,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/l5NbiHKUmahlAT3Q1ig8Tyl9xrc.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0097165",
-      "year": 2022,
+      "year": 2010,
       "genres": [
-        "Drama",
-        "TV Movie"
+        "Drama"
       ],
-      "rating_imdb_10": null,
+      "rating_imdb_10": 8.3,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 4.15
     },
     {
       "title": "Deadpool & Wolverine",
@@ -914,11 +919,14 @@
       "imdb_id": "tt0285531",
       "year": 2010,
       "genres": [
-        "Drama"
+        "Drama",
+        "Horror",
+        "Science Fiction",
+        "Thriller"
       ],
-      "rating_imdb_10": null,
+      "rating_imdb_10": 5.6,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 2.8
     },
     {
       "title": "Drive",
@@ -990,11 +998,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/33yTPcGSv7eo3FVlb7XKACHl1M8.jpg",
       "source": "imdb",
       "imdb_id": "tt0119080",
-      "year": 1997,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.4,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.2
     },
     {
       "title": "Explorer: The Last Tepui",
@@ -1016,10 +1026,12 @@
       "source": "imdb",
       "imdb_id": "tt15325794",
       "year": 2022,
-      "genres": [],
-      "rating_imdb_10": null,
+      "genres": [
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.1,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.55
     },
     {
       "title": "Fallen Angels",
@@ -1090,25 +1102,28 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
       "imdb_id": "tt7057496",
-      "year": 2017,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2023,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.8,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.9
     },
     {
       "title": "Forgotten Love",
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
       "imdb_id": "tt26596953",
-      "year": 2020,
+      "year": 2023,
       "genres": [
-        "Romance",
-        "Drama"
+        "Drama",
+        "Romance"
       ],
-      "rating_imdb_10": null,
+      "rating_imdb_10": 7.8,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.9
     },
     {
       "title": "Friday the 13th Part 2",
@@ -1251,9 +1266,9 @@
         "Romance",
         "History"
       ],
-      "rating_imdb_10": 7.7,
+      "rating_imdb_10": 7.71,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.85
+      "rating_avg_5": 3.86
     },
     {
       "title": "Happy Old Year",
@@ -1293,7 +1308,7 @@
         "Mystery",
         "Thriller"
       ],
-      "rating_imdb_10": 7.29,
+      "rating_imdb_10": 7.3,
       "rating_letterboxd_5": null,
       "rating_avg_5": 3.65
     },
@@ -1433,26 +1448,29 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/A4azclZQjqeQxXvcok3rdUmuq8a.jpg",
       "source": "imdb",
       "imdb_id": "tt0093260",
-      "year": 2022,
+      "year": 2010,
       "genres": [
-        "Music",
-        "Mystery",
+        "Action",
+        "Comedy",
         "Science Fiction"
       ],
-      "rating_imdb_10": 2.0,
+      "rating_imdb_10": 6.8,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 1.0
+      "rating_avg_5": 3.4
     },
     {
       "title": "Into the Wild",
       "poster_url": "https://image.tmdb.org/t/p/w185/jnLnLYP5pGDfri04gxtAqAvkHMw.jpg",
       "source": "imdb",
       "imdb_id": "tt0758758",
-      "year": 2007,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.8,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.9
     },
     {
       "title": "Invasion of the Body Snatchers",
@@ -1488,15 +1506,15 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/c0nUX6Q1ZB0P2t1Jo6EeFSVnOGQ.jpg",
       "source": "imdb",
       "imdb_id": "tt5104604",
-      "year": 2013,
+      "year": 2016,
       "genres": [
-        "Crime",
-        "Thriller",
-        "Action"
+        "Adventure",
+        "Comedy",
+        "Animation"
       ],
-      "rating_imdb_10": 4.5,
+      "rating_imdb_10": 7.85,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.25
+      "rating_avg_5": 3.92
     },
     {
       "title": "IT: Welcome to Derry",
@@ -1670,13 +1688,15 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/AiAm0EtDvyGqNpVoieRw4u65vD1.jpg",
       "source": "imdb",
       "imdb_id": "tt0056172",
-      "year": 2020,
+      "year": 2010,
       "genres": [
-        "Documentary"
+        "Adventure",
+        "History",
+        "War"
       ],
-      "rating_imdb_10": 10.0,
+      "rating_imdb_10": 7.99,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 5.0
+      "rating_avg_5": 4.0
     },
     {
       "title": "Life Is Beautiful",
@@ -1711,7 +1731,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sEwi68z1sP6iUxHYtIGWGfj21cc.jpg",
       "source": "imdb",
       "imdb_id": "tt0074812",
-      "year": null,
+      "year": 1976,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -1799,13 +1819,14 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/AsX4bdvZ8UCayWTmAf9lAqOA8V7.jpg",
       "source": "imdb",
       "imdb_id": "tt28821371",
-      "year": 2025,
+      "year": 2024,
       "genres": [
-        "Documentary"
+        "Horror",
+        "Thriller"
       ],
-      "rating_imdb_10": 8.0,
+      "rating_imdb_10": 6.5,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.0
+      "rating_avg_5": 3.25
     },
     {
       "title": "Magazine Dreams",
@@ -1908,7 +1929,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mwKj9ERGFXsWot0nXgQ5yMQf9I7.jpg",
       "source": "imdb",
       "imdb_id": "tt16027014",
-      "year": null,
+      "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -1919,7 +1940,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6rWIip9MZELAA0SKii5WqsBDCYW.jpg",
       "source": "imdb",
       "imdb_id": "tt11712058",
-      "year": null,
+      "year": 2021,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -1944,7 +1965,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/iYoMZYVD775MtBYJfv6OGY1FsnL.jpg",
       "source": "imdb",
       "imdb_id": "tt10574558",
-      "year": null,
+      "year": 2021,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -1969,7 +1990,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3HWWh92kZbD7odwJX7nKmXNZsYo.jpg",
       "source": "imdb",
       "imdb_id": "tt10857164",
-      "year": null,
+      "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2021,7 +2042,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7Mw5fkDwm1Pg4JLeUgP3SgoOsTJ.jpg",
       "source": "imdb",
       "imdb_id": "tt13287846",
-      "year": null,
+      "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2074,7 +2095,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ozHPdO5jAt7ozzdZUgyRAMNPSDW.jpg",
       "source": "imdb",
       "imdb_id": "tt4191702",
-      "year": null,
+      "year": 2016,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2099,11 +2120,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0151804",
-      "year": 1999,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.37,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.69
     },
     {
       "title": "On the Count of Three",
@@ -2158,7 +2181,7 @@
         "Crime",
         "Comedy"
       ],
-      "rating_imdb_10": 7.4,
+      "rating_imdb_10": 7.39,
       "rating_letterboxd_5": null,
       "rating_avg_5": 3.7
     },
@@ -2212,22 +2235,22 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z7xXihu5wHuSMWymq5VAulPVuvg.jpg",
       "source": "imdb",
       "imdb_id": "tt0457430",
-      "year": 2025,
+      "year": 2010,
       "genres": [
-        "Comedy",
-        "Horror",
-        "Fantasy"
+        "Fantasy",
+        "Drama",
+        "War"
       ],
-      "rating_imdb_10": 9.0,
+      "rating_imdb_10": 7.76,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.5
+      "rating_avg_5": 3.88
     },
     {
       "title": "Pantheon",
       "poster_url": "https://image.tmdb.org/t/p/w185/aZupC6eJhTe82e5I0JRaOBjFHOd.jpg",
       "source": "imdb",
       "imdb_id": "tt11680642",
-      "year": null,
+      "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2284,7 +2307,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z7Nga7Q9IGFWs5OEduY2gGFxnX3.jpg",
       "source": "imdb",
       "imdb_id": "tt22202452",
-      "year": null,
+      "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2295,11 +2318,16 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/fDPdjGc8SUEDWfTwMaZlCE6NSi3.jpg",
       "source": "imdb",
       "imdb_id": "tt0409182",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Action",
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.9,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 2.95
     },
     {
       "title": "Possessor",
@@ -2321,7 +2349,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/dkS3Ypwin2i78X9cp4ReLWcPxYV.jpg",
       "source": "imdb",
       "imdb_id": "tt6081670",
-      "year": null,
+      "year": 2018,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2332,22 +2360,29 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/erTRAi241eYF4K8KoGGOI8kFPox.jpg",
       "source": "imdb",
       "imdb_id": "tt31227572",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2024,
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.7,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.85
     },
     {
       "title": "Project Hail Mary",
       "poster_url": "https://image.tmdb.org/t/p/w185/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
       "source": "imdb",
       "imdb_id": "tt12042730",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2020,
+      "genres": [
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 8.17,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 4.09
     },
     {
       "title": "Prometheus",
@@ -2359,7 +2394,7 @@
         "Science Fiction",
         "Mystery"
       ],
-      "rating_imdb_10": 6.6,
+      "rating_imdb_10": 6.59,
       "rating_letterboxd_5": null,
       "rating_avg_5": 3.3
     },
@@ -2422,7 +2457,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6ZpDPUNtVw6UdJoStvVlRZ62yAi.jpg",
       "source": "imdb",
       "imdb_id": "tt0294870",
-      "year": null,
+      "year": 2005,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2463,11 +2498,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gsA8J9HFsXUNzzHOGgzqivEOys5.jpg",
       "source": "imdb",
       "imdb_id": "tt5638642",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.71,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.86
     },
     {
       "title": "Salò, or the 120 Days of Sodom",
@@ -2502,13 +2539,15 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
       "source": "imdb",
       "imdb_id": "tt0108052",
-      "year": 2025,
+      "year": 2010,
       "genres": [
-        "Documentary"
+        "Drama",
+        "History",
+        "War"
       ],
-      "rating_imdb_10": null,
+      "rating_imdb_10": 8.57,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 4.28
     },
     {
       "title": "Self Reliance",
@@ -2542,7 +2581,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/plsSSobmPSSz4hm8vYMXeIVkJJP.jpg",
       "source": "imdb",
       "imdb_id": "tt8068860",
-      "year": null,
+      "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2594,7 +2633,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4ptpmWBVD9HY9hMh8Cbs6SMiy7p.jpg",
       "source": "imdb",
       "imdb_id": "tt2575988",
-      "year": null,
+      "year": 2014,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2649,23 +2688,18 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/exKzfiKzMdQBHrdd7zNmKauJkbg.jpg",
       "source": "imdb",
       "imdb_id": "tt1706620",
-      "year": 2019,
-      "genres": [
-        "Action",
-        "Animation",
-        "Drama",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": 2013,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25
+      "rating_avg_5": null
     },
     {
       "title": "Solo Leveling",
       "poster_url": "https://image.tmdb.org/t/p/w185/geCRueV3ElhRTr0xtJuEWJt6dJ1.jpg",
       "source": "imdb",
       "imdb_id": "tt21209876",
-      "year": null,
+      "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2787,7 +2821,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/pHw8OgL3U7Ys8D8hlbOnlgH7ExM.jpg",
       "source": "imdb",
       "imdb_id": "tt0079944",
-      "year": null,
+      "year": 1979,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2841,7 +2875,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/9m8bFIXPg26taNrFSXGwEORVACD.jpg",
       "source": "imdb",
       "imdb_id": "tt2250192",
-      "year": null,
+      "year": 2012,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2893,7 +2927,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1dcoIe9uKbWykq2zsnkaz2rxPnP.jpg",
       "source": "imdb",
       "imdb_id": "tt12262202",
-      "year": null,
+      "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2904,7 +2938,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/n33QUOYAoNScuFu75CK0fy0Cyyk.jpg",
       "source": "imdb",
       "imdb_id": "tt0066769",
-      "year": null,
+      "year": 1971,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2931,7 +2965,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3w7koeOR2x71XYMJDGpygxYtScI.jpg",
       "source": "imdb",
       "imdb_id": "tt1877830",
-      "year": null,
+      "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2942,7 +2976,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1ZbCq6t1aKssAhFOjvslUpt9W2x.jpg",
       "source": "imdb",
       "imdb_id": "tt8425404",
-      "year": null,
+      "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -2968,11 +3002,14 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0036868",
-      "year": 1946,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.77,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.88
     },
     {
       "title": "The Beta Test",
@@ -2994,7 +3031,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sZXernSnVWGhlrAhDUDtdg3fuZn.jpg",
       "source": "imdb",
       "imdb_id": "tt0077269",
-      "year": null,
+      "year": 1978,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3123,7 +3160,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/tYLecM3WSEjlkKhkGiH5G68Dprm.jpg",
       "source": "imdb",
       "imdb_id": "tt24053860",
-      "year": null,
+      "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3220,7 +3257,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1N4o5PmmqhlVDrcdJ2RlCFWbLGX.jpg",
       "source": "imdb",
       "imdb_id": "tt1684562",
-      "year": null,
+      "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3246,13 +3283,15 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z7wI0jpec9gz2IwVciND1nbRBy0.jpg",
       "source": "imdb",
       "imdb_id": "tt10676052",
-      "year": 2025,
+      "year": 2019,
       "genres": [
-        "Documentary"
+        "Science Fiction",
+        "Adventure",
+        "Action"
       ],
-      "rating_imdb_10": 6.2,
+      "rating_imdb_10": 6.96,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1
+      "rating_avg_5": 3.48
     },
     {
       "title": "The Favourite",
@@ -3274,7 +3313,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/yZevl2vHQgmosfwUdVNzviIfaWS.jpg",
       "source": "imdb",
       "imdb_id": "tt3107288",
-      "year": null,
+      "year": 2014,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3389,19 +3428,18 @@
       "year": 2010,
       "genres": [
         "Science Fiction",
-        "Horror",
-        "Adventure"
+        "Horror"
       ],
-      "rating_imdb_10": 5.6,
+      "rating_imdb_10": 4.9,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.8
+      "rating_avg_5": 2.45
     },
     {
       "title": "The Jackal",
       "poster_url": "https://image.tmdb.org/t/p/w185/tNGQn2mIrXCPTDblBG6f32W3nrI.jpg",
       "source": "imdb",
       "imdb_id": "tt24053860",
-      "year": null,
+      "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3526,7 +3564,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/p1aBjGkyG25ADy4xu69joNMV3eQ.jpg",
       "source": "imdb",
       "imdb_id": "tt0074851",
-      "year": null,
+      "year": 1976,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3609,7 +3647,7 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/zJL4KPUaHXQDtezEgXPUKeqsuIq.jpg",
       "source": "imdb",
       "imdb_id": "tt26453092",
-      "year": null,
+      "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
       "rating_letterboxd_5": null,
@@ -3758,7 +3796,7 @@
     },
     {
       "title": "The Politician",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/5Bm3rMQAoXSFKAVYMxPYQRyM07U.jpg",
       "source": "imdb",
       "imdb_id": "tt7971476",
       "year": 2019,
@@ -3769,7 +3807,7 @@
     },
     {
       "title": "The Quiet Earth",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/h0X2luIgPtN4LHH9s9so48jMuss.jpg",
       "source": "imdb",
       "imdb_id": "tt0089869",
       "year": 2010,
@@ -3784,18 +3822,22 @@
     },
     {
       "title": "The Reluctant Astronaut",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/kSX2LJeoCUGObWmKnxMjmTVfTI2.jpg",
       "source": "imdb",
       "imdb_id": "tt0062190",
-      "year": 1967,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Family",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 5.9,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 2.95
     },
     {
       "title": "The Revenant",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/ji3ecJphATlVgWNY0B0RVXZizdf.jpg",
       "source": "imdb",
       "imdb_id": "tt1663202",
       "year": 2014,
@@ -3810,7 +3852,7 @@
     },
     {
       "title": "The Right Stuff",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/bBmSygz6GfmDotQV57THjAOVnmU.jpg",
       "source": "imdb",
       "imdb_id": "tt0086197",
       "year": 1983,
@@ -3821,7 +3863,7 @@
     },
     {
       "title": "The Road",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/s4WOcsEQ1pLjdKWEy7dcFDlWfI4.jpg",
       "source": "imdb",
       "imdb_id": "tt0898367",
       "year": 2009,
@@ -3832,7 +3874,7 @@
     },
     {
       "title": "The Room",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/4KnS4Rqu8mCZzdONSKM0Ihp7Ndr.jpg",
       "source": "imdb",
       "imdb_id": "tt14417718",
       "year": 2023,
@@ -3872,7 +3914,7 @@
     },
     {
       "title": "The Shallows",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/bnBV7hZmLuA0Si5Aop481sPF2RY.jpg",
       "source": "imdb",
       "imdb_id": "tt4052882",
       "year": 2015,
@@ -3902,7 +3944,7 @@
     },
     {
       "title": "The Shape of Water",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/9zfwPffUXpBrEP26yp0q1ckXDcj.jpg",
       "source": "imdb",
       "imdb_id": "tt5580390",
       "year": 2016,
@@ -3917,7 +3959,7 @@
     },
     {
       "title": "The Skeleton Key",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/wHmubdzrVw8oq7htzrf364wsJNp.jpg",
       "source": "imdb",
       "imdb_id": "tt0397101",
       "year": 2010,
@@ -3946,7 +3988,7 @@
     },
     {
       "title": "The Stepford Wives",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/ygr0Wlmm1KmE16TUefNitIscVBG.jpg",
       "source": "imdb",
       "imdb_id": "tt0327162",
       "year": 2010,
@@ -3975,7 +4017,7 @@
     },
     {
       "title": "The Taking of Deborah Logan",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/77i7EBUyQKOUiZeYQ5tWDGQb0AI.jpg",
       "source": "imdb",
       "imdb_id": "tt3387648",
       "year": 2014,
@@ -3992,32 +4034,34 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0084787",
-      "year": 2011,
+      "year": 2010,
       "genres": [
         "Horror",
-        "Science Fiction",
-        "Mystery"
+        "Mystery",
+        "Science Fiction"
       ],
-      "rating_imdb_10": 6.22,
+      "rating_imdb_10": 8.1,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.11
+      "rating_avg_5": 4.05
     },
     {
       "title": "The Thirteenth Floor",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/7oaie3ZBc9UuWZLF24crro1pone.jpg",
       "source": "imdb",
       "imdb_id": "tt0139809",
-      "year": 2024,
+      "year": 2010,
       "genres": [
-        "Horror"
+        "Thriller",
+        "Science Fiction",
+        "Mystery"
       ],
-      "rating_imdb_10": null,
+      "rating_imdb_10": 7.0,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.5
     },
     {
       "title": "The Toxic Avenger",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/cCWojb6N9UcTzNVtS4bOM3vQ30x.jpg",
       "source": "imdb",
       "imdb_id": "tt1633359",
       "year": 2023,
@@ -4028,7 +4072,7 @@
     },
     {
       "title": "The Void",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/2WhZAPi3vomEQdzAPIYTvmvWaxI.jpg",
       "source": "imdb",
       "imdb_id": "tt4255304",
       "year": 2016,
@@ -4043,7 +4087,7 @@
     },
     {
       "title": "The War of the Worlds",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/yvirUYrva23IudARHn3mMGVxWqM.jpg",
       "source": "imdb",
       "imdb_id": "tt13186306",
       "year": 2020,
@@ -4057,7 +4101,7 @@
     },
     {
       "title": "The Wicker Man",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/wwtrXRL8SiOWxhwLEvw7iBgYh0g.jpg",
       "source": "imdb",
       "imdb_id": "tt0070917",
       "year": 2010,
@@ -4070,7 +4114,7 @@
     },
     {
       "title": "The Wild Robot",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/q2qXg4OmJgm0qGaBYLdXzP8nHPy.jpg",
       "source": "imdb",
       "imdb_id": "tt29623480",
       "year": 2023,
@@ -4087,7 +4131,7 @@
     },
     {
       "title": "Them",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/bJw1VZ4ACt5TnAvJbHcprzgYc1E.jpg",
       "source": "imdb",
       "imdb_id": "tt9064858",
       "year": 2021,
@@ -4098,7 +4142,7 @@
     },
     {
       "title": "They Live",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/ngnybFTuopfbfmmEeX9jjBQQmF6.jpg",
       "source": "imdb",
       "imdb_id": "tt0096256",
       "year": 2010,
@@ -4113,7 +4157,7 @@
     },
     {
       "title": "Thunderbolts*",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
       "source": "imdb",
       "imdb_id": "tt20969586",
       "year": 2022,
@@ -4128,7 +4172,7 @@
     },
     {
       "title": "Tina",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/gwVAb3hMYl5F68mvKGl2eqDOj0G.jpg",
       "source": "imdb",
       "imdb_id": "tt29120447",
       "year": 2022,
@@ -4158,7 +4202,7 @@
     },
     {
       "title": "Tourist Trap",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/z7DPhhl3aQ9qSVghq7Vac8NPRbd.jpg",
       "source": "imdb",
       "imdb_id": "tt0080040",
       "year": 1979,
@@ -4182,7 +4226,7 @@
     },
     {
       "title": "Trainspotting",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/y0HmDV0bZDTtXWHqqYYbT9XoshB.jpg",
       "source": "imdb",
       "imdb_id": "tt0117951",
       "year": 2010,
@@ -4196,7 +4240,7 @@
     },
     {
       "title": "Tron",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/chpWmskl3aKm1aTZqUHRCtviwPy.jpg",
       "source": "imdb",
       "imdb_id": "tt6604188",
       "year": 2018,
@@ -4226,7 +4270,7 @@
     },
     {
       "title": "V",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/b2w3vq0uvfmahS6dB41WeWByhVy.jpg",
       "source": "imdb",
       "imdb_id": "tt0434409",
       "year": 2005,
@@ -4237,7 +4281,7 @@
     },
     {
       "title": "Vertigo",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/5YAGO4huuHGB8f4X1G0wfy67QeB.jpg",
       "source": "imdb",
       "imdb_id": "tt0052357",
       "year": 1958,
@@ -4278,7 +4322,7 @@
     },
     {
       "title": "What Dreams May Come",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/78wCdphUzeb528wLZw2W0fn7yGB.jpg",
       "source": "imdb",
       "imdb_id": "tt0120889",
       "year": 2010,
@@ -4304,7 +4348,7 @@
     },
     {
       "title": "Wind Chill",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/hCHJNA3ZhfwmbMARfj0XqwYI0hC.jpg",
       "source": "imdb",
       "imdb_id": "tt0486051",
       "year": 2010,
