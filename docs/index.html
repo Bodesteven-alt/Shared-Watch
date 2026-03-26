@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Our Watch List</title>
-  <link rel="stylesheet" href="./styles.css?v=7">
+  <link rel="stylesheet" href="./styles.css?v=8">
 </head>
 <body>
   <main class="wrap">
@@ -37,6 +37,10 @@
           <span class="arr down" id="sortTitleDown">▼</span>
         </span>
       </button>
+      <div class="genre-btn-wrap">
+        <button id="genreBtn" type="button" class="sortbtn">Genre</button>
+        <div id="genrePopup" class="genre-popup hidden"></div>
+      </div>
       <button id="sortYearBtn" type="button" class="sortbtn">
         Year
         <span class="arrows">
@@ -51,10 +55,6 @@
           <span class="arr down" id="sortRatingDown">▼</span>
         </span>
       </button>
-      <div class="genre-btn-wrap">
-        <button id="genreBtn" type="button" class="sortbtn">Genre</button>
-        <div id="genrePopup" class="genre-popup hidden"></div>
-      </div>
     </section>
 
     <section id="grid" class="grid"></section>
@@ -66,6 +66,6 @@
     <p>Made by Stephen Bodie</p>
   </footer>
 
-  <script src="./app.js?v=7"></script>
+  <script src="./app.js?v=8"></script>
 </body>
 </html>
