@@ -301,8 +301,13 @@ def main() -> int:
     stats = cache.get("stats") or {}
     posters_resolved = sum(1 for r in rows if r.get("poster_url"))
 
+    print(f"Processing {len(rows)} movies...")
+    print(f"OMDb API: {'enabled' if OMDB_API_KEY else 'disabled'}")
+    print()
+
     movies = []
-    for r in rows:
+    total = len(rows)
+    for idx, r in enumerate(rows, 1):
         title = (r.get("display") or "").strip()
         if not title:
             continue
@@ -327,13 +332,18 @@ def main() -> int:
                 and c.get("rating_imdb_10") is None
             )
         )
+
+        source_used = "cached"
         if imdb_id and needs_refresh:
             parsed = parse_imdb_title_page(imdb_id)
+            source_used = "IMDb"
             # Fallback chain: IMDb title page -> TMDB web -> OMDb API
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_tmdb_metadata_by_title(title)
+                source_used = "TMDB"
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_omdb_metadata(imdb_id=imdb_id, title=title)
+                source_used = "OMDb" if (parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10")) else "no data"
             c = {
                 "imdb_id": imdb_id,
                 "year": parsed.get("year") or hint.get("year"),
@@ -344,8 +354,10 @@ def main() -> int:
         elif not imdb_id and needs_refresh:
             # No imdb_id - try TMDB and OMDb by title only
             parsed = fetch_tmdb_metadata_by_title(title)
+            source_used = "TMDB"
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_omdb_metadata(title=title)
+                source_used = "OMDb" if (parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10")) else "no data"
             c = {
                 "imdb_id": None,
                 "year": parsed.get("year") or hint.get("year"),
@@ -356,6 +368,9 @@ def main() -> int:
         elif not c:
             c = {"imdb_id": imdb_id, "year": None, "genres": [], "rating_imdb_10": None}
             meta_cache[norm] = c
+            source_used = "no data"
+
+        print(f"[{idx}/{total}] {title[:50]}{'...' if len(title) > 50 else ''} ({source_used})")
 
         rating_imdb_10 = c.get("rating_imdb_10")
         rating_letterboxd_5 = r.get("rating_letterboxd_5")
@@ -414,6 +429,7 @@ def main() -> int:
     missing_genre = sum(1 for m in movies if not m.get("genres"))
     missing_rating = sum(1 for m in movies if m.get("rating_imdb_10") is None)
 
+    print()
     print(f"Exported {len(movies)} movies to {output_path}")
     print(f"  With year: {len(movies) - missing_year}/{len(movies)}")
     print(f"  With genre: {len(movies) - missing_genre}/{len(movies)}")
