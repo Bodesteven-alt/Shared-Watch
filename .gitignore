@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+data/cache.json
+data/posters.json
+data/imdb_ids.json
+scripts/logs/

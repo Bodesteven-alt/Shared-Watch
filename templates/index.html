@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Combined watchlist</title>
+  <style>
+    :root {
+      --bg: #0a0f1a;
+      --bg-accent: #16243f;
+      --surface: #101a2c;
+      --surface-2: #13213a;
+      --text: #ecf2ff;
+      --muted: #91a3c3;
+      --accent: #5b8cff;
+      --accent-2: #7a5bff;
+      --both: #45d89f;
+      --lb: #37d66d;
+      --imdb: #ffd24d;
+      --danger: #ff7a9a;
+      --line: #23385c;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      margin: 0;
+      background:
+        radial-gradient(circle at 10% -10%, rgba(91, 140, 255, 0.28), transparent 42%),
+        radial-gradient(circle at 90% -20%, rgba(122, 91, 255, 0.20), transparent 45%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2rem 1.2rem 3rem;
+    }
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(19, 33, 58, 0.96), rgba(16, 26, 44, 0.96));
+      border-radius: 16px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(8px);
+      padding: 1.25rem;
+    }
+    h1 {
+      font-size: 1.95rem;
+      font-weight: 600;
+      margin: 0 0 0.45rem;
+      letter-spacing: -0.02em;
+    }
+    .sub {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+    .sub a { color: #aecdff; text-decoration: none; }
+    .sub a:hover { text-decoration: underline; }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .toolbar {
+      display: grid;
+      grid-template-columns: 1fr auto auto auto;
+      gap: 0.75rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    @media (max-width: 960px) {
+      .toolbar { grid-template-columns: 1fr; }
+    }
+    .toolbar form { margin: 0; }
+    button {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 0.6rem 1rem;
+      font-size: 0.92rem;
+      cursor: pointer;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    button:hover { filter: brightness(1.08); }
+    button.secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .search-wrap {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+    input[type="search"], select {
+      background: rgba(6, 13, 24, 0.55);
+      border: 1px solid var(--line);
+      color: var(--text);
+      border-radius: 10px;
+      padding: 0.58rem 0.75rem;
+      min-width: 180px;
+      outline: none;
+    }
+    input[type="search"] {
+      flex: 1;
+      min-width: 260px;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .stat {
+      background: rgba(11, 20, 34, 0.55);
+      border-radius: 12px;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--line);
+    }
+    .stat strong { display: block; font-size: 1.4rem; }
+    .stat span { color: var(--muted); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: rgba(10, 17, 30, 0.6);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.8rem;
+      text-decoration: none;
+    }
+    .chip.active {
+      border-color: #5b8cff;
+      color: #cfe0ff;
+      background: rgba(91, 140, 255, 0.18);
+    }
+    .meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+    }
+    .err {
+      background: rgba(255, 122, 154, 0.12);
+      border: 1px solid rgba(255, 122, 154, 0.35);
+      color: #ffc5d3;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+    }
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .movie-card {
+      border: 1px solid var(--line);
+      background: rgba(10, 17, 30, 0.72);
+      border-radius: 12px;
+      padding: 0.6rem;
+      min-height: 120px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .poster-wrap {
+      width: 58px;
+      min-width: 58px;
+      height: 86px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-align: center;
+      padding: 0.25rem;
+    }
+    .poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .movie-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 0.45rem;
+      flex: 1;
+    }
+    .movie-title {
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .badges {
+      display: flex;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.18rem 0.45rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+    }
+    .badge.both {
+      background: rgba(69, 216, 159, 0.18);
+      color: var(--both);
+      border-color: rgba(69, 216, 159, 0.36);
+    }
+    .badge.lb {
+      background: rgba(55, 214, 109, 0.16);
+      color: var(--lb);
+      border-color: rgba(55, 214, 109, 0.32);
+    }
+    .badge.im {
+      background: rgba(255, 210, 77, 0.14);
+      color: var(--imdb);
+      border-color: rgba(255, 210, 77, 0.35);
+    }
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 2.2rem 1rem;
+      background: rgba(10, 17, 30, 0.65);
+      border-radius: 12px;
+      border: 1px dashed var(--line);
+    }
+    details.log {
+      margin-top: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    details.log pre {
+      background: #0a0e14;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow: auto;
+      max-height: 220px;
+      border: 1px solid var(--line);
+    }
+    .list-panel {
+      margin-top: 0.6rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem;
+      background: rgba(16, 26, 44, 0.6);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="panel">
+      <div class="header">
+        <div>
+          <h1>Combined watchlist</h1>
+          <p class="sub">
+            Letterboxd: <a href="{{ letterboxd_url }}" target="_blank" rel="noopener">open list</a>
+            · IMDb: <a href="{{ imdb_url }}" target="_blank" rel="noopener">open list</a>
+          </p>
+        </div>
+        <form method="post" action="{{ url_for('refresh') }}">
+          <button type="submit">Refresh from sites</button>
+        </form>
+      </div>
+
+      {% if letterboxd_error %}
+      <div class="err"><strong>Letterboxd:</strong> {{ letterboxd_error }}</div>
+      {% endif %}
+      {% if imdb_error %}
+      <div class="err"><strong>IMDb:</strong> {{ imdb_error }}</div>
+      {% endif %}
+
+      <div class="stats">
+        <div class="stat"><strong>{{ stats.get('total', 0) }}</strong><span>Unique titles</span></div>
+        <div class="stat"><strong>{{ stats.get('both', 0) }}</strong><span>On both</span></div>
+        <div class="stat"><strong>{{ stats.get('letterboxd_only', 0) }}</strong><span>Letterboxd only</span></div>
+        <div class="stat"><strong>{{ stats.get('imdb_only', 0) }}</strong><span>IMDb only</span></div>
+        <div class="stat"><strong>{{ filtered_stats.get('filtered_total', 0) }}</strong><span>Shown now</span></div>
+      </div>
+
+      <form method="get" action="{{ url_for('index') }}" class="toolbar">
+        <div class="search-wrap">
+          <input type="search" name="q" value="{{ filter_q }}" placeholder="Search movie title..." aria-label="Search">
+          <button type="submit" class="secondary">Apply</button>
+        </div>
+        <label>
+          Source
+          <select name="source">
+            <option value="all" {% if source == 'all' %}selected{% endif %}>All</option>
+            <option value="both" {% if source == 'both' %}selected{% endif %}>On both</option>
+            <option value="letterboxd" {% if source == 'letterboxd' %}selected{% endif %}>Letterboxd only</option>
+            <option value="imdb" {% if source == 'imdb' %}selected{% endif %}>IMDb only</option>
+          </select>
+        </label>
+        <label>
+          Sort
+          <select name="sort">
+            <option value="title" {% if sort == 'title' %}selected{% endif %}>A-Z</option>
+            <option value="source" {% if sort == 'source' %}selected{% endif %}>Both first</option>
+            <option value="recent" {% if sort == 'recent' %}selected{% endif %}>Newest fetched</option>
+          </select>
+        </label>
+        <button type="submit">Filter movies</button>
+      </form>
+
+      <div class="chips">
+        <a class="chip {% if source == 'all' %}active{% endif %}" href="{{ url_for('index', q=filter_q, sort=sort, source='all') }}">All</a>
+        <a class="chip {% if source == 'both' %}active{% endif %}" href="{{ url_for('index', q=filter_q, sort=sort, source='both') }}">Both lists</a>
+        <a class="chip {% if source == 'letterboxd' %}active{% endif %}" href="{{ url_for('index', q=filter_q, sort=sort, source='letterboxd') }}">Letterboxd only</a>
+        <a class="chip {% if source == 'imdb' %}active{% endif %}" href="{{ url_for('index', q=filter_q, sort=sort, source='imdb') }}">IMDb only</a>
+        <a class="chip" href="{{ url_for('index') }}">Reset</a>
+      </div>
+
+      <p class="meta">
+        {% if updated_at %}
+          Last updated: {{ updated_at }}.
+        {% else %}
+          No data yet — a background fetch runs shortly after startup, or click Refresh from sites.
+        {% endif %}
+        Showing <strong>{{ filtered_stats.get('filtered_total', 0) }}</strong> of <strong>{{ filtered_stats.get('all_total', 0) }}</strong>.
+        Posters resolved: <strong>{{ poster_stats.get('resolved_total', 0) }}</strong>,
+        unresolved: <strong>{{ poster_stats.get('unresolved', 0) }}</strong>.
+        Sources: Letterboxd {{ poster_stats.get('resolved_letterboxd', 0) }},
+        IMDb {{ poster_stats.get('resolved_imdb', 0) }},
+        cache {{ poster_stats.get('resolved_cache', 0) }}
+        {% if posters_enabled %}, TMDB {{ poster_stats.get('resolved_tmdb', 0) }}{% endif %}.
+      </p>
+
+      <section class="list-panel">
+        {% if rows %}
+        <div class="movie-grid">
+          {% for r in rows %}
+          <article class="movie-card">
+            <div class="poster-wrap">
+              {% if r.poster_url %}
+                <img src="{{ r.poster_url }}" alt="{{ r.display }} poster" loading="lazy" referrerpolicy="no-referrer">
+              {% else %}
+                No poster
+              {% endif %}
+            </div>
+            <div class="movie-content">
+              <div class="movie-title">{{ r.display }}</div>
+              <div class="badges">
+                {% if r.letterboxd and r.imdb %}
+                  <span class="badge both">Both</span>
+                {% elif r.letterboxd %}
+                  <span class="badge lb">Letterboxd</span>
+                {% else %}
+                  <span class="badge im">IMDb</span>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
+        {% else %}
+        <p class="empty">No movies match your filter right now.</p>
+        {% endif %}
+      </section>
+
+      {% if log_lines %}
+      <details class="log">
+        <summary>Last refresh log</summary>
+        <pre>{% for line in log_lines %}{{ line }}
+{% endfor %}</pre>
+      </details>
+      {% endif %}
+    </section>
+  </div>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Combined Watchlist</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Combined watchlist</h1>
+      <p class="muted">Static GitHub Pages view fed from local scraper JSON.</p>
+      <div id="updatedAt" class="muted small">Loading data...</div>
+    </header>
+
+    <section class="stats" id="stats"></section>
+
+    <section class="toolbar">
+      <input id="q" type="search" placeholder="Search title...">
+      <select id="source">
+        <option value="all">All</option>
+        <option value="both">Both</option>
+        <option value="letterboxd">Letterboxd only</option>
+        <option value="imdb">IMDb only</option>
+      </select>
+      <select id="sort">
+        <option value="title">A-Z</option>
+        <option value="source">Both first</option>
+      </select>
+      <button id="resetBtn" type="button">Reset</button>
+    </section>
+
+    <section id="grid" class="grid"></section>
+    <p id="empty" class="empty hidden">No movies match your filters.</p>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>
