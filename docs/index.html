@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Combined Watchlist</title>
-  <link rel="stylesheet" href="./styles.css?v=3">
+  <title>Our Watch List</title>
+  <link rel="stylesheet" href="./styles.css?v=4">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
-      <h1>Combined Watchlist</h1>
+      <h1>Our Watch List</h1>
     </header>
 
     <div class="stats-toggle-wrap">
@@ -34,10 +34,27 @@
       <button id="resetBtn" type="button">Reset</button>
     </section>
     <section class="sortbar">
-      <button id="sortTitleBtn" type="button" class="sortbtn">Name <span id="sortTitleArrow">▲</span></button>
-      <button id="sortYearBtn" type="button" class="sortbtn">Year <span id="sortYearArrow">·</span></button>
-      <button id="sortRatingBtn" type="button" class="sortbtn">Rating <span id="sortRatingArrow">·</span></button>
-      <span class="muted small" id="sortHint">Sorting by Name (A-Z)</span>
+      <button id="sortTitleBtn" type="button" class="sortbtn active">
+        Name
+        <span class="arrows">
+          <span class="arr up active" id="sortTitleUp">▲</span>
+          <span class="arr down" id="sortTitleDown">▼</span>
+        </span>
+      </button>
+      <button id="sortYearBtn" type="button" class="sortbtn">
+        Year
+        <span class="arrows">
+          <span class="arr up" id="sortYearUp">▲</span>
+          <span class="arr down" id="sortYearDown">▼</span>
+        </span>
+      </button>
+      <button id="sortRatingBtn" type="button" class="sortbtn">
+        Rating
+        <span class="arrows">
+          <span class="arr up" id="sortRatingUp">▲</span>
+          <span class="arr down" id="sortRatingDown">▼</span>
+        </span>
+      </button>
     </section>
 
     <section id="grid" class="grid"></section>
@@ -49,6 +66,6 @@
     <p id="updatedAt" class="muted small">Loading...</p>
   </footer>
 
-  <script src="./app.js?v=3"></script>
+  <script src="./app.js?v=4"></script>
 </body>
 </html>

@@ -14,10 +14,12 @@
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
   const sortRatingBtn = document.getElementById("sortRatingBtn");
-  const sortTitleArrow = document.getElementById("sortTitleArrow");
-  const sortYearArrow = document.getElementById("sortYearArrow");
-  const sortRatingArrow = document.getElementById("sortRatingArrow");
-  const sortHint = document.getElementById("sortHint");
+  const sortTitleUp = document.getElementById("sortTitleUp");
+  const sortTitleDown = document.getElementById("sortTitleDown");
+  const sortYearUp = document.getElementById("sortYearUp");
+  const sortYearDown = document.getElementById("sortYearDown");
+  const sortRatingUp = document.getElementById("sortRatingUp");
+  const sortRatingDown = document.getElementById("sortRatingDown");
 
   let statsVisible = false;
   statsToggle.addEventListener("click", () => {
@@ -91,12 +93,19 @@
     sortTitleBtn.classList.toggle("active", sortField === "title");
     sortYearBtn.classList.toggle("active", sortField === "year");
     sortRatingBtn.classList.toggle("active", sortField === "rating");
-    sortTitleArrow.textContent = sortField === "title" ? (sortDir === "asc" ? "▲" : "▼") : "·";
-    sortYearArrow.textContent = sortField === "year" ? (sortDir === "asc" ? "▲" : "▼") : "·";
-    sortRatingArrow.textContent = sortField === "rating" ? (sortDir === "asc" ? "▲" : "▼") : "·";
-    const fieldNames = { title: "Name", year: "Year", rating: "Rating" };
-    const dirLabel = sortDir === "asc" ? "ascending" : "descending";
-    sortHint.textContent = `Sorting by ${fieldNames[sortField]} (${dirLabel})`;
+
+    // Reset all arrows
+    [sortTitleUp, sortTitleDown, sortYearUp, sortYearDown, sortRatingUp, sortRatingDown]
+      .forEach(el => el.classList.remove("active"));
+
+    // Highlight active arrow
+    if (sortField === "title") {
+      (sortDir === "asc" ? sortTitleUp : sortTitleDown).classList.add("active");
+    } else if (sortField === "year") {
+      (sortDir === "asc" ? sortYearUp : sortYearDown).classList.add("active");
+    } else if (sortField === "rating") {
+      (sortDir === "asc" ? sortRatingUp : sortRatingDown).classList.add("active");
+    }
   }
 
   function sortRows(rows) {
