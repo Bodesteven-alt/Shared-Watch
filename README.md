@@ -27,6 +27,19 @@ Optional environment overrides:
 
 - `WATCHLIST_SOURCE_CACHE` (default: `data/cache.json`)
 - `WATCHLIST_OUTPUT_JSON` (default: `docs/data/watchlist.json`)
+- `WATCHLIST_METADATA_CACHE` (default: `data/imdb_metadata_cache.json`)
+
+### Metadata enrichment
+
+The exporter enriches each movie with best-effort metadata (no API key):
+
+- `year`
+- `genres[]`
+- `rating_imdb_10`
+- `rating_letterboxd_5` (if present in source cache)
+- `rating_avg_5` (normalized average on 0-5 scale)
+
+Metadata is cached to speed up subsequent runs. If IMDb page scraping is blocked for a title, exporter falls back to TMDB public pages for year/genre/rating fields.
 
 ## 2) GitHub Pages setup
 

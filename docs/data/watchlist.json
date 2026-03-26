@@ -5,1916 +5,4361 @@
     "both": 9,
     "letterboxd_only": 78,
     "imdb_only": 231,
-    "posters_resolved": 240
+    "posters_resolved": 240,
+    "metadata_with_year": 287,
+    "metadata_with_genres": 242,
+    "metadata_with_rating": 232
   },
   "movies": [
     {
       "title": "10 Cloverfield Lane",
       "poster_url": "https://image.tmdb.org/t/p/w185/q8A39vcBDruhvoDTJd6L8a4lnTi.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1179933",
+      "year": 2016,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "21 Jump Street",
       "poster_url": "https://image.tmdb.org/t/p/w185/9w2y0146P5EjLw63FHGWRRpqQ6v.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1232829",
+      "year": 2012,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "28 Years Later: The Bone Temple",
       "poster_url": "https://image.tmdb.org/t/p/w185/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg",
       "source": "both",
-      "imdb_id": null
+      "imdb_id": "tt32141377",
+      "year": 2024,
+      "genres": [
+        "Horror",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "A Knight's Tale",
       "poster_url": "https://image.tmdb.org/t/p/w185/srb1XnrlDZHcdpjBKqUu4qAzxKU.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0183790",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Drama",
+        "Romance",
+        "Action"
+      ],
+      "rating_imdb_10": 6.87,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.43
     },
     {
       "title": "A Real Pain",
       "poster_url": "https://image.tmdb.org/t/p/w185/67xRIXm5TxXRT4nV2V4AEJ9yq2d.jpg",
       "source": "both",
-      "imdb_id": null
+      "imdb_id": "tt21823606",
+      "year": 2022,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Abigail",
       "poster_url": "https://image.tmdb.org/t/p/w185/1MQMfcb3fuN0lC1egdaOnHcTlm8.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt27489557",
+      "year": 2023,
+      "genres": [
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.68,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.34
     },
     {
       "title": "Agatha All Along",
       "poster_url": "https://image.tmdb.org/t/p/w185/mGsxKwXUjojitRv2E9qMTbxbBRd.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt15571732",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Ahsoka",
       "poster_url": "https://image.tmdb.org/t/p/w185/eiJeWeCAEZAmRppnXHiTWDcCd3Q.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt13622776",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Akira",
       "poster_url": "https://image.tmdb.org/t/p/w185/neZ0ykEsPqxamsX6o5QNUFILQrz.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0094625",
+      "year": 2010,
+      "genres": [
+        "Animation",
+        "Science Fiction",
+        "Action"
+      ],
+      "rating_imdb_10": 7.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.95
     },
     {
       "title": "Alice in Borderland",
       "poster_url": "https://image.tmdb.org/t/p/w185/Ac8ruycRXzgcsndTZFK6ouGA0FA.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt10795658",
+      "year": 2020,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Alphaville",
       "poster_url": "https://image.tmdb.org/t/p/w185/fFJP3D5fJDFxN7ChqSye1DZ0fTL.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0058898",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Science Fiction",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.45
     },
     {
       "title": "Altered States",
       "poster_url": "https://image.tmdb.org/t/p/w185/uGxPxfbpHrzdVgMdpPcxtYW8Yto.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0080360",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.35
     },
     {
       "title": "Amer",
       "poster_url": "https://image.tmdb.org/t/p/w185/eb9sH2am9IUSQ8GhXTNAVoujk8W.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1426352",
+      "year": 2010,
+      "genres": [
+        "Thriller",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "Amélie",
       "poster_url": "https://image.tmdb.org/t/p/w185/nSxDa3M9aMvGVLoItzWTepQ5h5d.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0211915",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.95
     },
     {
       "title": "An American Werewolf in London",
       "poster_url": "https://image.tmdb.org/t/p/w185/hVEqUASJmCQaolkKFEySCHZ8uKG.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0082010",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "At Eternity's Gate",
       "poster_url": "https://image.tmdb.org/t/p/w185/y4LvHQoX5YunHJ2EMBSjQvOkvD9.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt6938828",
+      "year": 2017,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.97,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.49
     },
     {
       "title": "At the Mountains of Madness",
       "poster_url": "https://image.tmdb.org/t/p/w185/pF8eboq7LsewWHVBRtxsKQw6s2.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt13289298",
+      "year": 2019,
+      "genres": [
+        "Animation",
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "Avatar: Fire and Ash",
       "poster_url": "https://image.tmdb.org/t/p/w185/bRBeSHfGHwkEpImlhxPmOcUsaeg.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1757678",
+      "year": 2012,
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.26,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.63
     },
     {
       "title": "Avengers: Doomsday",
       "poster_url": "https://image.tmdb.org/t/p/w185/s2Fkuq0tj7mjAHEdbfQkFkdbeRI.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt21357150",
+      "year": 2022,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Baby Invasion",
       "poster_url": "https://image.tmdb.org/t/p/w185/vQUMVlgDzKjcTWn7WfZsA8UCAbE.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt33029871",
+      "year": 2024,
+      "genres": [
+        "Crime",
+        "Thriller",
+        "Science Fiction",
+        "Action"
+      ],
+      "rating_imdb_10": 5.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.65
     },
     {
       "title": "Ballerina",
       "poster_url": "https://image.tmdb.org/t/p/w185/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt7181546",
+      "year": 2018,
+      "genres": [
+        "Action",
+        "Thriller",
+        "Crime"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "Basket Case",
       "poster_url": "https://image.tmdb.org/t/p/w185/6DdpgHlruy4h6tfpwctFUw0inVj.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0083624",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "Being John Malkovich",
       "poster_url": "https://image.tmdb.org/t/p/w185/xVSvIwRNzwXSs0CLefiiG6A96m4.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0120601",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.42,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.71
     },
     {
       "title": "Beyond the Black Rainbow",
       "poster_url": "https://image.tmdb.org/t/p/w185/uhomcCTQ3lO8L6mLhkCMypsnroO.jpg",
       "source": "both",
-      "imdb_id": null
+      "imdb_id": "tt1534085",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 5.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.85
     },
     {
       "title": "Big Fish",
       "poster_url": "https://image.tmdb.org/t/p/w185/1qdvaRxl7rgiGtdHwIvfKu1LJ5K.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0319061",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Fantasy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.76,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.88
     },
     {
       "title": "Birdman or (The Unexpected Virtue of Ignorance)",
       "poster_url": "https://image.tmdb.org/t/p/w185/rHUg2AuIuLSIYMYFgavVwqt1jtc.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt2562232",
+      "year": 2013,
+      "genres": [
+        "Drama",
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "Black Swan",
       "poster_url": "https://image.tmdb.org/t/p/w185/viWheBd44bouiLCHgNMvahLThqx.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0947798",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.69,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.84
     },
     {
       "title": "Boyhood",
       "poster_url": "https://image.tmdb.org/t/p/w185/2BvtvDUyxiMJ4dmKfiQf4qdOHQN.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1065073",
+      "year": 2012,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "Brazil",
       "poster_url": "https://image.tmdb.org/t/p/w185/9GdigdsGmGcnB3ChIUToZK3vTuE.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0088846",
+      "year": 2016,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Broadcast News",
       "poster_url": "https://image.tmdb.org/t/p/w185/kQNR1Lc0qAF5xuBySpDn481KVjb.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0092699",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Burning",
       "poster_url": "https://image.tmdb.org/t/p/w185/ogIPd83M4ylodHxAwRZq3s9tXjl.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt7282468",
+      "year": 2018,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Cargo",
       "poster_url": "https://image.tmdb.org/t/p/w185/p8qSsI6g2vSrdumtdbb8c2Q2pV6.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt3860916",
+      "year": 2019,
+      "genres": [
+        "Science Fiction",
+        "Drama",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 4.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.4
     },
     {
       "title": "Carol",
       "poster_url": "https://image.tmdb.org/t/p/w185/dGd9pG4PGzpJbdbPEnFxKrJ24z8.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt2402927",
+      "year": 2015,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Carole & Tuesday",
       "poster_url": "https://image.tmdb.org/t/p/w185/1NtxJItCNV9B36FpttUumGvdzSG.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt8107988",
+      "year": 2019,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Casablanca",
       "poster_url": "https://image.tmdb.org/t/p/w185/lGCEKlJo2CnWydQj7aamY7s1S7Q.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0034583",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 8.14,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.07
     },
     {
       "title": "Casino",
       "poster_url": "https://image.tmdb.org/t/p/w185/gziIkUSnYuj9ChCi8qOu2ZunpSC.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0112641",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.99,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.0
     },
     {
       "title": "Castlevania: Nocturne",
       "poster_url": "https://image.tmdb.org/t/p/w185/4XJwo95ktJ7xupw1bCMuP91kyYr.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt14833612",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Castration Movie Anthology i. Traps",
       "poster_url": "https://image.tmdb.org/t/p/w185/fuEOWhlPl2INV6pNSMVr6uZdy0l.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt35022825",
+      "year": 2024,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 8.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.35
     },
     {
       "title": "Childhood's End",
       "poster_url": "https://image.tmdb.org/t/p/w185/4P5d70GyynagnYq4Rk881UjQiD0.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt4146128",
+      "year": 2015,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Children of a Lesser God",
       "poster_url": "https://image.tmdb.org/t/p/w185/kF2zhd48xOO4awj9zsyW6QT5b88.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0090830",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.45
     },
     {
       "title": "Chungking Express",
       "poster_url": "https://image.tmdb.org/t/p/w185/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
       "source": "both",
-      "imdb_id": null
+      "imdb_id": "tt0109424",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Close Encounters of the Third Kind",
       "poster_url": "https://image.tmdb.org/t/p/w185/gCWPB8cF82tqzrS9tvzcO6q6nyz.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0075860",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.35,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.68
     },
     {
       "title": "Closer",
       "poster_url": "https://image.tmdb.org/t/p/w185/q6FhABXGf3TaYKoKNwzGAEzW7bt.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0458253",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.83,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.42
     },
     {
       "title": "Cocktail",
       "poster_url": "https://image.tmdb.org/t/p/w185/jFRhEPhtsln9tDwzMdZN3OlhUob.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0094889",
+      "year": 2010,
+      "genres": [
+        "Romance",
+        "Drama",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.11,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "Cocoon",
       "poster_url": "https://image.tmdb.org/t/p/w185/xBWJVkyH3ZbKusKJQSOnixfw5BK.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0088933",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Science Fiction",
+        "Mystery",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "Colossus: The Forbin Project",
       "poster_url": "https://image.tmdb.org/t/p/w185/kmVDlTzERxSvBrqtQurjKf1zEy1.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0064177",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Coming Home",
       "poster_url": "https://image.tmdb.org/t/p/w185/vXZatVxY0JaXaa1E3xTTBMj8yvl.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0077362",
+      "year": 1978,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Compliance",
       "poster_url": "https://image.tmdb.org/t/p/w185/bLdu28fr9txYlHLmEOyGplDT3nH.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1971352",
+      "year": 2012,
+      "genres": [
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Control",
       "poster_url": "https://image.tmdb.org/t/p/w185/lT4dzoYwTVSy047ZlQyNs6EGIzk.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt21376524",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Corpse Bride",
       "poster_url": "https://image.tmdb.org/t/p/w185/isb2Qow76GpqYmsSyfdMfsYAjts.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0121164",
+      "year": 2010,
+      "genres": [
+        "Romance",
+        "Fantasy",
+        "Animation"
+      ],
+      "rating_imdb_10": 7.59,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.79
     },
     {
       "title": "Counterpart",
       "poster_url": "https://image.tmdb.org/t/p/w185/fVTpkoTkl7LJSoVCnuoHRPJvS4o.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt4643084",
+      "year": 2017,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Creep",
       "poster_url": "https://image.tmdb.org/t/p/w185/fDdNNU4PjpXLTXtwa0NcsqpdCgh.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt2428170",
+      "year": 2014,
+      "genres": [
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.39,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.19
     },
     {
       "title": "Cuckoo",
       "poster_url": "https://image.tmdb.org/t/p/w185/gpVJ6p52FZVp9bE0jyVoVaRiptb.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt12349832",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Cure",
       "poster_url": "https://image.tmdb.org/t/p/w185/aAyedPK8t4XLyetDlRTm9AJIP80.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt26470786",
+      "year": 2026,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Dark City",
       "poster_url": "https://image.tmdb.org/t/p/w185/tNPEGju4DpTdbhBphNmZoEi9Bd3.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0118929",
+      "year": 2010,
+      "genres": [
+        "Mystery",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 7.34,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.67
     },
     {
       "title": "Dead Poets Society",
       "poster_url": "https://image.tmdb.org/t/p/w185/l5NbiHKUmahlAT3Q1ig8Tyl9xrc.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0097165",
+      "year": 2022,
+      "genres": [
+        "Drama",
+        "TV Movie"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Deadpool & Wolverine",
       "poster_url": "https://image.tmdb.org/t/p/w185/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt6263850",
+      "year": 2018,
+      "genres": [
+        "Action",
+        "Comedy",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "Dear Zachary: A Letter to a Son About His Father",
       "poster_url": "https://image.tmdb.org/t/p/w185/yYVHGe7U55Ojx11y5A82phPpCHv.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1152758",
+      "year": 2010,
+      "genres": [
+        "Documentary",
+        "Crime"
+      ],
+      "rating_imdb_10": 8.04,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.02
     },
     {
       "title": "Death Race 2000",
       "poster_url": "https://image.tmdb.org/t/p/w185/kwM8kkNGtv62gfPWVhD6qFxjDzg.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0072856",
+      "year": 2010,
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "Decoded",
       "poster_url": "https://image.tmdb.org/t/p/w185/dUrydid3LKCwFrJQWIWkIJoyvgO.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt31888816",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Deliverance",
       "poster_url": "https://image.tmdb.org/t/p/w185/2TrAzNJlHyNYYSkQf6asg3rs2Xr.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0068473",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Adventure",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Demolition",
       "poster_url": "https://image.tmdb.org/t/p/w185/4t56LZ1KbOOxgKfqMKN6truBDVc.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1172049",
+      "year": 2014,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Demolition Man",
       "poster_url": "https://image.tmdb.org/t/p/w185/dq6AmlVFo92PRuoLCcIyFdoRuxf.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0106697",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Action",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.75,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.38
     },
     {
       "title": "Design for Living",
       "poster_url": "https://image.tmdb.org/t/p/w185/h0T4FHsY51IccSGqGfaoYsd7hyx.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0023940",
+      "year": 2011,
+      "genres": [
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "Django Unchained",
       "poster_url": "https://image.tmdb.org/t/p/w185/7oWY8VDWW7thTzWh3OKYRkWUlD5.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1853728",
+      "year": 2011,
+      "genres": [
+        "Drama",
+        "Western"
+      ],
+      "rating_imdb_10": 8.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.1
     },
     {
       "title": "Don't Be Afraid of the Dark",
       "poster_url": "https://image.tmdb.org/t/p/w185/jMBMm1jwqvILV8p1K44brBnmwLK.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1270761",
+      "year": 2010,
+      "genres": [
+        "Fantasy",
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.9
     },
     {
       "title": "Dreamcatcher",
       "poster_url": "https://image.tmdb.org/t/p/w185/lLhvwLNU4pLgvaNREVFaQ4n3lCf.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0285531",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Drive",
       "poster_url": "https://image.tmdb.org/t/p/w185/usgW8WYgOHwPKEpXHEIktejZOiq.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0780504",
+      "year": 2011,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Echo",
       "poster_url": "https://image.tmdb.org/t/p/w185/vFyJH630cF68LohVYjQW49074Sy.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt27052633",
+      "year": 2025,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Eraserhead",
       "poster_url": "https://image.tmdb.org/t/p/w185/mxveW3mGVc0DzLdOmtkZsgd7c3B.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0074486",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Escape from New York",
       "poster_url": "https://image.tmdb.org/t/p/w185/vH9llaphjAssRGi0k7e75tD40Ce.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0082340",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Eurovision Song Contest: The Story of Fire Saga",
       "poster_url": "https://image.tmdb.org/t/p/w185/9zrbgYyFvwH8sy5mv9eT25xsAzL.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt8580274",
+      "year": 2018,
+      "genres": [
+        "Comedy",
+        "Music"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Eve's Bayou",
       "poster_url": "https://image.tmdb.org/t/p/w185/33yTPcGSv7eo3FVlb7XKACHl1M8.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0119080",
+      "year": 1997,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Explorer: The Last Tepui",
       "poster_url": "https://image.tmdb.org/t/p/w185/u3csCMawDUyB6DZKI4q3j8m6vjG.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt17048366",
+      "year": 2022,
+      "genres": [
+        "Documentary",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "Fall",
       "poster_url": "https://image.tmdb.org/t/p/w185/1N4o5PmmqhlVDrcdJ2RlCFWbLGX.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt15325794",
+      "year": 2022,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Fallen Angels",
       "poster_url": "https://image.tmdb.org/t/p/w185/fnbdv4uSFUGJ2jp9Gf99fYtlIu3.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0112913",
+      "year": 1995,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Fight Club",
       "poster_url": "https://image.tmdb.org/t/p/w185/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0137523",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 8.44,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.22
     },
     {
       "title": "Final Destination Bloodlines",
       "poster_url": "https://image.tmdb.org/t/p/w185/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt9619824",
+      "year": 2019,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Fly Me to the Moon",
       "poster_url": "https://image.tmdb.org/t/p/w185/gjk8YdXpItoC1in53FCrZMFIuBx.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1896747",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Forbidden Planet",
       "poster_url": "https://image.tmdb.org/t/p/w185/aq0OQfRS7hDDI8vyD0ICbH9eguC.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0049223",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.25,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.63
     },
     {
       "title": "Forgotten",
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt7057496",
+      "year": 2017,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Forgotten Love",
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt26596953",
+      "year": 2020,
+      "genres": [
+        "Romance",
+        "Drama"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Friday the 13th Part 2",
       "poster_url": "https://image.tmdb.org/t/p/w185/92rGctBMTv4uaSlIBVnhz01kRWL.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0082418",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "Fright Night",
       "poster_url": "https://image.tmdb.org/t/p/w185/ySQ3v4Fzpy3fePs86eoLiDzwLYM.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0089175",
+      "year": 2011,
+      "genres": [
+        "Horror",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.24,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.12
     },
     {
       "title": "Gattaca",
       "poster_url": "https://image.tmdb.org/t/p/w185/eSKr5Fl1MEC7zpAXaLWBWSBjgJq.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0119177",
+      "year": 2010,
+      "genres": [
+        "Thriller",
+        "Science Fiction",
+        "Mystery",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "Godland",
       "poster_url": "https://image.tmdb.org/t/p/w185/ArfOHFR3tQETQ9ZsPmm8FhMMSxv.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt19623228",
+      "year": 2022,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Godzilla",
       "poster_url": "https://image.tmdb.org/t/p/w185/hAuZ7g6TqDLv5fOqXIPgYRguOkm.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0831387",
+      "year": 2012,
+      "genres": [
+        "Action",
+        "Drama",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.35,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.18
     },
     {
       "title": "Gran Torino",
       "poster_url": "https://image.tmdb.org/t/p/w185/zUybYvxWdAJy5hhYovsXtHSWI1l.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1205489",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.99,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.99
     },
     {
       "title": "Green Book",
       "poster_url": "https://image.tmdb.org/t/p/w185/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt6966692",
+      "year": 2017,
+      "genres": [
+        "Drama",
+        "Comedy",
+        "History"
+      ],
+      "rating_imdb_10": 8.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.1
     },
     {
       "title": "Gremlins",
       "poster_url": "https://image.tmdb.org/t/p/w185/6m0F7fsXjQvUbCZrPWcJNrjvIui.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0087363",
+      "year": 2010,
+      "genres": [
+        "Fantasy",
+        "Horror",
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.14,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.57
     },
     {
       "title": "Groundhog Day",
       "poster_url": "https://image.tmdb.org/t/p/w185/gCgt1WARPZaXnq523ySQEUKinCs.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0107048",
+      "year": 2010,
+      "genres": [
+        "Romance",
+        "Fantasy",
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.63,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.81
     },
     {
       "title": "Hamnet",
       "poster_url": "https://image.tmdb.org/t/p/w185/vbeyOZm2bvBXcbgPD3v6o94epPX.jpg",
       "source": "both",
-      "imdb_id": null
+      "imdb_id": "tt14905854",
+      "year": 2021,
+      "genres": [
+        "Drama",
+        "Romance",
+        "History"
+      ],
+      "rating_imdb_10": 7.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.85
     },
     {
       "title": "Happy Old Year",
       "poster_url": "https://image.tmdb.org/t/p/w185/oBXJwfgGwshKAHEqDXgj0pJ2LRb.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt11316824",
+      "year": 2019,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Hellraiser",
       "poster_url": "https://image.tmdb.org/t/p/w185/3Z0oPHyLnk3Vx6ZMC1MiVwIrKhO.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0093177",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.45
     },
     {
       "title": "Hereditary",
       "poster_url": "https://image.tmdb.org/t/p/w185/hjlZSXM86wJrfCv5VKfR5DI2VeU.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt7784604",
+      "year": 2017,
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.29,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Hidden Figures",
       "poster_url": "https://image.tmdb.org/t/p/w185/9lfz2W2uGjyow3am00rsPJ8iOyq.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt4846340",
+      "year": 2016,
+      "genres": [
+        "Drama",
+        "History"
+      ],
+      "rating_imdb_10": 8.04,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.02
     },
     {
       "title": "Holy Motors",
       "poster_url": "https://image.tmdb.org/t/p/w185/4ZuTrrDQhCS9f6KzIX6HfsjjyMd.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt2076220",
+      "year": 2012,
+      "genres": [
+        "Drama",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Hoppers",
       "poster_url": "https://image.tmdb.org/t/p/w185/xjtWQ2CL1mpmMNwuU5HeS4Iuwuu.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt26443616",
+      "year": 2024,
+      "genres": [
+        "Animation",
+        "Family",
+        "Science Fiction",
+        "Comedy",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.62,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.81
     },
     {
       "title": "I Like Movies",
       "poster_url": "https://image.tmdb.org/t/p/w185/8Gu30dMoeLhz7fulx1uohyIOlqT.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt14913282",
+      "year": 2022,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "I'm Thinking of Ending Things",
       "poster_url": "https://image.tmdb.org/t/p/w185/5ynWWapdl45hJXUh0KIevxSG9JQ.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt7939766",
+      "year": 2018,
+      "genres": [
+        "Mystery",
+        "Thriller",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "Ice Age: Dawn of the Dinosaurs",
       "poster_url": "https://image.tmdb.org/t/p/w185/cXOLaxcNjNAYmEx1trZxOTKhK3Q.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1080016",
+      "year": 2010,
+      "genres": [
+        "Animation",
+        "Comedy",
+        "Family",
+        "Adventure"
+      ],
+      "rating_imdb_10": 6.76,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.38
     },
     {
       "title": "Iceman",
       "poster_url": "https://image.tmdb.org/t/p/w185/4HllE4JWVl3YbaWKmHXsBVkH4Sr.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1491044",
+      "year": 2010,
+      "genres": [
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "In the Mouth of Madness",
       "poster_url": "https://image.tmdb.org/t/p/w185/msh4tEUzbnEqlHcFOUH4O0Zti8r.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0113409",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "Indiana Jones and the Dial of Destiny",
       "poster_url": "https://image.tmdb.org/t/p/w185/Af4bXE63pVsb2FtbW8uYIyPBadD.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1462764",
+      "year": 2015,
+      "genres": [
+        "Adventure",
+        "Action"
+      ],
+      "rating_imdb_10": 6.52,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.26
     },
     {
       "title": "Innerspace",
       "poster_url": "https://image.tmdb.org/t/p/w185/A4azclZQjqeQxXvcok3rdUmuq8a.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0093260",
+      "year": 2022,
+      "genres": [
+        "Music",
+        "Mystery",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 2.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 1.0
     },
     {
       "title": "Into the Wild",
       "poster_url": "https://image.tmdb.org/t/p/w185/jnLnLYP5pGDfri04gxtAqAvkHMw.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0758758",
+      "year": 2007,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Invasion of the Body Snatchers",
       "poster_url": "https://image.tmdb.org/t/p/w185/skS02wdeH2C0nrbCQP3qKwJdZtZ.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0077745",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.23,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.61
     },
     {
       "title": "Iron Lung",
       "poster_url": "https://image.tmdb.org/t/p/w185/sIwakdbMGS1krtgendTWpxTY9Hw.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt27564844",
+      "year": 2023,
+      "genres": [
+        "Horror",
+        "Science Fiction",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.26,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.63
     },
     {
       "title": "Isle of Dogs",
       "poster_url": "https://image.tmdb.org/t/p/w185/c0nUX6Q1ZB0P2t1Jo6EeFSVnOGQ.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt5104604",
+      "year": 2013,
+      "genres": [
+        "Crime",
+        "Thriller",
+        "Action"
+      ],
+      "rating_imdb_10": 4.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.25
     },
     {
       "title": "IT: Welcome to Derry",
       "poster_url": "https://image.tmdb.org/t/p/w185/nyy3BITeIjviv6PFIXtqvc8i6xi.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt19244304",
+      "year": 2025,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Jacob's Ladder",
       "poster_url": "https://image.tmdb.org/t/p/w185/ufLcHIi1aXjjH8MediAMvnwDsVI.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0099871",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.36,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.68
     },
     {
       "title": "Jarhead",
       "poster_url": "https://image.tmdb.org/t/p/w185/6vdj47RAWOUZBkeQmqToeZ7eaio.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0418763",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "War"
+      ],
+      "rating_imdb_10": 6.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.35
     },
     {
       "title": "Jules and Jim",
       "poster_url": "https://image.tmdb.org/t/p/w185/kuFjZlcZhQFDtIjuI3GQJjsQG03.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0055032",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "Killers of the Flower Moon",
       "poster_url": "https://image.tmdb.org/t/p/w185/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt5537002",
+      "year": 2017,
+      "genres": [
+        "Crime",
+        "History",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "Kneecap",
       "poster_url": "https://image.tmdb.org/t/p/w185/gEbQi5QWUg3CQ9R5dwvPBvbOX17.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt27367464",
+      "year": 2023,
+      "genres": [
+        "Music",
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Knock at the Cabin",
       "poster_url": "https://image.tmdb.org/t/p/w185/dm06L9pxDOL9jNSK4Cb6y139rrG.jpg",
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt15679400",
+      "year": 2019,
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.25,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.12
     },
     {
       "title": "La La Land",
       "poster_url": "https://image.tmdb.org/t/p/w185/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt3783958",
+      "year": 2014,
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.95
     },
     {
       "title": "Landman",
       "poster_url": "https://image.tmdb.org/t/p/w185/hYthRgS1nvQkGILn9YmqsF8kSk6.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt14186672",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Last and First Men",
       "poster_url": "https://image.tmdb.org/t/p/w185/7B9t8lTFCJQ6GVvSbhrbrA7nsVu.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt8015444",
+      "year": 2018,
+      "genres": [
+        "Drama",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Last Night in Soho",
       "poster_url": "https://image.tmdb.org/t/p/w185/n1ZRmjlk1BJTY7aASqACfPAaLn2.jpg",
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt9639470",
+      "year": 2019,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Late Night with the Devil",
       "poster_url": "https://image.tmdb.org/t/p/w185/mu8LRWT9GHkfiyHm7kgxT6YNvMW.jpg",
       "source": "imdb",
-      "imdb_id": "tt14966898"
+      "imdb_id": "tt14966898",
+      "year": 2022,
+      "genres": [
+        "Horror",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.11,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "Lawrence of Arabia",
       "poster_url": "https://image.tmdb.org/t/p/w185/AiAm0EtDvyGqNpVoieRw4u65vD1.jpg",
       "source": "imdb",
-      "imdb_id": "tt0056172"
+      "imdb_id": "tt0056172",
+      "year": 2020,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": 10.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 5.0
     },
     {
       "title": "Life Is Beautiful",
       "poster_url": "https://image.tmdb.org/t/p/w185/mfnkSeeVOBVheuyn2lo4tfmOPQb.jpg",
       "source": "imdb",
-      "imdb_id": "tt0118799"
+      "imdb_id": "tt0118799",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 8.44,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.22
     },
     {
       "title": "Little Women",
       "poster_url": "https://image.tmdb.org/t/p/w185/yn5ihODtZ7ofn8pDYfxCmxh8AXI.jpg",
       "source": "imdb",
-      "imdb_id": "tt3281548"
+      "imdb_id": "tt3281548",
+      "year": 2015,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.86,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.93
     },
     {
       "title": "Logan's Run",
       "poster_url": "https://image.tmdb.org/t/p/w185/sEwi68z1sP6iUxHYtIGWGfj21cc.jpg",
       "source": "imdb",
-      "imdb_id": "tt0074812"
+      "imdb_id": "tt0074812",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Lord of Misrule",
       "poster_url": "https://image.tmdb.org/t/p/w185/3cxMwPuV5BroI91DZLGdio6WB34.jpg",
       "source": "imdb",
-      "imdb_id": "tt11893676"
+      "imdb_id": "tt11893676",
+      "year": 2021,
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.9
     },
     {
       "title": "Lost in Translation",
       "poster_url": "https://image.tmdb.org/t/p/w185/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg",
       "source": "imdb",
-      "imdb_id": "tt0335266"
+      "imdb_id": "tt0335266",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.38,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.69
     },
     {
       "title": "Lost River",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt2366608",
+      "year": 2013,
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.85
     },
     {
       "title": "Mad God",
       "poster_url": "https://image.tmdb.org/t/p/w185/105stT9GkiENXiYqvWYKoAuHKQL.jpg",
       "source": "imdb",
-      "imdb_id": "tt15090124"
+      "imdb_id": "tt15090124",
+      "year": 2021,
+      "genres": [
+        "Animation",
+        "Fantasy",
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.81,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Mad Max",
       "poster_url": "https://image.tmdb.org/t/p/w185/aL6JGWMt0Op6OLSS1TZJZVmhJNf.jpg",
       "source": "imdb",
-      "imdb_id": "tt1392190"
+      "imdb_id": "tt1392190",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Action",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.68,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.34
     },
     {
       "title": "MadS",
       "poster_url": "https://image.tmdb.org/t/p/w185/AsX4bdvZ8UCayWTmAf9lAqOA8V7.jpg",
       "source": "imdb",
-      "imdb_id": "tt28821371"
+      "imdb_id": "tt28821371",
+      "year": 2025,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": 8.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.0
     },
     {
       "title": "Magazine Dreams",
       "poster_url": "https://image.tmdb.org/t/p/w185/vSidx9NHKuQIPEQ4yI9b9zkTeh3.jpg",
       "source": "imdb",
-      "imdb_id": "tt13652142"
+      "imdb_id": "tt13652142",
+      "year": 2021,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.35
     },
     {
       "title": "Malignant",
       "poster_url": "https://image.tmdb.org/t/p/w185/dGv2BWjzwAz6LB8a8JeRIZL8hSz.jpg",
       "source": "both",
-      "imdb_id": "tt3811906"
+      "imdb_id": "tt3811906",
+      "year": 2019,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.75,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.38
     },
     {
       "title": "Manchester by the Sea",
       "poster_url": "https://image.tmdb.org/t/p/w185/o9VXYOuaJxCEKOxbA86xqtwmqYn.jpg",
       "source": "imdb",
-      "imdb_id": "tt4034228"
+      "imdb_id": "tt4034228",
+      "year": 2015,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "Marriage Story",
       "poster_url": "https://image.tmdb.org/t/p/w185/2JRyCKaRKyJAVpsIHeLvPw5nHmw.jpg",
       "source": "imdb",
-      "imdb_id": "tt7653254"
+      "imdb_id": "tt7653254",
+      "year": 2017,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.85
     },
     {
       "title": "Mars Express",
       "poster_url": "https://image.tmdb.org/t/p/w185/g8rUn0khoYB3G4gPPGTF1Xv9Olu.jpg",
       "source": "imdb",
-      "imdb_id": "tt26915336"
+      "imdb_id": "tt26915336",
+      "year": 2019,
+      "genres": [
+        "Animation",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.47,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.73
     },
     {
       "title": "Martha Marcy May Marlene",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1441326",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "Marty Supreme",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt32916440",
+      "year": 2024,
+      "genres": [
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.45,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.73
     },
     {
       "title": "Marvel Zombies",
       "poster_url": "https://image.tmdb.org/t/p/w185/mwKj9ERGFXsWot0nXgQ5yMQf9I7.jpg",
       "source": "imdb",
-      "imdb_id": "tt16027014"
+      "imdb_id": "tt16027014",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Mayor of Kingstown",
       "poster_url": "https://image.tmdb.org/t/p/w185/6rWIip9MZELAA0SKii5WqsBDCYW.jpg",
       "source": "imdb",
-      "imdb_id": "tt11712058"
+      "imdb_id": "tt11712058",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Messiah of Evil",
       "poster_url": "https://image.tmdb.org/t/p/w185/5oRbZ2vBCuOiboc0WJ928KOwKAD.jpg",
       "source": "imdb",
-      "imdb_id": "tt0071396"
+      "imdb_id": "tt0071396",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "Midnight Mass",
       "poster_url": "https://image.tmdb.org/t/p/w185/iYoMZYVD775MtBYJfv6OGY1FsnL.jpg",
       "source": "imdb",
-      "imdb_id": "tt10574558"
+      "imdb_id": "tt10574558",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Miracle at St. Anna",
       "poster_url": "https://image.tmdb.org/t/p/w185/7PqmgaQBuD0Zp9pDIkkEjkhCJUj.jpg",
       "source": "imdb",
-      "imdb_id": "tt1046997"
+      "imdb_id": "tt1046997",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "War"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "Ms. Marvel",
       "poster_url": "https://image.tmdb.org/t/p/w185/3HWWh92kZbD7odwJX7nKmXNZsYo.jpg",
       "source": "imdb",
-      "imdb_id": "tt10857164"
+      "imdb_id": "tt10857164",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Mulholland Drive",
       "poster_url": "https://image.tmdb.org/t/p/w185/x7A59t6ySylr1L7aubOQEA480vM.jpg",
       "source": "imdb",
-      "imdb_id": "tt0166924"
+      "imdb_id": "tt0166924",
+      "year": 2010,
+      "genres": [
+        "Thriller",
+        "Drama",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.9
     },
     {
       "title": "My Own Private Idaho",
       "poster_url": "https://image.tmdb.org/t/p/w185/p9TF90Pb5yg2MNb2UztzyXktMm4.jpg",
       "source": "imdb",
-      "imdb_id": "tt0102494"
+      "imdb_id": "tt0102494",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "My Psychedelic Love Story",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt12860964",
+      "year": 2020,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "Napoleon",
       "poster_url": "https://image.tmdb.org/t/p/w185/7Mw5fkDwm1Pg4JLeUgP3SgoOsTJ.jpg",
       "source": "imdb",
-      "imdb_id": "tt13287846"
+      "imdb_id": "tt13287846",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Never Let Me Go",
       "poster_url": "https://image.tmdb.org/t/p/w185/7okcm65P7WfpF3f0HiQBFTsvcXV.jpg",
       "source": "imdb",
-      "imdb_id": "tt1334260"
+      "imdb_id": "tt1334260",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "Next Exit",
       "poster_url": "https://image.tmdb.org/t/p/w185/z9tEEsEMhaF87acSAuFq91fADyG.jpg",
       "source": "imdb",
-      "imdb_id": "tt19595494"
+      "imdb_id": "tt19595494",
+      "year": 2022,
+      "genres": [
+        "Science Fiction",
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "Nocturne",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt11044858",
+      "year": 2020,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Norman",
       "poster_url": "https://image.tmdb.org/t/p/w185/ozHPdO5jAt7ozzdZUgyRAMNPSDW.jpg",
       "source": "imdb",
-      "imdb_id": "tt4191702"
+      "imdb_id": "tt4191702",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Ocean's Twelve",
       "poster_url": "https://image.tmdb.org/t/p/w185/pE5anFf7nf6ah7V3VRezQ1KSovi.jpg",
       "source": "imdb",
-      "imdb_id": "tt0349903"
+      "imdb_id": "tt0349903",
+      "year": 2010,
+      "genres": [
+        "Thriller",
+        "Crime"
+      ],
+      "rating_imdb_10": 6.57,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.28
     },
     {
       "title": "Office Space",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0151804",
+      "year": 2010,
+      "genres": [
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.37,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.69
     },
     {
       "title": "On the Count of Three",
       "poster_url": "https://image.tmdb.org/t/p/w185/mv5v3xtiRqpMyP1XWRnRl5s38lV.jpg",
       "source": "imdb",
-      "imdb_id": "tt11160650"
+      "imdb_id": "tt11160650",
+      "year": 2020,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.25
     },
     {
       "title": "On the Silver Globe",
       "poster_url": "https://image.tmdb.org/t/p/w185/4zzam82e6rCY2Ktm0fyRoseHhkh.jpg",
       "source": "imdb",
-      "imdb_id": "tt0093593"
+      "imdb_id": "tt0093593",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.85
     },
     {
       "title": "Once Upon a Time in China V",
       "poster_url": "https://image.tmdb.org/t/p/w185/uTgzQvzlKN87CLsjdfTqbuNgjAm.jpg",
       "source": "imdb",
-      "imdb_id": "tt7131622"
+      "imdb_id": "tt7131622",
+      "year": 2010,
+      "genres": [
+        "Action",
+        "Drama"
+      ],
+      "rating_imdb_10": 5.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.8
     },
     {
       "title": "One Battle After Another",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt30144839",
+      "year": 2022,
+      "genres": [
+        "Thriller",
+        "Crime",
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "Opus",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt29929565",
+      "year": 2023,
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.9
     },
     {
       "title": "Outland",
       "poster_url": "https://image.tmdb.org/t/p/w185/bxBmfyzK0ARF9hqf2pbFWsddH14.jpg",
       "source": "imdb",
-      "imdb_id": "tt3006802"
+      "imdb_id": "tt3006802",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Thriller",
+        "Crime",
+        "Western"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Palo Alto",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt2479800",
+      "year": 2013,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "Pan's Labyrinth",
       "poster_url": "https://image.tmdb.org/t/p/w185/z7xXihu5wHuSMWymq5VAulPVuvg.jpg",
       "source": "imdb",
-      "imdb_id": "tt0457430"
+      "imdb_id": "tt0457430",
+      "year": 2025,
+      "genres": [
+        "Comedy",
+        "Horror",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 9.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.5
     },
     {
       "title": "Pantheon",
       "poster_url": "https://image.tmdb.org/t/p/w185/aZupC6eJhTe82e5I0JRaOBjFHOd.jpg",
       "source": "imdb",
-      "imdb_id": "tt11680642"
+      "imdb_id": "tt11680642",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Paprika",
       "poster_url": "https://image.tmdb.org/t/p/w185/c0OSsG2akVhYMOrCd3EYNGY4AuN.jpg",
       "source": "imdb",
-      "imdb_id": "tt0851578"
+      "imdb_id": "tt0851578",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Thriller",
+        "Animation"
+      ],
+      "rating_imdb_10": 7.82,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.91
     },
     {
       "title": "Patch Adams",
       "poster_url": "https://image.tmdb.org/t/p/w185/3hhzXIPVWffx5ViVGKR5W4nLvwR.jpg",
       "source": "imdb",
-      "imdb_id": "tt0129290"
+      "imdb_id": "tt0129290",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Phantom of the Paradise",
       "poster_url": "https://image.tmdb.org/t/p/w185/qDOtGWeSQNwB3dG7Amt1K0JW0az.jpg",
       "source": "imdb",
-      "imdb_id": "tt0071994"
+      "imdb_id": "tt0071994",
+      "year": 2010,
+      "genres": [
+        "Music",
+        "Comedy",
+        "Horror",
+        "Drama",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "Pluribus",
       "poster_url": "https://image.tmdb.org/t/p/w185/z7Nga7Q9IGFWs5OEduY2gGFxnX3.jpg",
       "source": "imdb",
-      "imdb_id": "tt22202452"
+      "imdb_id": "tt22202452",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Poseidon",
       "poster_url": "https://image.tmdb.org/t/p/w185/fDPdjGc8SUEDWfTwMaZlCE6NSi3.jpg",
       "source": "imdb",
-      "imdb_id": "tt0409182"
+      "imdb_id": "tt0409182",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Possessor",
       "poster_url": "https://image.tmdb.org/t/p/w185/xC9GZeJZ3NagdkGg9nLQx0aPG6J.jpg",
       "source": "both",
-      "imdb_id": "tt5918982"
+      "imdb_id": "tt5918982",
+      "year": 2017,
+      "genres": [
+        "Horror",
+        "Thriller",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Possum",
       "poster_url": "https://image.tmdb.org/t/p/w185/dkS3Ypwin2i78X9cp4ReLWcPxYV.jpg",
       "source": "imdb",
-      "imdb_id": "tt6081670"
+      "imdb_id": "tt6081670",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Predator: Badlands",
       "poster_url": "https://image.tmdb.org/t/p/w185/erTRAi241eYF4K8KoGGOI8kFPox.jpg",
       "source": "imdb",
-      "imdb_id": "tt31227572"
+      "imdb_id": "tt31227572",
+      "year": 2024,
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.85
     },
     {
       "title": "Project Hail Mary",
       "poster_url": "https://image.tmdb.org/t/p/w185/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
       "source": "imdb",
-      "imdb_id": "tt12042730"
+      "imdb_id": "tt12042730",
+      "year": 2020,
+      "genres": [
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 8.18,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.09
     },
     {
       "title": "Prometheus",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1446714",
+      "year": 2011,
+      "genres": [
+        "Science Fiction",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "Rain Man",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0095953",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.75,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.88
     },
     {
       "title": "Raw",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt4954522",
+      "year": 2016,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Re-Animator",
       "poster_url": "https://image.tmdb.org/t/p/w185/1hY6AUl92cL9GdZx031UWFiGETt.jpg",
       "source": "imdb",
-      "imdb_id": "tt0089885"
+      "imdb_id": "tt0089885",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Comedy",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Red Planet",
       "poster_url": "https://image.tmdb.org/t/p/w185/6svTVlVEJDoOOEz1G09HLeb7vtF.jpg",
       "source": "imdb",
-      "imdb_id": "tt0199753"
+      "imdb_id": "tt0199753",
+      "year": 2010,
+      "genres": [
+        "Thriller",
+        "Action",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 5.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.85
     },
     {
       "title": "Rent",
       "poster_url": "https://image.tmdb.org/t/p/w185/6ZpDPUNtVw6UdJoStvVlRZ62yAi.jpg",
       "source": "imdb",
-      "imdb_id": "tt0294870"
+      "imdb_id": "tt0294870",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Requiem for a Dream",
       "poster_url": "https://image.tmdb.org/t/p/w185/nOd6vjEmzCT0k4VYqsA2hwyi87C.jpg",
       "source": "imdb",
-      "imdb_id": "tt0180093"
+      "imdb_id": "tt0180093",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "rating_imdb_10": 8.01,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.01
     },
     {
       "title": "Resident Evil: Death Island",
       "poster_url": "https://image.tmdb.org/t/p/w185/qayga07ICNDswm0cMJ8P3VwklFZ.jpg",
       "source": "imdb",
-      "imdb_id": "tt26674627"
+      "imdb_id": "tt26674627",
+      "year": 2023,
+      "genres": [
+        "Action",
+        "Animation",
+        "Science Fiction",
+        "Horror"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Ritual",
       "poster_url": "https://image.tmdb.org/t/p/w185/gsA8J9HFsXUNzzHOGgzqivEOys5.jpg",
       "source": "imdb",
-      "imdb_id": "tt5638642"
+      "imdb_id": "tt5638642",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Salò, or the 120 Days of Sodom",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0073650",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.15
     },
     {
       "title": "Scanners",
       "poster_url": "https://image.tmdb.org/t/p/w185/VTqLdveNXxGsIAZL5I4RliTTt7.jpg",
       "source": "imdb",
-      "imdb_id": "tt0081455"
+      "imdb_id": "tt0081455",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.35
     },
     {
       "title": "Schindler's List",
       "poster_url": "https://image.tmdb.org/t/p/w185/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
       "source": "imdb",
-      "imdb_id": "tt0108052"
+      "imdb_id": "tt0108052",
+      "year": 2025,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Self Reliance",
       "poster_url": "https://image.tmdb.org/t/p/w185/hlSWmmuuLeV1p3YcIkU59khEHLY.jpg",
       "source": "imdb",
-      "imdb_id": "tt26084002"
+      "imdb_id": "tt26084002",
+      "year": 2023,
+      "genres": [
+        "Comedy",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.95
     },
     {
       "title": "Sentimental Value",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt27714581",
+      "year": 2023,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "Servant",
       "poster_url": "https://image.tmdb.org/t/p/w185/plsSSobmPSSz4hm8vYMXeIVkJJP.jpg",
       "source": "imdb",
-      "imdb_id": "tt8068860"
+      "imdb_id": "tt8068860",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "She's Gotta Have It",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0091939",
+      "year": 1986,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Shutter Island",
       "poster_url": "https://image.tmdb.org/t/p/w185/nrmXQ0zcZUL8jFLrakWc90IR8z9.jpg",
       "source": "imdb",
-      "imdb_id": "tt1130884"
+      "imdb_id": "tt1130884",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Mystery"
+      ],
+      "rating_imdb_10": 8.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.1
     },
     {
       "title": "Silent Running",
       "poster_url": "https://image.tmdb.org/t/p/w185/ahasZ5HILZHtlrl6cbXgpfk0y8H.jpg",
       "source": "imdb",
-      "imdb_id": "tt0067756"
+      "imdb_id": "tt0067756",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Science Fiction",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "Silicon Valley",
       "poster_url": "https://image.tmdb.org/t/p/w185/4ptpmWBVD9HY9hMh8Cbs6SMiy7p.jpg",
       "source": "imdb",
-      "imdb_id": "tt2575988"
+      "imdb_id": "tt2575988",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Skinamarink",
       "poster_url": "https://image.tmdb.org/t/p/w185/o942912KFh89SGhqWuKXuT0SXzN.jpg",
       "source": "imdb",
-      "imdb_id": "tt21307994"
+      "imdb_id": "tt21307994",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Slaughterhouse-Five",
       "poster_url": "https://image.tmdb.org/t/p/w185/gM2q9pGW9x2zdEMPRsXLBgTDDFH.jpg",
       "source": "imdb",
-      "imdb_id": "tt0069280"
+      "imdb_id": "tt0069280",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "SLC Punk!",
       "poster_url": "https://image.tmdb.org/t/p/w185/7u3IZPuIOPjICi55K7cJgzV3e3B.jpg",
       "source": "imdb",
-      "imdb_id": "tt0133189"
+      "imdb_id": "tt0133189",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Crime",
+        "Music"
+      ],
+      "rating_imdb_10": 7.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "Snowpiercer",
       "poster_url": "https://image.tmdb.org/t/p/w185/exKzfiKzMdQBHrdd7zNmKauJkbg.jpg",
       "source": "imdb",
-      "imdb_id": "tt1706620"
+      "imdb_id": "tt1706620",
+      "year": 2019,
+      "genres": [
+        "Action",
+        "Animation",
+        "Drama",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.25
     },
     {
       "title": "Solo Leveling",
       "poster_url": "https://image.tmdb.org/t/p/w185/geCRueV3ElhRTr0xtJuEWJt6dJ1.jpg",
       "source": "imdb",
-      "imdb_id": "tt21209876"
+      "imdb_id": "tt21209876",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Sore: A Wife from the Future",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt34548722",
+      "year": 2024,
+      "genres": [
+        "Fantasy",
+        "Romance",
+        "Drama",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "Sound of My Voice",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1748207",
+      "year": 2012,
+      "genres": [
+        "Science Fiction",
+        "Drama",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.15
     },
     {
       "title": "Southbound",
       "poster_url": "https://image.tmdb.org/t/p/w185/jHwarubiAKFdMt6MfM0TZ8mY8uO.jpg",
       "source": "imdb",
-      "imdb_id": "tt4935334"
+      "imdb_id": "tt4935334",
+      "year": 2015,
+      "genres": [
+        "Fantasy",
+        "Thriller",
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 5.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.95
     },
     {
       "title": "Soylent Green",
       "poster_url": "https://image.tmdb.org/t/p/w185/5nbkShkOEXUoKVhaX0XG41wyBkq.jpg",
       "source": "imdb",
-      "imdb_id": "tt0070723"
+      "imdb_id": "tt0070723",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Thriller",
+        "Crime",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.9,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.45
     },
     {
       "title": "Spacewalker",
       "poster_url": "https://image.tmdb.org/t/p/w185/hDNVRmrprxI9NQ0zc2Uu03p65Fw.jpg",
       "source": "imdb",
-      "imdb_id": "tt6673840"
+      "imdb_id": "tt6673840",
+      "year": 2017,
+      "genres": [
+        "Adventure",
+        "Drama",
+        "History",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "Spider-Man: Beyond the Spider-Verse",
       "poster_url": "https://image.tmdb.org/t/p/w185/9PIhQqqI6Q4a5YjwMjxvzZcPJhf.jpg",
       "source": "imdb",
-      "imdb_id": "tt16360004"
+      "imdb_id": "tt16360004",
+      "year": 2021,
+      "genres": [
+        "Animation",
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Spider-Man: Brand New Day",
       "poster_url": "https://image.tmdb.org/t/p/w185/ucQ0QBXXQPSxeUmWfh4YQenIuB9.jpg",
       "source": "imdb",
-      "imdb_id": "tt22084616"
+      "imdb_id": "tt22084616",
+      "year": 2022,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Stalker",
       "poster_url": "https://image.tmdb.org/t/p/w185/pHw8OgL3U7Ys8D8hlbOnlgH7ExM.jpg",
       "source": "imdb",
-      "imdb_id": "tt0079944"
+      "imdb_id": "tt0079944",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Star Trek: The Motion Picture",
       "poster_url": "https://image.tmdb.org/t/p/w185/wfiAfNwH6CMKxz4vRaW8CPTabtk.jpg",
       "source": "imdb",
-      "imdb_id": "tt0079945"
+      "imdb_id": "tt0079945",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.25
     },
     {
       "title": "Sunday Bloody Sunday",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0280491",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "Suspiria",
       "poster_url": "https://image.tmdb.org/t/p/w185/sEcvc9h1X3hYZdFgtiiKMm6RB3f.jpg",
       "source": "imdb",
-      "imdb_id": "tt1034415"
+      "imdb_id": "tt1034415",
+      "year": 2015,
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.91,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.45
     },
     {
       "title": "Sword Art Online",
       "poster_url": "https://image.tmdb.org/t/p/w185/9m8bFIXPg26taNrFSXGwEORVACD.jpg",
       "source": "imdb",
-      "imdb_id": "tt2250192"
+      "imdb_id": "tt2250192",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Synecdoche, New York",
       "poster_url": "https://image.tmdb.org/t/p/w185/5UwdhrjXhUgsiDhe1dpS9z4yj7q.jpg",
       "source": "imdb",
-      "imdb_id": "tt0383028"
+      "imdb_id": "tt0383028",
+      "year": 2010,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "Talk 2 Me",
       "poster_url": "https://image.tmdb.org/t/p/w185/2E29MakRFDXxfBvwDfYf5rJT5Kw.jpg",
       "source": "imdb",
-      "imdb_id": "tt28618494"
+      "imdb_id": "tt28618494",
+      "year": 2023,
+      "genres": [
+        "Horror"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Tetris",
       "poster_url": "https://image.tmdb.org/t/p/w185/4F2QwCOYHJJjecSvdOjStuVLkpu.jpg",
       "source": "imdb",
-      "imdb_id": "tt12758060"
+      "imdb_id": "tt12758060",
+      "year": 2020,
+      "genres": [
+        "Thriller",
+        "History",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.8
     },
     {
       "title": "The Acolyte",
       "poster_url": "https://image.tmdb.org/t/p/w185/1dcoIe9uKbWykq2zsnkaz2rxPnP.jpg",
       "source": "imdb",
-      "imdb_id": "tt12262202"
+      "imdb_id": "tt12262202",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Andromeda Strain",
       "poster_url": "https://image.tmdb.org/t/p/w185/n33QUOYAoNScuFu75CK0fy0Cyyk.jpg",
       "source": "imdb",
-      "imdb_id": "tt0066769"
+      "imdb_id": "tt0066769",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Art of Self-Defense",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt7339248",
+      "year": 2017,
+      "genres": [
+        "Comedy",
+        "Thriller",
+        "Drama",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The Batman",
       "poster_url": "https://image.tmdb.org/t/p/w185/3w7koeOR2x71XYMJDGpygxYtScI.jpg",
       "source": "imdb",
-      "imdb_id": "tt1877830"
+      "imdb_id": "tt1877830",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Bay",
       "poster_url": "https://image.tmdb.org/t/p/w185/1ZbCq6t1aKssAhFOjvslUpt9W2x.jpg",
       "source": "imdb",
-      "imdb_id": "tt8425404"
+      "imdb_id": "tt8425404",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Beach House",
       "poster_url": "https://image.tmdb.org/t/p/w185/ssCHRmnR5Z93ACvWIXsZuCSo3hK.jpg",
       "source": "imdb",
-      "imdb_id": "tt10843306"
+      "imdb_id": "tt10843306",
+      "year": 2018,
+      "genres": [
+        "TV Movie",
+        "Romance",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "The Best Years of Our Lives",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0036868",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.77,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.88
     },
     {
       "title": "The Beta Test",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt11738830",
+      "year": 2020,
+      "genres": [
+        "Thriller",
+        "Horror",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "The Boys from Brazil",
       "poster_url": "https://image.tmdb.org/t/p/w185/sZXernSnVWGhlrAhDUDtdg3fuZn.jpg",
       "source": "imdb",
-      "imdb_id": "tt0077269"
+      "imdb_id": "tt0077269",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Bride!",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt30851137",
+      "year": 2026,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Brutalist",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt8999762",
+      "year": 2024,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Chronicles of Narnia: Prince Caspian",
       "poster_url": "https://image.tmdb.org/t/p/w185/qxz3WIyjZiSKUhaTIEJ3c1GcC9z.jpg",
       "source": "imdb",
-      "imdb_id": "tt0499448"
+      "imdb_id": "tt0499448",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Family",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 6.63,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.32
     },
     {
       "title": "The Color Out of Space",
       "poster_url": "https://image.tmdb.org/t/p/w185/kEmgt2dLFSQy7jX3g2dIn7ECsuY.jpg",
       "source": "imdb",
-      "imdb_id": "tt1756479"
+      "imdb_id": "tt1756479",
+      "year": 2012,
+      "genres": [
+        "Science Fiction",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.2
     },
     {
       "title": "The Craft",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0115963",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Drama",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "The Crazies",
       "poster_url": "https://image.tmdb.org/t/p/w185/ggtG9DZELyTtM2Y0DRJDOJa5iP8.jpg",
       "source": "imdb",
-      "imdb_id": "tt0455407"
+      "imdb_id": "tt0455407",
+      "year": 2010,
+      "genres": [
+        "Mystery",
+        "Horror",
+        "Action"
+      ],
+      "rating_imdb_10": 6.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.15
     },
     {
       "title": "The Crow",
       "poster_url": "https://image.tmdb.org/t/p/w185/1M876KPjulVwppEpldhdc8V4o68.jpg",
       "source": "imdb",
-      "imdb_id": "tt0109506"
+      "imdb_id": "tt0109506",
+      "year": 2022,
+      "genres": [
+        "Action",
+        "Fantasy",
+        "Horror"
+      ],
+      "rating_imdb_10": 5.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.9
     },
     {
       "title": "The Damned",
       "poster_url": "https://image.tmdb.org/t/p/w185/e6ygRbkCbAlgczfcNu0DwPmEBmR.jpg",
       "source": "imdb",
-      "imdb_id": "tt15010692"
+      "imdb_id": "tt15010692",
+      "year": 2021,
+      "genres": [
+        "Horror",
+        "Drama",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "The Day of the Jackal",
       "poster_url": "https://image.tmdb.org/t/p/w185/tYLecM3WSEjlkKhkGiH5G68Dprm.jpg",
       "source": "imdb",
-      "imdb_id": "tt24053860"
+      "imdb_id": "tt24053860",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Day the Earth Stood Still",
       "poster_url": "https://image.tmdb.org/t/p/w185/o6RAeajCWAw9BOCDuCZ2Ib1qSD.jpg",
       "source": "imdb",
-      "imdb_id": "tt0970416"
+      "imdb_id": "tt0970416",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.65,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.83
     },
     {
       "title": "The Departed",
       "poster_url": "https://image.tmdb.org/t/p/w185/nT97ifVT2J1yMQmeq20Qblg61T.jpg",
       "source": "imdb",
-      "imdb_id": "tt0407887"
+      "imdb_id": "tt0407887",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Crime"
+      ],
+      "rating_imdb_10": 8.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.1
     },
     {
       "title": "The Descent",
       "poster_url": "https://image.tmdb.org/t/p/w185/mxFPI4KYBk5ri9cPteIS8jiDFgj.jpg",
       "source": "imdb",
-      "imdb_id": "tt0435625"
+      "imdb_id": "tt0435625",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.98,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.49
     },
     {
       "title": "The Dreamers",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0309987",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "The Empty Man",
       "poster_url": "https://image.tmdb.org/t/p/w185/8apzu9JFTUMtOpYkHk6LNPOs3pY.jpg",
       "source": "imdb",
-      "imdb_id": "tt5867314"
+      "imdb_id": "tt5867314",
+      "year": 2018,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.17,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.08
     },
     {
       "title": "The Faculty",
       "poster_url": "https://image.tmdb.org/t/p/w185/5XetJwmAiDC0EtH23NIXaqFn3Wl.jpg",
       "source": "imdb",
-      "imdb_id": "tt0133751"
+      "imdb_id": "tt0133751",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The Fall",
       "poster_url": "https://image.tmdb.org/t/p/w185/1N4o5PmmqhlVDrcdJ2RlCFWbLGX.jpg",
       "source": "imdb",
-      "imdb_id": "tt1684562"
+      "imdb_id": "tt1684562",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Fantastic 4: First Steps",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt10676052",
+      "year": 2019,
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Action"
+      ],
+      "rating_imdb_10": 6.96,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.48
     },
     {
       "title": "The Fantastic Four: First Steps",
       "poster_url": "https://image.tmdb.org/t/p/w185/z7wI0jpec9gz2IwVciND1nbRBy0.jpg",
       "source": "imdb",
-      "imdb_id": "tt10676052"
+      "imdb_id": "tt10676052",
+      "year": 2025,
+      "genres": [
+        "Documentary"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "The Favourite",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt5083738",
+      "year": 2016,
+      "genres": [
+        "History",
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.49,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "The Flash",
       "poster_url": "https://image.tmdb.org/t/p/w185/yZevl2vHQgmosfwUdVNzviIfaWS.jpg",
       "source": "imdb",
-      "imdb_id": "tt3107288"
+      "imdb_id": "tt3107288",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Florida Project",
       "poster_url": "https://image.tmdb.org/t/p/w185/5QnDxdJg1fi6uMSkSi4x8tHsltm.jpg",
       "source": "imdb",
-      "imdb_id": "tt5649144"
+      "imdb_id": "tt5649144",
+      "year": 2016,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "The Fourth Kind",
       "poster_url": "https://image.tmdb.org/t/p/w185/vfnsGUwurUQqlpvArBvUVc9rYXa.jpg",
       "source": "imdb",
-      "imdb_id": "tt1220198"
+      "imdb_id": "tt1220198",
+      "year": 2010,
+      "genres": [
+        "Mystery",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.15
     },
     {
       "title": "The Grand Budapest Hotel",
       "poster_url": "https://image.tmdb.org/t/p/w185/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
       "source": "imdb",
-      "imdb_id": "tt2278388"
+      "imdb_id": "tt2278388",
+      "year": 2012,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 8.03,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.02
     },
     {
       "title": "The Hills Have Eyes",
       "poster_url": "https://image.tmdb.org/t/p/w185/2eJL1Ccr1FN3dm9OSDwyd8uaX1b.jpg",
       "source": "imdb",
-      "imdb_id": "tt0454841"
+      "imdb_id": "tt0454841",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.46,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.23
     },
     {
       "title": "The Holdovers",
       "poster_url": "https://image.tmdb.org/t/p/w185/VHSzNBTwxV8vh7wylo7O9CLdac.jpg",
       "source": "imdb",
-      "imdb_id": "tt14849194"
+      "imdb_id": "tt14849194",
+      "year": 2021,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.65,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.82
     },
     {
       "title": "The Hole",
       "poster_url": "https://image.tmdb.org/t/p/w185/uQ3H8rO6zBDDvs6QUIv3xEr8NFD.jpg",
       "source": "imdb",
-      "imdb_id": "tt31810018"
+      "imdb_id": "tt31810018",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Drama",
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "The Hunger Games: Sunrise on the Reaping",
       "poster_url": "https://image.tmdb.org/t/p/w185/kONfwpf0AZzvL1zqjZV9C89g1PY.jpg",
       "source": "imdb",
-      "imdb_id": "tt32558705"
+      "imdb_id": "tt32558705",
+      "year": 2024,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Adventure"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Island of Dr. Moreau",
       "poster_url": "https://image.tmdb.org/t/p/w185/hOJeQXve8W9rNRhdgC1WV3GQJyA.jpg",
       "source": "imdb",
-      "imdb_id": "tt0116654"
+      "imdb_id": "tt0116654",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Horror",
+        "Adventure"
+      ],
+      "rating_imdb_10": 5.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.8
     },
     {
       "title": "The Jackal",
       "poster_url": "https://image.tmdb.org/t/p/w185/tNGQn2mIrXCPTDblBG6f32W3nrI.jpg",
       "source": "imdb",
-      "imdb_id": "tt24053860"
+      "imdb_id": "tt24053860",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Karate Kid",
       "poster_url": "https://image.tmdb.org/t/p/w185/b1RBy3l297N0c7PHjlz35cClWju.jpg",
       "source": "imdb",
-      "imdb_id": "tt0087538"
+      "imdb_id": "tt0087538",
+      "year": 2010,
+      "genres": [
+        "Action",
+        "Adventure",
+        "Drama",
+        "Family"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The Killing of a Sacred Deer",
       "poster_url": "https://image.tmdb.org/t/p/w185/e4DGlsc9g0h5AyoyvvAuIRnofN7.jpg",
       "source": "imdb",
-      "imdb_id": "tt5715874"
+      "imdb_id": "tt5715874",
+      "year": 2016,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.01,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.51
     },
     {
       "title": "The Kings of Summer",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt2179116",
+      "year": 2013,
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "The Last Starfighter",
       "poster_url": "https://image.tmdb.org/t/p/w185/A7oAHTjtYnIEQjJs62IONRufooq.jpg",
       "source": "imdb",
-      "imdb_id": "tt0087597"
+      "imdb_id": "tt0087597",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Science Fiction",
+        "Action"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The Life Aquatic with Steve Zissou",
       "poster_url": "https://image.tmdb.org/t/p/w185/qZoFLNBC78jzboWeDH6Ha0qavF2.jpg",
       "source": "imdb",
-      "imdb_id": "tt0362270"
+      "imdb_id": "tt0362270",
+      "year": 2010,
+      "genres": [
+        "Adventure",
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.55
     },
     {
       "title": "The Lighthouse",
       "poster_url": "https://image.tmdb.org/t/p/w185/f1tIYarTbkBdIT1aW0gzelDwknv.jpg",
       "source": "imdb",
-      "imdb_id": "tt7984734"
+      "imdb_id": "tt7984734",
+      "year": 2018,
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.48,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.74
     },
     {
       "title": "The Little Princess",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0031580",
+      "year": 2025,
+      "genres": [],
+      "rating_imdb_10": 10.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 5.0
     },
     {
       "title": "The Loved Ones",
       "poster_url": "https://image.tmdb.org/t/p/w185/ydsLYdSiPSIL1LOWWYu7VCvDTT8.jpg",
       "source": "imdb",
-      "imdb_id": "tt1316536"
+      "imdb_id": "tt1316536",
+      "year": 2010,
+      "genres": [
+        "Horror"
+      ],
+      "rating_imdb_10": 6.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.35
     },
     {
       "title": "The Man Who Fell to Earth",
       "poster_url": "https://image.tmdb.org/t/p/w185/p1aBjGkyG25ADy4xu69joNMV3eQ.jpg",
       "source": "imdb",
-      "imdb_id": "tt0074851"
+      "imdb_id": "tt0074851",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Man Who Wasn't There",
       "poster_url": "https://image.tmdb.org/t/p/w185/lrCgt8NNMyFsfmXyXiSSCRXNH4u.jpg",
       "source": "imdb",
-      "imdb_id": "tt0243133"
+      "imdb_id": "tt0243133",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.51,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.75
     },
     {
       "title": "The Manchurian Candidate",
       "poster_url": "https://image.tmdb.org/t/p/w185/4xEWtEbKK2EXMZ8UPff8hDCSiVW.jpg",
       "source": "imdb",
-      "imdb_id": "tt0056218"
+      "imdb_id": "tt0056218",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.5,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.25
     },
     {
       "title": "The Manhattan Project",
       "poster_url": "https://image.tmdb.org/t/p/w185/65RDHC5fLwuvQG1LmKRoQugBqLl.jpg",
       "source": "imdb",
-      "imdb_id": "tt0091472"
+      "imdb_id": "tt0091472",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "The Map That Leads to You",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt33549478",
+      "year": 2024,
+      "genres": [
+        "Romance",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The McPherson Tape",
       "poster_url": "https://image.tmdb.org/t/p/w185/Ap6zknBoIHaioieVfOLd5qaWd4X.jpg",
       "source": "imdb",
-      "imdb_id": "tt0169005"
+      "imdb_id": "tt0169005",
+      "year": 2013,
+      "genres": [
+        "Horror",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.23,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.62
     },
     {
       "title": "The Mighty",
       "poster_url": "https://image.tmdb.org/t/p/w185/zJL4KPUaHXQDtezEgXPUKeqsuIq.jpg",
       "source": "imdb",
-      "imdb_id": "tt26453092"
+      "imdb_id": "tt26453092",
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The One I Love",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt2756032",
+      "year": 2014,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Other Lamb",
       "poster_url": "https://image.tmdb.org/t/p/w185/ynPJkpmWNi4rnDUb0PuzDnJj5JI.jpg",
       "source": "imdb",
-      "imdb_id": "tt7737734"
+      "imdb_id": "tt7737734",
+      "year": 2019,
+      "genres": [
+        "Horror",
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.7,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.85
     },
     {
       "title": "The Overnight",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt3844362",
+      "year": 2014,
+      "genres": [
+        "Mystery",
+        "Comedy"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "The Parallax View",
       "poster_url": "https://image.tmdb.org/t/p/w185/5ClPRox438lwK2Eze7X5xySDaYC.jpg",
       "source": "both",
-      "imdb_id": "tt0071970"
+      "imdb_id": "tt0071970",
+      "year": 2010,
+      "genres": [
+        "Crime",
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "The Peanut Butter Falcon",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt4364194",
+      "year": 2017,
+      "genres": [
+        "Adventure",
+        "Comedy",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "The Perks of Being a Wallflower",
       "poster_url": "https://image.tmdb.org/t/p/w185/aKCvdFFF5n80P2VdS7d8YBwbCjh.jpg",
       "source": "imdb",
-      "imdb_id": "tt1659337"
+      "imdb_id": "tt1659337",
+      "year": 2012,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 7.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.9
     },
     {
       "title": "The Philadelphia Story",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0032904",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.58,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.79
     },
     {
       "title": "The Phoenician Scheme",
       "poster_url": "https://image.tmdb.org/t/p/w185/u2jxeYLXTYfu0bqJmnLGIgZswib.jpg",
       "source": "both",
-      "imdb_id": "tt30840798"
+      "imdb_id": "tt30840798",
+      "year": 2023,
+      "genres": [
+        "Comedy",
+        "Adventure",
+        "Crime"
+      ],
+      "rating_imdb_10": 6.53,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.26
     },
     {
       "title": "The Pianist",
       "poster_url": "https://image.tmdb.org/t/p/w185/2hFvxCCWrTmCYwfy7yum0GKRi3Y.jpg",
       "source": "imdb",
-      "imdb_id": "tt0253474"
+      "imdb_id": "tt0253474",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "War"
+      ],
+      "rating_imdb_10": 8.38,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.19
     },
     {
       "title": "The Pig, the Snake and the Pigeon",
       "poster_url": "https://image.tmdb.org/t/p/w185/9FhZ9VC999qeOWH2ytbangUMMt4.jpg",
       "source": "imdb",
-      "imdb_id": "tt29319990"
+      "imdb_id": "tt29319990",
+      "year": 2022,
+      "genres": [
+        "Crime",
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "The Politician",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt7971476",
+      "year": 2019,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Quiet Earth",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0089869",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.6,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.3
     },
     {
       "title": "The Reluctant Astronaut",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0062190",
+      "year": 1967,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Revenant",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1663202",
+      "year": 2014,
+      "genres": [
+        "Western",
+        "Drama",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.54,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.77
     },
     {
       "title": "The Right Stuff",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0086197",
+      "year": 1983,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Road",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0898367",
+      "year": 2009,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Room",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt14417718",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Secret Garden",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0108071",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Family",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "The Secret Life of Words",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0430576",
+      "year": 2010,
+      "genres": [
+        "Romance",
+        "Drama"
+      ],
+      "rating_imdb_10": 7.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.5
     },
     {
       "title": "The Shallows",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt4052882",
+      "year": 2015,
+      "genres": [
+        "Horror",
+        "Drama",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.35,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.18
     },
     {
       "title": "The Shape of Things",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0308878",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "The Shape of Water",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt5580390",
+      "year": 2016,
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.24,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.62
     },
     {
       "title": "The Skeleton Key",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0397101",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
+      "rating_imdb_10": 6.62,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.31
     },
     {
       "title": "The Square",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt4995790",
+      "year": 2016,
+      "genres": [
+        "Drama"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "The Stepford Wives",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0327162",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Science Fiction",
+        "Horror"
+      ],
+      "rating_imdb_10": 5.68,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.84
     },
     {
       "title": "The Strange Thing About the Johnsons",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1772398",
+      "year": 2013,
+      "genres": [
+        "Drama",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.4
     },
     {
       "title": "The Taking of Deborah Logan",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt3387648",
+      "year": 2014,
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.55,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.28
     },
     {
       "title": "The Thing",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0084787",
+      "year": 2011,
+      "genres": [
+        "Horror",
+        "Science Fiction",
+        "Mystery"
+      ],
+      "rating_imdb_10": 6.22,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.11
     },
     {
       "title": "The Thirteenth Floor",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0139809",
+      "year": 2024,
+      "genres": [
+        "Horror"
+      ],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Toxic Avenger",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt1633359",
+      "year": 2023,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "The Void",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt4255304",
+      "year": 2016,
+      "genres": [
+        "Mystery",
+        "Horror",
+        "Science Fiction"
+      ],
+      "rating_imdb_10": 6.0,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.0
     },
     {
       "title": "The War of the Worlds",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt13186306",
+      "year": 2020,
+      "genres": [
+        "Science Fiction",
+        "Thriller"
+      ],
+      "rating_imdb_10": 4.17,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.08
     },
     {
       "title": "The Wicker Man",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0070917",
+      "year": 2010,
+      "genres": [
+        "Horror"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "The Wild Robot",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt29623480",
+      "year": 2023,
+      "genres": [
+        "Animation",
+        "Science Fiction",
+        "Family",
+        "Adventure",
+        "Drama"
+      ],
+      "rating_imdb_10": 8.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 4.15
     },
     {
       "title": "Them",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt9064858",
+      "year": 2021,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "They Live",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0096256",
+      "year": 2010,
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Thriller"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Thunderbolts*",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt20969586",
+      "year": 2022,
+      "genres": [
+        "Action",
+        "Science Fiction",
+        "Adventure"
+      ],
+      "rating_imdb_10": 7.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.65
     },
     {
       "title": "Tina",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt29120447",
+      "year": 2022,
+      "genres": [
+        "Horror",
+        "Thriller",
+        "Mystery"
+      ],
+      "rating_imdb_10": 5.93,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.96
     },
     {
       "title": "Titane",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt10944760",
+      "year": 2019,
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Horror"
+      ],
+      "rating_imdb_10": 6.3,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.15
     },
     {
       "title": "Tourist Trap",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0080040",
+      "year": 1979,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Trading Places",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0086465",
+      "year": 2010,
+      "genres": [
+        "Comedy"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "Trainspotting",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0117951",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Crime"
+      ],
+      "rating_imdb_10": 7.96,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.98
     },
     {
       "title": "Tron",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt6604188",
+      "year": 2018,
+      "genres": [
+        "Science Fiction",
+        "Adventure",
+        "Action"
+      ],
+      "rating_imdb_10": 6.48,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.24
     },
     {
       "title": "Under the Skin",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt1441395",
+      "year": 2012,
+      "genres": [
+        "Thriller",
+        "Science Fiction",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.1,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.05
     },
     {
       "title": "V",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0434409",
+      "year": 2005,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Vertigo",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0052357",
+      "year": 1958,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Videodrome",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0086541",
+      "year": 2010,
+      "genres": [
+        "Horror",
+        "Science Fiction",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "Waiting to Exhale",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0114885",
+      "year": 2010,
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 6.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.1
     },
     {
       "title": "What Dreams May Come",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0120889",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.2,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.6
     },
     {
       "title": "What We Do in the Shadows",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt7908628",
+      "year": 2019,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null
     },
     {
       "title": "Wind Chill",
       "poster_url": null,
       "source": "imdb",
-      "imdb_id": null
+      "imdb_id": "tt0486051",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Horror",
+        "Thriller"
+      ],
+      "rating_imdb_10": 5.8,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 2.9
     },
     {
       "title": "Wuthering Heights",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt32897959",
+      "year": 2024,
+      "genres": [
+        "Romance",
+        "Drama"
+      ],
+      "rating_imdb_10": 6.38,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.19
     },
     {
       "title": "Y Tu Mamá También",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt0245574",
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
+      "rating_imdb_10": 7.4,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.7
     },
     {
       "title": "Zootopia 2",
       "poster_url": null,
       "source": "letterboxd",
-      "imdb_id": null
+      "imdb_id": "tt26443597",
+      "year": 2023,
+      "genres": [
+        "Animation",
+        "Comedy",
+        "Adventure",
+        "Family",
+        "Mystery"
+      ],
+      "rating_imdb_10": 7.61,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": 3.81
     }
   ]
 }

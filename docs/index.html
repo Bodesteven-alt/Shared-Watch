@@ -24,11 +24,18 @@
         <option value="letterboxd">Letterboxd only</option>
         <option value="imdb">IMDb only</option>
       </select>
-      <select id="sort">
-        <option value="title">A-Z</option>
-        <option value="source">Both first</option>
+      <select id="genre">
+        <option value="all">All genres</option>
+      </select>
+      <select id="year">
+        <option value="all">All years</option>
       </select>
       <button id="resetBtn" type="button">Reset</button>
+    </section>
+    <section class="sortbar">
+      <button id="sortTitleBtn" type="button" class="sortbtn">Name <span id="sortTitleArrow">▲</span></button>
+      <button id="sortYearBtn" type="button" class="sortbtn">Year <span id="sortYearArrow">·</span></button>
+      <span class="muted small" id="sortHint">Sorting by Name (A-Z)</span>
     </section>
 
     <section id="grid" class="grid"></section>
