@@ -176,7 +176,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   justify-content: center;
   gap: .6rem;
   margin: 1rem 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 .srcbtn {
   padding: .55rem 1.1rem;
@@ -187,10 +187,14 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   cursor: pointer;
   transition: all 0.2s;
   font-size: .9rem;
+  flex-shrink: 0;
 }
 .srcbtn:hover {
   border-color: var(--acc);
   color: var(--text);
+}
+.srcbtn:focus {
+  outline: none;
 }
 .srcbtn.active {
   background: linear-gradient(135deg, var(--acc), var(--purple));
@@ -217,6 +221,49 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .outlink:hover {
   opacity: 1;
   text-decoration: underline;
+}
+
+.genre-btn-wrap {
+  position: relative;
+}
+.genre-popup {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: .5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: .5rem;
+  min-width: 180px;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.genre-popup.hidden {
+  display: none;
+}
+.genre-option {
+  display: block;
+  width: 100%;
+  padding: .5rem .75rem;
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  text-align: left;
+  cursor: pointer;
+  border-radius: 8px;
+  font-size: .85rem;
+}
+.genre-option:hover {
+  background: rgba(255, 113, 206, 0.15);
+  color: var(--text);
+}
+.genre-option.active {
+  background: linear-gradient(135deg, var(--acc), var(--purple));
+  color: white;
 }
 
 .footer {
@@ -257,6 +304,13 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 
 @media (max-width: 600px) {
+  .source-filters {
+    gap: .4rem;
+  }
+  .srcbtn {
+    padding: .45rem .65rem;
+    font-size: .75rem;
+  }
   .sortbar {
     flex-wrap: nowrap;
     justify-content: center;
@@ -279,10 +333,6 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     width: 70px;
     min-width: 70px;
     height: 105px;
-  }
-  .srcbtn {
-    padding: .5rem .8rem;
-    font-size: .8rem;
   }
   .top h1 {
     font-size: 1.4rem;

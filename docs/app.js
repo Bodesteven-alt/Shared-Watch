@@ -21,6 +21,9 @@
   const sortRatingUp = document.getElementById("sortRatingUp");
   const sortRatingDown = document.getElementById("sortRatingDown");
 
+  const genreBtn = document.getElementById("genreBtn");
+  const genrePopup = document.getElementById("genrePopup");
+
   const res = await fetch("./data/watchlist.json", { cache: "no-store" });
   if (!res.ok) {
     updatedAtEl.textContent = "Failed to load";
@@ -39,6 +42,19 @@
   countLb.textContent = lbCount;
   countBoth.textContent = bothCount;
   countImdb.textContent = imdbCount;
+
+  // Collect all genres
+  const allGenres = new Set();
+  for (const m of movies) {
+    for (const g of (m.genres || [])) allGenres.add(String(g));
+  }
+  const sortedGenres = [...allGenres].sort((a, b) => a.localeCompare(b));
+
+  // Build genre popup
+  genrePopup.innerHTML = `<button class="genre-option active" data-genre="all">All Genres</button>` +
+    sortedGenres.map(g => `<button class="genre-option" data-genre="${g}">${g}</button>`).join("");
+
+  let selectedGenre = "all";
 
   // Format date
   if (data.updated_at) {
@@ -93,6 +109,10 @@
     } else if (sortField === "rating") {
       (sortDir === "asc" ? sortRatingUp : sortRatingDown).classList.add("active");
     }
+
+    // Update genre button text
+    genreBtn.textContent = selectedGenre === "all" ? "Genre" : selectedGenre;
+    genreBtn.classList.toggle("active", selectedGenre !== "all");
   }
 
   function sortRows(rows) {
@@ -127,8 +147,15 @@
     const activeSources = getActiveSources();
 
     let rows = movies.filter((m) => {
-      if (activeSources.length === 0 || activeSources.length === 3) return true;
-      return activeSources.includes(m.source);
+      if (activeSources.length === 0 || activeSources.length === 3) {
+        // show all
+      } else if (!activeSources.includes(m.source)) {
+        return false;
+      }
+      if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
+        return false;
+      }
+      return true;
     });
 
     sortRows(rows);
@@ -158,8 +185,34 @@
   [filterLb, filterBoth, filterImdb].forEach(btn => {
     btn.addEventListener("click", () => {
       btn.classList.toggle("active");
+      btn.blur();
       render();
     });
+  });
+
+  // Genre popup toggle
+  genreBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    genrePopup.classList.toggle("hidden");
+  });
+
+  // Genre selection
+  genrePopup.addEventListener("click", (e) => {
+    const opt = e.target.closest(".genre-option");
+    if (!opt) return;
+    selectedGenre = opt.dataset.genre;
+    genrePopup.querySelectorAll(".genre-option").forEach(el => el.classList.remove("active"));
+    opt.classList.add("active");
+    genrePopup.classList.add("hidden");
+    updateSortUi();
+    render();
+  });
+
+  // Close popup when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
+      genrePopup.classList.add("hidden");
+    }
   });
 
   // Sort button handlers
