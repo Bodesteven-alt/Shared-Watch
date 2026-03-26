@@ -525,7 +525,7 @@
       "Comedy",
       "Drama"
     ],
-    "rating_imdb_10": 6.8
+    "rating_imdb_10": 6.837
   },
   "demolition man": {
     "imdb_id": "tt0106697",
@@ -1037,7 +1037,7 @@
       "Horror",
       "Mystery"
     ],
-    "rating_imdb_10": 7.3
+    "rating_imdb_10": 7.28
   },
   "late night with the devil": {
     "imdb_id": "tt14966898",
@@ -1319,11 +1319,9 @@
   },
   "office space": {
     "imdb_id": "tt0151804",
-    "year": 2010,
-    "genres": [
-      "Comedy"
-    ],
-    "rating_imdb_10": 7.37
+    "year": 1999,
+    "genres": [],
+    "rating_imdb_10": null
   },
   "on the count of three": {
     "imdb_id": "tt11160650",
@@ -1469,22 +1467,15 @@
   },
   "predator badlands": {
     "imdb_id": "tt31227572",
-    "year": 2024,
-    "genres": [
-      "Action",
-      "Science Fiction",
-      "Adventure"
-    ],
-    "rating_imdb_10": 7.695
+    "year": null,
+    "genres": [],
+    "rating_imdb_10": null
   },
   "project hail mary": {
     "imdb_id": "tt12042730",
-    "year": 2020,
-    "genres": [
-      "Science Fiction",
-      "Adventure"
-    ],
-    "rating_imdb_10": 8.175
+    "year": null,
+    "genres": [],
+    "rating_imdb_10": null
   },
   "prometheus": {
     "imdb_id": "tt1446714",
@@ -1644,15 +1635,21 @@
   },
   "skinamarink": {
     "imdb_id": "tt21307994",
-    "year": null,
-    "genres": [],
-    "rating_imdb_10": null
+    "year": 2022,
+    "genres": [
+      "Horror"
+    ],
+    "rating_imdb_10": 5.357
   },
   "slaughterhouse five": {
     "imdb_id": "tt0069280",
-    "year": null,
-    "genres": [],
-    "rating_imdb_10": null
+    "year": 2010,
+    "genres": [
+      "Drama",
+      "Science Fiction",
+      "War"
+    ],
+    "rating_imdb_10": 6.5
   },
   "slc punk": {
     "imdb_id": "tt0133189",
@@ -1871,12 +1868,9 @@
   },
   "the best years of our lives": {
     "imdb_id": "tt0036868",
-    "year": 2010,
-    "genres": [
-      "Drama",
-      "Romance"
-    ],
-    "rating_imdb_10": 7.769
+    "year": 1946,
+    "genres": [],
+    "rating_imdb_10": null
   },
   "the beta test": {
     "imdb_id": "tt11738830",
@@ -1896,15 +1890,22 @@
   },
   "the bride": {
     "imdb_id": "tt30851137",
-    "year": 2026,
-    "genres": [],
-    "rating_imdb_10": null
+    "year": 2023,
+    "genres": [
+      "Science Fiction",
+      "Horror",
+      "Fantasy"
+    ],
+    "rating_imdb_10": 6.3
   },
   "the brutalist": {
     "imdb_id": "tt8999762",
-    "year": 2024,
-    "genres": [],
-    "rating_imdb_10": null
+    "year": 2018,
+    "genres": [
+      "Drama",
+      "History"
+    ],
+    "rating_imdb_10": 6.963
   },
   "the chronicles of narnia prince caspian": {
     "imdb_id": "tt0499448",
@@ -2007,7 +2008,7 @@
       "Drama",
       "Romance"
     ],
-    "rating_imdb_10": 7.2
+    "rating_imdb_10": 7.178
   },
   "the empty man": {
     "imdb_id": "tt5867314",
@@ -2361,7 +2362,7 @@
       "Drama",
       "War"
     ],
-    "rating_imdb_10": 8.375
+    "rating_imdb_10": 8.4
   },
   "the pig the snake and the pigeon": {
     "imdb_id": "tt29319990",

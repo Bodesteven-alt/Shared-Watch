@@ -845,9 +845,9 @@
         "Comedy",
         "Drama"
       ],
-      "rating_imdb_10": 6.8,
+      "rating_imdb_10": 6.84,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4
+      "rating_avg_5": 3.42
     },
     {
       "title": "Demolition Man",
@@ -1647,9 +1647,9 @@
         "Horror",
         "Mystery"
       ],
-      "rating_imdb_10": 7.3,
+      "rating_imdb_10": 7.28,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65
+      "rating_avg_5": 3.64
     },
     {
       "title": "Late Night with the Devil",
@@ -2099,13 +2099,11 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0151804",
-      "year": 2010,
-      "genres": [
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.37,
+      "year": 1999,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.69
+      "rating_avg_5": null
     },
     {
       "title": "On the Count of Three",
@@ -2334,29 +2332,22 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/erTRAi241eYF4K8KoGGOI8kFPox.jpg",
       "source": "imdb",
       "imdb_id": "tt31227572",
-      "year": 2024,
-      "genres": [
-        "Action",
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.85
+      "rating_avg_5": null
     },
     {
       "title": "Project Hail Mary",
       "poster_url": "https://image.tmdb.org/t/p/w185/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
       "source": "imdb",
       "imdb_id": "tt12042730",
-      "year": 2020,
-      "genres": [
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 8.18,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.09
+      "rating_avg_5": null
     },
     {
       "title": "Prometheus",
@@ -2614,22 +2605,28 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/o942912KFh89SGhqWuKXuT0SXzN.jpg",
       "source": "imdb",
       "imdb_id": "tt21307994",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2022,
+      "genres": [
+        "Horror"
+      ],
+      "rating_imdb_10": 5.36,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 2.68
     },
     {
       "title": "Slaughterhouse-Five",
       "poster_url": "https://image.tmdb.org/t/p/w185/gM2q9pGW9x2zdEMPRsXLBgTDDFH.jpg",
       "source": "imdb",
       "imdb_id": "tt0069280",
-      "year": null,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2010,
+      "genres": [
+        "Drama",
+        "Science Fiction",
+        "War"
+      ],
+      "rating_imdb_10": 6.5,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.25
     },
     {
       "title": "SLC Punk!",
@@ -2971,14 +2968,11 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0036868",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.77,
+      "year": 1946,
+      "genres": [],
+      "rating_imdb_10": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.88
+      "rating_avg_5": null
     },
     {
       "title": "The Beta Test",
@@ -3011,22 +3005,29 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt30851137",
-      "year": 2026,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2023,
+      "genres": [
+        "Science Fiction",
+        "Horror",
+        "Fantasy"
+      ],
+      "rating_imdb_10": 6.3,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.15
     },
     {
       "title": "The Brutalist",
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt8999762",
-      "year": 2024,
-      "genres": [],
-      "rating_imdb_10": null,
+      "year": 2018,
+      "genres": [
+        "Drama",
+        "History"
+      ],
+      "rating_imdb_10": 6.96,
       "rating_letterboxd_5": null,
-      "rating_avg_5": null
+      "rating_avg_5": 3.48
     },
     {
       "title": "The Chronicles of Narnia: Prince Caspian",
@@ -3182,9 +3183,9 @@
         "Drama",
         "Romance"
       ],
-      "rating_imdb_10": 7.2,
+      "rating_imdb_10": 7.18,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6
+      "rating_avg_5": 3.59
     },
     {
       "title": "The Empty Man",
@@ -3736,9 +3737,9 @@
         "Drama",
         "War"
       ],
-      "rating_imdb_10": 8.38,
+      "rating_imdb_10": 8.4,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.19
+      "rating_avg_5": 4.2
     },
     {
       "title": "The Pig, the Snake and the Pigeon",

@@ -123,3 +123,56 @@ button { cursor: pointer; background: linear-gradient(135deg, #6d8cff, #7d63ff);
 }
 .hidden { display: none; }
 .empty { margin-top: 1rem; color: var(--muted); }
+
+.stats-toggle-wrap {
+  margin-top: .8rem;
+}
+.stats-toggle {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .8rem;
+  padding: .35rem .7rem;
+  cursor: pointer;
+}
+.stats-toggle:hover {
+  color: var(--text);
+  border-color: var(--acc);
+}
+
+.footer {
+  max-width: 1080px;
+  margin: 2rem auto 1rem;
+  padding: 1rem 1.2rem;
+  text-align: center;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: .85rem;
+}
+.footer p { margin: .3rem 0; }
+
+.stars {
+  display: inline-flex;
+  gap: 2px;
+  margin-top: .35rem;
+}
+.star {
+  position: relative;
+  width: 16px;
+  height: 16px;
+}
+.star svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.star-empty {
+  fill: #1e2d48;
+  stroke: #3a506b;
+  stroke-width: 1;
+}
+.star-fill {
+  fill: #ffc107;
+}

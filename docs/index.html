@@ -4,17 +4,18 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Combined Watchlist</title>
-  <link rel="stylesheet" href="./styles.css?v=2">
+  <link rel="stylesheet" href="./styles.css?v=3">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
-      <h1>Combined watchlist</h1>
-      <p class="muted">Static GitHub Pages view fed from local scraper JSON.</p>
-      <div id="updatedAt" class="muted small">Loading data...</div>
+      <h1>Combined Watchlist</h1>
     </header>
 
-    <section class="stats" id="stats"></section>
+    <div class="stats-toggle-wrap">
+      <button id="statsToggle" type="button" class="stats-toggle">Show stats</button>
+    </div>
+    <section class="stats hidden" id="stats"></section>
 
     <section class="toolbar">
       <input id="q" type="search" placeholder="Search title...">
@@ -35,6 +36,7 @@
     <section class="sortbar">
       <button id="sortTitleBtn" type="button" class="sortbtn">Name <span id="sortTitleArrow">▲</span></button>
       <button id="sortYearBtn" type="button" class="sortbtn">Year <span id="sortYearArrow">·</span></button>
+      <button id="sortRatingBtn" type="button" class="sortbtn">Rating <span id="sortRatingArrow">·</span></button>
       <span class="muted small" id="sortHint">Sorting by Name (A-Z)</span>
     </section>
 
@@ -42,6 +44,11 @@
     <p id="empty" class="empty hidden">No movies match your filters.</p>
   </main>
 
-  <script src="./app.js?v=2"></script>
+  <footer class="footer">
+    <p>Made with love</p>
+    <p id="updatedAt" class="muted small">Loading...</p>
+  </footer>
+
+  <script src="./app.js?v=3"></script>
 </body>
 </html>

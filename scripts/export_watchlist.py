@@ -17,9 +17,30 @@ DEFAULT_OUTPUT = ROOT / "docs" / "data" / "watchlist.json"
 DEFAULT_METADATA_CACHE = ROOT / "data" / "imdb_metadata_cache.json"
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
     "Accept-Language": "en-US,en;q=0.9",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 }
+
+
+def _load_omdb_api_key() -> str:
+    k = os.environ.get("OMDB_API_KEY", "").strip()
+    if k:
+        return k
+    key_path = ROOT / "data" / "omdb_api_key.txt"
+    if key_path.is_file():
+        try:
+            with key_path.open(encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        return line
+        except OSError:
+            pass
+    return ""
+
+
+OMDB_API_KEY = _load_omdb_api_key()
 
 
 def infer_source(row: dict) -> str:
@@ -147,6 +168,49 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
     return out
 
 
+def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) -> dict:
+    """
+    Fetch metadata from OMDb API (requires free API key from omdbapi.com).
+    Returns year, genres[], rating_imdb_10.
+    """
+    out = {"year": None, "genres": [], "rating_imdb_10": None}
+    if not OMDB_API_KEY:
+        return out
+    params = {"apikey": OMDB_API_KEY}
+    if imdb_id:
+        params["i"] = imdb_id
+    elif title:
+        params["t"] = title.strip()
+    else:
+        return out
+    try:
+        r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
+    except requests.RequestException:
+        return out
+    if r.status_code != 200:
+        return out
+    try:
+        data = r.json()
+    except ValueError:
+        return out
+    if data.get("Response") != "True":
+        return out
+    year_str = data.get("Year", "")
+    m = re.match(r"(\d{4})", str(year_str))
+    if m:
+        out["year"] = int(m.group(1))
+    genre_str = data.get("Genre", "")
+    if genre_str and genre_str != "N/A":
+        out["genres"] = [g.strip() for g in genre_str.split(",") if g.strip()]
+    rating_str = data.get("imdbRating", "")
+    if rating_str and rating_str != "N/A":
+        try:
+            out["rating_imdb_10"] = float(rating_str)
+        except ValueError:
+            pass
+    return out
+
+
 def fetch_tmdb_metadata_by_title(title: str) -> dict:
     """
     No-key fallback metadata from TMDB website pages.
@@ -265,11 +329,25 @@ def main() -> int:
         )
         if imdb_id and needs_refresh:
             parsed = parse_imdb_title_page(imdb_id)
-            # If IMDb blocks title page scraping, fallback to TMDB web metadata (no API key).
+            # Fallback chain: IMDb title page -> TMDB web -> OMDb API
             if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
                 parsed = fetch_tmdb_metadata_by_title(title)
+            if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
+                parsed = fetch_omdb_metadata(imdb_id=imdb_id, title=title)
             c = {
                 "imdb_id": imdb_id,
+                "year": parsed.get("year") or hint.get("year"),
+                "genres": parsed.get("genres") or [],
+                "rating_imdb_10": parsed.get("rating_imdb_10"),
+            }
+            meta_cache[norm] = c
+        elif not imdb_id and needs_refresh:
+            # No imdb_id - try TMDB and OMDb by title only
+            parsed = fetch_tmdb_metadata_by_title(title)
+            if not parsed.get("year") and not parsed.get("genres") and parsed.get("rating_imdb_10") is None:
+                parsed = fetch_omdb_metadata(title=title)
+            c = {
+                "imdb_id": None,
                 "year": parsed.get("year") or hint.get("year"),
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
@@ -332,7 +410,18 @@ def main() -> int:
     save_json(output_path, payload)
     save_json(meta_cache_path, meta_cache)
 
+    missing_year = sum(1 for m in movies if m.get("year") is None)
+    missing_genre = sum(1 for m in movies if not m.get("genres"))
+    missing_rating = sum(1 for m in movies if m.get("rating_imdb_10") is None)
+
     print(f"Exported {len(movies)} movies to {output_path}")
+    print(f"  With year: {len(movies) - missing_year}/{len(movies)}")
+    print(f"  With genre: {len(movies) - missing_genre}/{len(movies)}")
+    print(f"  With rating: {len(movies) - missing_rating}/{len(movies)}")
+    if OMDB_API_KEY:
+        print("  OMDb API: enabled")
+    else:
+        print("  OMDb API: not configured (add key to data/omdb_api_key.txt for better coverage)")
     return 0
 
 

@@ -1,6 +1,7 @@
 /* global fetch */
 (async function init() {
   const statsEl = document.getElementById("stats");
+  const statsToggle = document.getElementById("statsToggle");
   const gridEl = document.getElementById("grid");
   const emptyEl = document.getElementById("empty");
   const updatedAtEl = document.getElementById("updatedAt");
@@ -12,9 +13,18 @@
   const resetBtn = document.getElementById("resetBtn");
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
+  const sortRatingBtn = document.getElementById("sortRatingBtn");
   const sortTitleArrow = document.getElementById("sortTitleArrow");
   const sortYearArrow = document.getElementById("sortYearArrow");
+  const sortRatingArrow = document.getElementById("sortRatingArrow");
   const sortHint = document.getElementById("sortHint");
+
+  let statsVisible = false;
+  statsToggle.addEventListener("click", () => {
+    statsVisible = !statsVisible;
+    statsEl.classList.toggle("hidden", !statsVisible);
+    statsToggle.textContent = statsVisible ? "Hide stats" : "Show stats";
+  });
 
   const res = await fetch("./data/watchlist.json", { cache: "no-store" });
   if (!res.ok) {
@@ -52,16 +62,26 @@
     return '<span class="badge im">IMDb</span>';
   }
 
-  function starBar(avg5) {
+  function starRating(avg5) {
     if (avg5 == null || Number.isNaN(Number(avg5))) return "";
-    const clamped = Math.max(0, Math.min(5, Number(avg5)));
-    const pct = (clamped / 5) * 100;
-    return `
-      <div class="rating">
-        <div class="rating-row">Avg: ${clamped.toFixed(2)} / 5</div>
-        <div class="rating-bar"><div class="rating-fill" style="width:${pct}%"></div></div>
-      </div>
-    `;
+    const rating = Math.max(0, Math.min(5, Number(avg5)));
+    const starPath = "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
+    let html = '<div class="stars">';
+    for (let i = 0; i < 5; i++) {
+      const fill = Math.max(0, Math.min(1, rating - i));
+      const clipId = `clip-${Math.random().toString(36).slice(2, 9)}`;
+      html += `
+        <span class="star">
+          <svg viewBox="0 0 24 24">
+            <path class="star-empty" d="${starPath}"/>
+          </svg>
+          <svg viewBox="0 0 24 24" style="clip-path: inset(0 ${(1 - fill) * 100}% 0 0);">
+            <path class="star-fill" d="${starPath}"/>
+          </svg>
+        </span>`;
+    }
+    html += '</div>';
+    return html;
   }
 
   let sortField = "title";
@@ -70,11 +90,13 @@
   function updateSortUi() {
     sortTitleBtn.classList.toggle("active", sortField === "title");
     sortYearBtn.classList.toggle("active", sortField === "year");
+    sortRatingBtn.classList.toggle("active", sortField === "rating");
     sortTitleArrow.textContent = sortField === "title" ? (sortDir === "asc" ? "▲" : "▼") : "·";
     sortYearArrow.textContent = sortField === "year" ? (sortDir === "asc" ? "▲" : "▼") : "·";
-    const fieldName = sortField === "title" ? "Name" : "Year";
+    sortRatingArrow.textContent = sortField === "rating" ? (sortDir === "asc" ? "▲" : "▼") : "·";
+    const fieldNames = { title: "Name", year: "Year", rating: "Rating" };
     const dirLabel = sortDir === "asc" ? "ascending" : "descending";
-    sortHint.textContent = `Sorting by ${fieldName} (${dirLabel})`;
+    sortHint.textContent = `Sorting by ${fieldNames[sortField]} (${dirLabel})`;
   }
 
   function sortRows(rows) {
@@ -84,6 +106,11 @@
         const ay = Number(a.year || 0);
         const by = Number(b.year || 0);
         cmp = ay - by;
+        if (cmp === 0) cmp = String(a.title || "").localeCompare(String(b.title || ""));
+      } else if (sortField === "rating") {
+        const ar = a.rating_avg_5 != null ? Number(a.rating_avg_5) : -1;
+        const br = b.rating_avg_5 != null ? Number(b.rating_avg_5) : -1;
+        cmp = ar - br;
         if (cmp === 0) cmp = String(a.title || "").localeCompare(String(b.title || ""));
       } else {
         cmp = String(a.title || "").localeCompare(String(b.title || ""));
@@ -122,8 +149,7 @@
         <div>
           <div class="title">${m.title || ""}</div>
           <div class="meta">${m.year || "Year ?"} · ${(m.genres || []).slice(0, 2).join(", ") || "Genre ?"}</div>
-          <div class="meta">IMDb: ${m.rating_imdb_10 != null ? Number(m.rating_imdb_10).toFixed(1) + "/10" : "N/A"} · Letterboxd: ${m.rating_letterboxd_5 != null ? Number(m.rating_letterboxd_5).toFixed(2) + "/5" : "N/A"}</div>
-          ${starBar(m.rating_avg_5)}
+          ${starRating(m.rating_avg_5)}
           ${sourceBadge(m)}
         </div>
       </article>
@@ -143,6 +169,12 @@
   sortYearBtn.addEventListener("click", () => {
     if (sortField === "year") sortDir = sortDir === "asc" ? "desc" : "asc";
     else { sortField = "year"; sortDir = "desc"; }
+    updateSortUi();
+    render();
+  });
+  sortRatingBtn.addEventListener("click", () => {
+    if (sortField === "rating") sortDir = sortDir === "asc" ? "desc" : "asc";
+    else { sortField = "rating"; sortDir = "desc"; }
     updateSortUi();
     render();
   });
