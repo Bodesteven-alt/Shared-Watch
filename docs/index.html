@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Our Watch List</title>
-  <link rel="stylesheet" href="./styles.css?v=13">
+  <link rel="stylesheet" href="./styles.css?v=14">
 </head>
 <body>
   <main class="wrap">
@@ -94,17 +94,19 @@
         grad.setAttribute("gradientTransform", "translate(0 0)");
         return;
       }
-      var periodMs = 10000;
+      var periodMs = 12000;
       var range = 520;
       var start = performance.now();
       function tick(now) {
-        var x = (((now - start) % periodMs) / periodMs) * range;
+        var phase = ((now - start) % periodMs) / periodMs;
+        var u = (1 - Math.cos(phase * 2 * Math.PI)) / 2;
+        var x = u * range;
         grad.setAttribute("gradientTransform", "translate(" + x + " 0)");
         requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
     })();
   </script>
-  <script src="./app.js?v=13"></script>
+  <script src="./app.js?v=14"></script>
 </body>
 </html>
