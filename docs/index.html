@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Our Watch List</title>
-  <link rel="stylesheet" href="./styles.css?v=12">
+  <link rel="stylesheet" href="./styles.css?v=13">
 </head>
 <body>
   <main class="wrap">
@@ -18,14 +18,6 @@
               <stop offset="30%" stop-color="#01cdfe"/>
               <stop offset="60%" stop-color="#b967ff"/>
               <stop offset="100%" stop-color="#ff71ce"/>
-              <animateTransform
-                id="titleGradShift"
-                attributeName="gradientTransform"
-                type="translate"
-                from="0 0"
-                to="520 0"
-                dur="10s"
-                repeatCount="indefinite"/>
             </linearGradient>
           </defs>
           <text
@@ -95,10 +87,24 @@
   </footer>
 
   <script>
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      document.getElementById("titleGradShift")?.remove();
-    }
+    (function () {
+      var grad = document.getElementById("watchlistTitleGrad");
+      if (!grad) return;
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        grad.setAttribute("gradientTransform", "translate(0 0)");
+        return;
+      }
+      var periodMs = 10000;
+      var range = 520;
+      var start = performance.now();
+      function tick(now) {
+        var x = (((now - start) % periodMs) / periodMs) * range;
+        grad.setAttribute("gradientTransform", "translate(" + x + " 0)");
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    })();
   </script>
-  <script src="./app.js?v=12"></script>
+  <script src="./app.js?v=13"></script>
 </body>
 </html>

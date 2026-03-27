@@ -20,11 +20,13 @@ body {
 }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 1.2rem; }
 .top { text-align: center; margin-bottom: .5rem; }
-/* Flowing gradient via SVG (SMIL); CSS clip+animation is broken on mobile WebKit */
+/* Title gradient animated via JS (rAF); width follows main column, not raw vw */
 .top .top-title {
-  display: inline-block;
-  margin: 0;
-  padding: .6rem 1.8rem;
+  display: block;
+  margin: 0 auto;
+  padding: .55rem 1.25rem;
+  max-width: 100%;
+  width: min(100%, 22rem);
   border: 2px solid var(--cyan);
   border-radius: 50px;
   box-shadow: 
@@ -32,10 +34,11 @@ body {
     0 0 30px rgba(255, 113, 206, 0.2),
     inset 0 0 20px rgba(1, 205, 254, 0.1);
   line-height: 0;
+  box-sizing: border-box;
 }
 .top-title__svg {
   display: block;
-  width: min(85vw, 22rem);
+  width: 100%;
   height: auto;
   overflow: visible;
 }
@@ -359,10 +362,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     height: 105px;
   }
   .top .top-title {
-    padding: .5rem 1rem;
-  }
-  .top-title__svg {
-    width: min(90vw, 19rem);
+    padding: .45rem .85rem;
+    width: min(100%, 19rem);
   }
   .outlinks {
     gap: .8rem;
