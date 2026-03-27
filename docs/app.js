@@ -183,8 +183,10 @@
         <div>
           <div class="title">${m.title || ""}</div>
           <div class="meta">${m.year || "Year ?"} · ${(m.genres || []).slice(0, 2).join(", ") || "Genre ?"}</div>
-          ${starRating(m.rating_avg_5)}
-          ${sourceBadge(m)}
+          <div class="card-rating-row">
+            ${starRating(m.rating_avg_5)}
+            ${sourceBadge(m)}
+          </div>
         </div>
       </article>
     `).join("");

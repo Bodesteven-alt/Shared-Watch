@@ -161,8 +161,21 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   font-size: .72rem;
   color: var(--muted);
 }
+.card-rating-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .45rem .55rem;
+  margin-top: .35rem;
+}
+.card-rating-row .stars {
+  margin-top: 0;
+}
+.card-rating-row .badge {
+  margin-top: 0;
+}
 .badge {
-  margin-top: .45rem;
   display: inline-block;
   font-size: .68rem;
   padding: .18rem .45rem;
@@ -323,6 +336,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 
 .stars {
   display: inline-flex;
+  align-items: center;
   gap: 2px;
   margin-top: .35rem;
 }
