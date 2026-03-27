@@ -20,54 +20,24 @@ body {
 }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 1.2rem; }
 .top { text-align: center; margin-bottom: .5rem; }
-.top h1 {
+/* Flowing gradient via SVG (SMIL); CSS clip+animation is broken on mobile WebKit */
+.top .top-title {
   display: inline-block;
   margin: 0;
   padding: .6rem 1.8rem;
-  font-size: 2rem;
   border: 2px solid var(--cyan);
   border-radius: 50px;
-  background: linear-gradient(
-    90deg,
-    var(--acc),
-    var(--cyan),
-    var(--purple),
-    var(--acc),
-    var(--cyan)
-  );
-  background-size: 400% 100%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: title-gradient-flow 10s linear infinite;
   box-shadow: 
     0 0 15px rgba(1, 205, 254, 0.3),
     0 0 30px rgba(255, 113, 206, 0.2),
     inset 0 0 20px rgba(1, 205, 254, 0.1);
+  line-height: 0;
 }
-@keyframes title-gradient-flow {
-  0% { background-position: 0% center; }
-  100% { background-position: 100% center; }
-}
-/* iOS/Android WebKit often paints no text when animating background + text clip */
-@media (max-width: 896px), ((hover: none) and (pointer: coarse)) {
-  .top h1 {
-    animation: none;
-    background-color: transparent;
-    background-image: linear-gradient(135deg, var(--acc), var(--cyan));
-    background-size: 100% auto;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .top h1 {
-    animation: none;
-    background-color: transparent;
-    background-image: linear-gradient(135deg, var(--acc), var(--cyan));
-    background-size: 100% auto;
-    background-position: 0 0;
-  }
+.top-title__svg {
+  display: block;
+  width: min(85vw, 22rem);
+  height: auto;
+  overflow: visible;
 }
 .muted { color: var(--muted); }
 .small { font-size: .9rem; }
@@ -388,9 +358,11 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     min-width: 70px;
     height: 105px;
   }
-  .top h1 {
-    font-size: 1.4rem;
-    padding: .5rem 1.2rem;
+  .top .top-title {
+    padding: .5rem 1rem;
+  }
+  .top-title__svg {
+    width: min(90vw, 19rem);
   }
   .outlinks {
     gap: .8rem;
