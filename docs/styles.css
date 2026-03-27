@@ -27,15 +27,34 @@ body {
   font-size: 2rem;
   border: 2px solid var(--cyan);
   border-radius: 50px;
-  background: linear-gradient(135deg, var(--acc), var(--cyan));
+  background: linear-gradient(
+    90deg,
+    var(--acc),
+    var(--cyan),
+    var(--purple),
+    var(--acc),
+    var(--cyan)
+  );
+  background-size: 400% 100%;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  text-shadow: 0 0 30px rgba(255, 113, 206, 0.5);
+  animation: title-gradient-flow 10s linear infinite;
   box-shadow: 
     0 0 15px rgba(1, 205, 254, 0.3),
     0 0 30px rgba(255, 113, 206, 0.2),
     inset 0 0 20px rgba(1, 205, 254, 0.1);
+}
+@keyframes title-gradient-flow {
+  0% { background-position: 0% center; }
+  100% { background-position: 100% center; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .top h1 {
+    animation: none;
+    background: linear-gradient(135deg, var(--acc), var(--cyan));
+    background-size: 100% 100%;
+  }
 }
 .muted { color: var(--muted); }
 .small { font-size: .9rem; }
@@ -81,7 +100,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   gap: .4rem;
   background: rgba(22, 33, 62, 0.8);
   border: 1px solid var(--line);
-  transition: transform 0.15s, background 0.15s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
   font-size: clamp(0.72rem, 2.5vw, 1rem);
   padding: .55rem .5rem;
   min-width: 0;
@@ -96,8 +115,9 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .sortbtn.active {
   background: linear-gradient(135deg, #ff71ce, #b967ff);
-  border: none;
-  transform: scale(1.04);
+  border: 1px solid rgba(255, 113, 206, 0.45);
+  color: #fff;
+  box-shadow: 0 0 12px rgba(255, 113, 206, 0.25);
 }
 .arrows {
   display: flex;
@@ -215,7 +235,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .srcbtn.active {
   background: linear-gradient(135deg, var(--acc), var(--purple));
   color: white;
-  border: none;
+  border: 1px solid rgba(255, 113, 206, 0.55);
   box-shadow: 0 0 12px rgba(255, 113, 206, 0.4);
 }
 .srcbtn .count {
@@ -300,6 +320,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   font-size: .85rem;
 }
 .footer p { margin: .3rem 0; }
+.footer .footer-tagline { margin-top: .5rem; }
 
 .stars {
   display: inline-flex;

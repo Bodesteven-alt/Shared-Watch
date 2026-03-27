@@ -94,9 +94,12 @@
   let sortField = "title";
   let sortDir = "asc";
 
+  const genreTruncateMq = window.matchMedia("(max-width: 640px)");
+
   function formatGenreButtonLabel(genre) {
     if (genre === "all") return "Genre";
     const s = String(genre);
+    if (!genreTruncateMq.matches) return s;
     return s.length > 3 ? `${s.slice(0, 3)}...` : s;
   }
 
@@ -240,6 +243,15 @@
     updateSortUi();
     render();
   });
+
+  function onGenreTruncateMqChange() {
+    updateSortUi();
+  }
+  if (genreTruncateMq.addEventListener) {
+    genreTruncateMq.addEventListener("change", onGenreTruncateMqChange);
+  } else {
+    genreTruncateMq.addListener(onGenreTruncateMqChange);
+  }
 
   updateSortUi();
   render();
