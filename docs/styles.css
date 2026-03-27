@@ -60,13 +60,11 @@ body {
 }
 .sortbar {
   margin-top: .6rem;
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: .5rem;
-  flex-wrap: nowrap;
-}
-.sortbtn {
-  flex-shrink: 0;
+  width: 100%;
+  align-items: stretch;
 }
 input, select, button {
   border: 1px solid var(--line);
@@ -79,23 +77,34 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .sortbtn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: .4rem;
   background: rgba(22, 33, 62, 0.8);
   border: 1px solid var(--line);
   transition: transform 0.15s, background 0.15s;
-  font-size: 1rem;
-  padding: .55rem .75rem;
+  font-size: clamp(0.72rem, 2.5vw, 1rem);
+  padding: .55rem .5rem;
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sortbtn .arrows {
+  flex-shrink: 0;
 }
 .sortbtn.active {
   background: linear-gradient(135deg, #ff71ce, #b967ff);
   border: none;
-  transform: scale(1.08);
+  transform: scale(1.04);
 }
 .arrows {
   display: flex;
   flex-direction: column;
   font-size: .55rem;
   line-height: .65;
+  flex-shrink: 0;
 }
 .arr {
   opacity: 0.3;
@@ -234,6 +243,12 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 
 .genre-btn-wrap {
   position: relative;
+  min-width: 0;
+  display: flex;
+}
+.genre-btn-wrap .sortbtn {
+  flex: 1;
+  min-width: 0;
 }
 .genre-popup {
   position: absolute;
@@ -320,14 +335,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     padding: .45rem .65rem;
     font-size: .75rem;
   }
-  .sortbar {
-    flex-wrap: nowrap;
-    justify-content: center;
-  }
   .sortbtn {
-    font-size: .85rem;
-    padding: .5rem .6rem;
-    gap: .3rem;
+    padding: .5rem .35rem;
+    gap: .25rem;
+    font-size: clamp(0.68rem, 3.2vw, 0.9rem);
   }
   .arrows {
     font-size: .5rem;

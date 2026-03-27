@@ -18,6 +18,13 @@ Write-Log "Starting startup_sync"
 $pythonExe = (& py -3.12 -c "import sys; print(sys.executable)" 2>$null).Trim()
 if (-not $pythonExe) { $pythonExe = "python" }
 
+& $pythonExe (Join-Path $scriptDir "refresh_local_cache.py")
+if ($LASTEXITCODE -ne 0) {
+  Write-Log "Local cache refresh failed with exit code $LASTEXITCODE"
+  exit $LASTEXITCODE
+}
+Write-Log "Local cache refresh completed"
+
 & $pythonExe (Join-Path $scriptDir "export_watchlist.py")
 if ($LASTEXITCODE -ne 0) {
   Write-Log "Export failed with exit code $LASTEXITCODE"

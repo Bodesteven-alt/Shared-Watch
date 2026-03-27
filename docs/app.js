@@ -94,6 +94,12 @@
   let sortField = "title";
   let sortDir = "asc";
 
+  function formatGenreButtonLabel(genre) {
+    if (genre === "all") return "Genre";
+    const s = String(genre);
+    return s.length > 3 ? `${s.slice(0, 3)}...` : s;
+  }
+
   function updateSortUi() {
     sortTitleBtn.classList.toggle("active", sortField === "title");
     sortYearBtn.classList.toggle("active", sortField === "year");
@@ -110,8 +116,8 @@
       (sortDir === "asc" ? sortRatingUp : sortRatingDown).classList.add("active");
     }
 
-    // Update genre button text
-    genreBtn.textContent = selectedGenre === "all" ? "Genre" : selectedGenre;
+    genreBtn.textContent = formatGenreButtonLabel(selectedGenre);
+    genreBtn.title = selectedGenre === "all" ? "Filter by genre" : selectedGenre;
     genreBtn.classList.toggle("active", selectedGenre !== "all");
   }
 

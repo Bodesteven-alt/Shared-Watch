@@ -12,7 +12,8 @@ This project supports a static GitHub Pages frontend (`docs/`) fed by your local
 - `docs/` static frontend for GitHub Pages
 - `docs/data/watchlist.json` generated data file
 - `scripts/export_watchlist.py` converts local cache to Pages JSON
-- `scripts/startup_sync.ps1` export + commit-if-changed + push
+- `scripts/refresh_local_cache.py` one-shot fetch (Letterboxd + IMDb) into `data/cache.json`
+- `scripts/startup_sync.ps1` refresh cache + export + commit-if-changed + push
 - `scripts/setup_startup_task.ps1` creates Task Scheduler job
 
 ## 1) Export static JSON
@@ -73,15 +74,24 @@ This task runs at logon and executes:
 
 That script:
 
-1. Exports `docs/data/watchlist.json`
-2. Stages file
-3. Commits only if changed
-4. Pushes to GitHub
+1. Runs `refresh_local_cache.py` (scrapes both lists and updates `data/cache.json`)
+2. Exports `docs/data/watchlist.json`
+3. Stages the file
+4. Commits only if changed
+5. Pushes to GitHub
 
 Logs: `scripts/logs/startup_sync.log`
 
+### Troubleshooting startup sync
+
+- Confirm the task exists: `schtasks /Query /TN WatchlistGitHubPagesSync`
+- Read the log: `scripts/logs/startup_sync.log` (look for Python or git errors)
+- At logon, `py -3.12` must resolve (Windows Launcher). If not, install Python 3.12 or change `startup_sync.ps1` to use a full path to `python.exe`
+- IMDb uses Selenium; if refresh fails right after logon, try adding a short delay in Task Scheduler (task Properties → Triggers → Delay task for) so the desktop and browser drivers are ready
+
 ## Verification checklist
 
+- `python .\scripts\refresh_local_cache.py` updates `data\cache.json` from the live lists
 - `python .\scripts\export_watchlist.py` updates `docs/data/watchlist.json`
 - Opening `docs/index.html` locally renders data
 - Startup sync script commits only when JSON changes
