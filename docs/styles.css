@@ -11,7 +11,7 @@
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  font-family: "Segoe UI", system-ui, sans-serif;
+  font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
   background: 
     radial-gradient(circle at 10% -10%, rgba(255, 113, 206, 0.25), transparent 40%),
     radial-gradient(circle at 90% 100%, rgba(1, 205, 254, 0.2), transparent 40%),
@@ -20,13 +20,22 @@ body {
 }
 .wrap { max-width: 1080px; margin: 0 auto; padding: 1.2rem; }
 .top { text-align: center; margin-bottom: .5rem; }
-/* Title gradient animated via JS (rAF); width follows main column, not raw vw */
+.top-cluster {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+}
+/* Title width synced to #sourceFiltersRow via small script in index.html */
 .top .top-title {
   display: block;
-  margin: 0 auto;
-  padding: .55rem 1.25rem;
+  margin: 0;
+  padding: .55rem 1.1rem;
   max-width: 100%;
-  width: min(100%, 22rem);
+  width: auto;
   border: 2px solid var(--cyan);
   border-radius: 50px;
   box-shadow: 
@@ -190,18 +199,22 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   justify-content: center;
   gap: .6rem;
-  margin: 1rem 0;
+  margin: 0;
   flex-wrap: nowrap;
+  width: fit-content;
+  max-width: 100%;
 }
 .srcbtn {
-  padding: .55rem 1.1rem;
+  padding: .58rem 1.15rem;
   border-radius: 25px;
   border: 1px solid var(--line);
   background: transparent;
   color: var(--muted);
   cursor: pointer;
   transition: all 0.2s;
-  font-size: .9rem;
+  font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 500;
   flex-shrink: 0;
   -webkit-tap-highlight-color: transparent;
 }
@@ -339,8 +352,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     gap: .4rem;
   }
   .srcbtn {
-    padding: .45rem .65rem;
-    font-size: .75rem;
+    padding: .48rem .7rem;
+    font-size: .84rem;
   }
   .sortbtn {
     padding: .5rem .35rem;
@@ -362,8 +375,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     height: 105px;
   }
   .top .top-title {
-    padding: .45rem .85rem;
-    width: min(100%, 19rem);
+    padding: .45rem .75rem;
+  }
+  .top-cluster {
+    gap: .55rem;
   }
   .outlinks {
     gap: .8rem;

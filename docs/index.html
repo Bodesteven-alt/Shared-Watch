@@ -4,45 +4,49 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Our Watch List</title>
-  <link rel="stylesheet" href="./styles.css?v=14">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css?v=15">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
-      <h1 class="top-title">
-        <svg class="top-title__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 44" role="img" aria-labelledby="topTitleSvgLabel">
-          <title id="topTitleSvgLabel">Our Watch List</title>
-          <defs>
-            <linearGradient id="watchlistTitleGrad" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#ff71ce"/>
-              <stop offset="30%" stop-color="#01cdfe"/>
-              <stop offset="60%" stop-color="#b967ff"/>
-              <stop offset="100%" stop-color="#ff71ce"/>
-            </linearGradient>
-          </defs>
-          <text
-            x="220"
-            y="32"
-            text-anchor="middle"
-            font-family="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"
-            font-size="26"
-            font-weight="600"
-            fill="url(#watchlistTitleGrad)">Our Watch List</text>
-        </svg>
-      </h1>
+      <div class="top-cluster">
+        <h1 class="top-title">
+          <svg class="top-title__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 50" role="img" aria-labelledby="topTitleSvgLabel">
+            <title id="topTitleSvgLabel">Our Watch List</title>
+            <defs>
+              <linearGradient id="watchlistTitleGrad" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#ff71ce"/>
+                <stop offset="30%" stop-color="#01cdfe"/>
+                <stop offset="60%" stop-color="#b967ff"/>
+                <stop offset="100%" stop-color="#ff71ce"/>
+              </linearGradient>
+            </defs>
+            <text
+              x="220"
+              y="36"
+              text-anchor="middle"
+              font-family="Fredoka, system-ui, sans-serif"
+              font-size="31"
+              font-weight="600"
+              fill="url(#watchlistTitleGrad)">Our Watch List</text>
+          </svg>
+        </h1>
+        <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
+          <button id="filterLb" class="srcbtn active" data-source="letterboxd">
+            <span class="count" id="countLb">0</span> Letterboxd
+          </button>
+          <button id="filterBoth" class="srcbtn active" data-source="both">
+            <span class="count" id="countBoth">0</span> Both
+          </button>
+          <button id="filterImdb" class="srcbtn active" data-source="imdb">
+            <span class="count" id="countImdb">0</span> IMDb
+          </button>
+        </section>
+      </div>
     </header>
-
-    <section class="source-filters">
-      <button id="filterLb" class="srcbtn active" data-source="letterboxd">
-        <span class="count" id="countLb">0</span> Letterboxd
-      </button>
-      <button id="filterBoth" class="srcbtn active" data-source="both">
-        <span class="count" id="countBoth">0</span> Both
-      </button>
-      <button id="filterImdb" class="srcbtn active" data-source="imdb">
-        <span class="count" id="countImdb">0</span> IMDb
-      </button>
-    </section>
 
     <div class="outlinks">
       <a href="https://letterboxd.com/miscalim/watchlist/" target="_blank" class="outlink">View Letterboxd List ↗</a>
@@ -107,6 +111,28 @@
       requestAnimationFrame(tick);
     })();
   </script>
-  <script src="./app.js?v=14"></script>
+  <script>
+    (function syncTitleWidthToFilters() {
+      var row = document.getElementById("sourceFiltersRow");
+      var title = document.querySelector(".top-title");
+      var cluster = document.querySelector(".top-cluster");
+      if (!row || !title) return;
+      function apply() {
+        var w = row.offsetWidth;
+        var cap = cluster ? cluster.getBoundingClientRect().width : window.innerWidth;
+        if (w > 0) title.style.width = Math.min(w, cap) + "px";
+      }
+      apply();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(apply);
+      }
+      if (typeof ResizeObserver !== "undefined") {
+        new ResizeObserver(apply).observe(row);
+        if (cluster) new ResizeObserver(apply).observe(cluster);
+      }
+      window.addEventListener("resize", apply);
+    })();
+  </script>
+  <script src="./app.js?v=16"></script>
 </body>
 </html>

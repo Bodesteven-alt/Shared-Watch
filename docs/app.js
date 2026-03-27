@@ -100,7 +100,7 @@
     if (genre === "all") return "Genre";
     const s = String(genre);
     if (!genreTruncateMq.matches) return s;
-    return s.length > 3 ? `${s.slice(0, 3)}...` : s;
+    return s.length > 4 ? `${s.slice(0, 4)}...` : s;
   }
 
   function updateSortUi() {
