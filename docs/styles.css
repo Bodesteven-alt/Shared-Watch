@@ -49,11 +49,24 @@ body {
   0% { background-position: 0% center; }
   100% { background-position: 100% center; }
 }
+/* iOS/Android WebKit often paints no text when animating background + text clip */
+@media (max-width: 896px), ((hover: none) and (pointer: coarse)) {
+  .top h1 {
+    animation: none;
+    background-color: transparent;
+    background-image: linear-gradient(135deg, var(--acc), var(--cyan));
+    background-size: 100% auto;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .top h1 {
     animation: none;
-    background: linear-gradient(135deg, var(--acc), var(--cyan));
-    background-size: 100% 100%;
+    background-color: transparent;
+    background-image: linear-gradient(135deg, var(--acc), var(--cyan));
+    background-size: 100% auto;
+    background-position: 0 0;
   }
 }
 .muted { color: var(--muted); }
