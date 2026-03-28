@@ -2,7 +2,9 @@
 (async function init() {
   const gridEl = document.getElementById("grid");
   const emptyEl = document.getElementById("empty");
-  const updatedAtEl = document.getElementById("updatedAt");
+  const updatedDateEl = document.getElementById("updatedDate");
+  const updatedRelEl = document.getElementById("updatedRel");
+  const updatedSepEl = document.getElementById("updatedSep");
 
   const filterLb = document.getElementById("filterLb");
   const filterBoth = document.getElementById("filterBoth");
@@ -24,16 +26,89 @@
   const genreBtn = document.getElementById("genreBtn");
   const genrePopup = document.getElementById("genrePopup");
 
+  const SOURCE_KEYS = ["letterboxd", "both", "imdb"];
+  const filterBySource = { letterboxd: filterLb, both: filterBoth, imdb: filterImdb };
+
+  let dataUpdatedAtMs = null;
+
+  function relativePhrase(targetMs) {
+    const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
+    const diffSec = Math.round((targetMs - Date.now()) / 1000);
+    const a = Math.abs(diffSec);
+    if (a < 45) return rtf.format(0, "second");
+    if (a < 3600) return rtf.format(Math.round(diffSec / 60), "minute");
+    if (a < 86400) return rtf.format(Math.round(diffSec / 3600), "hour");
+    if (a < 604800) return rtf.format(Math.round(diffSec / 86400), "day");
+    if (a < 2629800) return rtf.format(Math.round(diffSec / 604800), "week");
+    if (a < 31557600 * 2) return rtf.format(Math.round(diffSec / 2629800), "month");
+    return rtf.format(Math.round(diffSec / 31557600), "year");
+  }
+
+  function updateFooterDates() {
+    if (!dataUpdatedAtMs || !updatedDateEl) return;
+    const d = new Date(dataUpdatedAtMs);
+    updatedDateEl.textContent = d.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+    if (updatedRelEl && updatedSepEl) {
+      updatedRelEl.textContent = `Updated ${relativePhrase(dataUpdatedAtMs)}`;
+      updatedRelEl.hidden = false;
+      updatedSepEl.hidden = false;
+    }
+  }
+
+  function clearLoadingState() {
+    gridEl.classList.remove("grid--loading");
+    gridEl.removeAttribute("aria-busy");
+  }
+
+  function failLoad(message) {
+    clearLoadingState();
+    gridEl.innerHTML = "";
+    if (updatedDateEl) updatedDateEl.textContent = message;
+    if (updatedRelEl) {
+      updatedRelEl.textContent = "";
+      updatedRelEl.hidden = true;
+    }
+    if (updatedSepEl) updatedSepEl.hidden = true;
+  }
+
   const res = await fetch("./data/watchlist.json", { cache: "no-store" });
   if (!res.ok) {
-    updatedAtEl.textContent = "Failed to load";
+    failLoad("Failed to load list.");
     return;
   }
-  const data = await res.json();
+  let data;
+  try {
+    data = await res.json();
+  } catch {
+    failLoad("Invalid list data.");
+    return;
+  }
   const movies = Array.isArray(data.movies) ? data.movies : [];
 
-  // Count movies by source
-  let lbCount = 0, bothCount = 0, imdbCount = 0;
+  if (data.updated_at) {
+    dataUpdatedAtMs = new Date(data.updated_at).getTime();
+    if (!Number.isFinite(dataUpdatedAtMs)) dataUpdatedAtMs = null;
+  }
+
+  if (dataUpdatedAtMs) {
+    updateFooterDates();
+  } else if (updatedDateEl) {
+    updatedDateEl.textContent = "Unknown date";
+    if (updatedRelEl) updatedRelEl.hidden = true;
+    if (updatedSepEl) updatedSepEl.hidden = true;
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") updateFooterDates();
+  });
+
+  let lbCount = 0;
+  let bothCount = 0;
+  let imdbCount = 0;
   for (const m of movies) {
     if (m.source === "letterboxd") lbCount++;
     else if (m.source === "both") bothCount++;
@@ -43,26 +118,136 @@
   countBoth.textContent = bothCount;
   countImdb.textContent = imdbCount;
 
-  // Collect all genres
   const allGenres = new Set();
   for (const m of movies) {
-    for (const g of (m.genres || [])) allGenres.add(String(g));
+    for (const g of m.genres || []) allGenres.add(String(g));
   }
   const sortedGenres = [...allGenres].sort((a, b) => a.localeCompare(b));
 
-  // Build genre popup
-  genrePopup.innerHTML = `<button class="genre-option active" data-genre="all">All Genres</button>` +
-    sortedGenres.map(g => `<button class="genre-option" data-genre="${g}">${g}</button>`).join("");
+  function escapeAttr(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;");
+  }
+
+  genrePopup.innerHTML =
+    `<button type="button" class="genre-option active" data-genre="all" role="option" aria-selected="true">All Genres</button>` +
+    sortedGenres
+      .map(
+        (g) =>
+          `<button type="button" class="genre-option" data-genre="${escapeAttr(g)}" role="option" aria-selected="false">${escapeAttr(g)}</button>`,
+      )
+      .join("");
 
   let selectedGenre = "all";
+  let sortField = "title";
+  let sortDir = "asc";
 
-  // Format date
-  if (data.updated_at) {
-    const d = new Date(data.updated_at);
-    updatedAtEl.textContent = d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-  } else {
-    updatedAtEl.textContent = "Unknown date";
+  const genreTruncateMq = window.matchMedia("(max-width: 640px)");
+
+  function isGenreOpen() {
+    return !genrePopup.classList.contains("hidden");
   }
+
+  function setGenreOpen(open, opts) {
+    const focusFirstOption = opts && opts.focusFirstOption;
+    const focusButtonOnClose = opts && opts.focusButtonOnClose;
+    genrePopup.classList.toggle("hidden", !open);
+    genreBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && focusFirstOption) {
+      const first = genrePopup.querySelector(".genre-option");
+      if (first) first.focus();
+    }
+    if (!open && focusButtonOnClose) {
+      genreBtn.focus({ preventScroll: true });
+    }
+  }
+
+  function syncGenreAriaSelected() {
+    genrePopup.querySelectorAll(".genre-option").forEach((el) => {
+      const on = el.dataset.genre === selectedGenre;
+      el.classList.toggle("active", on);
+      el.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  }
+
+  function allSourcesActive() {
+    return filterLb.classList.contains("active") &&
+      filterBoth.classList.contains("active") &&
+      filterImdb.classList.contains("active");
+  }
+
+  function isDefaultState() {
+    return (
+      selectedGenre === "all" &&
+      sortField === "title" &&
+      sortDir === "asc" &&
+      allSourcesActive()
+    );
+  }
+
+  function applyUrlState() {
+    const params = new URLSearchParams(window.location.search);
+    const srcRaw = params.get("src");
+    if (srcRaw !== null && srcRaw !== "") {
+      const want = new Set(
+        srcRaw
+          .split(",")
+          .map((s) => s.trim().toLowerCase())
+          .filter((s) => SOURCE_KEYS.includes(s)),
+      );
+      if (want.size > 0) {
+        for (const key of SOURCE_KEYS) {
+          filterBySource[key].classList.toggle("active", want.has(key));
+        }
+      }
+    }
+
+    const gRaw = params.get("genre");
+    if (gRaw) {
+      const decoded = decodeURIComponent(gRaw.trim());
+      if (decoded === "all" || decoded === "") {
+        selectedGenre = "all";
+      } else if (sortedGenres.includes(decoded)) {
+        selectedGenre = decoded;
+      }
+    }
+
+    const s = params.get("sort");
+    if (s === "title" || s === "year" || s === "rating") sortField = s;
+    const d = params.get("dir");
+    if (d === "asc" || d === "desc") sortDir = d;
+  }
+
+  function syncUrl() {
+    if (isDefaultState()) {
+      const url = `${window.location.pathname}${window.location.hash}`;
+      if (window.location.search) {
+        history.replaceState(null, "", url);
+      }
+      return;
+    }
+    const p = new URLSearchParams();
+    if (!allSourcesActive()) {
+      const active = [];
+      if (filterLb.classList.contains("active")) active.push("letterboxd");
+      if (filterBoth.classList.contains("active")) active.push("both");
+      if (filterImdb.classList.contains("active")) active.push("imdb");
+      if (active.length) p.set("src", active.join(","));
+    }
+    if (selectedGenre !== "all") p.set("genre", selectedGenre);
+    if (sortField !== "title" || sortDir !== "asc") {
+      p.set("sort", sortField);
+      p.set("dir", sortDir);
+    }
+    const qs = p.toString();
+    const url = qs ? `${window.location.pathname}?${qs}${window.location.hash}` : `${window.location.pathname}${window.location.hash}`;
+    history.replaceState(null, "", url);
+  }
+
+  applyUrlState();
+  syncGenreAriaSelected();
 
   function sourceBadge(m) {
     if (m.source === "both") return '<span class="badge both">Both</span>';
@@ -73,7 +258,8 @@
   function starRating(avg5) {
     if (avg5 == null || Number.isNaN(Number(avg5))) return "";
     const rating = Math.max(0, Math.min(5, Number(avg5)));
-    const starPath = "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
+    const starPath =
+      "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
     let html = '<div class="stars">';
     for (let i = 0; i < 5; i++) {
       const fill = Math.max(0, Math.min(1, rating - i));
@@ -87,14 +273,9 @@
           </svg>
         </span>`;
     }
-    html += '</div>';
+    html += "</div>";
     return html;
   }
-
-  let sortField = "title";
-  let sortDir = "asc";
-
-  const genreTruncateMq = window.matchMedia("(max-width: 640px)");
 
   function formatGenreButtonLabel(genre) {
     if (genre === "all") return "Genre";
@@ -108,8 +289,9 @@
     sortYearBtn.classList.toggle("active", sortField === "year");
     sortRatingBtn.classList.toggle("active", sortField === "rating");
 
-    [sortTitleUp, sortTitleDown, sortYearUp, sortYearDown, sortRatingUp, sortRatingDown]
-      .forEach(el => el.classList.remove("active"));
+    [sortTitleUp, sortTitleDown, sortYearUp, sortYearDown, sortRatingUp, sortRatingDown].forEach((el) =>
+      el.classList.remove("active"),
+    );
 
     if (sortField === "title") {
       (sortDir === "asc" ? sortTitleUp : sortTitleDown).classList.add("active");
@@ -157,7 +339,7 @@
 
     let rows = movies.filter((m) => {
       if (activeSources.length === 0 || activeSources.length === 3) {
-        // show all
+        /* show all */
       } else if (!activeSources.includes(m.source)) {
         return false;
       }
@@ -172,10 +354,13 @@
     if (!rows.length) {
       gridEl.innerHTML = "";
       emptyEl.classList.remove("hidden");
+      syncUrl();
       return;
     }
     emptyEl.classList.add("hidden");
-    gridEl.innerHTML = rows.map((m) => `
+    gridEl.innerHTML = rows
+      .map(
+        (m) => `
       <article class="card">
         <div class="poster">
           ${m.poster_url ? `<img src="${m.poster_url}" alt="${m.title} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
@@ -189,11 +374,17 @@
           </div>
         </div>
       </article>
-    `).join("");
+    `,
+      )
+      .join("");
+    syncUrl();
   }
 
-  // Source filter toggle handlers
-  [filterLb, filterBoth, filterImdb].forEach(btn => {
+  clearLoadingState();
+  updateSortUi();
+  render();
+
+  [filterLb, filterBoth, filterImdb].forEach((btn) => {
     btn.addEventListener("click", () => {
       btn.classList.toggle("active");
       btn.blur();
@@ -201,47 +392,67 @@
     });
   });
 
-  // Genre popup toggle
   genreBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    genrePopup.classList.toggle("hidden");
+    const next = !isGenreOpen();
+    setGenreOpen(next, {});
   });
 
-  // Genre selection
+  genreBtn.addEventListener("keydown", (e) => {
+    if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      const next = !isGenreOpen();
+      setGenreOpen(next, { focusFirstOption: next });
+    }
+  });
+
   genrePopup.addEventListener("click", (e) => {
     const opt = e.target.closest(".genre-option");
     if (!opt) return;
     selectedGenre = opt.dataset.genre;
-    genrePopup.querySelectorAll(".genre-option").forEach(el => el.classList.remove("active"));
-    opt.classList.add("active");
-    genrePopup.classList.add("hidden");
+    syncGenreAriaSelected();
+    setGenreOpen(false, {});
     updateSortUi();
     render();
   });
 
-  // Close popup when clicking outside
   document.addEventListener("click", (e) => {
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
-      genrePopup.classList.add("hidden");
+      if (isGenreOpen()) setGenreOpen(false, {});
     }
   });
 
-  // Sort button handlers
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isGenreOpen()) {
+      e.preventDefault();
+      setGenreOpen(false, { focusButtonOnClose: true });
+    }
+  });
+
   sortTitleBtn.addEventListener("click", () => {
     if (sortField === "title") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else { sortField = "title"; sortDir = "asc"; }
+    else {
+      sortField = "title";
+      sortDir = "asc";
+    }
     updateSortUi();
     render();
   });
   sortYearBtn.addEventListener("click", () => {
     if (sortField === "year") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else { sortField = "year"; sortDir = "desc"; }
+    else {
+      sortField = "year";
+      sortDir = "desc";
+    }
     updateSortUi();
     render();
   });
   sortRatingBtn.addEventListener("click", () => {
     if (sortField === "rating") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else { sortField = "rating"; sortDir = "desc"; }
+    else {
+      sortField = "rating";
+      sortDir = "desc";
+    }
     updateSortUi();
     render();
   });
@@ -254,7 +465,4 @@
   } else {
     genreTruncateMq.addListener(onGenreTruncateMqChange);
   }
-
-  updateSortUi();
-  render();
 })();

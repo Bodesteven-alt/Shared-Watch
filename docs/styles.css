@@ -3,7 +3,7 @@
   --surface: #16213e;
   --line: #4a2c7a;
   --text: #fff;
-  --muted: #b794c0;
+  --muted: #d4c4e8;
   --acc: #ff71ce;
   --cyan: #01cdfe;
   --purple: #b967ff;
@@ -361,6 +361,121 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   fill: var(--cyan);
 }
 
+.card-skeleton {
+  pointer-events: none;
+}
+.card-skeleton__poster {
+  width: 56px;
+  min-width: 56px;
+  height: 84px;
+  border-radius: 8px;
+  background: rgba(42, 26, 74, 0.9);
+  border: 1px solid var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.card-skeleton__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+  justify-content: center;
+}
+.card-skeleton__line {
+  height: .72rem;
+  border-radius: 6px;
+  background: rgba(42, 26, 74, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+.card-skeleton__line--title { width: 88%; }
+.card-skeleton__line--meta { width: 62%; height: .58rem; }
+.card-skeleton__row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-top: .15rem;
+}
+.card-skeleton__stars {
+  width: 72px;
+  height: 14px;
+  border-radius: 4px;
+  background: rgba(42, 26, 74, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+.card-skeleton__pill {
+  width: 48px;
+  height: 18px;
+  border-radius: 999px;
+  background: rgba(42, 26, 74, 0.85);
+  position: relative;
+  overflow: hidden;
+}
+.card-skeleton__poster::after,
+.card-skeleton__line::after,
+.card-skeleton__stars::after,
+.card-skeleton__pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .card-skeleton__poster::after,
+  .card-skeleton__line::after,
+  .card-skeleton__stars::after,
+  .card-skeleton__pill::after {
+    animation: none;
+    background: transparent;
+  }
+}
+@keyframes skeleton-shimmer {
+  0% { background-position: 100% 0; }
+  100% { background-position: -100% 0; }
+}
+
+.sortbtn:focus {
+  outline: none;
+}
+.sortbtn:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+.genre-option:focus {
+  outline: none;
+}
+.genre-option:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 1px;
+}
+.outlink:focus {
+  outline: none;
+}
+.outlink:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.footer-updated {
+  margin: .3rem 0;
+}
+.footer-updated__rel {
+  color: var(--muted);
+}
+.footer-updated__sep {
+  color: var(--muted);
+}
+
 @media (max-width: 600px) {
   .source-filters {
     gap: .4rem;
@@ -384,6 +499,11 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     padding: .7rem;
   }
   .poster {
+    width: 70px;
+    min-width: 70px;
+    height: 105px;
+  }
+  .card-skeleton__poster {
     width: 70px;
     min-width: 70px;
     height: 105px;

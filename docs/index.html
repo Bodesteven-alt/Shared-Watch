@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=17">
+  <link rel="stylesheet" href="./styles.css?v=18">
 </head>
 <body>
   <main class="wrap">
@@ -62,8 +62,8 @@
         </span>
       </button>
       <div class="genre-btn-wrap">
-        <button id="genreBtn" type="button" class="sortbtn">Genre</button>
-        <div id="genrePopup" class="genre-popup hidden"></div>
+        <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genrePopup">Genre</button>
+        <div id="genrePopup" class="genre-popup hidden" role="listbox" aria-label="Genres"></div>
       </div>
       <button id="sortYearBtn" type="button" class="sortbtn">
         Year
@@ -81,12 +81,24 @@
       </button>
     </section>
 
-    <section id="grid" class="grid"></section>
+    <section id="grid" class="grid grid--loading" aria-busy="true" aria-label="Movie list">
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+      <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
+    </section>
     <p id="empty" class="empty hidden">No movies match your filters.</p>
   </main>
 
   <footer class="footer">
-    <p id="updatedAt">Loading...</p>
+    <p class="footer-updated" id="updatedAtWrap">
+      <span id="updatedDate">Loading…</span>
+      <span class="footer-updated__sep" id="updatedSep" hidden> — </span>
+      <span id="updatedRel" class="footer-updated__rel" hidden></span>
+    </p>
     <p class="footer-tagline">Made with love. By Steven Bode</p>
   </footer>
 
@@ -133,6 +145,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=17"></script>
+  <script src="./app.js?v=18"></script>
 </body>
 </html>
