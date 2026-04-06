@@ -1,12 +1,12 @@
 {
-  "updated_at": "2026-03-26T22:52:33.346959+00:00",
+  "updated_at": "2026-04-06T22:39:05.233859+00:00",
   "stats": {
-    "total": 318,
-    "both": 9,
-    "letterboxd_only": 78,
-    "imdb_only": 231,
-    "posters_resolved": 269,
-    "metadata_with_year": 318,
+    "total": 319,
+    "both": 8,
+    "letterboxd_only": 79,
+    "imdb_only": 232,
+    "posters_resolved": 270,
+    "metadata_with_year": 319,
     "metadata_with_genres": 253,
     "metadata_with_rating": 248
   },
@@ -43,7 +43,7 @@
     {
       "title": "28 Years Later: The Bone Temple",
       "poster_url": "https://image.tmdb.org/t/p/w185/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg",
-      "source": "both",
+      "source": "imdb",
       "imdb_id": "tt32141377",
       "year": 2024,
       "genres": [
@@ -3075,6 +3075,18 @@
       "rating_imdb_10": 6.91,
       "rating_letterboxd_5": null,
       "rating_avg_5": 3.45,
+      "content_type": null
+    },
+    {
+      "title": "Swingers",
+      "poster_url": "https://image.tmdb.org/t/p/w185/cEIVkvx6mGSjnkOxlXh6eHd1Y4K.jpg",
+      "source": "letterboxd",
+      "imdb_id": "tt0117802",
+      "year": 1996,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_letterboxd_5": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
