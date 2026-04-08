@@ -13,6 +13,7 @@ from flask import Flask, redirect, render_template, request, url_for
 import config
 import posters
 import scrape
+import streaming
 
 app = Flask(__name__)
 log = logging.getLogger("watchlist")
@@ -36,6 +37,7 @@ def _load_cache() -> dict:
             "rows": [],
             "stats": {},
             "poster_stats": {},
+            "streaming_stats": {},
             "log": [],
             "letterboxd_error": None,
             "imdb_error": None,
@@ -52,6 +54,7 @@ def _load_cache() -> dict:
             "rows": [],
             "stats": {},
             "poster_stats": {},
+            "streaming_stats": {},
             "log": [],
             "letterboxd_error": None,
             "imdb_error": None,
@@ -88,6 +91,7 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
 
     rows, stats = scrape.merge_watchlists(lb, im, imdb_items=im_items)
     rows, poster_stats = posters.enrich_rows_with_posters(rows, log=append)
+    rows, streaming_stats = streaming.enrich_rows_with_streaming(rows, log=append)
 
     payload = {
         "updated_at": _utc_now_iso(),
@@ -97,6 +101,7 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
         "rows": rows,
         "stats": stats,
         "poster_stats": poster_stats,
+        "streaming_stats": streaming_stats,
         "log": log_lines[-200:],
         "letterboxd_error": lb_err,
         "imdb_error": im_err,
@@ -158,11 +163,31 @@ def _start_background_jobs() -> None:
 @app.route("/", methods=["GET"])
 def index():
     cache = _load_cache()
-    filter_q = (request.args.get("q") or "").strip().lower()
+    owned_profile = config.load_owned_streaming_profile()
+    stream_region = (owned_profile.get("region") or "US").upper()
+    owned_providers = owned_profile.get("providers") or []
+    all_owned_ids = [p["id"] for p in owned_providers]
+
+    filter_q_raw = (request.args.get("q") or "").strip()
+    filter_q = filter_q_raw.lower()
     sort = request.args.get("sort") or "title"
     source = request.args.get("source") or "all"
+    streamable = request.args.get("streamable") == "1"
+
+    req_sp_raw = request.args.getlist("sp")
+    if not req_sp_raw:
+        selected_sp = list(all_owned_ids)
+    else:
+        selected_sp = [int(x) for x in req_sp_raw if str(x).isdigit()]
+        selected_sp = [x for x in selected_sp if not all_owned_ids or x in all_owned_ids]
 
     all_rows = cache.get("rows") or []
+    available_now_count = streaming.count_streamable_flatrate(
+        all_rows,
+        region=stream_region,
+        selected_provider_ids=selected_sp,
+    )
+
     rows = list(all_rows)
     if source == "both":
         rows = [r for r in rows if r.get("letterboxd") and r.get("imdb")]
@@ -173,6 +198,17 @@ def index():
 
     if filter_q:
         rows = [r for r in rows if filter_q in (r.get("display") or "").lower()]
+
+    if streamable and selected_sp:
+        rows = [
+            r
+            for r in rows
+            if streaming.row_matches_streamable_flatrate(
+                r,
+                region=stream_region,
+                selected_provider_ids=selected_sp,
+            )
+        ]
 
     if sort == "source":
         rows = sorted(
@@ -195,12 +231,13 @@ def index():
         rows=rows,
         stats=cache.get("stats") or {},
         poster_stats=cache.get("poster_stats") or {},
+        streaming_stats=cache.get("streaming_stats") or {},
         filtered_stats=filtered_stats,
         updated_at=cache.get("updated_at"),
         log_lines=cache.get("log") or [],
         letterboxd_error=cache.get("letterboxd_error"),
         imdb_error=cache.get("imdb_error"),
-        filter_q=request.args.get("q") or "",
+        filter_q=filter_q_raw,
         sort=sort,
         source=source,
         letterboxd_url=config.LETTERBOXD_WATCHLIST_URL,
@@ -209,6 +246,12 @@ def index():
         auto_refresh_minutes=config.AUTO_REFRESH_MINUTES,
         auto_refresh_on_start=config.AUTO_REFRESH_ON_START,
         posters_enabled=bool(config.TMDB_API_KEY),
+        owned_providers=owned_providers,
+        stream_region=stream_region,
+        selected_sp=selected_sp,
+        streamable=streamable,
+        available_now_count=available_now_count,
+        has_streaming_profile=bool(owned_providers),
     )
 
 

@@ -6,4 +6,6 @@ data/imdb_ids.json
 data/imdb_metadata_cache.json
 data/omdb_api_key.txt
 data/tmdb_api_key.txt
+data/owned_streaming_services.json
+data/tmdb_watch_providers_cache.json
 scripts/logs/

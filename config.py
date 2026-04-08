@@ -1,4 +1,5 @@
 """Defaults match the watchlists from your notes; override with environment variables."""
+import json
 import os
 
 
@@ -45,6 +46,18 @@ _data_dir = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.absp
 CACHE_PATH = os.path.join(_data_dir, "cache.json")
 POSTER_CACHE_PATH = os.path.join(_data_dir, "posters.json")
 IMDB_ID_CACHE_PATH = os.path.join(_data_dir, "imdb_ids.json")
+TMDB_WATCH_PROVIDERS_CACHE_PATH = os.path.join(
+    _data_dir,
+    os.environ.get("TMDB_WATCH_PROVIDERS_CACHE_FILE", "tmdb_watch_providers_cache.json"),
+)
+OWNED_STREAMING_SERVICES_PATH = os.path.join(
+    _data_dir,
+    os.environ.get("OWNED_STREAMING_SERVICES_FILE", "owned_streaming_services.json"),
+)
+# Max TMDb watch-provider API calls per refresh (remaining rows reuse disk cache only).
+STREAMING_MAX_NETWORK_LOOKUPS = int(os.environ.get("STREAMING_MAX_NETWORK_LOOKUPS", "200") or "200")
+# Drop cache entries older than this many days (0 = never expire by age).
+STREAMING_CACHE_MAX_AGE_DAYS = int(os.environ.get("STREAMING_CACHE_MAX_AGE_DAYS", "14") or "0")
 
 
 def _load_tmdb_api_key() -> str:
@@ -72,3 +85,47 @@ def _load_tmdb_api_key() -> str:
 TMDB_API_KEY = _load_tmdb_api_key()
 TMDB_IMAGE_BASE = os.environ.get("TMDB_IMAGE_BASE", "https://image.tmdb.org/t/p/w185")
 POSTER_MAX_NETWORK_LOOKUPS = int(os.environ.get("POSTER_MAX_NETWORK_LOOKUPS", "120"))
+
+
+def load_owned_streaming_profile() -> dict:
+    """
+    Local streaming profile: region (e.g. US) and providers you subscribe to.
+    TMDb provider_id is stable; optional label is for UI only.
+
+    Override with STREAMING_OWNED_PROVIDER_IDS=8,15 and optional STREAMING_REGION=US
+    """
+    region = (os.environ.get("STREAMING_REGION") or "US").strip().upper() or "US"
+    raw_ids = (os.environ.get("STREAMING_OWNED_PROVIDER_IDS") or "").strip()
+    if raw_ids:
+        providers: list[dict] = []
+        for part in raw_ids.split(","):
+            part = part.strip()
+            if part.isdigit():
+                pid = int(part)
+                providers.append({"id": pid, "label": part})
+        return {"region": region, "providers": providers}
+
+    path = os.environ.get("OWNED_STREAMING_PATH", OWNED_STREAMING_SERVICES_PATH)
+    if os.path.isfile(path):
+        try:
+            with open(path, encoding="utf-8") as f:
+                data = json.load(f)
+        except (OSError, json.JSONDecodeError):
+            return {"region": region, "providers": []}
+        if isinstance(data, dict):
+            r = (data.get("region") or region or "US").strip().upper()
+            out: list[dict] = []
+            for p in data.get("providers") or []:
+                if not isinstance(p, dict):
+                    continue
+                pid = p.get("id")
+                if pid is None:
+                    continue
+                try:
+                    pid_int = int(pid)
+                except (TypeError, ValueError):
+                    continue
+                label = (p.get("label") or str(pid_int)).strip()
+                out.append({"id": pid_int, "label": label})
+            return {"region": r, "providers": out}
+    return {"region": region, "providers": []}

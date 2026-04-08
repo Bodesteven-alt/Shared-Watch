@@ -270,6 +270,65 @@
       padding: 0.8rem;
       background: rgba(16, 26, 44, 0.6);
     }
+    .streaming-panel {
+      margin-bottom: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1rem 1.1rem;
+      background: rgba(16, 26, 44, 0.75);
+    }
+    .streaming-panel h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: var(--text);
+    }
+    .streaming-panel .hint {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0 0 0.75rem;
+    }
+    .svc-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .svc-row label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--text);
+      cursor: pointer;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0.35rem 0.75rem;
+      background: rgba(10, 17, 30, 0.55);
+    }
+    .svc-row input { accent-color: var(--accent); }
+    .streamable-line {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem 1rem;
+      margin-top: 0.5rem;
+    }
+    .streamable-line label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .avail-count {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin: 0.35rem 0 0;
+    }
+    .avail-count strong { color: var(--both); }
+    .filter-form-wrap { margin-bottom: 1rem; }
   </style>
 </head>
 <body>
@@ -303,29 +362,55 @@
         <div class="stat"><strong>{{ filtered_stats.get('filtered_total', 0) }}</strong><span>Shown now</span></div>
       </div>
 
-      <form method="get" action="{{ url_for('index') }}" class="toolbar">
-        <div class="search-wrap">
-          <input type="search" name="q" value="{{ filter_q }}" placeholder="Search movie title..." aria-label="Search">
-          <button type="submit" class="secondary">Apply</button>
+      <form method="get" action="{{ url_for('index') }}" class="filter-form-wrap">
+        <div class="toolbar">
+          <div class="search-wrap">
+            <input type="search" name="q" value="{{ filter_q }}" placeholder="Search movie title..." aria-label="Search">
+          </div>
+          <label>
+            Source
+            <select name="source">
+              <option value="all" {% if source == 'all' %}selected{% endif %}>All</option>
+              <option value="both" {% if source == 'both' %}selected{% endif %}>On both</option>
+              <option value="letterboxd" {% if source == 'letterboxd' %}selected{% endif %}>Letterboxd only</option>
+              <option value="imdb" {% if source == 'imdb' %}selected{% endif %}>IMDb only</option>
+            </select>
+          </label>
+          <label>
+            Sort
+            <select name="sort">
+              <option value="title" {% if sort == 'title' %}selected{% endif %}>A-Z</option>
+              <option value="source" {% if sort == 'source' %}selected{% endif %}>Both first</option>
+              <option value="recent" {% if sort == 'recent' %}selected{% endif %}>Newest fetched</option>
+            </select>
+          </label>
         </div>
-        <label>
-          Source
-          <select name="source">
-            <option value="all" {% if source == 'all' %}selected{% endif %}>All</option>
-            <option value="both" {% if source == 'both' %}selected{% endif %}>On both</option>
-            <option value="letterboxd" {% if source == 'letterboxd' %}selected{% endif %}>Letterboxd only</option>
-            <option value="imdb" {% if source == 'imdb' %}selected{% endif %}>IMDb only</option>
-          </select>
-        </label>
-        <label>
-          Sort
-          <select name="sort">
-            <option value="title" {% if sort == 'title' %}selected{% endif %}>A-Z</option>
-            <option value="source" {% if sort == 'source' %}selected{% endif %}>Both first</option>
-            <option value="recent" {% if sort == 'recent' %}selected{% endif %}>Newest fetched</option>
-          </select>
-        </label>
-        <button type="submit">Filter movies</button>
+
+        <div class="streaming-panel">
+          <h2>Services we currently have</h2>
+          {% if has_streaming_profile %}
+          <p class="hint">TMDb region <strong>{{ stream_region }}</strong> · flatrate = included with a subscription. Edit <code>data/owned_streaming_services.json</code> (see <code>owned_streaming_services.example.json</code>).</p>
+          <div class="svc-row">
+            {% for p in owned_providers %}
+            <label>
+              <input type="checkbox" name="sp" value="{{ p.id }}" {% if p.id in selected_sp %}checked{% endif %}>
+              {{ p.label }}
+            </label>
+            {% endfor %}
+          </div>
+          <div class="streamable-line">
+            <label>
+              <input type="checkbox" name="streamable" value="1" {% if streamable %}checked{% endif %}>
+              Only show streamable now
+            </label>
+          </div>
+          <p class="avail-count"><strong>{{ available_now_count }}</strong> movies available now on your selected services (watchlist titles with flatrate).</p>
+          {% else %}
+          <p class="hint">Add <code>data/owned_streaming_services.json</code> (copy from <code>data/owned_streaming_services.example.json</code>) or set <code>STREAMING_OWNED_PROVIDER_IDS</code> / <code>STREAMING_REGION</code>. Requires <code>TMDB_API_KEY</code> and a refresh to load provider data.</p>
+          {% endif %}
+        </div>
+
+        <button type="submit">Apply filters</button>
       </form>
 
       <div class="chips">
@@ -349,6 +434,9 @@
         IMDb {{ poster_stats.get('resolved_imdb', 0) }},
         cache {{ poster_stats.get('resolved_cache', 0) }}
         {% if posters_enabled %}, TMDB {{ poster_stats.get('resolved_tmdb', 0) }}{% endif %}.
+        {% if 'enriched' in streaming_stats %}
+        Streaming enrichment: {{ streaming_stats.get('enriched', 0) }} rows ({{ streaming_stats.get('api_calls', 0) }} TMDb calls).
+        {% endif %}
       </p>
 
       <section class="list-panel">

@@ -1,0 +1,8 @@
+{
+  "region": "US",
+  "providers": [
+    { "id": 8, "label": "Netflix" },
+    { "id": 15, "label": "Hulu" },
+    { "id": 258, "label": "Criterion Channel" }
+  ]
+}
