@@ -6,22 +6,52 @@ $ErrorActionPreference = "Stop"
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 Set-Location $scriptDir
 
-$host = if ($env:HOST) { $env:HOST } else { "127.0.0.1" }
-$port = if ($env:PORT) { $env:PORT } else { "5000" }
+$listenHost = if ($env:HOST) { $env:HOST } else { "127.0.0.1" }
+$listenPort = if ($env:PORT) { $env:PORT } else { "5000" }
 
-$env:HOST = $host
-$env:PORT = $port
+$env:HOST = $listenHost
+$env:PORT = $listenPort
 
 $logDir = Join-Path $scriptDir "data"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $logFile = Join-Path $logDir "startup.log"
 
-# Use Python 3.12 (matches your current interactive `python`).
+function Write-Log([string]$msg) {
+  $line = "[{0}] {1}" -f (Get-Date).ToString("s"), $msg
+  Add-Content -Path $logFile -Value $line
+  Write-Output $line
+}
+
 $pythonExe = (& py -3.12 -c "import sys; print(sys.executable)" 2>$null).Trim()
 if (-not $pythonExe) { $pythonExe = "python" }
 
-Add-Content -Path $logFile -Value ("[{0}] Starting watchlist site (HOST={1}, PORT={2})" -f (Get-Date).ToString("s"), $host, $port)
+$exitCode = 0
+try {
+  Write-Log "======== Run start ========"
+  Write-Log ("Computer={0} User={1} whoami={2}" -f $env:COMPUTERNAME, $env:USERNAME, ((whoami).Trim()))
+  Write-Log ("Repo path: {0}" -f (Resolve-Path $scriptDir).Path)
 
-# Blocking call: Task Scheduler will keep the job "running" while the server is up.
-& $pythonExe "app.py" 1>> $logFile 2>> $logFile
+  Write-Log ("Python executable: {0}" -f $pythonExe)
+  $pv = & $pythonExe --version 2>&1
+  Write-Log ("Python version: {0}" -f "$pv")
 
+  Write-Log ("Starting watchlist site (listenHost={0}, listenPort={1})" -f $listenHost, $listenPort)
+
+  $ErrorActionPreference = "Continue"
+  & $pythonExe "app.py" 1>> $logFile 2>> $logFile
+  $exitCode = $LASTEXITCODE
+  $ErrorActionPreference = "Stop"
+  if ($null -eq $exitCode) { $exitCode = 0 }
+}
+catch {
+  Write-Log ("Unhandled error: {0}" -f $_.Exception.Message)
+  if ($_.ScriptStackTrace) {
+    Write-Log ("Stack: {0}" -f $_.ScriptStackTrace)
+  }
+  $exitCode = 1
+}
+finally {
+  Write-Log ("Exit code {0}" -f $exitCode)
+}
+
+exit $exitCode

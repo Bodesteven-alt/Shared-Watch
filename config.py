@@ -31,8 +31,9 @@ SELENIUM_BROWSER = os.environ.get("SELENIUM_BROWSER", "chrome").lower()
 SELENIUM_HEADLESS = _env_bool("SELENIUM_HEADLESS", True)
 # If True, retry IMDb once with visible browser when headless gets zero titles.
 IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", False)
-# Prefer IMDb CSV export flow before scroll scraping.
-IMDB_USE_EXPORT_FLOW = _env_bool("IMDB_USE_EXPORT_FLOW", True)
+# CSV export can lag behind the live watchlist (IMDb regenerates files asynchronously).
+# Live DOM (scoped list rows) is tried first; enable export only as fallback when needed.
+IMDB_USE_EXPORT_FLOW = _env_bool("IMDB_USE_EXPORT_FLOW", False)
 
 # Background refresh: interval in minutes (0 = timer off; manual refresh still works).
 AUTO_REFRESH_MINUTES = int(os.environ.get("AUTO_REFRESH_MINUTES", "360") or "0")

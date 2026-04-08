@@ -7,19 +7,19 @@ param(
 $ErrorActionPreference = "Stop"
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$syncScript = Join-Path $scriptDir "startup_sync.ps1"
+$siteScript = Join-Path (Resolve-Path (Join-Path $scriptDir "..")) "start_site.ps1"
 
-if (-not (Test-Path $syncScript)) {
-  Write-Error "Missing sync script: $syncScript"
+if (-not (Test-Path $siteScript)) {
+  Write-Error "Missing site script: $siteScript"
   exit 1
 }
 
-$taskName = "WatchlistGitHubPagesSync"
+$taskName = "WatchlistLocalSite"
 $psExe = Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"
 $repoRoot = (Resolve-Path (Join-Path $scriptDir "..")).Path
 $action = New-ScheduledTaskAction `
   -Execute $psExe `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$syncScript`"" `
+  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$siteScript`"" `
   -WorkingDirectory $repoRoot
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 if ($LogonDelayMinutes -gt 0) {
@@ -32,9 +32,9 @@ try {
 } catch { }
 
 try {
-  Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "Sync watchlist JSON to GitHub Pages on logon" -ErrorAction Stop | Out-Null
+  Register-ScheduledTask -TaskName $taskName -Action $action -Trigger $trigger -Settings $settings -Description "Start local Flask watchlist site on logon" -ErrorAction Stop | Out-Null
   Write-Output "Created scheduled task: $taskName"
-  Write-Output "schtasks /Query /TN WatchlistGitHubPagesSync"
+  Write-Output "schtasks /Query /TN WatchlistLocalSite"
 } catch {
   Write-Error "Failed to create scheduled task (run PowerShell as Administrator once): $($_.Exception.Message)"
   exit 1

@@ -86,8 +86,10 @@ Logs: `scripts/logs/startup_sync.log`
 
 - Confirm the task exists: `schtasks /Query /TN WatchlistGitHubPagesSync`
 - Read the log: `scripts/logs/startup_sync.log` (look for Python or git errors)
+- Run history: `scripts/logs/startup_sync_attempts.log` — one line per run, comma-separated ISO timestamp and exit code (`timestamp,exit_code`)
+- To start the local Flask site at logon, run `.\scripts\setup_site_startup_task.ps1` (creates task `WatchlistLocalSite`). Optional delay: `-LogonDelayMinutes` (0–1439) on `setup_startup_task.ps1` and `setup_site_startup_task.ps1`
 - At logon, `py -3.12` must resolve (Windows Launcher). If not, install Python 3.12 or change `startup_sync.ps1` to use a full path to `python.exe`
-- IMDb uses Selenium; if refresh fails right after logon, try adding a short delay in Task Scheduler (task Properties → Triggers → Delay task for) so the desktop and browser drivers are ready
+- IMDb uses Selenium; if refresh fails right after logon, try adding a short delay in Task Scheduler (task Properties → Triggers → Delay task for) so the desktop and browser drivers are ready, or pass `-LogonDelayMinutes` when registering the task
 
 ## Verification checklist
 

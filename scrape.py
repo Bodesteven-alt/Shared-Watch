@@ -124,6 +124,13 @@ class ImdbResult:
     error: str | None = None
 
 
+# Prefer links inside IMDb watchlist list rows (live DOM). Unscoped `a[href*="/title/tt"]`
+# also picks up recommendations, ads, and footer links — false positives vs the real list.
+IMDB_WATCHLIST_LINK_SELECTORS: tuple[str, ...] = (
+    "li.ipc-metadata-list-summary-item a[href*='/title/tt']",
+)
+
+
 def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     titles: list[str] = []
     items: list[dict] = []
@@ -142,6 +149,144 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
             titles.append(title)
             items.append({"title": title, "imdb_id": imdb_id or None})
     return titles, items
+
+
+def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_rounds: int = 45) -> None:
+    """Scroll to bottom repeatedly so lazy-loaded watchlist rows appear."""
+    from selenium.webdriver.common.by import By
+
+    last_count = 0
+    stable_rounds = 0
+    for _ in range(max_rounds):
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(0.85)
+        links = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/title/tt"]')
+        count = len(links)
+        if count == last_count:
+            stable_rounds += 1
+            if stable_rounds >= 3:
+                break
+        else:
+            stable_rounds = 0
+        last_count = count
+        if count >= 180 and stable_rounds >= 2:
+            break
+
+
+def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
+    """Deduplicate by normalized title; collect display title and tt id from href."""
+    raw: list[str] = []
+    raw_items: list[dict] = []
+    seen: set[str] = set()
+    blocklist = {
+        "watchlist",
+        "ratings",
+        "reviews",
+        "share",
+        "more",
+        "list",
+        "lists",
+        "",
+    }
+    for a in elements:
+        try:
+            href = a.get_attribute("href") or ""
+        except Exception:
+            continue
+        if "/title/tt" not in href:
+            continue
+        text = (a.text or "").strip()
+        if not text:
+            continue
+        cleaned = clean_imdb_title(text)
+        norm = normalize_title(cleaned)
+        if not norm or norm in blocklist:
+            continue
+        if norm in seen:
+            continue
+        seen.add(norm)
+        raw.append(cleaned)
+        m = re.search(r"/title/(tt\d+)", href)
+        imdb_id = m.group(1) if m else None
+        raw_items.append({"title": cleaned, "imdb_id": imdb_id})
+    return raw, raw_items
+
+
+def _imdb_collect_scoped_watchlist(driver, log: Callable[[str], None]) -> tuple[list[str], list[dict]]:
+    """Titles from watchlist list rows only (excludes recommendations elsewhere on the page)."""
+    from selenium.webdriver.common.by import By
+
+    all_elements: list = []
+    seen_ids: set[int] = set()
+    for sel in IMDB_WATCHLIST_LINK_SELECTORS:
+        for el in driver.find_elements(By.CSS_SELECTOR, sel):
+            eid = id(el)
+            if eid not in seen_ids:
+                seen_ids.add(eid)
+                all_elements.append(el)
+    titles, items = _imdb_items_from_anchor_elements(all_elements)
+    log(f"[IMDb] Scoped watchlist selectors: {len(titles)} titles")
+    return titles, items
+
+
+def _imdb_collect_unscoped_page(driver, log: Callable[[str], None]) -> tuple[list[str], list[dict]]:
+    """All /title/ links on the current page (may include recommendations)."""
+    from selenium.webdriver.common.by import By
+
+    elements = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/title/tt"]')
+    titles, items = _imdb_items_from_anchor_elements(elements)
+    log(f"[IMDb] Unscoped page scrape: {len(titles)} titles (may include non-watchlist links)")
+    return titles, items
+
+
+def _imdb_try_export_csv(
+    driver,
+    download_dir: str,
+    wait,
+    log: Callable[[str], None],
+) -> tuple[list[str], list[dict]] | None:
+    """Return parsed watchlist from IMDb export CSV, or None if not available."""
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as ec
+
+    log("[IMDb] Trying export CSV flow")
+    try:
+        export_button = wait.until(
+            ec.element_to_be_clickable(
+                (
+                    By.XPATH,
+                    "//button[contains(., 'Export')] | //a[contains(., 'Export')]",
+                )
+            )
+        )
+        export_button.click()
+        time.sleep(1.5)
+        driver.get("https://www.imdb.com/exports/")
+
+        deadline = time.time() + 45
+        csv_path = ""
+        while time.time() < deadline:
+            files = sorted(glob.glob(os.path.join(download_dir, "*.csv")), key=os.path.getmtime, reverse=True)
+            if files:
+                csv_path = files[0]
+                break
+            links = driver.find_elements(By.CSS_SELECTOR, 'a[href$=".csv"], a[href*=".csv?"]')
+            if links:
+                try:
+                    links[0].click()
+                except Exception:
+                    pass
+            time.sleep(2)
+
+        if not csv_path:
+            return None
+        titles, items = _parse_imdb_csv(csv_path)
+        log(f"[IMDb] Parsed {len(titles)} titles from export CSV (may lag live watchlist)")
+        if titles:
+            return titles, items
+    except Exception as export_err:
+        log(f"[IMDb] Export flow not available this run: {export_err!s}")
+    return None
 
 
 def _imdb_with_selenium(
@@ -210,105 +355,34 @@ def _imdb_with_selenium(
         wait = WebDriverWait(driver, 25)
         wait.until(ec.presence_of_element_located((By.TAG_NAME, "body")))
 
-        if config.IMDB_USE_EXPORT_FLOW:
-            _log("[IMDb] Trying export CSV flow")
-            try:
-                # Click Export from watchlist page.
-                export_button = wait.until(
-                    ec.element_to_be_clickable(
-                        (
-                            By.XPATH,
-                            "//button[contains(., 'Export')] | //a[contains(., 'Export')]",
-                        )
-                    )
-                )
-                export_button.click()
-                time.sleep(1.5)
-                driver.get("https://www.imdb.com/exports/")
-
-                deadline = time.time() + 45
-                csv_path = ""
-                while time.time() < deadline:
-                    files = sorted(glob.glob(os.path.join(download_dir, "*.csv")), key=os.path.getmtime, reverse=True)
-                    if files:
-                        csv_path = files[0]
-                        break
-                    # Some accounts expose an explicit download link before file appears locally.
-                    links = driver.find_elements(By.CSS_SELECTOR, 'a[href$=".csv"], a[href*=".csv?"]')
-                    if links:
-                        try:
-                            links[0].click()
-                        except Exception:
-                            pass
-                    time.sleep(2)
-
-                if csv_path:
-                    titles, items = _parse_imdb_csv(csv_path)
-                    _log(f"[IMDb] Parsed {len(titles)} titles from IMDb export CSV")
-                    if titles:
-                        return ImdbResult(titles, items=items, error=None)
-            except Exception as export_err:
-                _log(f"[IMDb] Export flow not available this run: {export_err!s}")
-
         time.sleep(2)
 
-        last_count = 0
-        stable_rounds = 0
-        max_rounds = 45
+        # Phase 1: Live watchlist list in the DOM (scoped). Matches the on-page list; avoids
+        # stale IMDb export CSVs and random /title/ links elsewhere on the page.
+        _imdb_scroll_watchlist_page(driver, _log)
+        scoped_titles, scoped_items = _imdb_collect_scoped_watchlist(driver, _log)
+        if scoped_titles:
+            _log(f"[IMDb] Using {len(scoped_titles)} titles from live watchlist (scoped)")
+            return ImdbResult(scoped_titles, items=scoped_items, error=None)
 
-        for _ in range(max_rounds):
-            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(0.85)
+        # Phase 2: Export CSV (optional). Can lag behind removals until IMDb regenerates the file.
+        if config.IMDB_USE_EXPORT_FLOW:
+            driver.get(url)
+            wait.until(ec.presence_of_element_located((By.TAG_NAME, "body")))
+            time.sleep(1)
+            exported = _imdb_try_export_csv(driver, download_dir, wait, _log)
+            if exported:
+                t_csv, it_csv = exported
+                return ImdbResult(t_csv, items=it_csv, error=None)
 
-            links = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/title/tt"]')
-            count = len(links)
-            if count == last_count:
-                stable_rounds += 1
-                if stable_rounds >= 3:
-                    break
-            else:
-                stable_rounds = 0
-            last_count = count
-            # Bail early once count is clearly large and stable enough.
-            if count >= 180 and stable_rounds >= 2:
-                break
-
-        raw: list[str] = []
-        raw_items: list[dict] = []
-        seen: set[str] = set()
-        blocklist = {
-            "watchlist",
-            "ratings",
-            "reviews",
-            "share",
-            "more",
-            "list",
-            "lists",
-            "",
-        }
-
-        for a in driver.find_elements(By.CSS_SELECTOR, 'a[href*="/title/tt"]'):
-            href = a.get_attribute("href") or ""
-            if "/title/tt" not in href:
-                continue
-            text = a.text.strip()
-            if not text:
-                continue
-            cleaned = clean_imdb_title(text)
-            norm = normalize_title(cleaned)
-            if not norm or norm in blocklist:
-                continue
-            if norm in seen:
-                continue
-            seen.add(norm)
-            raw.append(cleaned)
-            imdb_id = ""
-            m = re.search(r"/title/(tt\d+)", href)
-            if m:
-                imdb_id = m.group(1)
-            raw_items.append({"title": cleaned, "imdb_id": imdb_id or None})
-
-        _log(f"[IMDb] Collected {len(raw)} titles after scrolling")
+        # Phase 3: Reload watchlist — export may have left us on /exports/. Unscoped fallback
+        # if IMDb changes list markup and scoped selectors match nothing.
+        _log("[IMDb] Scoped selectors found 0 titles; reloading watchlist for full-page fallback")
+        driver.get(url)
+        wait.until(ec.presence_of_element_located((By.TAG_NAME, "body")))
+        time.sleep(2)
+        _imdb_scroll_watchlist_page(driver, _log)
+        raw, raw_items = _imdb_collect_unscoped_page(driver, _log)
         return ImdbResult(raw, items=raw_items, error=None)
 
     except Exception as e:
