@@ -1,0 +1,18 @@
+[2026-04-07T11:14:49] ======== Run start ========
+[2026-04-07T11:14:49] Computer=RED-DRAGON User=Dave whoami=red-dragon\dave
+[2026-04-07T11:14:49] Repo path: C:\Users\Dave\Desktop\Website
+[2026-04-07T11:14:49] Python executable: C:\Users\Dave\AppData\Local\Programs\Python\Python312\python.exe
+[2026-04-07T11:14:49] Python version: Python 3.12.0
+[2026-04-07T11:14:49] Starting watchlist site (listenHost=127.0.0.1, listenPort=5000)
+[2026-04-07T11:14:51] Unhandled error: The process cannot access the file 'C:\Users\Dave\Desktop\Website\data\startup.log' because it is being used by another process.
+[2026-04-07T11:14:51] Stack: at <ScriptBlock>, C:\Users\Dave\Desktop\Website\start_site.ps1: line 41
+[2026-04-07T11:14:51] Exit code 1
+[2026-04-08T10:54:59] ======== Run start ========
+[2026-04-08T10:54:59] Computer=RED-DRAGON User=Dave whoami=red-dragon\dave
+[2026-04-08T10:54:59] Repo path: C:\Users\Dave\Desktop\Website
+[2026-04-08T10:54:59] Python executable: C:\Users\Dave\AppData\Local\Programs\Python\Python312\python.exe
+[2026-04-08T10:54:59] Python version: Python 3.12.0
+[2026-04-08T10:54:59] Starting watchlist site (listenHost=127.0.0.1, listenPort=5000)
+[2026-04-08T10:55:00] Unhandled error: The process cannot access the file 'C:\Users\Dave\Desktop\Website\data\startup.log' because it is being used by another process.
+[2026-04-08T10:55:00] Stack: at <ScriptBlock>, C:\Users\Dave\Desktop\Website\start_site.ps1: line 41
+[2026-04-08T10:55:00] Exit code 1
