@@ -203,6 +203,97 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .card-rating-row .badge {
   margin-top: 0;
 }
+.rating-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .32rem;
+  max-width: 100%;
+}
+.rating-stars-toggle {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: .12rem .28rem;
+  border: none;
+  background: transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background .18s ease, box-shadow .18s ease;
+}
+@media (hover: hover) {
+  .rating-stars-toggle:hover {
+    background: rgba(42, 26, 74, 0.45);
+    box-shadow: 0 0 0 1px var(--line);
+  }
+}
+.rating-stars-toggle:focus {
+  outline: none;
+}
+.rating-stars-toggle:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+.rating-block--open .rating-stars-toggle .stars {
+  opacity: .48;
+  filter: grayscale(0.45);
+}
+.rating-breakdown {
+  display: none;
+  width: 100%;
+  min-width: 0;
+}
+.rating-block--open .rating-breakdown {
+  display: block;
+}
+.rating-breakdown-pill {
+  font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
+  padding: .4rem .75rem .45rem;
+  border-radius: 999px;
+  background: rgba(30, 18, 52, 0.92);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: .68rem;
+  line-height: 1.35;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+.rating-breakdown-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .2rem .35rem;
+}
+.rating-breakdown-label {
+  font-size: .58rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  width: 100%;
+}
+.rating-breakdown-value {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--cyan);
+}
+.rating-breakdown-scale {
+  font-size: .62rem;
+  color: var(--muted);
+}
+.rating-breakdown-sources {
+  margin-top: .38rem;
+  padding-top: .32rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.rating-breakdown-src {
+  font-size: .62rem;
+  color: var(--muted);
+  margin-top: .18rem;
+}
+.rating-breakdown-src:first-child {
+  margin-top: 0;
+}
 .badge {
   display: inline-block;
   font-size: .68rem;

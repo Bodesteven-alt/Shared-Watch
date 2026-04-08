@@ -255,26 +255,77 @@
     return '<span class="badge im">IMDb</span>';
   }
 
-  function starRating(avg5) {
+  const STAR_PATH =
+    "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
+
+  function buildStarsInner(avg5) {
     if (avg5 == null || Number.isNaN(Number(avg5))) return "";
     const rating = Math.max(0, Math.min(5, Number(avg5)));
-    const starPath =
-      "M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z";
-    let html = '<div class="stars">';
+    let html = "";
     for (let i = 0; i < 5; i++) {
       const fill = Math.max(0, Math.min(1, rating - i));
       html += `
         <span class="star">
           <svg viewBox="0 0 24 24">
-            <path class="star-empty" d="${starPath}"/>
+            <path class="star-empty" d="${STAR_PATH}"/>
           </svg>
           <svg viewBox="0 0 24 24" style="clip-path: inset(0 ${(1 - fill) * 100}% 0 0);">
-            <path class="star-fill" d="${starPath}"/>
+            <path class="star-fill" d="${STAR_PATH}"/>
           </svg>
         </span>`;
     }
-    html += "</div>";
     return html;
+  }
+
+  function formatVoteCount(n) {
+    if (n == null || n === "") return "—";
+    const v = Number(n);
+    if (!Number.isFinite(v) || v < 0) return "—";
+    if (v >= 1e6) {
+      const x = v / 1e6;
+      const s = x >= 10 ? x.toFixed(0) : x.toFixed(1).replace(/\.0$/, "");
+      return `${s}M`;
+    }
+    if (v >= 1000) return `${Math.round(v / 1000)}k`;
+    return String(Math.round(v));
+  }
+
+  function ratingBlockHtml(m) {
+    const avg5 = m.rating_avg_5;
+    if (avg5 == null || Number.isNaN(Number(avg5))) return "";
+    const inner = buildStarsInner(avg5);
+    if (!inner) return "";
+
+    const avgNum = Number(avg5).toFixed(2);
+    const lines = [];
+    if (m.rating_imdb_10 != null && !Number.isNaN(Number(m.rating_imdb_10))) {
+      const ri = Number(m.rating_imdb_10);
+      lines.push(`IMDb ${ri.toFixed(1)}/10 · ${formatVoteCount(m.rating_count_imdb)} ratings`);
+    }
+    if (m.rating_letterboxd_5 != null && !Number.isNaN(Number(m.rating_letterboxd_5))) {
+      const rl = Number(m.rating_letterboxd_5);
+      lines.push(`Letterboxd ${rl.toFixed(2)}/5 · ${formatVoteCount(m.rating_count_letterboxd)} ratings`);
+    }
+
+    return `
+      <div class="rating-block">
+        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show average rating and sources">
+          <div class="stars">${inner}</div>
+        </button>
+        <div class="rating-breakdown" aria-hidden="true">
+          <div class="rating-breakdown-pill">
+            <div class="rating-breakdown-head">
+              <span class="rating-breakdown-label">Average</span>
+              <span class="rating-breakdown-value">${avgNum}</span><span class="rating-breakdown-scale">/5</span>
+            </div>
+            ${
+              lines.length
+                ? `<div class="rating-breakdown-sources">${lines.map((l) => `<div class="rating-breakdown-src">${l}</div>`).join("")}</div>`
+                : ""
+            }
+          </div>
+        </div>
+      </div>`;
   }
 
   function formatGenreButtonLabel(genre) {
@@ -369,7 +420,7 @@
           <div class="title">${m.title || ""}</div>
           <div class="meta">${m.year || "Year ?"} · ${(m.genres || []).slice(0, 2).join(", ") || "Genre ?"}</div>
           <div class="card-rating-row">
-            ${starRating(m.rating_avg_5)}
+            ${ratingBlockHtml(m)}
             ${sourceBadge(m)}
           </div>
         </div>
@@ -379,6 +430,18 @@
       .join("");
     syncUrl();
   }
+
+  gridEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".rating-stars-toggle");
+    if (!btn || !gridEl.contains(btn)) return;
+    const block = btn.closest(".rating-block");
+    const bd = block?.querySelector(".rating-breakdown");
+    if (!block || !bd) return;
+    const open = !block.classList.contains("rating-block--open");
+    block.classList.toggle("rating-block--open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    bd.setAttribute("aria-hidden", open ? "false" : "true");
+  });
 
   clearLoadingState();
   updateSortUi();

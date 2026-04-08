@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import time
 from pathlib import Path
 from urllib.parse import quote
 
@@ -107,16 +108,41 @@ def lookup_imdb_hint_by_title(title: str) -> dict:
     return {"imdb_id": None, "year": None}
 
 
+def _parse_int_loose(v) -> int | None:
+    if v is None:
+        return None
+    s = str(v).strip().replace(",", "")
+    if not s:
+        return None
+    m = re.match(r"^([0-9]+(?:\.[0-9]+)?)\s*([KkMm])?$", s.replace(" ", ""))
+    if m:
+        try:
+            n = float(m.group(1))
+            suf = (m.group(2) or "").upper()
+            if suf == "K":
+                n *= 1000
+            elif suf == "M":
+                n *= 1_000_000
+            return max(0, int(round(n)))
+        except (TypeError, ValueError):
+            return None
+    try:
+        return max(0, int(float(s)))
+    except (TypeError, ValueError):
+        return None
+
+
 def parse_imdb_title_page(imdb_id: str) -> dict:
     """
     Return metadata from IMDb title page:
-      year, genres[], rating_imdb_10
+      year, genres[], rating_imdb_10, rating_count_imdb (from JSON-LD or HTML)
     """
     url = f"https://www.imdb.com/title/{imdb_id}/"
     out = {
         "year": None,
         "genres": [],
         "rating_imdb_10": None,
+        "rating_count_imdb": None,
     }
     try:
         r = requests.get(url, headers=HEADERS, timeout=16)
@@ -154,6 +180,13 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
                     out["rating_imdb_10"] = float(rv)
             except (TypeError, ValueError):
                 pass
+            for rc_key in ("ratingCount", "reviewCount"):
+                rc = rating_obj.get(rc_key)
+                if rc is not None:
+                    n = _parse_int_loose(rc)
+                    if n is not None:
+                        out["rating_count_imdb"] = n
+                        break
         if out["year"] or out["genres"] or out["rating_imdb_10"] is not None:
             return out
 
@@ -165,7 +198,117 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
             out["rating_imdb_10"] = float(m_rating.group(1))
         except ValueError:
             pass
+    if out["rating_count_imdb"] is None:
+        mv = re.search(
+            r"([0-9][0-9,]*(?:\.[0-9]+)?)\s*([KkMm])?\s+ratings?\b",
+            r.text,
+            re.I,
+        )
+        if mv:
+            raw = mv.group(1) + (mv.group(2) or "")
+            n = _parse_int_loose(raw.replace(",", ""))
+            if n is not None:
+                out["rating_count_imdb"] = n
     return out
+
+
+def fetch_letterboxd_film_stats(title: str) -> dict:
+    """
+    Best-effort Letterboxd community average (0–5) and rating count from film page
+    (search first result → JSON-LD aggregateRating).
+    """
+    out = {"rating_letterboxd_5": None, "rating_count_letterboxd": None}
+    t = (title or "").strip()
+    if not t:
+        return out
+    enc = quote(t, safe="")
+    try:
+        r = requests.get(f"https://letterboxd.com/search/{enc}/", headers=HEADERS, timeout=15)
+    except requests.RequestException:
+        return out
+    if r.status_code != 200:
+        return out
+    soup = BeautifulSoup(r.text, "html.parser")
+    href = None
+    skip = {"lists", "watchlist", "popular", "crew", "actor", "director", "members"}
+    for a in soup.select('a[href^="/film/"]'):
+        h = (a.get("href") or "").split("?")[0]
+        segs = [x for x in h.strip("/").split("/") if x]
+        if len(segs) >= 2 and segs[0] == "film" and segs[1] not in skip:
+            href = "/" + "/".join(segs[:2]) + "/"
+            break
+    if not href:
+        return out
+    try:
+        fr = requests.get("https://letterboxd.com" + href, headers=HEADERS, timeout=15)
+    except requests.RequestException:
+        return out
+    if fr.status_code != 200:
+        return out
+    fsoup = BeautifulSoup(fr.text, "html.parser")
+    for script in fsoup.find_all("script", type="application/ld+json"):
+        txt = (script.string or "").strip()
+        if not txt:
+            continue
+        try:
+            obj = json.loads(txt)
+        except ValueError:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        otypes = str(obj.get("@type", "")).lower()
+        if "movie" not in otypes and "creativework" not in otypes:
+            continue
+        ar = obj.get("aggregateRating") or {}
+        if not isinstance(ar, dict):
+            continue
+        rv = ar.get("ratingValue")
+        try:
+            if rv is not None:
+                r5 = float(rv)
+                br = ar.get("bestRating")
+                if br is not None:
+                    try:
+                        bf = float(br)
+                        if bf > 5.5:
+                            r5 = r5 * 5.0 / bf
+                    except (TypeError, ValueError):
+                        pass
+                out["rating_letterboxd_5"] = min(5.0, max(0.0, r5))
+        except (TypeError, ValueError):
+            pass
+        for rc_key in ("ratingCount", "reviewCount"):
+            rc = ar.get(rc_key)
+            if rc is not None:
+                n = _parse_int_loose(rc)
+                if n is not None:
+                    out["rating_count_letterboxd"] = n
+                    break
+        if out["rating_letterboxd_5"] is not None or out["rating_count_letterboxd"] is not None:
+            break
+    return out
+
+
+def combined_rating_weighted_5(
+    imdb_5: float | None,
+    imdb_n: int | None,
+    lb_5: float | None,
+    lb_n: int | None,
+) -> float | None:
+    """Vote-weighted average on 0–5 scale; unknown counts use weight 1."""
+    parts: list[float] = []
+    weights: list[float] = []
+    if imdb_5 is not None:
+        w = float(imdb_n) if imdb_n and imdb_n > 0 else 1.0
+        parts.append(imdb_5 * w)
+        weights.append(w)
+    if lb_5 is not None:
+        w = float(lb_n) if lb_n and lb_n > 0 else 1.0
+        parts.append(lb_5 * w)
+        weights.append(w)
+    if not parts:
+        return None
+    return round2(sum(parts) / sum(weights))
 
 
 def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) -> dict:
@@ -173,7 +316,13 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
     Fetch metadata from OMDb API (requires free API key from omdbapi.com).
     Returns year, genres[], rating_imdb_10, content_type.
     """
-    out = {"year": None, "genres": [], "rating_imdb_10": None, "content_type": None}
+    out = {
+        "year": None,
+        "genres": [],
+        "rating_imdb_10": None,
+        "content_type": None,
+        "rating_count_imdb": None,
+    }
     if not OMDB_API_KEY:
         return out
     params = {"apikey": OMDB_API_KEY}
@@ -208,6 +357,9 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
             out["rating_imdb_10"] = float(rating_str)
         except ValueError:
             pass
+    votes = data.get("imdbVotes", "")
+    if votes and votes != "N/A":
+        out["rating_count_imdb"] = _parse_int_loose(str(votes).replace(",", ""))
     out["content_type"] = data.get("Type")  # "movie", "series", or "episode"
     return out
 
@@ -332,6 +484,11 @@ def main() -> int:
                 and not c.get("genres")
                 and c.get("rating_imdb_10") is None
             )
+            or (
+                imdb_id
+                and c.get("rating_imdb_10") is not None
+                and c.get("rating_count_imdb") is None
+            )
         )
 
         source_used = "cached"
@@ -348,16 +505,25 @@ def main() -> int:
                 parsed = fetch_omdb_metadata(imdb_id=imdb_id, title=title)
                 content_type = parsed.get("content_type")
                 source_used = "OMDb" if (parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10")) else "no data"
+            if parsed.get("rating_count_imdb") is None and OMDB_API_KEY:
+                ov = fetch_omdb_metadata(imdb_id=imdb_id)
+                if ov.get("rating_count_imdb"):
+                    parsed["rating_count_imdb"] = ov["rating_count_imdb"]
             # If we still don't have content_type, fetch it from OMDb
             if content_type is None and OMDB_API_KEY:
                 omdb_check = fetch_omdb_metadata(imdb_id=imdb_id)
                 content_type = omdb_check.get("content_type")
+            prev_lb5 = c.get("rating_letterboxd_5")
+            prev_lbn = c.get("rating_count_letterboxd")
             c = {
                 "imdb_id": imdb_id,
                 "year": parsed.get("year") or hint.get("year"),
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
+                "rating_count_imdb": parsed.get("rating_count_imdb"),
                 "content_type": content_type,
+                "rating_letterboxd_5": prev_lb5,
+                "rating_count_letterboxd": prev_lbn,
             }
             meta_cache[norm] = c
         elif not imdb_id and needs_refresh:
@@ -374,18 +540,55 @@ def main() -> int:
                 "year": parsed.get("year") or hint.get("year"),
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
+                "rating_count_imdb": None,
                 "content_type": content_type,
+                "rating_letterboxd_5": None,
+                "rating_count_letterboxd": None,
             }
             meta_cache[norm] = c
         elif not c:
-            c = {"imdb_id": imdb_id, "year": None, "genres": [], "rating_imdb_10": None, "content_type": None}
+            c = {
+                "imdb_id": imdb_id,
+                "year": None,
+                "genres": [],
+                "rating_imdb_10": None,
+                "rating_count_imdb": None,
+                "content_type": None,
+                "rating_letterboxd_5": None,
+                "rating_count_letterboxd": None,
+            }
             meta_cache[norm] = c
             source_used = "no data"
 
         print(f"[{idx}/{total}] {title[:50]}{'...' if len(title) > 50 else ''} ({source_used})")
 
+        if r.get("letterboxd") and (
+            c.get("rating_letterboxd_5") is None or c.get("rating_count_letterboxd") is None
+        ):
+            time.sleep(0.08)
+            lbstats = fetch_letterboxd_film_stats(title)
+            if lbstats.get("rating_letterboxd_5") is not None:
+                c["rating_letterboxd_5"] = lbstats["rating_letterboxd_5"]
+            if lbstats.get("rating_count_letterboxd") is not None:
+                c["rating_count_letterboxd"] = lbstats["rating_count_letterboxd"]
+            meta_cache[norm] = c
+
         rating_imdb_10 = c.get("rating_imdb_10")
-        rating_letterboxd_5 = r.get("rating_letterboxd_5")
+        rating_count_imdb = c.get("rating_count_imdb")
+        try:
+            rating_count_imdb = int(rating_count_imdb) if rating_count_imdb is not None else None
+        except (TypeError, ValueError):
+            rating_count_imdb = None
+
+        rating_letterboxd_5 = c.get("rating_letterboxd_5")
+        if rating_letterboxd_5 is None:
+            rating_letterboxd_5 = r.get("rating_letterboxd_5")
+        rating_count_lb = c.get("rating_count_letterboxd")
+        try:
+            rating_count_lb = int(rating_count_lb) if rating_count_lb is not None else None
+        except (TypeError, ValueError):
+            rating_count_lb = None
+
         imdb_5 = None
         if rating_imdb_10 is not None:
             try:
@@ -393,15 +596,12 @@ def main() -> int:
             except (TypeError, ValueError):
                 imdb_5 = None
 
-        vals = []
-        if imdb_5 is not None:
-            vals.append(imdb_5)
-        if rating_letterboxd_5 is not None:
-            try:
-                vals.append(float(rating_letterboxd_5))
-            except (TypeError, ValueError):
-                pass
-        rating_avg_5 = round2(sum(vals) / len(vals)) if vals else None
+        try:
+            lb_5f = float(rating_letterboxd_5) if rating_letterboxd_5 is not None else None
+        except (TypeError, ValueError):
+            lb_5f = None
+
+        rating_avg_5 = combined_rating_weighted_5(imdb_5, rating_count_imdb, lb_5f, rating_count_lb)
 
         movies.append(
             {
@@ -412,7 +612,9 @@ def main() -> int:
                 "year": c.get("year"),
                 "genres": c.get("genres") or [],
                 "rating_imdb_10": round2(rating_imdb_10 if rating_imdb_10 is not None else None),
-                "rating_letterboxd_5": round2(rating_letterboxd_5 if rating_letterboxd_5 is not None else None),
+                "rating_count_imdb": rating_count_imdb,
+                "rating_letterboxd_5": round2(lb_5f if lb_5f is not None else None),
+                "rating_count_letterboxd": rating_count_lb,
                 "rating_avg_5": rating_avg_5,
                 "content_type": c.get("content_type"),
             }
