@@ -7,33 +7,13 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=18">
+  <link rel="stylesheet" href="./styles.css?v=19">
 </head>
 <body>
   <main class="wrap">
     <header class="top">
       <div class="top-cluster">
-        <h1 class="top-title">
-          <svg class="top-title__svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 50" role="img" aria-labelledby="topTitleSvgLabel">
-            <title id="topTitleSvgLabel">Our Watch List</title>
-            <defs>
-              <linearGradient id="watchlistTitleGrad" x1="0" y1="0" x2="520" y2="0" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#ff71ce"/>
-                <stop offset="30%" stop-color="#01cdfe"/>
-                <stop offset="60%" stop-color="#b967ff"/>
-                <stop offset="100%" stop-color="#ff71ce"/>
-              </linearGradient>
-            </defs>
-            <text
-              x="220"
-              y="36"
-              text-anchor="middle"
-              font-family="Fredoka, system-ui, sans-serif"
-              font-size="31"
-              font-weight="600"
-              fill="url(#watchlistTitleGrad)">Our Watch List</text>
-          </svg>
-        </h1>
+        <h1 class="top-title top-title__gradient">Our Watch List</h1>
         <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
           <button id="filterLb" class="srcbtn active" data-source="letterboxd">
             <span class="count" id="countLb">0</span> Letterboxd
@@ -100,29 +80,11 @@
       <span id="updatedRel" class="footer-updated__rel" hidden></span>
     </p>
     <p class="footer-tagline">Made with love. By Steven Bode</p>
+    <p class="footer-github">
+      <a href="https://github.com/Bodesteven-alt/Shared-Watch" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+    </p>
   </footer>
 
-  <script>
-    (function () {
-      var grad = document.getElementById("watchlistTitleGrad");
-      if (!grad) return;
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        grad.setAttribute("gradientTransform", "translate(0 0)");
-        return;
-      }
-      var periodMs = 12000;
-      var range = 520;
-      var start = performance.now();
-      function tick(now) {
-        var phase = ((now - start) % periodMs) / periodMs;
-        var u = (1 - Math.cos(phase * 2 * Math.PI)) / 2;
-        var x = u * range;
-        grad.setAttribute("gradientTransform", "translate(" + x + " 0)");
-        requestAnimationFrame(tick);
-      }
-      requestAnimationFrame(tick);
-    })();
-  </script>
   <script>
     (function syncTitleWidthToFilters() {
       var row = document.getElementById("sourceFiltersRow");
@@ -145,6 +107,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=18"></script>
+  <script src="./app.js?v=19"></script>
 </body>
 </html>

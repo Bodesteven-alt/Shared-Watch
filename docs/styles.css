@@ -42,14 +42,42 @@ body {
     0 0 15px rgba(1, 205, 254, 0.3),
     0 0 30px rgba(255, 113, 206, 0.2),
     inset 0 0 20px rgba(1, 205, 254, 0.1);
-  line-height: 0;
+  line-height: 1.2;
   box-sizing: border-box;
+  text-align: center;
 }
-.top-title__svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
+/* CSS gradient text animates reliably on mobile; SVG gradientTransform + rAF often does not repaint. */
+.top-title__gradient {
+  font-size: clamp(1.15rem, 4.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: linear-gradient(
+    90deg,
+    #ff71ce 0%,
+    #01cdfe 35%,
+    #b967ff 70%,
+    #ff71ce 100%
+  );
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: topTitleGradientFlow 10s ease-in-out infinite;
+  will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .top-title__gradient {
+    animation: none;
+    background-size: 100% 100%;
+    background-position: 50% 50%;
+    will-change: auto;
+  }
+}
+@keyframes topTitleGradientFlow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
 }
 .muted { color: var(--muted); }
 .small { font-size: .9rem; }
@@ -333,6 +361,19 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .footer p { margin: .3rem 0; }
 .footer .footer-tagline { margin-top: .5rem; }
+.footer-github {
+  font-size: .72rem;
+  margin-top: .15rem;
+  margin-bottom: 0;
+}
+.footer-github a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.footer-github a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
 
 .stars {
   display: inline-flex;
