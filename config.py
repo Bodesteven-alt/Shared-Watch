@@ -78,9 +78,22 @@ STREAMING_MAX_NETWORK_LOOKUPS = int(os.environ.get("STREAMING_MAX_NETWORK_LOOKUP
 STREAMING_CACHE_MAX_AGE_DAYS = int(os.environ.get("STREAMING_CACHE_MAX_AGE_DAYS", "14") or "0")
 
 
+def _clean_tmdb_secret(value: str) -> str:
+    """Strip whitespace and UTF-8 BOM (common in .env / Notepad on Windows)."""
+    return (value or "").strip().lstrip("\ufeff")
+
+
+def _clean_tmdb_bearer_token(value: str) -> str:
+    """Read Access Token only: strip accidental ``Bearer `` prefix (header adds it)."""
+    t = _clean_tmdb_secret(value)
+    if t.lower().startswith("bearer "):
+        t = t[7:].strip()
+    return t
+
+
 def _load_tmdb_api_key() -> str:
     """TMDb v3 API key: TMDB_API_KEY env or gitignored one-line file."""
-    k = os.environ.get("TMDB_API_KEY", "").strip()
+    k = _clean_tmdb_secret(os.environ.get("TMDB_API_KEY", ""))
     if k:
         return k
     key_path = os.environ.get(
@@ -93,7 +106,7 @@ def _load_tmdb_api_key() -> str:
                 for line in f:
                     line = line.strip()
                     if line and not line.startswith("#"):
-                        return line
+                        return _clean_tmdb_secret(line)
         except OSError:
             pass
     return ""
@@ -101,7 +114,7 @@ def _load_tmdb_api_key() -> str:
 
 def _load_tmdb_read_access_token() -> str:
     """TMDb API Read Access Token (JWT): Bearer auth for v3. Env or gitignored one-line file."""
-    t = os.environ.get("TMDB_READ_ACCESS_TOKEN", "").strip()
+    t = _clean_tmdb_bearer_token(os.environ.get("TMDB_READ_ACCESS_TOKEN", ""))
     if t:
         return t
     token_path = os.environ.get(
@@ -114,7 +127,7 @@ def _load_tmdb_read_access_token() -> str:
                 for line in f:
                     line = line.strip()
                     if line and not line.startswith("#"):
-                        return line
+                        return _clean_tmdb_bearer_token(line)
         except OSError:
             pass
     return ""
