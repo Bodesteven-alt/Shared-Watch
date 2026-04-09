@@ -34,6 +34,10 @@ def main() -> int:
     print(f"  {key_path.name} exists: {key_path.is_file()}")
     print(f"  {token_path.name} exists: {token_path.is_file()}")
     print(f"  DATA_DIR (cache parent): {data_dir}")
+    print(
+        "  If .env is correct but TMDb still returns 401: Windows User/System TMDB_* "
+        "override .env (same names). Fix or remove those env vars, or restart the terminal after changing them."
+    )
 
     if not config.TMDB_API_CONFIGURED:
         print()
