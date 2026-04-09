@@ -5,7 +5,7 @@
     "both": 7,
     "letterboxd_only": 79,
     "imdb_only": 233,
-    "posters_resolved": 270,
+    "posters_resolved": 319,
     "metadata_with_year": 319,
     "metadata_with_genres": 310,
     "metadata_with_rating": 294
@@ -2205,7 +2205,7 @@
     },
     {
       "title": "Lost River",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/z00sPSV2Fue6tDPAhtn1mehOHc2.jpg",
       "source": "letterboxd",
       "imdb_id": "tt2366608",
       "year": 2015,
@@ -2361,7 +2361,7 @@
     },
     {
       "title": "Martha Marcy May Marlene",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/bgB4sa9UfCyGdamfKAZXyEWuAwR.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1441326",
       "year": 2011,
@@ -2378,7 +2378,7 @@
     },
     {
       "title": "Marty Supreme",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/lYWEXbQgRTR4ZQleSXAgRbxAjvq.jpg",
       "source": "letterboxd",
       "imdb_id": "tt32916440",
       "year": 2025,
@@ -2526,7 +2526,7 @@
     },
     {
       "title": "My Psychedelic Love Story",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/qaCRvYcejXfZ2hv9CApq3yhmqca.jpg",
       "source": "letterboxd",
       "imdb_id": "tt12860964",
       "year": 2020,
@@ -2597,7 +2597,7 @@
     },
     {
       "title": "Nocturne",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/zJNFiWBGYSMbfTAk6Ygqdj6Rahq.jpg",
       "source": "letterboxd",
       "imdb_id": "tt11044858",
       "year": 2020,
@@ -2648,7 +2648,7 @@
     },
     {
       "title": "Office Space",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/iEmTwOkUaLziMQCUZii5wPQBIAO.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0151804",
       "year": 1999,
@@ -2714,7 +2714,7 @@
     },
     {
       "title": "One Battle After Another",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/lbBWwxBht4JFP5PsuJ5onpMqugW.jpg",
       "source": "letterboxd",
       "imdb_id": "tt30144839",
       "year": 2025,
@@ -2732,7 +2732,7 @@
     },
     {
       "title": "Opus",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/m0du9dsiOVeb0SgfqR8ZAEPRxww.jpg",
       "source": "letterboxd",
       "imdb_id": "tt29929565",
       "year": 2025,
@@ -2770,7 +2770,7 @@
     },
     {
       "title": "Palo Alto",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/yjcwwYP3eSigxLKKVBoVVz85ZWv.jpg",
       "source": "letterboxd",
       "imdb_id": "tt2479800",
       "year": 2014,
@@ -2972,7 +2972,7 @@
     },
     {
       "title": "Prometheus",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/qsYQflQhOuhDpQ0W2aOcwqgDAeI.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1446714",
       "year": 2012,
@@ -2989,7 +2989,7 @@
     },
     {
       "title": "Rain Man",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/iTNHwO896WKkaoPtpMMS74d8VNi.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0095953",
       "year": 1988,
@@ -3005,7 +3005,7 @@
     },
     {
       "title": "Raw",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/yERBa1y5zNUOTRKQPiDCPIc2fuv.jpg",
       "source": "letterboxd",
       "imdb_id": "tt4954522",
       "year": 2013,
@@ -3130,7 +3130,7 @@
     },
     {
       "title": "Salò, or the 120 Days of Sodom",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/xnaDdiRfZlJaTf6JRc4in40eaeI.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0073650",
       "year": 1976,
@@ -3199,7 +3199,7 @@
     },
     {
       "title": "Sentimental Value",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/pz9NCWxxOk3o0W3v1Zkhawrwb4i.jpg",
       "source": "letterboxd",
       "imdb_id": "tt27714581",
       "year": 2025,
@@ -3231,9 +3231,9 @@
     },
     {
       "title": "She's Gotta Have It",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/qiJuXvPONqTSSnzhbCBqE7EotV.jpg",
       "source": "letterboxd",
-      "imdb_id": "tt0091939",
+      "imdb_id": "tt3713588",
       "year": 1986,
       "genres": [
         "Comedy",
@@ -3391,7 +3391,7 @@
     },
     {
       "title": "Sore: A Wife from the Future",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/sDAvZaPFctekJhln1vXsy7X1BTr.jpg",
       "source": "letterboxd",
       "imdb_id": "tt34548722",
       "year": 2025,
@@ -3410,7 +3410,7 @@
     },
     {
       "title": "Sound of My Voice",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/6wStc532wuBrW2NZM3TicEWDmaL.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1748207",
       "year": 2011,
@@ -3555,7 +3555,7 @@
     },
     {
       "title": "Sunday Bloody Sunday",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/7q1h3M1vDlsHDKRhoPOzKjmFCVq.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0280491",
       "year": 1971,
@@ -3707,7 +3707,7 @@
     },
     {
       "title": "The Art of Self-Defense",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/bTq793Qwl3tCXb94zrDPAwppbsC.jpg",
       "source": "letterboxd",
       "imdb_id": "tt7339248",
       "year": 2019,
@@ -3780,7 +3780,7 @@
     },
     {
       "title": "The Best Years of Our Lives",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/gd5EoAU4MM57sW3vlWxJ0NMM8cV.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0036868",
       "year": 1946,
@@ -3797,7 +3797,7 @@
     },
     {
       "title": "The Beta Test",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/jSk3TkqPMWvzlwRBtejZ1UzMhgf.jpg",
       "source": "letterboxd",
       "imdb_id": "tt11738830",
       "year": 2021,
@@ -3833,7 +3833,7 @@
     },
     {
       "title": "The Bride!",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/lV8YHwGkYZsm6EfIqnhaSz2avKt.jpg",
       "source": "letterboxd",
       "imdb_id": "tt30851137",
       "year": 2026,
@@ -3851,7 +3851,7 @@
     },
     {
       "title": "The Brutalist",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/vP7Yd6couiAaw9jgMd5cjMRj3hQ.jpg",
       "source": "letterboxd",
       "imdb_id": "tt8999762",
       "year": 2024,
@@ -3903,7 +3903,7 @@
     },
     {
       "title": "The Craft",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/8bW2RdRkloYtEPhbQZN4wcdmJP4.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0115963",
       "year": 1996,
@@ -4045,7 +4045,7 @@
     },
     {
       "title": "The Dreamers",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/gBb7GGaFYPu7nEUYvC8G4LaJJN1.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0309987",
       "year": 2003,
@@ -4114,7 +4114,7 @@
     },
     {
       "title": "The Fantastic 4: First Steps",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
       "source": "letterboxd",
       "imdb_id": "tt10676052",
       "year": 2025,
@@ -4150,7 +4150,7 @@
     },
     {
       "title": "The Favourite",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/cwBq0onfmeilU5xgqNNjJAMPfpw.jpg",
       "source": "letterboxd",
       "imdb_id": "tt5083738",
       "year": 2018,
@@ -4379,7 +4379,7 @@
     },
     {
       "title": "The Kings of Summer",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/6dcIbwJuxlEnzLe0EaGFvsh4ZdS.jpg",
       "source": "letterboxd",
       "imdb_id": "tt2179116",
       "year": 2013,
@@ -4450,7 +4450,7 @@
     },
     {
       "title": "The Little Princess",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/zVGR85SVEnMTMoaIwtcGR7BCC9B.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0031580",
       "year": 2018,
@@ -4549,7 +4549,7 @@
     },
     {
       "title": "The Map That Leads to You",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/uwvKQIjJpC37IEsEj4ZAn1ITyRy.jpg",
       "source": "letterboxd",
       "imdb_id": "tt33549478",
       "year": 2025,
@@ -4602,7 +4602,7 @@
     },
     {
       "title": "The One I Love",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/ewsYTI6KKQw3IDPFmVVbHq89kxv.jpg",
       "source": "letterboxd",
       "imdb_id": "tt2756032",
       "year": 2014,
@@ -4638,7 +4638,7 @@
     },
     {
       "title": "The Overnight",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/8DDEGc6vifxxYdkym3G99AMlITG.jpg",
       "source": "letterboxd",
       "imdb_id": "tt3844362",
       "year": 2015,
@@ -4673,7 +4673,7 @@
     },
     {
       "title": "The Peanut Butter Falcon",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/qyQcRGvdW3VtxHR4fSDgPOePEip.jpg",
       "source": "letterboxd",
       "imdb_id": "tt4364194",
       "year": 2019,
@@ -4707,7 +4707,7 @@
     },
     {
       "title": "The Philadelphia Story",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/dKUubjvxO78XDts6VP1Ggcp4R9O.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0032904",
       "year": 1940,
@@ -4894,7 +4894,7 @@
     },
     {
       "title": "The Secret Garden",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/5MSDwUcqnGodFTvtlLiLKK0XKS.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0108071",
       "year": 2020,
@@ -4912,7 +4912,7 @@
     },
     {
       "title": "The Secret Life of Words",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/mgffUjCN2jvebZBqvyP0lvAoAhB.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0430576",
       "year": 2005,
@@ -4947,7 +4947,7 @@
     },
     {
       "title": "The Shape of Things",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/iETHZRRlr9WCgx3W8hoOp7gvOn2.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0308878",
       "year": 2003,
@@ -5002,7 +5002,7 @@
     },
     {
       "title": "The Square",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/pefcv5VNspSK4Dt8doei5bJmmln.jpg",
       "source": "letterboxd",
       "imdb_id": "tt4995790",
       "year": 2017,
@@ -5036,7 +5036,7 @@
     },
     {
       "title": "The Strange Thing About the Johnsons",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/ac2GXs7rJ7eQBKcvjRA3VDSNxA4.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1772398",
       "year": 2011,
@@ -5070,7 +5070,7 @@
     },
     {
       "title": "The Thing",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/tzGY49kseSE9QAKk47uuDGwnSCu.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0084787",
       "year": 1982,
@@ -5266,7 +5266,7 @@
     },
     {
       "title": "Titane",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/mBlpouG3gqB8WLdP65LCOXb3jFb.jpg",
       "source": "letterboxd",
       "imdb_id": "tt10944760",
       "year": 2021,
@@ -5301,7 +5301,7 @@
     },
     {
       "title": "Trading Places",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/8mBuLCOcpWnmYtZc4aqtvDXslv6.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0086465",
       "year": 1983,
@@ -5352,7 +5352,7 @@
     },
     {
       "title": "Under the Skin",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/55wmcXJIDYITr7JDijJTdvwSaAv.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1441395",
       "year": 2014,
@@ -5406,7 +5406,7 @@
     },
     {
       "title": "Videodrome",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/qqqkiZSU9EBGZ1KiDmfn07S7qvv.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0086541",
       "year": 1983,
@@ -5424,7 +5424,7 @@
     },
     {
       "title": "Waiting to Exhale",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/8MprEuTY3EwkF9nBBPCUyjRjvs5.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0114885",
       "year": 1995,
@@ -5460,7 +5460,7 @@
     },
     {
       "title": "What We Do in the Shadows",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/a2rD3i3DBMeYbA34rBv6z3B9S3a.jpg",
       "source": "letterboxd",
       "imdb_id": "tt7908628",
       "year": 2014,
@@ -5495,7 +5495,7 @@
     },
     {
       "title": "Wuthering Heights",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/3YBce6dTh1D5oCMITXk2S5QhPt.jpg",
       "source": "letterboxd",
       "imdb_id": "tt32897959",
       "year": 2026,
@@ -5512,7 +5512,7 @@
     },
     {
       "title": "Y Tu Mamá También",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/aj3rqjab8jfc2fWmcS3H3c5qbur.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0245574",
       "year": 2001,
@@ -5529,7 +5529,7 @@
     },
     {
       "title": "Zootopia 2",
-      "poster_url": null,
+      "poster_url": "https://image.tmdb.org/t/p/w185/oJ7g2CifqpStmoYQyaLQgEU32qO.jpg",
       "source": "letterboxd",
       "imdb_id": "tt26443597",
       "year": 2025,
