@@ -82,8 +82,8 @@ def _trim_results_by_region(full_results: dict, region: str) -> dict[str, Any]:
     }
 
 
-def _tmdb_request(path: str, params: dict) -> dict | None:
-    return tmdb_client.tmdb_v3_get(path, params)
+def _tmdb_request(path: str, params: dict, *, retry_on_429: bool = False) -> dict | None:
+    return tmdb_client.tmdb_v3_get(path, params, retry_on_429=retry_on_429)
 
 
 def _find_movie_id_by_imdb(imdb_id: str) -> int | None:
@@ -102,22 +102,66 @@ def _find_movie_id_by_imdb(imdb_id: str) -> int | None:
     return None
 
 
-def _find_movie_id_by_title(title: str) -> int | None:
-    data = _tmdb_request("/search/movie", {"query": title, "include_adult": "false"})
-    if not data:
+def _release_year_hint_from_title(title: str) -> int | None:
+    """e.g. 'Some Film (2019)' -> 2019 for TMDb search disambiguation."""
+    m = re.search(r"\((\d{4})\)\s*$", (title or "").strip())
+    if not m:
         return None
-    results = data.get("results") or []
-    if results and isinstance(results[0], dict):
-        mid = results[0].get("id")
-        try:
-            return int(mid)
-        except (TypeError, ValueError):
-            return None
+    try:
+        y = int(m.group(1))
+    except ValueError:
+        return None
+    if 1870 < y < 2100:
+        return y
     return None
 
 
+def _find_movie_id_by_title(title: str, year_hint: int | None = None) -> int | None:
+    q = (title or "").strip()
+    if not q:
+        return None
+    params: dict[str, Any] = {"query": q, "include_adult": "false"}
+    if year_hint is not None:
+        params["primary_release_year"] = year_hint
+    data = _tmdb_request("/search/movie", params)
+    if not data:
+        return None
+    results = data.get("results") or []
+    if not results:
+        return None
+
+    def _pick_id(candidates: list) -> int | None:
+        for item in candidates:
+            if not isinstance(item, dict):
+                continue
+            mid = item.get("id")
+            try:
+                return int(mid)
+            except (TypeError, ValueError):
+                continue
+        return None
+
+    if year_hint is not None:
+        ys = str(year_hint)
+        matching = [
+            r
+            for r in results
+            if isinstance(r, dict)
+            and str((r.get("release_date") or ""))[:4] == ys
+        ]
+        picked = _pick_id(matching)
+        if picked is not None:
+            return picked
+
+    return _pick_id(results)
+
+
 def _fetch_watch_providers_raw(tmdb_movie_id: int) -> dict[str, Any]:
-    data = _tmdb_request(f"/movie/{tmdb_movie_id}/watch/providers", {})
+    data = _tmdb_request(
+        f"/movie/{tmdb_movie_id}/watch/providers",
+        {},
+        retry_on_429=True,
+    )
     if not data:
         return {}
     results = data.get("results")
@@ -156,6 +200,11 @@ def enrich_rows_with_streaming(
         for row in rows:
             row["streaming"] = {}
         return rows, {"enriched": 0, "cached": 0, "skipped": len(rows), "api_calls": 0}
+
+    if (config.TMDB_API_KEY or "").strip() and not (config.TMDB_READ_ACCESS_TOKEN or "").strip():
+        _log(
+            "[Streaming] Hint: set TMDB_READ_ACCESS_TOKEN as well as TMDB_API_KEY for best watch-provider results on v3."
+        )
 
     disk = _load_providers_cache()
     now = time.time()
@@ -207,7 +256,17 @@ def enrich_rows_with_streaming(
                     if api_calls >= max_calls:
                         skipped += 1
                         continue
-                    tmdb_id = _find_movie_id_by_title(title)
+                    yh = row.get("release_year")
+                    if yh is None:
+                        yh = _release_year_hint_from_title(title)
+                    else:
+                        try:
+                            yh = int(yh)
+                            if not (1870 < yh < 2100):
+                                yh = _release_year_hint_from_title(title)
+                        except (TypeError, ValueError):
+                            yh = _release_year_hint_from_title(title)
+                    tmdb_id = _find_movie_id_by_title(title, year_hint=yh)
                     api_calls += 1
 
         if tmdb_id is None:
@@ -234,6 +293,10 @@ def enrich_rows_with_streaming(
     _save_providers_cache(disk)
     _log(
         f"[Streaming] rows with data={enriched} (disk_hits~{cached}), skipped={skipped}, TMDb calls={api_calls}"
+    )
+    _log(
+        "[Streaming] If provider lists stay empty after fixing TMDb credentials, delete "
+        "data/tmdb_watch_providers_cache.json once and refresh."
     )
     return rows, {
         "enriched": enriched,

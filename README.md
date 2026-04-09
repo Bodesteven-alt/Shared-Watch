@@ -82,6 +82,24 @@ That script:
 
 Logs: `scripts/logs/startup_sync.log`
 
+### TMDb credentials (posters, streaming providers)
+
+Refresh and streaming enrichment need TMDb in the **same environment** as the Python process (Task Scheduler does not load a `.env` file).
+
+Set either or both:
+
+- `TMDB_READ_ACCESS_TOKEN` — API Read Access Token (Bearer); recommended for watch-provider data.
+- `TMDB_API_KEY` — v3 API key (`api_key` query param).
+
+Or create one-line gitignored files under `data/` (no quotes):
+
+- `data/tmdb_read_access_token.txt`
+- `data/tmdb_api_key.txt`
+
+When **both** are set, the app sends **Bearer and `api_key`** together (best compatibility with TMDb v3).
+
+If watch listings stay empty after fixing credentials, delete **`data/tmdb_watch_providers_cache.json`** once and run refresh again so old empty entries are not reused until cache expiry.
+
 ### Troubleshooting startup sync
 
 - Confirm the task exists: `schtasks /Query /TN WatchlistGitHubPagesSync`

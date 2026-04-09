@@ -298,12 +298,17 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .footer-attribution {
   margin-top: 0.75rem;
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   color: var(--muted);
-  line-height: 1.45;
-  max-width: 40rem;
+  line-height: 1.5;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
+  overflow-wrap: anywhere;
+  word-wrap: break-word;
+  padding: 0 0.5rem;
 }
 .footer-attribution a {
   color: var(--cyan);
