@@ -302,6 +302,15 @@
     return t ? `${t} ratings` : "— ratings";
   }
 
+  function ratingOverlayMetaLine(m) {
+    const im = m.rating_imdb_10;
+    const imPart =
+      im != null && !Number.isNaN(Number(im)) ? `IMDb ${Number(im).toFixed(1)}/10` : null;
+    const votes = ratingTotalVotesLine(m);
+    if (imPart) return `${imPart} · ${votes}`;
+    return votes;
+  }
+
   function ratingBlockHtml(m) {
     const avg5 = m.rating_avg_5;
     if (avg5 == null || Number.isNaN(Number(avg5))) return "";
@@ -309,21 +318,23 @@
     if (!inner) return "";
 
     const avgNum = Number(avg5).toFixed(2);
-    const totalLine = ratingTotalVotesLine(m);
+    const metaLine = ratingOverlayMetaLine(m);
 
     return `
       <div class="rating-block">
-        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show average rating and vote total">
-          <div class="stars">${inner}</div>
+        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show or hide average rating">
+          <span class="rating-stars-inner">
+            <span class="stars">${inner}</span>
+            <span class="rating-value-overlay" aria-hidden="true">
+              <span class="rating-value-pill">
+                <span class="rating-value-row">
+                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span>
+                </span>
+                <span class="rating-value-meta">${metaLine}</span>
+              </span>
+            </span>
+          </span>
         </button>
-        <div class="rating-breakdown" aria-hidden="true">
-          <div class="rating-breakdown-pill">
-            <div class="rating-breakdown-main">
-              <span class="rating-breakdown-value">${avgNum}</span><span class="rating-breakdown-scale">/5</span>
-            </div>
-            <div class="rating-breakdown-total">${totalLine}</div>
-          </div>
-        </div>
       </div>`;
   }
 
@@ -434,12 +445,12 @@
     const btn = e.target.closest(".rating-stars-toggle");
     if (!btn || !gridEl.contains(btn)) return;
     const block = btn.closest(".rating-block");
-    const bd = block?.querySelector(".rating-breakdown");
-    if (!block || !bd) return;
+    const overlay = block?.querySelector(".rating-value-overlay");
+    if (!block || !overlay) return;
     const open = !block.classList.contains("rating-block--open");
     block.classList.toggle("rating-block--open", open);
     btn.setAttribute("aria-expanded", open ? "true" : "false");
-    bd.setAttribute("aria-hidden", open ? "false" : "true");
+    overlay.setAttribute("aria-hidden", open ? "false" : "true");
   });
 
   clearLoadingState();
