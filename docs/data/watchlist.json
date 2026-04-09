@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-04-09T20:29:30.814613+00:00",
+  "updated_at": "2026-04-09T20:42:23.652011+00:00",
   "stream_region": "US",
   "stream_owned_provider_ids": [],
   "stats": {
@@ -31,7 +31,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.5,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 2285,
+              "provider_name": "JustWatch TV"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "21 Jump Street",
@@ -50,7 +115,92 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.44,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 15,
+              "provider_name": "Hulu"
+            },
+            {
+              "provider_id": 2616,
+              "provider_name": "Paramount Plus Essential"
+            },
+            {
+              "provider_id": 386,
+              "provider_name": "Peacock Premium"
+            },
+            {
+              "provider_id": 363,
+              "provider_name": "TNT"
+            },
+            {
+              "provider_id": 506,
+              "provider_name": "TBS"
+            },
+            {
+              "provider_id": 507,
+              "provider_name": "tru TV"
+            },
+            {
+              "provider_id": 387,
+              "provider_name": "Peacock Premium Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "28 Years Later: The Bone Temple",
@@ -69,7 +219,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.59,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "A Knight's Tale",
@@ -89,7 +304,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.44,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "A Real Pain",
@@ -107,7 +374,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.4,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Abigail",
@@ -125,7 +440,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.34,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Agatha All Along",
@@ -160,7 +527,18 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.0,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 337,
+              "provider_name": "Disney Plus"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Akira",
@@ -179,7 +557,48 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.97,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 283,
+              "provider_name": "Crunchyroll"
+            },
+            {
+              "provider_id": 1968,
+              "provider_name": "Crunchyroll Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Alice in Borderland",
@@ -217,7 +636,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.45,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 11,
+              "provider_name": "MUBI"
+            },
+            {
+              "provider_id": 201,
+              "provider_name": "MUBI Amazon Channel"
+            },
+            {
+              "provider_id": 2135,
+              "provider_name": "Kino Film Collection"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Altered States",
@@ -236,7 +716,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.36,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Amer",
@@ -272,7 +800,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.96,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "An American Werewolf in London",
@@ -290,7 +866,80 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.7,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1854,
+              "provider_name": "AMC Plus Apple TV Channel"
+            },
+            {
+              "provider_id": 528,
+              "provider_name": "AMC+ Amazon Channel"
+            },
+            {
+              "provider_id": 526,
+              "provider_name": "AMC+"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 204,
+              "provider_name": "Shudder Amazon Channel"
+            },
+            {
+              "provider_id": 2049,
+              "provider_name": "Shudder Apple TV Channel"
+            },
+            {
+              "provider_id": 2445,
+              "provider_name": "MovieSphere+ Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "At Eternity's Gate",
@@ -308,7 +957,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.49,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "At the Mountains of Madness",
@@ -346,7 +1043,34 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.7,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Avengers: Doomsday",
@@ -385,7 +1109,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.65,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Ballerina",
@@ -404,7 +1176,76 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.62,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 1855,
+              "provider_name": "Starz Apple TV Channel"
+            },
+            {
+              "provider_id": 634,
+              "provider_name": "Starz Roku Premium Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Basket Case",
@@ -422,7 +1263,92 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.12,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 528,
+              "provider_name": "AMC+ Amazon Channel"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 99,
+              "provider_name": "Shudder"
+            },
+            {
+              "provider_id": 455,
+              "provider_name": "Night Flight Plus"
+            },
+            {
+              "provider_id": 204,
+              "provider_name": "Shudder Amazon Channel"
+            },
+            {
+              "provider_id": 199,
+              "provider_name": "Fandor Amazon Channel"
+            },
+            {
+              "provider_id": 202,
+              "provider_name": "Screambox Amazon Channel"
+            },
+            {
+              "provider_id": 2049,
+              "provider_name": "Shudder Apple TV Channel"
+            },
+            {
+              "provider_id": 2367,
+              "provider_name": "Midnight Pulp Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Being John Malkovich",
@@ -441,7 +1367,64 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.71,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Beyond the Black Rainbow",
@@ -460,7 +1443,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.83,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Big Fish",
@@ -479,7 +1523,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.88,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Birdman or (The Unexpected Virtue of Ignorance)",
@@ -497,7 +1589,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.72,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Black Swan",
@@ -516,7 +1656,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.84,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Boyhood",
@@ -533,7 +1721,92 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.75,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 15,
+              "provider_name": "Hulu"
+            },
+            {
+              "provider_id": 1854,
+              "provider_name": "AMC Plus Apple TV Channel"
+            },
+            {
+              "provider_id": 526,
+              "provider_name": "AMC+"
+            },
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 143,
+              "provider_name": "Sundance Now"
+            },
+            {
+              "provider_id": 11,
+              "provider_name": "MUBI"
+            },
+            {
+              "provider_id": 201,
+              "provider_name": "MUBI Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Brazil",
@@ -550,7 +1823,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Broadcast News",
@@ -568,7 +1889,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.38,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Burning",
@@ -585,7 +1954,22 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.7,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Cargo",
@@ -604,7 +1988,22 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.42,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Carol",
@@ -622,7 +2021,76 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.75,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 289,
+              "provider_name": "Cinemax Amazon Channel"
+            },
+            {
+              "provider_id": 2061,
+              "provider_name": "Cinemax Apple TV Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Carole & Tuesday",
@@ -655,7 +2123,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.07,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 2528,
+              "provider_name": "YouTube TV"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Casino",
@@ -673,7 +2206,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.0,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 386,
+              "provider_name": "Peacock Premium"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            },
+            {
+              "provider_id": 387,
+              "provider_name": "Peacock Premium Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Castlevania: Nocturne",
@@ -706,7 +2304,18 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.35,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Childhood's End",
@@ -743,7 +2352,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.45,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 34,
+              "provider_name": "MGM Plus"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Chungking Express",
@@ -758,7 +2428,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Close Encounters of the Third Kind",
@@ -776,7 +2507,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.68,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Closer",
@@ -794,7 +2573,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.42,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Cocktail",
@@ -813,7 +2644,64 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.05,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 635,
+              "provider_name": "AMC+ Roku Premium Channel"
+            },
+            {
+              "provider_id": 2528,
+              "provider_name": "YouTube TV"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Cocoon",
@@ -851,7 +2739,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.47,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Coming Home",
@@ -888,7 +2824,80 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.19,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Control",
@@ -905,7 +2914,39 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.0,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Corpse Bride",
@@ -924,7 +2965,63 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.79,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Counterpart",
@@ -959,7 +3056,60 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.2,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Cuckoo",
@@ -976,7 +3126,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 15,
+              "provider_name": "Hulu"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Cure",
@@ -1012,7 +3223,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.67,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Dead Poets Society",
@@ -1029,7 +3288,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.15,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 15,
+              "provider_name": "Hulu"
+            },
+            {
+              "provider_id": 386,
+              "provider_name": "Peacock Premium"
+            },
+            {
+              "provider_id": 387,
+              "provider_name": "Peacock Premium Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Deadpool & Wolverine",
@@ -1048,7 +3368,60 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.78,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 337,
+              "provider_name": "Disney Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Dear Zachary: A Letter to a Son About His Father",
@@ -1066,7 +3439,64 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.02,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Death Race 2000",
@@ -1085,7 +3515,44 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.05,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 692,
+              "provider_name": "Cultpix"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Decoded",
@@ -1103,7 +3570,18 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.5,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 520,
+              "provider_name": "Discovery +"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Deliverance",
@@ -1122,7 +3600,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.66,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Demolition",
@@ -1140,7 +3670,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.42,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Demolition Man",
@@ -1159,7 +3737,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.38,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Design for Living",
@@ -1177,7 +3803,18 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.55,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Django Unchained",
@@ -1195,7 +3832,92 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.1,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 2303,
+              "provider_name": "Paramount Plus Premium"
+            },
+            {
+              "provider_id": 1855,
+              "provider_name": "Starz Apple TV Channel"
+            },
+            {
+              "provider_id": 582,
+              "provider_name": "Paramount+ Amazon Channel"
+            },
+            {
+              "provider_id": 43,
+              "provider_name": "Starz"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 633,
+              "provider_name": "Paramount+ Roku Premium Channel"
+            },
+            {
+              "provider_id": 1794,
+              "provider_name": "Starz Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Don't Be Afraid of the Dark",
@@ -1214,7 +3936,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.9,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Dreamcatcher",
@@ -1234,7 +4004,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 2.82,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Drive",
@@ -1253,7 +4071,63 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.79,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Echo",
@@ -1289,7 +4163,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.67,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Escape from New York",
@@ -1308,7 +4247,47 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.52,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Eurovision Song Contest: The Story of Fire Saga",
@@ -1326,7 +4305,22 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.21,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Eve's Bayou",
@@ -1343,7 +4337,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.2,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 386,
+              "provider_name": "Peacock Premium"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 387,
+              "provider_name": "Peacock Premium Plus"
+            },
+            {
+              "provider_id": 2445,
+              "provider_name": "MovieSphere+ Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Explorer: The Last Tepui",
@@ -1361,7 +4420,18 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.8,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 337,
+              "provider_name": "Disney Plus"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Fall",
@@ -1378,7 +4448,60 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.55,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Fallen Angels",
@@ -1395,7 +4518,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 1.0,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            },
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Fight Club",
@@ -1413,7 +4597,56 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.22,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 15,
+              "provider_name": "Hulu"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Final Destination Bloodlines",
@@ -1431,7 +4664,64 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.52,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Fly Me to the Moon",
@@ -1449,7 +4739,44 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.4,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 350,
+              "provider_name": "Apple TV"
+            },
+            {
+              "provider_id": 2243,
+              "provider_name": "Apple TV Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Forbidden Planet",
@@ -1467,7 +4794,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.6,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Forgotten",
@@ -1503,7 +4882,22 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.92,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Friday the 13th Part 2",
@@ -1521,7 +4915,80 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.1,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 2303,
+              "provider_name": "Paramount Plus Premium"
+            },
+            {
+              "provider_id": 2616,
+              "provider_name": "Paramount Plus Essential"
+            },
+            {
+              "provider_id": 582,
+              "provider_name": "Paramount+ Amazon Channel"
+            },
+            {
+              "provider_id": 633,
+              "provider_name": "Paramount+ Roku Premium Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Fright Night",
@@ -1539,7 +5006,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.12,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Gattaca",
@@ -1559,7 +5074,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.78,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Godland",
@@ -1576,7 +5139,60 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.4,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 258,
+              "provider_name": "Criterion Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Godzilla",
@@ -1595,7 +5211,63 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.18,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Gran Torino",
@@ -1612,7 +5284,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.99,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Green Book",
@@ -1631,7 +5355,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.11,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Gremlins",
@@ -1650,7 +5426,59 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.57,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Groundhog Day",
@@ -1669,7 +5497,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.81,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 636,
+              "provider_name": "MGM Plus Roku Premium Channel"
+            },
+            {
+              "provider_id": 2528,
+              "provider_name": "YouTube TV"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 486,
+              "provider_name": "Spectrum On Demand"
+            },
+            {
+              "provider_id": 538,
+              "provider_name": "Plex"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Hamnet",
@@ -1688,7 +5581,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.85,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 386,
+              "provider_name": "Peacock Premium"
+            },
+            {
+              "provider_id": 387,
+              "provider_name": "Peacock Premium Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 331,
+              "provider_name": "FlixFling"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Happy Old Year",
@@ -1705,7 +5659,28 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.49,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 344,
+              "provider_name": "Rakuten Viki"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Hellraiser",
@@ -1723,7 +5698,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.44,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 257,
+              "provider_name": "fuboTV"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Hereditary",
@@ -1742,7 +5778,55 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.65,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Hidden Figures",
@@ -1760,7 +5844,64 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 4.02,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 1899,
+              "provider_name": "HBO Max"
+            },
+            {
+              "provider_id": 1825,
+              "provider_name": "HBO Max Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Holy Motors",
@@ -1778,7 +5919,72 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.49,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 25,
+              "provider_name": "Fandor"
+            },
+            {
+              "provider_id": 2383,
+              "provider_name": "Philo"
+            },
+            {
+              "provider_id": 199,
+              "provider_name": "Fandor Amazon Channel"
+            },
+            {
+              "provider_id": 1960,
+              "provider_name": "Midnight Pulp"
+            },
+            {
+              "provider_id": 2367,
+              "provider_name": "Midnight Pulp Amazon Channel"
+            },
+            {
+              "provider_id": 600,
+              "provider_name": "Shout! Factory Amazon Channel"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Hoppers",
@@ -1817,7 +6023,68 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.55,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 9,
+              "provider_name": "Amazon Prime Video"
+            },
+            {
+              "provider_id": 2100,
+              "provider_name": "Amazon Prime Video with Ads"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            },
+            {
+              "provider_id": 2565,
+              "provider_name": "MovieMe"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "I'm Thinking of Ending Things",
@@ -1836,7 +6103,22 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.28,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 8,
+              "provider_name": "Netflix"
+            },
+            {
+              "provider_id": 1796,
+              "provider_name": "Netflix Standard with Ads"
+            }
+          ],
+          "rent": [],
+          "buy": []
+        }
+      }
     },
     {
       "title": "Ice Age: Dawn of the Dinosaurs",
@@ -1856,7 +6138,60 @@
       "rating_count_letterboxd": null,
       "rating_avg_5": 3.4,
       "content_type": null,
-      "streaming": {}
+      "streaming": {
+        "US": {
+          "flatrate": [
+            {
+              "provider_id": 337,
+              "provider_name": "Disney Plus"
+            }
+          ],
+          "rent": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ],
+          "buy": [
+            {
+              "provider_id": 10,
+              "provider_name": "Amazon Video"
+            },
+            {
+              "provider_id": 2,
+              "provider_name": "Apple TV Store"
+            },
+            {
+              "provider_id": 3,
+              "provider_name": "Google Play Movies"
+            },
+            {
+              "provider_id": 192,
+              "provider_name": "YouTube"
+            },
+            {
+              "provider_id": 7,
+              "provider_name": "Fandango At Home"
+            }
+          ]
+        }
+      }
     },
     {
       "title": "Iceman",
