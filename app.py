@@ -6,7 +6,7 @@ import logging
 import os
 import threading
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 from flask import Flask, redirect, render_template, request, url_for
 
@@ -26,6 +26,62 @@ _refresh_lock = threading.Lock()
 
 def _utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+_MONTH_ABBR = (
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+)
+
+
+def _format_updated_footer(iso: str | None) -> str | None:
+    """Human-readable stamp for the footer, e.g. 'Apr 9, 2026, 3 hours ago'."""
+    if not iso or not str(iso).strip():
+        return None
+    raw = str(iso).strip()
+    if raw.endswith("Z"):
+        raw = raw[:-1] + "+00:00"
+    try:
+        dt = datetime.fromisoformat(raw)
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    else:
+        dt = dt.astimezone(timezone.utc)
+
+    cal = f"{_MONTH_ABBR[dt.month - 1]} {dt.day}, {dt.year}"
+    now = datetime.now(timezone.utc)
+    delta = now - dt
+    if delta < timedelta(0):
+        delta = timedelta(0)
+
+    secs = int(delta.total_seconds())
+    if secs < 60:
+        rel = "just now"
+    elif secs < 3600:
+        m = secs // 60
+        rel = f"{m} minute{'s' if m != 1 else ''} ago"
+    elif secs < 86400:
+        h = secs // 3600
+        rel = f"{h} hour{'s' if h != 1 else ''} ago"
+    elif delta.days < 7:
+        d = delta.days
+        rel = f"{d} day{'s' if d != 1 else ''} ago"
+    else:
+        return cal
+
+    return f"{cal}, {rel}"
 
 
 def _load_cache() -> dict:
@@ -275,6 +331,7 @@ def index():
         streaming_stats=cache.get("streaming_stats") or {},
         filtered_stats=filtered_stats,
         updated_at=cache.get("updated_at"),
+        updated_footer=_format_updated_footer(cache.get("updated_at")),
         log_lines=cache.get("log") or [],
         letterboxd_error=cache.get("letterboxd_error"),
         imdb_error=cache.get("imdb_error"),

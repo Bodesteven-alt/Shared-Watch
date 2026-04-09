@@ -150,6 +150,7 @@
       font-size: 0.85rem;
       color: var(--muted);
       margin-bottom: 0.9rem;
+      overflow-wrap: anywhere;
     }
     .err {
       background: rgba(255, 122, 154, 0.12);
@@ -200,6 +201,12 @@
       display: block;
     }
     .movie-content {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .movie-main {
       min-width: 0;
       display: flex;
       flex-direction: column;
@@ -320,22 +327,89 @@
       text-decoration: none;
     }
     .site-footer a:hover { text-decoration: underline; }
-    .site-footer .footer-label {
-      margin: 0.65rem 0 0.35rem;
-      font-weight: 600;
-      color: var(--text);
+    .footer-strap {
+      margin: 0 0 1rem;
     }
-    .site-footer ul {
-      margin: 0 0 0.75rem;
-      padding-left: 1.2rem;
-      max-width: 100%;
+    .footer-strap p {
+      margin: 0 0 0.4rem;
     }
-    .site-footer .tmdb-attribution {
-      font-size: 0.68rem;
+    .footer-strap p:last-child {
+      margin-bottom: 0;
+    }
+    details.data-credits {
+      margin: 0;
+      border-radius: 10px;
+      border: 1px solid rgba(35, 56, 92, 0.65);
+      background: rgba(10, 17, 30, 0.35);
+      overflow: hidden;
+    }
+    details.data-credits > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.78rem;
       color: var(--muted);
-      margin: 0.5rem 0 0;
-      max-width: 100%;
-      overflow-wrap: anywhere;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      user-select: none;
+    }
+    details.data-credits > summary::-webkit-details-marker {
+      display: none;
+    }
+    details.data-credits > summary:hover,
+    details.data-credits > summary:focus-visible {
+      color: var(--text);
+      background: rgba(91, 140, 255, 0.06);
+      outline: none;
+    }
+    details.data-credits > summary:focus-visible {
+      box-shadow: inset 0 0 0 2px rgba(91, 140, 255, 0.35);
+    }
+    .data-credits-chev {
+      display: inline-block;
+      font-size: 0.65rem;
+      opacity: 0.75;
+      transition: transform 0.25s ease;
+      flex-shrink: 0;
+    }
+    details.data-credits[open] > summary .data-credits-chev {
+      transform: rotate(-180deg);
+    }
+    .data-credits-drawer {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s ease;
+    }
+    details.data-credits[open] .data-credits-drawer {
+      max-height: 28rem;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .data-credits-drawer {
+        transition: none;
+      }
+      .data-credits-chev {
+        transition: none;
+      }
+    }
+    .data-credits-inner {
+      padding: 0 0.75rem 0.85rem;
+      max-width: 36rem;
+      font-size: 0.72rem;
+      line-height: 1.55;
+      color: rgba(145, 163, 195, 0.88);
+    }
+    .data-credits-inner p {
+      margin: 0 0 0.75rem;
+    }
+    .data-credits-inner p:last-child {
+      margin-bottom: 0;
+    }
+    .data-credits-inner .tmdb-attribution {
+      font-size: 0.68rem;
+      color: rgba(145, 163, 195, 0.72);
+      margin-top: 0.35rem;
     }
     .badge {
       font-size: 0.68rem;
@@ -448,6 +522,95 @@
     }
     .avail-count strong { color: var(--both); }
     .filter-form-wrap { margin-bottom: 1rem; }
+
+    @media (max-width: 640px) {
+      html {
+        overflow-x: hidden;
+      }
+      .wrap {
+        overflow-x: hidden;
+      }
+      .movie-card {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-rows: auto auto;
+        column-gap: 0.65rem;
+        row-gap: 0.35rem;
+        align-items: start;
+      }
+      .movie-content {
+        display: contents;
+      }
+      .movie-main {
+        display: contents;
+      }
+      .badges-row {
+        display: contents;
+      }
+      .poster-wrap {
+        grid-column: 1;
+        grid-row: 1;
+        width: 52px;
+        min-width: 52px;
+        height: 78px;
+        justify-self: center;
+      }
+      .watch-details {
+        grid-column: 1;
+        grid-row: 2;
+        justify-self: center;
+        align-self: start;
+      }
+      .movie-title {
+        grid-column: 2;
+        grid-row: 1;
+        min-width: 0;
+      }
+      .badges {
+        grid-column: 2;
+        grid-row: 2;
+        align-self: start;
+      }
+      .watch-details summary {
+        font-size: 0.8rem;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: 0.02em;
+        padding: 0.3rem 0.6rem;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        background: rgba(10, 17, 30, 0.6);
+        box-shadow: none;
+        animation: none;
+      }
+      .watch-details summary:hover {
+        filter: none;
+        color: #cfe0ff;
+        border-color: #5b8cff;
+        background: rgba(91, 140, 255, 0.14);
+      }
+      .watch-details summary::after {
+        content: "";
+      }
+      .watch-details[open] .watch-body {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        right: auto;
+        transform: translate(-50%, -50%);
+        z-index: 300;
+        width: min(340px, calc(100vw - 24px));
+        max-width: min(340px, calc(100vw - 24px));
+        min-width: 0;
+        max-height: min(70dvh, 420px);
+        overflow-x: hidden;
+        overflow-y: auto;
+        box-sizing: border-box;
+      }
+      .watch-details[open] {
+        z-index: 299;
+      }
+    }
   </style>
 </head>
 <body>
@@ -541,7 +704,9 @@
       </div>
 
       <p class="meta">
-        {% if updated_at %}
+        {% if updated_footer %}
+          Last updated: {{ updated_footer }}.
+        {% elif updated_at %}
           Last updated: {{ updated_at }}.
         {% else %}
           No data yet — a background fetch runs shortly after startup, or click Refresh from sites.
@@ -571,65 +736,67 @@
               {% endif %}
             </div>
             <div class="movie-content">
-              <div class="movie-title">{{ r.display }}</div>
-              <div class="badges-row">
-                <div class="badges">
-                  {% if r.letterboxd and r.imdb %}
-                    <span class="badge both">Both</span>
-                  {% elif r.letterboxd %}
-                    <span class="badge lb">Letterboxd</span>
-                  {% else %}
-                    <span class="badge im">IMDb</span>
-                  {% endif %}
-                </div>
-                <details class="watch-details">
-                  <summary class="watch-summary" aria-label="Where to watch {{ r.display }}">Watch</summary>
-                  <div class="watch-body">
-                    {% if not tmdb_configured %}
-                      <p class="watch-muted">Set <code>TMDB_READ_ACCESS_TOKEN</code> or <code>TMDB_API_KEY</code>, then use <strong>Refresh from sites</strong>.</p>
+              <div class="movie-main">
+                <div class="movie-title">{{ r.display }}</div>
+                <div class="badges-row">
+                  <div class="badges">
+                    {% if r.letterboxd and r.imdb %}
+                      <span class="badge both">Both</span>
+                    {% elif r.letterboxd %}
+                      <span class="badge lb">Letterboxd</span>
                     {% else %}
-                      {% set st = r.get('streaming') or {} %}
-                      {% set block = st.get(stream_region) or {} %}
-                      {% set flatrate = block.get('flatrate') or [] %}
-                      {% set rent = block.get('rent') or [] %}
-                      {% set buy = block.get('buy') or [] %}
-                      {% if flatrate or rent or buy %}
-                        {% if flatrate %}
-                        <div class="prov-section">
-                          <div class="prov-label">Included with subscription</div>
-                          <ul>
-                            {% for p in flatrate %}
-                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
-                        {% if rent %}
-                        <div class="prov-section">
-                          <div class="prov-label">Rent</div>
-                          <ul>
-                            {% for p in rent %}
-                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
-                        {% if buy %}
-                        <div class="prov-section">
-                          <div class="prov-label">Buy</div>
-                          <ul>
-                            {% for p in buy %}
-                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
-                            {% endfor %}
-                          </ul>
-                        </div>
-                        {% endif %}
-                      {% else %}
-                        <p class="watch-muted">No provider listings in {{ stream_region }} for this title (or not found on TMDb).</p>
-                      {% endif %}
+                      <span class="badge im">IMDb</span>
                     {% endif %}
                   </div>
-                </details>
+                  <details class="watch-details">
+                    <summary class="watch-summary" aria-label="Where to watch {{ r.display }}">Watch</summary>
+                    <div class="watch-body">
+                      {% if not tmdb_configured %}
+                        <p class="watch-muted">Set <code>TMDB_READ_ACCESS_TOKEN</code> or <code>TMDB_API_KEY</code>, then use <strong>Refresh from sites</strong>.</p>
+                      {% else %}
+                        {% set st = r.get('streaming') or {} %}
+                        {% set block = st.get(stream_region) or {} %}
+                        {% set flatrate = block.get('flatrate') or [] %}
+                        {% set rent = block.get('rent') or [] %}
+                        {% set buy = block.get('buy') or [] %}
+                        {% if flatrate or rent or buy %}
+                          {% if flatrate %}
+                          <div class="prov-section">
+                            <div class="prov-label">Included with subscription</div>
+                            <ul>
+                              {% for p in flatrate %}
+                              <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                          {% endif %}
+                          {% if rent %}
+                          <div class="prov-section">
+                            <div class="prov-label">Rent</div>
+                            <ul>
+                              {% for p in rent %}
+                              <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                          {% endif %}
+                          {% if buy %}
+                          <div class="prov-section">
+                            <div class="prov-label">Buy</div>
+                            <ul>
+                              {% for p in buy %}
+                              <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                              {% endfor %}
+                            </ul>
+                          </div>
+                          {% endif %}
+                        {% else %}
+                          <p class="watch-muted">No provider listings in {{ stream_region }} for this title (or not found on TMDb).</p>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+                  </details>
+                </div>
               </div>
             </div>
           </article>
@@ -650,17 +817,28 @@
     </section>
 
     <footer class="site-footer">
-      {% if site_github_url %}
-      <p><a href="{{ site_github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a></p>
-      {% endif %}
-      <p class="footer-label">Data sourced from:</p>
-      <ul>
-        <li><a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDb)</a> — posters, movie match, watch providers</li>
-        <li><a href="{{ letterboxd_url }}" target="_blank" rel="noopener noreferrer">Letterboxd</a> — watchlist titles</li>
-        <li><a href="{{ imdb_url }}" target="_blank" rel="noopener noreferrer">IMDb</a> — watchlist titles</li>
-        <li><a href="https://www.omdbapi.com/" target="_blank" rel="noopener noreferrer">OMDb API</a> — optional posters/metadata when <code>OMDB_API_KEY</code> is configured{% if not omdb_configured %} (not set on this server){% endif %}</li>
-      </ul>
-      <p class="tmdb-attribution">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+      <div class="footer-strap">
+        {% if updated_footer %}
+        <p>Updated {{ updated_footer }}.</p>
+        {% else %}
+        <p>No sync time yet — use <strong>Refresh from sites</strong> or wait for the background fetch.</p>
+        {% endif %}
+        <p>Made by Steven Bode</p>
+        {% if site_github_url %}
+        <p><a href="{{ site_github_url }}" target="_blank" rel="noopener noreferrer">View on GitHub</a></p>
+        {% endif %}
+      </div>
+      <details class="data-credits">
+        <summary>Data &amp; credits <span class="data-credits-chev" aria-hidden="true">▼</span></summary>
+        <div class="data-credits-drawer">
+          <div class="data-credits-inner">
+            <p>Letterboxd and IMDb watchlists</p>
+            <p>TMDb for posters, matching, and streaming providers</p>
+            <p>OMDb for optional metadata and poster fallback during export or sync{% if not omdb_configured %} (not configured on this server){% endif %}</p>
+            <p class="tmdb-attribution">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+          </div>
+        </div>
+      </details>
     </footer>
   </div>
 </body>
