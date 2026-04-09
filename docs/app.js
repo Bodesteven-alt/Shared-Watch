@@ -321,8 +321,9 @@
             <span class="rating-value-pill">
               <span class="rating-value-line">
                 <span class="rating-value-score-wrap">
-                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span><span class="rating-value-sep" aria-hidden="true"> · </span>
+                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span>
                 </span>
+                <span class="rating-value-sep" aria-hidden="true">·</span>
                 <span class="rating-value-rates">${ratesText}</span>
               </span>
             </span>
