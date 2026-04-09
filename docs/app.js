@@ -290,25 +290,16 @@
     return String(Math.round(v));
   }
 
-  /** Sum of known IMDb + Letterboxd vote counts (sources that feed the weighted average). */
-  function ratingTotalVotesLine(m) {
+  /** Compact "2k rates" from combined IMDb + Letterboxd vote counts (for star overlay). */
+  function ratingOverlayRatesText(m) {
     const ni = Number(m.rating_count_imdb);
     const nl = Number(m.rating_count_letterboxd);
     const hasIm = Number.isFinite(ni) && ni > 0;
     const hasLb = Number.isFinite(nl) && nl > 0;
-    if (!hasIm && !hasLb) return "— ratings";
+    if (!hasIm && !hasLb) return "— rates";
     const total = Math.round((hasIm ? ni : 0) + (hasLb ? nl : 0));
     const t = formatCompactCount(total);
-    return t ? `${t} ratings` : "— ratings";
-  }
-
-  function ratingOverlayMetaLine(m) {
-    const im = m.rating_imdb_10;
-    const imPart =
-      im != null && !Number.isNaN(Number(im)) ? `IMDb ${Number(im).toFixed(1)}/10` : null;
-    const votes = ratingTotalVotesLine(m);
-    if (imPart) return `${imPart} · ${votes}`;
-    return votes;
+    return t ? `${t} rates` : "— rates";
   }
 
   function ratingBlockHtml(m) {
@@ -318,7 +309,7 @@
     if (!inner) return "";
 
     const avgNum = Number(avg5).toFixed(2);
-    const metaLine = ratingOverlayMetaLine(m);
+    const ratesText = ratingOverlayRatesText(m);
 
     return `
       <div class="rating-block">
@@ -327,10 +318,9 @@
             <span class="stars">${inner}</span>
             <span class="rating-value-overlay" aria-hidden="true">
               <span class="rating-value-pill">
-                <span class="rating-value-row">
-                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span>
+                <span class="rating-value-line">
+                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span><span class="rating-value-muted"> · ${ratesText}</span>
                 </span>
-                <span class="rating-value-meta">${metaLine}</span>
               </span>
             </span>
           </span>
