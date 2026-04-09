@@ -213,10 +213,123 @@
       font-size: 0.95rem;
       line-height: 1.35;
     }
+    .badges-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem 0.6rem;
+    }
     .badges {
       display: flex;
       gap: 0.35rem;
       flex-wrap: wrap;
+    }
+    .watch-details {
+      position: relative;
+    }
+    .watch-details summary {
+      list-style: none;
+      cursor: pointer;
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 0.22rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(122, 91, 255, 0.55);
+      color: #e8e4ff;
+      background: linear-gradient(135deg, rgba(91, 140, 255, 0.35), rgba(122, 91, 255, 0.28));
+      box-shadow:
+        0 0 12px rgba(91, 140, 255, 0.45),
+        0 0 22px rgba(122, 91, 255, 0.2);
+      animation: watchGlow 2.8s ease-in-out infinite;
+    }
+    .watch-details summary::-webkit-details-marker { display: none; }
+    .watch-details summary::after { content: " ▾"; font-size: 0.6rem; opacity: 0.85; }
+    .watch-details[open] summary::after { content: " ▴"; }
+    .watch-details summary:hover {
+      filter: brightness(1.12);
+    }
+    @keyframes watchGlow {
+      0%, 100% {
+        box-shadow:
+          0 0 10px rgba(91, 140, 255, 0.4),
+          0 0 20px rgba(122, 91, 255, 0.18);
+      }
+      50% {
+        box-shadow:
+          0 0 16px rgba(91, 140, 255, 0.55),
+          0 0 28px rgba(122, 91, 255, 0.32);
+      }
+    }
+    .watch-body {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      top: calc(100% + 6px);
+      min-width: 220px;
+      max-width: min(320px, 92vw);
+      padding: 0.55rem 0.65rem;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: rgba(12, 20, 36, 0.98);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+      font-size: 0.78rem;
+      line-height: 1.4;
+    }
+    .watch-body .prov-section {
+      margin-top: 0.45rem;
+    }
+    .watch-body .prov-section:first-child { margin-top: 0; }
+    .watch-body .prov-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .watch-body ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+    .watch-body li { margin: 0.12rem 0; }
+    .watch-body .prov-owned {
+      color: var(--both);
+      font-weight: 600;
+    }
+    .watch-muted {
+      color: var(--muted);
+      margin: 0;
+      font-size: 0.78rem;
+    }
+    .site-footer {
+      margin-top: 2rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .site-footer a {
+      color: #aecdff;
+      text-decoration: none;
+    }
+    .site-footer a:hover { text-decoration: underline; }
+    .site-footer .footer-label {
+      margin: 0.65rem 0 0.35rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .site-footer ul {
+      margin: 0 0 0.75rem;
+      padding-left: 1.2rem;
+    }
+    .site-footer .tmdb-attribution {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin: 0.5rem 0 0;
+      max-width: 52ch;
     }
     .badge {
       font-size: 0.68rem;
@@ -406,7 +519,7 @@
           </div>
           <p class="avail-count"><strong>{{ available_now_count }}</strong> movies available now on your selected services (watchlist titles with flatrate).</p>
           {% else %}
-          <p class="hint">Add <code>data/owned_streaming_services.json</code> (copy from <code>data/owned_streaming_services.example.json</code>) or set <code>STREAMING_OWNED_PROVIDER_IDS</code> / <code>STREAMING_REGION</code>. Requires <code>TMDB_API_KEY</code> and a refresh to load provider data.</p>
+          <p class="hint">Add <code>data/owned_streaming_services.json</code> (copy from <code>data/owned_streaming_services.example.json</code>) or set <code>STREAMING_OWNED_PROVIDER_IDS</code> / <code>STREAMING_REGION</code>. Requires <code>TMDB_READ_ACCESS_TOKEN</code> or <code>TMDB_API_KEY</code> and a refresh to load provider data.</p>
           {% endif %}
         </div>
 
@@ -453,14 +566,64 @@
             </div>
             <div class="movie-content">
               <div class="movie-title">{{ r.display }}</div>
-              <div class="badges">
-                {% if r.letterboxd and r.imdb %}
-                  <span class="badge both">Both</span>
-                {% elif r.letterboxd %}
-                  <span class="badge lb">Letterboxd</span>
-                {% else %}
-                  <span class="badge im">IMDb</span>
-                {% endif %}
+              <div class="badges-row">
+                <div class="badges">
+                  {% if r.letterboxd and r.imdb %}
+                    <span class="badge both">Both</span>
+                  {% elif r.letterboxd %}
+                    <span class="badge lb">Letterboxd</span>
+                  {% else %}
+                    <span class="badge im">IMDb</span>
+                  {% endif %}
+                </div>
+                <details class="watch-details">
+                  <summary class="watch-summary" aria-label="Where to watch {{ r.display }}">Watch</summary>
+                  <div class="watch-body">
+                    {% if not tmdb_configured %}
+                      <p class="watch-muted">Set <code>TMDB_READ_ACCESS_TOKEN</code> or <code>TMDB_API_KEY</code>, then use <strong>Refresh from sites</strong>.</p>
+                    {% else %}
+                      {% set st = r.get('streaming') or {} %}
+                      {% set block = st.get(stream_region) or {} %}
+                      {% set flatrate = block.get('flatrate') or [] %}
+                      {% set rent = block.get('rent') or [] %}
+                      {% set buy = block.get('buy') or [] %}
+                      {% if flatrate or rent or buy %}
+                        {% if flatrate %}
+                        <div class="prov-section">
+                          <div class="prov-label">Included with subscription</div>
+                          <ul>
+                            {% for p in flatrate %}
+                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
+                        {% if rent %}
+                        <div class="prov-section">
+                          <div class="prov-label">Rent</div>
+                          <ul>
+                            {% for p in rent %}
+                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
+                        {% if buy %}
+                        <div class="prov-section">
+                          <div class="prov-label">Buy</div>
+                          <ul>
+                            {% for p in buy %}
+                            <li><span class="{% if p.provider_id in selected_sp %}prov-owned{% endif %}">{{ p.provider_name }}</span></li>
+                            {% endfor %}
+                          </ul>
+                        </div>
+                        {% endif %}
+                      {% else %}
+                        <p class="watch-muted">No provider listings in {{ stream_region }} for this title (or not found on TMDb).</p>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </details>
               </div>
             </div>
           </article>
@@ -479,6 +642,22 @@
       </details>
       {% endif %}
     </section>
+
+    <footer class="site-footer">
+      {% if site_github_url %}
+      <p><a href="{{ site_github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a></p>
+      {% endif %}
+      <p class="footer-label">Data sourced from:</p>
+      <ul>
+        <li><a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDb)</a> — posters, movie match, watch providers</li>
+        <li><a href="{{ letterboxd_url }}" target="_blank" rel="noopener noreferrer">Letterboxd</a> — watchlist titles</li>
+        <li><a href="{{ imdb_url }}" target="_blank" rel="noopener noreferrer">IMDb</a> — watchlist titles</li>
+        {% if omdb_configured %}
+        <li><a href="https://www.omdbapi.com/" target="_blank" rel="noopener noreferrer">OMDb</a> — optional posters/metadata</li>
+        {% endif %}
+      </ul>
+      <p class="tmdb-attribution">This product uses the TMDb API but is not endorsed or certified by TMDb.</p>
+    </footer>
   </div>
 </body>
 </html>

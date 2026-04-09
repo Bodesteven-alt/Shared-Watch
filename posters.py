@@ -12,6 +12,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import config
+import tmdb_client
 
 TMDB_HTTP_HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -154,23 +155,11 @@ def _poster_from_tmdb_movie_page_html(html: str) -> str | None:
 
 
 def _fetch_tmdb_poster_by_imdb_find(imdb_id: str) -> str | None:
-    """TMDB /find by IMDb id (accurate poster when API key is set)."""
-    if not config.TMDB_API_KEY or not imdb_id:
+    """TMDB /find by IMDb id (accurate poster when TMDb API is configured)."""
+    if not config.TMDB_API_CONFIGURED or not imdb_id:
         return None
-    url = f"https://api.themoviedb.org/3/find/{imdb_id}"
-    try:
-        r = requests.get(
-            url,
-            params={"api_key": config.TMDB_API_KEY, "external_source": "imdb_id"},
-            timeout=15,
-        )
-    except requests.RequestException:
-        return None
-    if r.status_code != 200:
-        return None
-    try:
-        data = r.json()
-    except ValueError:
+    data = tmdb_client.tmdb_v3_get(f"/find/{imdb_id}", {"external_source": "imdb_id"})
+    if not data:
         return None
     for movie in data.get("movie_results") or []:
         pp = movie.get("poster_path")
@@ -209,18 +198,14 @@ def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
 
 
 def _fetch_tmdb_poster(title: str) -> str | None:
-    if not config.TMDB_API_KEY:
+    if not config.TMDB_API_CONFIGURED:
         return None
-    url = "https://api.themoviedb.org/3/search/movie"
-    params = {
-        "api_key": config.TMDB_API_KEY,
-        "query": title,
-        "include_adult": "false",
-    }
-    resp = requests.get(url, params=params, timeout=15)
-    if resp.status_code != 200:
+    data = tmdb_client.tmdb_v3_get(
+        "/search/movie",
+        {"query": title, "include_adult": "false"},
+    )
+    if not data:
         return None
-    data = resp.json()
     results = data.get("results") or []
     if not results:
         return None
@@ -472,7 +457,7 @@ def enrich_rows_with_posters(
             if poster:
                 source = "tmdb_web"
 
-        if (not poster) and config.TMDB_API_KEY:
+        if (not poster) and config.TMDB_API_CONFIGURED:
             poster = _fetch_tmdb_poster(title)
             if poster:
                 source = "tmdb"

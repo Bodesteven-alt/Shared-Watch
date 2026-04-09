@@ -61,7 +61,7 @@ STREAMING_CACHE_MAX_AGE_DAYS = int(os.environ.get("STREAMING_CACHE_MAX_AGE_DAYS"
 
 
 def _load_tmdb_api_key() -> str:
-    """Letterboxd uses TMDB with their own key; this app needs yours. Env or one-line file."""
+    """TMDb v3 API key: TMDB_API_KEY env or gitignored one-line file."""
     k = os.environ.get("TMDB_API_KEY", "").strip()
     if k:
         return k
@@ -81,9 +81,35 @@ def _load_tmdb_api_key() -> str:
     return ""
 
 
-# Optional TMDB poster lookup — see https://www.themoviedb.org/settings/api
+def _load_tmdb_read_access_token() -> str:
+    """TMDb API Read Access Token (JWT): Bearer auth for v3. Env or gitignored one-line file."""
+    t = os.environ.get("TMDB_READ_ACCESS_TOKEN", "").strip()
+    if t:
+        return t
+    token_path = os.environ.get(
+        "TMDB_READ_ACCESS_TOKEN_FILE",
+        os.path.join(_data_dir, "tmdb_read_access_token.txt"),
+    )
+    if os.path.isfile(token_path):
+        try:
+            with open(token_path, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        return line
+        except OSError:
+            pass
+    return ""
+
+
+# Optional TMDb — see https://www.themoviedb.org/settings/api
 TMDB_API_KEY = _load_tmdb_api_key()
+TMDB_READ_ACCESS_TOKEN = _load_tmdb_read_access_token()
+TMDB_API_CONFIGURED = bool(TMDB_READ_ACCESS_TOKEN or TMDB_API_KEY)
 TMDB_IMAGE_BASE = os.environ.get("TMDB_IMAGE_BASE", "https://image.tmdb.org/t/p/w185")
+
+# Optional footer link (e.g. https://github.com/you/repo). Empty = hide GitHub line.
+SITE_GITHUB_URL = (os.environ.get("SITE_GITHUB_URL") or "").strip()
 
 
 def _load_omdb_api_key() -> str:

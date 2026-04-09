@@ -7,10 +7,9 @@ import re
 import time
 from typing import Any, Callable
 
-import requests
-
 import config
 import posters as posters_mod
+import tmdb_client
 
 
 def _norm_title_key(title: str) -> str:
@@ -84,21 +83,7 @@ def _trim_results_by_region(full_results: dict, region: str) -> dict[str, Any]:
 
 
 def _tmdb_request(path: str, params: dict) -> dict | None:
-    if not config.TMDB_API_KEY:
-        return None
-    p = {"api_key": config.TMDB_API_KEY, **params}
-    url = f"https://api.themoviedb.org/3{path}"
-    try:
-        r = requests.get(url, params=p, timeout=20)
-    except requests.RequestException:
-        return None
-    if r.status_code != 200:
-        return None
-    try:
-        data = r.json()
-    except ValueError:
-        return None
-    return data if isinstance(data, dict) else None
+    return tmdb_client.tmdb_v3_get(path, params)
 
 
 def _find_movie_id_by_imdb(imdb_id: str) -> int | None:
@@ -166,8 +151,10 @@ def enrich_rows_with_streaming(
         if log:
             log(msg)
 
-    if not config.TMDB_API_KEY:
-        _log("[Streaming] No TMDB_API_KEY; skipping watch-provider enrichment")
+    if not config.TMDB_API_CONFIGURED:
+        _log("[Streaming] No TMDb credentials (TMDB_READ_ACCESS_TOKEN or TMDB_API_KEY); skipping watch-provider enrichment")
+        for row in rows:
+            row["streaming"] = {}
         return rows, {"enriched": 0, "cached": 0, "skipped": len(rows), "api_calls": 0}
 
     disk = _load_providers_cache()
