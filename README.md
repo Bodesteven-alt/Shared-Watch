@@ -84,14 +84,16 @@ Logs: `scripts/logs/startup_sync.log`
 
 ### TMDb credentials (posters, streaming providers)
 
-Refresh and streaming enrichment need TMDb in the **same environment** as the Python process (Task Scheduler does not load a `.env` file).
+Refresh and streaming enrichment need TMDb in the **same environment** as the Python process.
 
-Set either or both:
+**Option A — project `.env`:** Copy `.env.example` to `.env` in the repo root and set the two variables. With `python-dotenv` installed (`pip install -r requirements.txt`), `config` loads `.env` on import (existing process env vars win over the file).
+
+**Option B — environment variables:** Set either or both:
 
 - `TMDB_READ_ACCESS_TOKEN` — API Read Access Token (Bearer); recommended for watch-provider data.
 - `TMDB_API_KEY` — v3 API key (`api_key` query param).
 
-Or create one-line gitignored files under `data/` (no quotes):
+**Option C — one-line gitignored files under `data/` (no quotes):**
 
 - `data/tmdb_read_access_token.txt`
 - `data/tmdb_api_key.txt`
