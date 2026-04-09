@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 import time
 from pathlib import Path
 from urllib.parse import quote
@@ -13,6 +14,9 @@ from bs4 import BeautifulSoup
 
 
 ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+import config  # noqa: E402
 DEFAULT_INPUT = ROOT / "data" / "cache.json"
 DEFAULT_OUTPUT = ROOT / "docs" / "data" / "watchlist.json"
 DEFAULT_METADATA_CACHE = ROOT / "data" / "imdb_metadata_cache.json"
@@ -765,6 +769,7 @@ def main() -> int:
                 "rating_count_letterboxd": rating_count_lb,
                 "rating_avg_5": rating_avg_5,
                 "content_type": c.get("content_type"),
+                "streaming": r.get("streaming") if isinstance(r.get("streaming"), dict) else {},
             }
         )
 
@@ -775,8 +780,26 @@ def main() -> int:
 
     movies.sort(key=lambda m: m["title"].lower())
 
+    profile = config.load_owned_streaming_profile()
+    stream_region_export = (profile.get("region") or "US").upper()
+    stream_owned_ids = [p["id"] for p in (profile.get("providers") or [])]
+    def _streaming_has_providers(m: dict) -> bool:
+        s = m.get("streaming") or {}
+        if not isinstance(s, dict):
+            return False
+        for v in s.values():
+            if not isinstance(v, dict):
+                continue
+            if v.get("flatrate") or v.get("rent") or v.get("buy"):
+                return True
+        return False
+
+    streaming_nonempty = sum(1 for m in movies if _streaming_has_providers(m))
+
     payload = {
         "updated_at": cache.get("updated_at"),
+        "stream_region": stream_region_export,
+        "stream_owned_provider_ids": stream_owned_ids,
         "stats": {
             "total": int(stats.get("total", len(movies))),
             "both": int(stats.get("both", 0)),
@@ -799,6 +822,7 @@ def main() -> int:
 
     print()
     print(f"Exported {len(movies)} movies to {output_path}")
+    print(f"  Streaming blocks (non-empty): {streaming_nonempty}/{len(movies)} (region {stream_region_export} in JSON)")
     if filtered_count > 0:
         print(f"  Filtered out: {filtered_count} TV series/episodes")
     print(f"  With year: {len(movies) - missing_year}/{len(movies)}")

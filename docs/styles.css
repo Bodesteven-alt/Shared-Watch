@@ -203,6 +203,115 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .card-rating-row .badge {
   margin-top: 0;
 }
+.watch-details {
+  position: relative;
+  flex-shrink: 0;
+}
+.watch-details summary {
+  list-style: none;
+  cursor: pointer;
+  font-size: .62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  padding: .2rem .5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(185, 103, 255, 0.55);
+  color: #ece6ff;
+  background: linear-gradient(135deg, rgba(1, 205, 254, 0.22), rgba(185, 103, 255, 0.2));
+  box-shadow:
+    0 0 10px rgba(1, 205, 254, 0.35),
+    0 0 18px rgba(185, 103, 255, 0.18);
+  animation: watchGlow 2.8s ease-in-out infinite;
+}
+.watch-details summary::-webkit-details-marker {
+  display: none;
+}
+.watch-details summary::after {
+  content: " ▾";
+  font-size: .55rem;
+  opacity: 0.85;
+}
+.watch-details[open] summary::after {
+  content: " ▴";
+}
+@keyframes watchGlow {
+  0%,
+  100% {
+    box-shadow:
+      0 0 8px rgba(1, 205, 254, 0.3),
+      0 0 16px rgba(185, 103, 255, 0.14);
+  }
+  50% {
+    box-shadow:
+      0 0 14px rgba(1, 205, 254, 0.48),
+      0 0 24px rgba(185, 103, 255, 0.26);
+  }
+}
+.watch-body {
+  position: absolute;
+  z-index: 20;
+  left: 0;
+  top: calc(100% + 6px);
+  min-width: 220px;
+  max-width: min(300px, 88vw);
+  padding: 0.5rem 0.6rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(22, 12, 40, 0.98);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+  font-size: 0.74rem;
+  line-height: 1.4;
+}
+.watch-body .prov-section {
+  margin-top: 0.4rem;
+}
+.watch-body .prov-section:first-child {
+  margin-top: 0;
+}
+.watch-body .prov-label {
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 0.2rem;
+}
+.watch-body ul {
+  margin: 0;
+  padding-left: 1rem;
+}
+.watch-body li {
+  margin: 0.1rem 0;
+}
+.watch-body .prov-owned {
+  color: var(--cyan);
+  font-weight: 600;
+}
+.watch-muted {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.72rem;
+}
+.watch-muted code {
+  font-size: 0.65rem;
+}
+.footer-attribution {
+  margin-top: 0.75rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.45;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+.footer-attribution a {
+  color: var(--cyan);
+  text-decoration: none;
+}
+.footer-attribution a:hover {
+  text-decoration: underline;
+}
 .rating-block {
   display: inline-flex;
   align-items: center;

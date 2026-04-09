@@ -131,6 +131,21 @@
       .replace(/</g, "&lt;");
   }
 
+  function escapeHtmlText(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  const streamRegion = String(data.stream_region || "US").toUpperCase();
+  const streamOwnedIds = new Set(
+    Array.isArray(data.stream_owned_provider_ids)
+      ? data.stream_owned_provider_ids.map((x) => Number(x)).filter((n) => Number.isFinite(n))
+      : [],
+  );
+
   genrePopup.innerHTML =
     `<button type="button" class="genre-option active" data-genre="all" role="option" aria-selected="true">All Genres</button>` +
     sortedGenres
@@ -253,6 +268,53 @@
     if (m.source === "both") return '<span class="badge both">Both</span>';
     if (m.source === "letterboxd") return '<span class="badge lb">Letterboxd</span>';
     return '<span class="badge im">IMDb</span>';
+  }
+
+  function watchProvList(items, ownedSet) {
+    if (!items.length) return "";
+    return items
+      .map((p) => {
+        const id = Number(p && p.provider_id);
+        const name = escapeHtmlText((p && p.provider_name) || (Number.isFinite(id) ? String(id) : "?"));
+        const owned = Number.isFinite(id) && ownedSet.has(id);
+        return `<li><span class="prov-name${owned ? " prov-owned" : ""}">${name}</span></li>`;
+      })
+      .join("");
+  }
+
+  function watchSectionHtml(label, items, ownedSet) {
+    if (!items.length) return "";
+    return `
+      <div class="prov-section">
+        <div class="prov-label">${escapeHtmlText(label)}</div>
+        <ul>${watchProvList(items, ownedSet)}</ul>
+      </div>`;
+  }
+
+  function watchBlockHtml(m) {
+    const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
+    const block = st[streamRegion] || {};
+    const flatrate = Array.isArray(block.flatrate) ? block.flatrate : [];
+    const rent = Array.isArray(block.rent) ? block.rent : [];
+    const buy = Array.isArray(block.buy) ? block.buy : [];
+    const hasAny = flatrate.length > 0 || rent.length > 0 || buy.length > 0;
+
+    let bodyInner;
+    if (!hasAny) {
+      bodyInner = `<p class="watch-muted">No provider listings in ${escapeHtmlText(streamRegion)} for this title. If you use TMDb on the Flask sync, run <strong>Refresh</strong> there, then re-run <code>export_watchlist.py</code> so this JSON includes streaming.</p>`;
+    } else {
+      bodyInner =
+        watchSectionHtml("Included with subscription", flatrate, streamOwnedIds) +
+        watchSectionHtml("Rent", rent, streamOwnedIds) +
+        watchSectionHtml("Buy", buy, streamOwnedIds);
+    }
+
+    const safeTitle = escapeAttr(m.title || "");
+    return `
+      <details class="watch-details">
+        <summary class="watch-summary" aria-label="Where to watch ${safeTitle}">Watch</summary>
+        <div class="watch-body">${bodyInner}</div>
+      </details>`;
   }
 
   const STAR_PATH =
@@ -426,6 +488,7 @@
           <div class="card-rating-row">
             ${ratingBlockHtml(m)}
             ${sourceBadge(m)}
+            ${watchBlockHtml(m)}
           </div>
         </div>
       </article>

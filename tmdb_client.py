@@ -26,11 +26,32 @@ def tmdb_v3_get(path: str, params: dict[str, Any] | None = None) -> dict | None:
         headers["Authorization"] = f"Bearer {token}"
     else:
         q["api_key"] = config.TMDB_API_KEY
+    auth_mode = "bearer" if token else "api_key"
     try:
         r = requests.get(url, params=q, headers=headers, timeout=20)
-    except requests.RequestException:
+    except requests.RequestException as ex:
+        # region agent log
+        import agent_debug
+
+        agent_debug.log(
+            hypothesis_id="H3",
+            location="tmdb_client.py:tmdb_v3_get",
+            message="tmdb_request_exception",
+            data={"path": path, "auth_mode": auth_mode, "exc_type": type(ex).__name__},
+        )
+        # endregion
         return None
     if r.status_code != 200:
+        # region agent log
+        import agent_debug
+
+        agent_debug.log(
+            hypothesis_id="H3",
+            location="tmdb_client.py:tmdb_v3_get",
+            message="tmdb_non_200",
+            data={"path": path, "auth_mode": auth_mode, "status": r.status_code},
+        )
+        # endregion
         return None
     try:
         data = r.json()
