@@ -13,6 +13,22 @@ from bs4 import BeautifulSoup
 
 import config
 
+TMDB_HTTP_HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
+TMDB_SEARCH_MOVIE_NAV = frozenset(
+    {
+        "now-playing",
+        "upcoming",
+        "top-rated",
+        "popular",
+        "favorites",
+        "watchlist",
+    }
+)
+
 
 def _normalize(title: str) -> str:
     t = title.strip().lower()
@@ -67,6 +83,131 @@ def _save_id_cache(cache: dict[str, str | None]) -> None:
     os.replace(tmp, config.IMDB_ID_CACHE_PATH)
 
 
+def _tmdb_search_first_movie_href(soup: BeautifulSoup) -> str | None:
+    """
+    TMDB /search/movie mixes people and movies; pick /movie/<digits>-slug, not nav links.
+    """
+    best: str | None = None
+    for a in soup.select('a[href^="/movie/"]'):
+        href = str(a.get("href") or "").split("?")[0]
+        if not href.startswith("/movie/"):
+            continue
+        slug = href.removeprefix("/movie/").strip("/").split("/")[0].lower()
+        if not slug or slug in TMDB_SEARCH_MOVIE_NAV:
+            continue
+        if re.match(r"^\d+-", slug):
+            return href
+        if best is None:
+            best = href
+    return best
+
+
+def _normalize_tmdb_cdn_poster_url(src: str) -> str | None:
+    s = (src or "").strip()
+    if not s or s.lower().endswith(".svg"):
+        return None
+    if s.startswith("//"):
+        s = "https:" + s
+    if s.startswith("/"):
+        s = "https://www.themoviedb.org" + s
+    m = re.search(r"/t/p/[^/]+(/.+)$", s)
+    if m:
+        return "https://image.tmdb.org/t/p/w185" + m.group(1)
+    if "image.tmdb.org" in s:
+        return s
+    return s
+
+
+def _poster_from_tmdb_movie_page_html(html: str) -> str | None:
+    """Read poster from TMDB movie detail page (JSON-LD image or fallback img)."""
+    soup = BeautifulSoup(html, "html.parser")
+    for script in soup.find_all("script", type="application/ld+json"):
+        txt = (script.string or "").strip()
+        if not txt:
+            continue
+        txt = txt.replace("/* <![CDATA[ */", "").replace("/* ]]> */", "").strip()
+        try:
+            obj = json.loads(txt)
+        except ValueError:
+            continue
+        if not isinstance(obj, dict):
+            continue
+        if str(obj.get("@type", "")).lower() != "movie":
+            continue
+        img = obj.get("image")
+        if isinstance(img, str):
+            return _normalize_tmdb_cdn_poster_url(img)
+        if isinstance(img, list) and img:
+            first = img[0]
+            if isinstance(first, str):
+                return _normalize_tmdb_cdn_poster_url(first)
+            if isinstance(first, dict):
+                u = (first.get("url") or first.get("@id") or "").strip()
+                if u:
+                    return _normalize_tmdb_cdn_poster_url(u)
+        break
+    img = soup.select_one("img.poster, .poster img, .image_content img")
+    if img:
+        src = (img.get("data-src") or img.get("src") or "").strip()
+        return _normalize_tmdb_cdn_poster_url(src)
+    return None
+
+
+def _fetch_tmdb_poster_by_imdb_find(imdb_id: str) -> str | None:
+    """TMDB /find by IMDb id (accurate poster when API key is set)."""
+    if not config.TMDB_API_KEY or not imdb_id:
+        return None
+    url = f"https://api.themoviedb.org/3/find/{imdb_id}"
+    try:
+        r = requests.get(
+            url,
+            params={"api_key": config.TMDB_API_KEY, "external_source": "imdb_id"},
+            timeout=15,
+        )
+    except requests.RequestException:
+        return None
+    if r.status_code != 200:
+        return None
+    try:
+        data = r.json()
+    except ValueError:
+        return None
+    for movie in data.get("movie_results") or []:
+        pp = movie.get("poster_path")
+        if pp:
+            return f"{config.TMDB_IMAGE_BASE}{pp}"
+    return None
+
+
+def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
+    if not config.OMDB_API_KEY:
+        return None
+    params: dict[str, str] = {"apikey": config.OMDB_API_KEY}
+    tid = (imdb_id or "").strip()
+    if tid:
+        params["i"] = tid
+    elif title and title.strip():
+        params["t"] = title.strip()
+    else:
+        return None
+    try:
+        r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
+    except requests.RequestException:
+        return None
+    if r.status_code != 200:
+        return None
+    try:
+        data = r.json()
+    except ValueError:
+        return None
+    if data.get("Response") != "True":
+        return None
+    poster = (data.get("Poster") or "").strip()
+    if not poster or poster.upper() == "N/A":
+        return None
+    return poster
+
+
 def _fetch_tmdb_poster(title: str) -> str | None:
     if not config.TMDB_API_KEY:
         return None
@@ -91,7 +232,7 @@ def _fetch_tmdb_poster(title: str) -> str | None:
 
 def _fetch_tmdb_web_poster(title: str) -> str | None:
     """
-    No-key fallback: scrape first poster from TMDB search page HTML.
+    No-key: TMDB search → first real movie link → detail page → JSON-LD / poster img.
     """
     q = (title or "").strip()
     if not q:
@@ -100,32 +241,28 @@ def _fetch_tmdb_web_poster(title: str) -> str | None:
         r = requests.get(
             "https://www.themoviedb.org/search/movie",
             params={"query": q},
-            timeout=15,
-            headers={
-                "User-Agent": "Mozilla/5.0",
-                "Accept-Language": "en-US,en;q=0.9",
-            },
+            timeout=16,
+            headers=TMDB_HTTP_HEADERS,
         )
     except requests.RequestException:
         return None
     if r.status_code != 200:
         return None
     soup = BeautifulSoup(r.text, "html.parser")
-    img = soup.select_one("img.poster, .image_content img, .poster img")
-    if not img:
+    href = _tmdb_search_first_movie_href(soup)
+    if not href:
         return None
-    src = (img.get("data-src") or img.get("src") or "").strip()
-    if not src:
+    try:
+        page = requests.get(
+            "https://www.themoviedb.org" + href,
+            timeout=16,
+            headers=TMDB_HTTP_HEADERS,
+        )
+    except requests.RequestException:
         return None
-    if src.startswith("//"):
-        src = "https:" + src
-    if src.startswith("/"):
-        src = "https://www.themoviedb.org" + src
-    # Normalize to image.tmdb.org for stable direct image hosting.
-    m = re.search(r"/t/p/[^/]+(/.+)$", src)
-    if m:
-        return "https://image.tmdb.org/t/p/w185" + m.group(1)
-    return src
+    if page.status_code != 200:
+        return None
+    return _poster_from_tmdb_movie_page_html(page.text)
 
 
 def _normalize_lb_image_url(url: str) -> str:
@@ -246,10 +383,13 @@ def enrich_rows_with_posters(
     """
     Add `poster_url` to each row.
     Sources in order:
-      1) Letterboxd title->poster map (no key)
-      2) Cached previous lookups
-      3) IMDb title-page by imdb_id (no key)
-      4) TMDB API (optional key)
+      1) Letterboxd watchlist scrape (no key)
+      2) Disk cache (posters.json)
+      3) IMDb title-page og:image by imdb_id (suggestion if missing)
+      4) TMDB find by imdb_id (API key)
+      5) OMDb Poster (API key; imdb_id or title)
+      6) TMDB movie page scrape by title (no key)
+      7) TMDB search/movie API (API key)
     """
     if not rows:
         return rows, {}
@@ -263,6 +403,7 @@ def enrich_rows_with_posters(
         "resolved_cache": 0,
         "resolved_imdb": 0,
         "resolved_tmdb": 0,
+        "resolved_omdb": 0,
         "unresolved": 0,
         "new_network_lookups": 0,
     }
@@ -288,11 +429,6 @@ def enrich_rows_with_posters(
                 row["poster_source"] = "cache"
                 stats["resolved_total"] += 1
                 stats["resolved_cache"] += 1
-            continue
-        if key in cache and cache[key] is None and not row.get("imdb"):
-            row["poster_url"] = None
-            row["poster_source"] = "none"
-            stats["unresolved"] += 1
             continue
 
         stats["new_network_lookups"] += 1
@@ -321,6 +457,16 @@ def enrich_rows_with_posters(
                 # Small pacing to reduce temporary blocks.
                 time.sleep(0.12)
 
+        if not poster and imdb_id:
+            poster = _fetch_tmdb_poster_by_imdb_find(imdb_id)
+            if poster:
+                source = "tmdb"
+
+        if not poster:
+            poster = _fetch_omdb_poster(imdb_id or None, title)
+            if poster:
+                source = "omdb"
+
         if not poster:
             poster = _fetch_tmdb_web_poster(title)
             if poster:
@@ -342,6 +488,8 @@ def enrich_rows_with_posters(
                 stats["resolved_tmdb"] += 1
             elif source == "tmdb":
                 stats["resolved_tmdb"] += 1
+            elif source == "omdb":
+                stats["resolved_omdb"] += 1
         else:
             stats["unresolved"] += 1
 
@@ -349,7 +497,7 @@ def enrich_rows_with_posters(
     _save_id_cache(id_cache)
     if log:
         log(
-            "[Posters] resolved=%s/%s (lb=%s cache=%s imdb=%s tmdb=%s unresolved=%s new_lookups=%s)"
+            "[Posters] resolved=%s/%s (lb=%s cache=%s imdb=%s tmdb=%s omdb=%s unresolved=%s new_lookups=%s)"
             % (
                 stats["resolved_total"],
                 len(rows),
@@ -357,6 +505,7 @@ def enrich_rows_with_posters(
                 stats["resolved_cache"],
                 stats["resolved_imdb"],
                 stats["resolved_tmdb"],
+                stats["resolved_omdb"],
                 stats["unresolved"],
                 stats["new_network_lookups"],
             )

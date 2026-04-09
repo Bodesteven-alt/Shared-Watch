@@ -84,7 +84,28 @@ def _load_tmdb_api_key() -> str:
 # Optional TMDB poster lookup — see https://www.themoviedb.org/settings/api
 TMDB_API_KEY = _load_tmdb_api_key()
 TMDB_IMAGE_BASE = os.environ.get("TMDB_IMAGE_BASE", "https://image.tmdb.org/t/p/w185")
-POSTER_MAX_NETWORK_LOOKUPS = int(os.environ.get("POSTER_MAX_NETWORK_LOOKUPS", "120"))
+
+
+def _load_omdb_api_key() -> str:
+    k = os.environ.get("OMDB_API_KEY", "").strip()
+    if k:
+        return k
+    key_path = os.path.join(_data_dir, "omdb_api_key.txt")
+    if os.path.isfile(key_path):
+        try:
+            with open(key_path, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith("#"):
+                        return line
+        except OSError:
+            pass
+    return ""
+
+
+OMDB_API_KEY = _load_omdb_api_key()
+# Enough for full watchlist in one refresh (Letterboxd-only rows retry after cache misses).
+POSTER_MAX_NETWORK_LOOKUPS = int(os.environ.get("POSTER_MAX_NETWORK_LOOKUPS", "400") or "400")
 
 
 def load_owned_streaming_profile() -> dict:

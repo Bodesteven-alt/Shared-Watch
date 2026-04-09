@@ -433,7 +433,7 @@
         Sources: Letterboxd {{ poster_stats.get('resolved_letterboxd', 0) }},
         IMDb {{ poster_stats.get('resolved_imdb', 0) }},
         cache {{ poster_stats.get('resolved_cache', 0) }}
-        {% if posters_enabled %}, TMDB {{ poster_stats.get('resolved_tmdb', 0) }}{% endif %}.
+        {% if posters_enabled %}, TMDB {{ poster_stats.get('resolved_tmdb', 0) }}{% endif %}{% if poster_stats.get('resolved_omdb', 0) %}, OMDb {{ poster_stats.get('resolved_omdb', 0) }}{% endif %}.
         {% if 'enriched' in streaming_stats %}
         Streaming enrichment: {{ streaming_stats.get('enriched', 0) }} rows ({{ streaming_stats.get('api_calls', 0) }} TMDb calls).
         {% endif %}
