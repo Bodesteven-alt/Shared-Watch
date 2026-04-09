@@ -212,40 +212,10 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
     return out
 
 
-def fetch_letterboxd_film_stats(title: str) -> dict:
-    """
-    Best-effort Letterboxd community average (0–5) and rating count from film page
-    (search first result → JSON-LD aggregateRating).
-    """
+def _letterboxd_stats_from_film_html(html: str) -> dict:
+    """Parse Letterboxd film page HTML for JSON-LD aggregateRating."""
     out = {"rating_letterboxd_5": None, "rating_count_letterboxd": None}
-    t = (title or "").strip()
-    if not t:
-        return out
-    enc = quote(t, safe="")
-    try:
-        r = requests.get(f"https://letterboxd.com/search/{enc}/", headers=HEADERS, timeout=15)
-    except requests.RequestException:
-        return out
-    if r.status_code != 200:
-        return out
-    soup = BeautifulSoup(r.text, "html.parser")
-    href = None
-    skip = {"lists", "watchlist", "popular", "crew", "actor", "director", "members"}
-    for a in soup.select('a[href^="/film/"]'):
-        h = (a.get("href") or "").split("?")[0]
-        segs = [x for x in h.strip("/").split("/") if x]
-        if len(segs) >= 2 and segs[0] == "film" and segs[1] not in skip:
-            href = "/" + "/".join(segs[:2]) + "/"
-            break
-    if not href:
-        return out
-    try:
-        fr = requests.get("https://letterboxd.com" + href, headers=HEADERS, timeout=15)
-    except requests.RequestException:
-        return out
-    if fr.status_code != 200:
-        return out
-    fsoup = BeautifulSoup(fr.text, "html.parser")
+    fsoup = BeautifulSoup(html, "html.parser")
     for script in fsoup.find_all("script", type="application/ld+json"):
         txt = (script.string or "").strip()
         if not txt:
@@ -286,6 +256,69 @@ def fetch_letterboxd_film_stats(title: str) -> dict:
                     break
         if out["rating_letterboxd_5"] is not None or out["rating_count_letterboxd"] is not None:
             break
+    return out
+
+
+def fetch_letterboxd_film_stats(title: str, year: int | None = None) -> dict:
+    """
+    Best-effort Letterboxd community average (0–5) and rating count from film pages
+    (search → try several /film/…/ hits → JSON-LD aggregateRating).
+    """
+    out = {"rating_letterboxd_5": None, "rating_count_letterboxd": None}
+    t = (title or "").strip()
+    if not t:
+        return out
+    enc = quote(t, safe="")
+    try:
+        r = requests.get(f"https://letterboxd.com/search/{enc}/", headers=HEADERS, timeout=15)
+    except requests.RequestException:
+        return out
+    if r.status_code != 200:
+        return out
+    soup = BeautifulSoup(r.text, "html.parser")
+    skip = {"lists", "watchlist", "popular", "crew", "actor", "director", "members"}
+    hrefs_ordered: list[str] = []
+    seen: set[str] = set()
+    year_links: list[str] = []
+    ypat = re.compile(rf"\b{int(year)}\b") if year is not None else None
+    for a in soup.select('a[href^="/film/"]'):
+        h = (a.get("href") or "").split("?")[0]
+        segs = [x for x in h.strip("/").split("/") if x]
+        if len(segs) < 2 or segs[0] != "film" or segs[1] in skip:
+            continue
+        href = "/" + "/".join(segs[:2]) + "/"
+        if href in seen:
+            continue
+        seen.add(href)
+        if ypat is not None:
+            ctx = ""
+            el = a.parent
+            for _ in range(5):
+                if el is None:
+                    break
+                if hasattr(el, "get_text"):
+                    ctx += el.get_text(" ", strip=True) + " "
+                el = getattr(el, "parent", None)
+            if ypat.search(ctx):
+                year_links.append(href)
+        hrefs_ordered.append(href)
+        if len(hrefs_ordered) >= 10:
+            break
+
+    yset = set(year_links)
+    try_hrefs = year_links + [h for h in hrefs_ordered if h not in yset]
+    for href in try_hrefs[:8]:
+        try:
+            fr = requests.get("https://letterboxd.com" + href, headers=HEADERS, timeout=15)
+        except requests.RequestException:
+            continue
+        if fr.status_code != 200:
+            continue
+        st = _letterboxd_stats_from_film_html(fr.text)
+        if st["rating_letterboxd_5"] is not None:
+            return st
+        if st["rating_count_letterboxd"] is not None and out["rating_count_letterboxd"] is None:
+            out["rating_count_letterboxd"] = st["rating_count_letterboxd"]
     return out
 
 
@@ -494,6 +527,7 @@ def main() -> int:
         source_used = "cached"
         content_type = c.get("content_type")
         if imdb_id and needs_refresh:
+            prev_meta = dict(c) if isinstance(c, dict) else {}
             parsed = parse_imdb_title_page(imdb_id)
             source_used = "IMDb"
             content_type = None
@@ -513,17 +547,28 @@ def main() -> int:
             if content_type is None and OMDB_API_KEY:
                 omdb_check = fetch_omdb_metadata(imdb_id=imdb_id)
                 content_type = omdb_check.get("content_type")
-            prev_lb5 = c.get("rating_letterboxd_5")
-            prev_lbn = c.get("rating_count_letterboxd")
+            merged_genres = parsed.get("genres") if parsed.get("genres") else (prev_meta.get("genres") or [])
+            merged_year = parsed.get("year") or hint.get("year") or prev_meta.get("year")
+            merged_rating = (
+                parsed.get("rating_imdb_10")
+                if parsed.get("rating_imdb_10") is not None
+                else prev_meta.get("rating_imdb_10")
+            )
+            merged_count = (
+                parsed.get("rating_count_imdb")
+                if parsed.get("rating_count_imdb") is not None
+                else prev_meta.get("rating_count_imdb")
+            )
+            merged_ct = content_type if content_type is not None else prev_meta.get("content_type")
             c = {
                 "imdb_id": imdb_id,
-                "year": parsed.get("year") or hint.get("year"),
-                "genres": parsed.get("genres") or [],
-                "rating_imdb_10": parsed.get("rating_imdb_10"),
-                "rating_count_imdb": parsed.get("rating_count_imdb"),
-                "content_type": content_type,
-                "rating_letterboxd_5": prev_lb5,
-                "rating_count_letterboxd": prev_lbn,
+                "year": merged_year,
+                "genres": merged_genres,
+                "rating_imdb_10": merged_rating,
+                "rating_count_imdb": merged_count,
+                "content_type": merged_ct,
+                "rating_letterboxd_5": prev_meta.get("rating_letterboxd_5"),
+                "rating_count_letterboxd": prev_meta.get("rating_count_letterboxd"),
             }
             meta_cache[norm] = c
         elif not imdb_id and needs_refresh:
@@ -566,7 +611,9 @@ def main() -> int:
             c.get("rating_letterboxd_5") is None or c.get("rating_count_letterboxd") is None
         ):
             time.sleep(0.08)
-            lbstats = fetch_letterboxd_film_stats(title)
+            lb_yr = c.get("year")
+            lb_year = lb_yr if isinstance(lb_yr, int) and 1870 < lb_yr < 2100 else None
+            lbstats = fetch_letterboxd_film_stats(title, year=lb_year)
             if lbstats.get("rating_letterboxd_5") is not None:
                 c["rating_letterboxd_5"] = lbstats["rating_letterboxd_5"]
             if lbstats.get("rating_count_letterboxd") is not None:

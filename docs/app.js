@@ -277,17 +277,29 @@
     return html;
   }
 
-  function formatVoteCount(n) {
-    if (n == null || n === "") return "—";
-    const v = Number(n);
-    if (!Number.isFinite(v) || v < 0) return "—";
-    if (v >= 1e6) {
-      const x = v / 1e6;
-      const s = x >= 10 ? x.toFixed(0) : x.toFixed(1).replace(/\.0$/, "");
-      return `${s}M`;
+  function imdbRatingLine(m) {
+    if (m.rating_imdb_10 != null && !Number.isNaN(Number(m.rating_imdb_10))) {
+      return `IMDb ${Number(m.rating_imdb_10).toFixed(1)}/10`;
     }
-    if (v >= 1000) return `${Math.round(v / 1000)}k`;
-    return String(Math.round(v));
+    return "IMDb —";
+  }
+
+  function letterboxdRatingLine(m) {
+    if (m.rating_letterboxd_5 != null && !Number.isNaN(Number(m.rating_letterboxd_5))) {
+      return `Letterboxd ${Number(m.rating_letterboxd_5).toFixed(2)}/5`;
+    }
+    return "Letterboxd —";
+  }
+
+  function ratingSourceRows(m) {
+    const src = m.source;
+    if (src === "both") {
+      return [imdbRatingLine(m), letterboxdRatingLine(m)];
+    }
+    if (src === "imdb") {
+      return [imdbRatingLine(m)];
+    }
+    return [letterboxdRatingLine(m)];
   }
 
   function ratingBlockHtml(m) {
@@ -297,15 +309,7 @@
     if (!inner) return "";
 
     const avgNum = Number(avg5).toFixed(2);
-    const lines = [];
-    if (m.rating_imdb_10 != null && !Number.isNaN(Number(m.rating_imdb_10))) {
-      const ri = Number(m.rating_imdb_10);
-      lines.push(`IMDb ${ri.toFixed(1)}/10 · ${formatVoteCount(m.rating_count_imdb)} ratings`);
-    }
-    if (m.rating_letterboxd_5 != null && !Number.isNaN(Number(m.rating_letterboxd_5))) {
-      const rl = Number(m.rating_letterboxd_5);
-      lines.push(`Letterboxd ${rl.toFixed(2)}/5 · ${formatVoteCount(m.rating_count_letterboxd)} ratings`);
-    }
+    const rows = ratingSourceRows(m);
 
     return `
       <div class="rating-block">
@@ -314,15 +318,12 @@
         </button>
         <div class="rating-breakdown" aria-hidden="true">
           <div class="rating-breakdown-pill">
-            <div class="rating-breakdown-head">
-              <span class="rating-breakdown-label">Average</span>
+            <div class="rating-breakdown-main">
               <span class="rating-breakdown-value">${avgNum}</span><span class="rating-breakdown-scale">/5</span>
             </div>
-            ${
-              lines.length
-                ? `<div class="rating-breakdown-sources">${lines.map((l) => `<div class="rating-breakdown-src">${l}</div>`).join("")}</div>`
-                : ""
-            }
+            <div class="rating-breakdown-sources">
+              ${rows.map((line) => `<div class="rating-breakdown-src">${line}</div>`).join("")}
+            </div>
           </div>
         </div>
       </div>`;
