@@ -10,3 +10,4 @@ data/tmdb_read_access_token.txt
 data/owned_streaming_services.json
 data/tmdb_watch_providers_cache.json
 scripts/logs/
+debug-*.log

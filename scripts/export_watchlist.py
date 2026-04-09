@@ -16,6 +16,7 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+import agent_debug  # noqa: E402
 import config  # noqa: E402
 DEFAULT_INPUT = ROOT / "data" / "cache.json"
 DEFAULT_OUTPUT = ROOT / "docs" / "data" / "watchlist.json"
@@ -796,6 +797,40 @@ def main() -> int:
 
     streaming_nonempty = sum(1 for m in movies if _streaming_has_providers(m))
 
+    # #region agent log
+    sample_keys: list[str] = []
+    for m in movies:
+        st = m.get("streaming")
+        if isinstance(st, dict) and st:
+            sample_keys = sorted(st.keys())[:12]
+            break
+    any_movie_has_region = any(
+        stream_region_export in (m.get("streaming") or {}) for m in movies if isinstance(m.get("streaming"), dict)
+    )
+    agent_debug.log(
+        hypothesis_id="C",
+        location="export_watchlist.py:before_save",
+        message="export streaming summary",
+        data={
+            "runId": "pre-fix",
+            "movies": len(movies),
+            "streaming_nonempty": streaming_nonempty,
+            "stream_region_export": stream_region_export,
+            "first_nonempty_streaming_keys": sample_keys,
+        },
+    )
+    agent_debug.log(
+        hypothesis_id="D",
+        location="export_watchlist.py:region_alignment",
+        message="JSON stream_region vs per-movie streaming keys",
+        data={
+            "runId": "pre-fix",
+            "stream_region_export": stream_region_export,
+            "any_movie_has_export_region_key": any_movie_has_region,
+        },
+    )
+    # #endregion
+
     payload = {
         "updated_at": cache.get("updated_at"),
         "stream_region": stream_region_export,
@@ -823,6 +858,11 @@ def main() -> int:
     print()
     print(f"Exported {len(movies)} movies to {output_path}")
     print(f"  Streaming blocks (non-empty): {streaming_nonempty}/{len(movies)} (region {stream_region_export} in JSON)")
+    if streaming_nonempty == 0:
+        print(
+            "  Note: All streaming blocks are empty. Provider data is filled when cache refresh runs "
+            "with TMDb configured; run: python scripts/check_streaming_setup.py"
+        )
     if filtered_count > 0:
         print(f"  Filtered out: {filtered_count} TV series/episodes")
     print(f"  With year: {len(movies) - missing_year}/{len(movies)}")

@@ -3,6 +3,24 @@ import json
 import os
 
 
+def _load_dotenv_if_present() -> None:
+    """Load project-root .env when python-dotenv is installed (optional dependency).
+
+    Uses override=False so variables already set in the process (e.g. Task Scheduler) win.
+    """
+    try:
+        from dotenv import load_dotenv  # type: ignore[import-not-found]
+    except ImportError:
+        return
+    root = os.path.dirname(os.path.abspath(__file__))
+    env_path = os.path.join(root, ".env")
+    if os.path.isfile(env_path):
+        load_dotenv(env_path, override=False)
+
+
+_load_dotenv_if_present()
+
+
 def _env_bool(name: str, default: bool) -> bool:
     v = os.environ.get(name)
     if v is None:

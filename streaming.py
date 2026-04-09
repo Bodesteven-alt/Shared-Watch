@@ -7,6 +7,7 @@ import re
 import time
 from typing import Any, Callable
 
+import agent_debug
 import config
 import posters as posters_mod
 import tmdb_client
@@ -195,8 +196,33 @@ def enrich_rows_with_streaming(
         if log:
             log(msg)
 
+    # #region agent log
+    agent_debug.log(
+        hypothesis_id="A",
+        location="streaming.py:enrich_rows_with_streaming",
+        message="enrich entry",
+        data={
+            "runId": "pre-fix",
+            "tmdb_configured": config.TMDB_API_CONFIGURED,
+            "has_token": bool((config.TMDB_READ_ACCESS_TOKEN or "").strip()),
+            "has_key": bool((config.TMDB_API_KEY or "").strip()),
+            "region": region,
+            "row_count": len(rows),
+            "max_network_lookups": max(0, config.STREAMING_MAX_NETWORK_LOOKUPS),
+        },
+    )
+    # #endregion
+
     if not config.TMDB_API_CONFIGURED:
         _log("[Streaming] No TMDb credentials (TMDB_READ_ACCESS_TOKEN or TMDB_API_KEY); skipping watch-provider enrichment")
+        # #region agent log
+        agent_debug.log(
+            hypothesis_id="A",
+            location="streaming.py:enrich_no_creds",
+            message="skipped enrichment — no TMDb creds",
+            data={"runId": "pre-fix", "skipped_rows": len(rows)},
+        )
+        # #endregion
         for row in rows:
             row["streaming"] = {}
         return rows, {"enriched": 0, "cached": 0, "skipped": len(rows), "api_calls": 0}
@@ -213,6 +239,7 @@ def enrich_rows_with_streaming(
     enriched = 0
     cached = 0
     skipped = 0
+    _first_watch_raw_logged = False
 
     for row in rows:
         key = _cache_key_for_row(row)
@@ -285,12 +312,48 @@ def enrich_rows_with_streaming(
 
         raw_regions = _fetch_watch_providers_raw(tmdb_id)
         api_calls += 1
+        # #region agent log
+        if not _first_watch_raw_logged:
+            _first_watch_raw_logged = True
+            keys = sorted(raw_regions.keys()) if isinstance(raw_regions, dict) else []
+            us_blk = raw_regions.get(region) if isinstance(raw_regions, dict) else None
+            us_blk = us_blk if isinstance(us_blk, dict) else {}
+            agent_debug.log(
+                hypothesis_id="B",
+                location="streaming.py:first_watch_providers_response",
+                message="first TMDb watch/providers raw sample",
+                data={
+                    "runId": "pre-fix",
+                    "tmdb_id": tmdb_id,
+                    "profile_region": region,
+                    "raw_region_key_count": len(keys),
+                    "raw_region_keys_head": keys[:20],
+                    "us_flatrate_n": len(us_blk.get("flatrate") or []) if isinstance(us_blk.get("flatrate"), list) else 0,
+                    "us_rent_n": len(us_blk.get("rent") or []) if isinstance(us_blk.get("rent"), list) else 0,
+                    "raw_empty": not keys,
+                },
+            )
+        # #endregion
         slim = _trim_results_by_region(raw_regions, region)
         row["streaming"] = slim
         disk[key] = {"tmdb_id": tmdb_id, "streaming": slim, "fetched_at": now}
         enriched += 1
 
     _save_providers_cache(disk)
+    # #region agent log
+    agent_debug.log(
+        hypothesis_id="E",
+        location="streaming.py:enrich_complete",
+        message="enrich finished",
+        data={
+            "runId": "pre-fix",
+            "enriched": enriched,
+            "cached": cached,
+            "skipped": skipped,
+            "api_calls": api_calls,
+        },
+    )
+    # #endregion
     _log(
         f"[Streaming] rows with data={enriched} (disk_hits~{cached}), skipped={skipped}, TMDb calls={api_calls}"
     )
