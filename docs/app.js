@@ -316,11 +316,14 @@
         <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show or hide average rating">
           <span class="rating-stars-inner">
             <span class="stars">${inner}</span>
-            <span class="rating-value-overlay" aria-hidden="true">
-              <span class="rating-value-pill">
-                <span class="rating-value-line">
-                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span><span class="rating-value-muted"> · ${ratesText}</span>
+          </span>
+          <span class="rating-value-overlay" aria-hidden="true">
+            <span class="rating-value-pill">
+              <span class="rating-value-line">
+                <span class="rating-value-score-wrap">
+                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span><span class="rating-value-sep" aria-hidden="true"> · </span>
                 </span>
+                <span class="rating-value-rates">${ratesText}</span>
               </span>
             </span>
           </span>
