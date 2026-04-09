@@ -277,29 +277,29 @@
     return html;
   }
 
-  function imdbRatingLine(m) {
-    if (m.rating_imdb_10 != null && !Number.isNaN(Number(m.rating_imdb_10))) {
-      return `IMDb ${Number(m.rating_imdb_10).toFixed(1)}/10`;
+  function formatCompactCount(n) {
+    if (n == null || n === "") return null;
+    const v = Number(n);
+    if (!Number.isFinite(v) || v <= 0) return null;
+    if (v >= 1e6) {
+      const x = v / 1e6;
+      const s = x >= 10 ? x.toFixed(0) : x.toFixed(1).replace(/\.0$/, "");
+      return `${s}M`;
     }
-    return "IMDb —";
+    if (v >= 1000) return `${Math.round(v / 1000)}k`;
+    return String(Math.round(v));
   }
 
-  function letterboxdRatingLine(m) {
-    if (m.rating_letterboxd_5 != null && !Number.isNaN(Number(m.rating_letterboxd_5))) {
-      return `Letterboxd ${Number(m.rating_letterboxd_5).toFixed(2)}/5`;
-    }
-    return "Letterboxd —";
-  }
-
-  function ratingSourceRows(m) {
-    const src = m.source;
-    if (src === "both") {
-      return [imdbRatingLine(m), letterboxdRatingLine(m)];
-    }
-    if (src === "imdb") {
-      return [imdbRatingLine(m)];
-    }
-    return [letterboxdRatingLine(m)];
+  /** Sum of known IMDb + Letterboxd vote counts (sources that feed the weighted average). */
+  function ratingTotalVotesLine(m) {
+    const ni = Number(m.rating_count_imdb);
+    const nl = Number(m.rating_count_letterboxd);
+    const hasIm = Number.isFinite(ni) && ni > 0;
+    const hasLb = Number.isFinite(nl) && nl > 0;
+    if (!hasIm && !hasLb) return "— ratings";
+    const total = Math.round((hasIm ? ni : 0) + (hasLb ? nl : 0));
+    const t = formatCompactCount(total);
+    return t ? `${t} ratings` : "— ratings";
   }
 
   function ratingBlockHtml(m) {
@@ -309,11 +309,11 @@
     if (!inner) return "";
 
     const avgNum = Number(avg5).toFixed(2);
-    const rows = ratingSourceRows(m);
+    const totalLine = ratingTotalVotesLine(m);
 
     return `
       <div class="rating-block">
-        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show average rating and sources">
+        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show average rating and vote total">
           <div class="stars">${inner}</div>
         </button>
         <div class="rating-breakdown" aria-hidden="true">
@@ -321,9 +321,7 @@
             <div class="rating-breakdown-main">
               <span class="rating-breakdown-value">${avgNum}</span><span class="rating-breakdown-scale">/5</span>
             </div>
-            <div class="rating-breakdown-sources">
-              ${rows.map((line) => `<div class="rating-breakdown-src">${line}</div>`).join("")}
-            </div>
+            <div class="rating-breakdown-total">${totalLine}</div>
           </div>
         </div>
       </div>`;

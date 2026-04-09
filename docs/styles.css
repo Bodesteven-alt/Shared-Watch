@@ -275,19 +275,12 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   color: var(--muted);
   font-weight: 500;
 }
-.rating-breakdown-sources {
-  margin-top: .34rem;
-  padding-top: .28rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-.rating-breakdown-src {
-  font-size: .64rem;
+.rating-breakdown-total {
+  margin-top: .22rem;
+  font-size: .6rem;
   color: var(--muted);
-  margin-top: .2rem;
   font-weight: 500;
-}
-.rating-breakdown-src:first-child {
-  margin-top: 0;
+  letter-spacing: 0.02em;
 }
 .badge {
   display: inline-block;
