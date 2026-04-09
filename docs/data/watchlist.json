@@ -1,14 +1,14 @@
 {
-  "updated_at": "2026-04-08T23:31:56.518060+00:00",
+  "updated_at": "2026-04-09T16:32:19.102983+00:00",
   "stats": {
     "total": 319,
     "both": 7,
     "letterboxd_only": 79,
     "imdb_only": 233,
     "posters_resolved": 270,
-    "metadata_with_year": 319,
-    "metadata_with_genres": 253,
-    "metadata_with_rating": 248
+    "metadata_with_year": 71,
+    "metadata_with_genres": 6,
+    "metadata_with_rating": 0
   },
   "movies": [
     {
@@ -16,16 +16,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/q8A39vcBDruhvoDTJd6L8a4lnTi.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1179933",
-      "year": 2015,
-      "genres": [
-        "Thriller",
-        "Science Fiction",
-        "Drama",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -36,7 +33,9 @@
       "year": 2012,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -45,15 +44,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kK1BGkG3KAvWB0WMV1DfOx9yTMZ.jpg",
       "source": "imdb",
       "imdb_id": "tt32141377",
-      "year": 2024,
-      "genres": [
-        "Horror",
-        "Thriller",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -61,16 +58,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/srb1XnrlDZHcdpjBKqUu4qAzxKU.jpg",
       "source": "imdb",
       "imdb_id": "tt0183790",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Drama",
-        "Romance",
-        "Action"
-      ],
-      "rating_imdb_10": 6.87,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.43,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -78,14 +72,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/67xRIXm5TxXRT4nV2V4AEJ9yq2d.jpg",
       "source": "both",
       "imdb_id": "tt21823606",
-      "year": 2022,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -93,14 +86,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1MQMfcb3fuN0lC1egdaOnHcTlm8.jpg",
       "source": "letterboxd",
       "imdb_id": "tt27489557",
-      "year": 2023,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.68,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.34,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -111,7 +103,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -123,7 +117,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -132,15 +128,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/neZ0ykEsPqxamsX6o5QNUFILQrz.jpg",
       "source": "imdb",
       "imdb_id": "tt0094625",
-      "year": 2010,
-      "genres": [
-        "Animation",
-        "Science Fiction",
-        "Action"
-      ],
-      "rating_imdb_10": 7.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -151,7 +145,9 @@
       "year": 2020,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -160,15 +156,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/fFJP3D5fJDFxN7ChqSye1DZ0fTL.jpg",
       "source": "imdb",
       "imdb_id": "tt0058898",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Science Fiction",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -176,15 +170,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/uGxPxfbpHrzdVgMdpPcxtYW8Yto.jpg",
       "source": "imdb",
       "imdb_id": "tt0080360",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -192,14 +184,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/eb9sH2am9IUSQ8GhXTNAVoujk8W.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1426352",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -207,14 +198,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/nSxDa3M9aMvGVLoItzWTepQ5h5d.jpg",
       "source": "imdb",
       "imdb_id": "tt0211915",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -222,14 +212,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hVEqUASJmCQaolkKFEySCHZ8uKG.jpg",
       "source": "imdb",
       "imdb_id": "tt0082010",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -237,13 +226,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/y4LvHQoX5YunHJ2EMBSjQvOkvD9.jpg",
       "source": "imdb",
       "imdb_id": "tt6938828",
-      "year": 2017,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.97,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.49,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -251,15 +240,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/pF8eboq7LsewWHVBRtxsKQw6s2.jpg",
       "source": "imdb",
       "imdb_id": "tt13289298",
-      "year": 2019,
-      "genres": [
-        "Animation",
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -267,15 +254,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/bRBeSHfGHwkEpImlhxPmOcUsaeg.jpg",
       "source": "imdb",
       "imdb_id": "tt1757678",
-      "year": 2012,
-      "genres": [
-        "Science Fiction",
-        "Adventure",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.26,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.63,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -290,7 +275,9 @@
         "Adventure"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -299,16 +286,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/vQUMVlgDzKjcTWn7WfZsA8UCAbE.jpg",
       "source": "letterboxd",
       "imdb_id": "tt33029871",
-      "year": 2024,
-      "genres": [
-        "Crime",
-        "Thriller",
-        "Science Fiction",
-        "Action"
-      ],
-      "rating_imdb_10": 5.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -316,15 +300,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
       "source": "letterboxd",
       "imdb_id": "tt7181546",
-      "year": 2018,
-      "genres": [
-        "Action",
-        "Thriller",
-        "Crime"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -332,14 +314,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6DdpgHlruy4h6tfpwctFUw0inVj.jpg",
       "source": "imdb",
       "imdb_id": "tt0083624",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -347,15 +328,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/xVSvIwRNzwXSs0CLefiiG6A96m4.jpg",
       "source": "imdb",
       "imdb_id": "tt0120601",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.42,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.71,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -363,15 +342,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/uhomcCTQ3lO8L6mLhkCMypsnroO.jpg",
       "source": "both",
       "imdb_id": "tt1534085",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 5.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -379,15 +356,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1qdvaRxl7rgiGtdHwIvfKu1LJ5K.jpg",
       "source": "imdb",
       "imdb_id": "tt0319061",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Fantasy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.76,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.88,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -395,14 +370,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/rHUg2AuIuLSIYMYFgavVwqt1jtc.jpg",
       "source": "imdb",
       "imdb_id": "tt2562232",
-      "year": 2013,
-      "genres": [
-        "Drama",
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -410,15 +384,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/viWheBd44bouiLCHgNMvahLThqx.jpg",
       "source": "imdb",
       "imdb_id": "tt0947798",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.69,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.84,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -426,13 +398,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2BvtvDUyxiMJ4dmKfiQf4qdOHQN.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1065073",
-      "year": 2012,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -445,7 +417,9 @@
         "Documentary"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -454,14 +428,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kQNR1Lc0qAF5xuBySpDn481KVjb.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0092699",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -472,7 +445,9 @@
       "year": 2018,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -481,15 +456,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/p8qSsI6g2vSrdumtdbb8c2Q2pV6.jpg",
       "source": "imdb",
       "imdb_id": "tt3860916",
-      "year": 2019,
-      "genres": [
-        "Science Fiction",
-        "Drama",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 4.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -500,7 +473,9 @@
       "year": 2015,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -512,7 +487,9 @@
       "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -521,14 +498,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/lGCEKlJo2CnWydQj7aamY7s1S7Q.jpg",
       "source": "imdb",
       "imdb_id": "tt0034583",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 8.14,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.07,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -536,14 +512,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gziIkUSnYuj9ChCi8qOu2ZunpSC.jpg",
       "source": "imdb",
       "imdb_id": "tt0112641",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.99,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -554,7 +529,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -563,14 +540,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/fuEOWhlPl2INV6pNSMVr6uZdy0l.jpg",
       "source": "letterboxd",
       "imdb_id": "tt35022825",
-      "year": 2024,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 8.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -581,7 +557,9 @@
       "year": 2015,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -590,14 +568,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kF2zhd48xOO4awj9zsyW6QT5b88.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0090830",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -605,15 +582,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
       "source": "both",
       "imdb_id": "tt0109424",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 8.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -621,14 +596,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gCWPB8cF82tqzrS9tvzcO6q6nyz.jpg",
       "source": "imdb",
       "imdb_id": "tt0075860",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.35,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.68,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -639,7 +613,9 @@
       "year": 2005,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -648,15 +624,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/jFRhEPhtsln9tDwzMdZN3OlhUob.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0094889",
-      "year": 2010,
-      "genres": [
-        "Romance",
-        "Drama",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.11,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -664,16 +638,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/xBWJVkyH3ZbKusKJQSOnixfw5BK.jpg",
       "source": "imdb",
       "imdb_id": "tt0088933",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Science Fiction",
-        "Mystery",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -681,14 +652,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kmVDlTzERxSvBrqtQurjKf1zEy1.jpg",
       "source": "imdb",
       "imdb_id": "tt0064177",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -699,7 +669,9 @@
       "year": 1978,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -708,14 +680,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/bLdu28fr9txYlHLmEOyGplDT3nH.jpg",
       "source": "imdb",
       "imdb_id": "tt1971352",
-      "year": 2012,
-      "genres": [
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -726,7 +697,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -735,15 +708,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/isb2Qow76GpqYmsSyfdMfsYAjts.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0121164",
-      "year": 2010,
-      "genres": [
-        "Romance",
-        "Fantasy",
-        "Animation"
-      ],
-      "rating_imdb_10": 7.59,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.79,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -754,7 +725,9 @@
       "year": 2017,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -763,14 +736,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/fDdNNU4PjpXLTXtwa0NcsqpdCgh.jpg",
       "source": "imdb",
       "imdb_id": "tt2428170",
-      "year": 2014,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.39,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.19,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -781,7 +753,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -793,7 +767,9 @@
       "year": 2026,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -802,14 +778,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/tNPEGju4DpTdbhBphNmZoEi9Bd3.jpg",
       "source": "imdb",
       "imdb_id": "tt0118929",
-      "year": 2010,
-      "genres": [
-        "Mystery",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 7.34,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.67,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -817,13 +792,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/l5NbiHKUmahlAT3Q1ig8Tyl9xrc.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0097165",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 8.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -831,15 +806,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/8cdWjvZQUExUUTzyp4t6EDMubfO.jpg",
       "source": "imdb",
       "imdb_id": "tt6263850",
-      "year": 2018,
-      "genres": [
-        "Action",
-        "Comedy",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -847,14 +820,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/yYVHGe7U55Ojx11y5A82phPpCHv.jpg",
       "source": "imdb",
       "imdb_id": "tt1152758",
-      "year": 2010,
-      "genres": [
-        "Documentary",
-        "Crime"
-      ],
-      "rating_imdb_10": 8.04,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.02,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -862,15 +834,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kwM8kkNGtv62gfPWVhD6qFxjDzg.jpg",
       "source": "imdb",
       "imdb_id": "tt0072856",
-      "year": 2010,
-      "genres": [
-        "Action",
-        "Science Fiction",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -881,7 +851,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -890,15 +862,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2TrAzNJlHyNYYSkQf6asg3rs2Xr.jpg",
       "source": "imdb",
       "imdb_id": "tt0068473",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Adventure",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -906,14 +876,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4t56LZ1KbOOxgKfqMKN6truBDVc.jpg",
       "source": "imdb",
       "imdb_id": "tt1172049",
-      "year": 2014,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.84,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.42,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -921,15 +890,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/dq6AmlVFo92PRuoLCcIyFdoRuxf.jpg",
       "source": "imdb",
       "imdb_id": "tt0106697",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Action",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.75,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.38,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -937,14 +904,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/h0T4FHsY51IccSGqGfaoYsd7hyx.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0023940",
-      "year": 2011,
-      "genres": [
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -952,14 +918,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7oWY8VDWW7thTzWh3OKYRkWUlD5.jpg",
       "source": "letterboxd",
       "imdb_id": "tt1853728",
-      "year": 2011,
-      "genres": [
-        "Drama",
-        "Western"
-      ],
-      "rating_imdb_10": 8.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -967,15 +932,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/jMBMm1jwqvILV8p1K44brBnmwLK.jpg",
       "source": "imdb",
       "imdb_id": "tt1270761",
-      "year": 2010,
-      "genres": [
-        "Fantasy",
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -983,16 +946,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/lLhvwLNU4pLgvaNREVFaQ4n3lCf.jpg",
       "source": "imdb",
       "imdb_id": "tt0285531",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Horror",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1003,7 +963,9 @@
       "year": 2011,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1015,7 +977,9 @@
       "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1024,14 +988,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mxveW3mGVc0DzLdOmtkZsgd7c3B.jpg",
       "source": "imdb",
       "imdb_id": "tt0074486",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1039,15 +1002,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/vH9llaphjAssRGi0k7e75tD40Ce.jpg",
       "source": "imdb",
       "imdb_id": "tt0082340",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Action",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1055,14 +1016,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/9zrbgYyFvwH8sy5mv9eT25xsAzL.jpg",
       "source": "imdb",
       "imdb_id": "tt8580274",
-      "year": 2018,
-      "genres": [
-        "Comedy",
-        "Music"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1070,13 +1030,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/33yTPcGSv7eo3FVlb7XKACHl1M8.jpg",
       "source": "imdb",
       "imdb_id": "tt0119080",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1084,14 +1044,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/u3csCMawDUyB6DZKI4q3j8m6vjG.jpg",
       "source": "imdb",
       "imdb_id": "tt17048366",
-      "year": 2022,
-      "genres": [
-        "Documentary",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1099,13 +1058,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1N4o5PmmqhlVDrcdJ2RlCFWbLGX.jpg",
       "source": "imdb",
       "imdb_id": "tt15325794",
-      "year": 2022,
-      "genres": [
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1116,7 +1075,9 @@
       "year": 1995,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1125,14 +1086,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/pB8BM7pdSp6B6Ih7QZ4DrQ3PmJK.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0137523",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 8.44,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.22,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1140,14 +1100,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6WxhEvFsauuACfv8HyoVX6mZKFj.jpg",
       "source": "letterboxd",
       "imdb_id": "tt9619824",
-      "year": 2019,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1158,7 +1117,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1167,14 +1128,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/aq0OQfRS7hDDI8vyD0ICbH9eguC.jpg",
       "source": "imdb",
       "imdb_id": "tt0049223",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.25,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.63,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1182,14 +1142,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
       "imdb_id": "tt7057496",
-      "year": 2023,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1197,14 +1156,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1THDAakV8hmbRC9YIqJ9SngVinr.jpg",
       "source": "imdb",
       "imdb_id": "tt26596953",
-      "year": 2023,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1212,14 +1170,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/92rGctBMTv4uaSlIBVnhz01kRWL.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0082418",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1227,14 +1184,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ySQ3v4Fzpy3fePs86eoLiDzwLYM.jpg",
       "source": "imdb",
       "imdb_id": "tt0089175",
-      "year": 2011,
-      "genres": [
-        "Horror",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.24,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.12,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1242,16 +1198,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/eSKr5Fl1MEC7zpAXaLWBWSBjgJq.jpg",
       "source": "imdb",
       "imdb_id": "tt0119177",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Science Fiction",
-        "Mystery",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1259,13 +1212,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ArfOHFR3tQETQ9ZsPmm8FhMMSxv.jpg",
       "source": "imdb",
       "imdb_id": "tt19623228",
-      "year": 2022,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1273,15 +1226,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hAuZ7g6TqDLv5fOqXIPgYRguOkm.jpg",
       "source": "imdb",
       "imdb_id": "tt0831387",
-      "year": 2012,
-      "genres": [
-        "Action",
-        "Drama",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.35,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.18,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1289,13 +1240,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/zUybYvxWdAJy5hhYovsXtHSWI1l.jpg",
       "source": "imdb",
       "imdb_id": "tt1205489",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.99,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.99,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1303,15 +1254,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7BsvSuDQuoqhWmU2fL7W2GOcZHU.jpg",
       "source": "imdb",
       "imdb_id": "tt6966692",
-      "year": 2017,
-      "genres": [
-        "Drama",
-        "Comedy",
-        "History"
-      ],
-      "rating_imdb_10": 8.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1319,15 +1268,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6m0F7fsXjQvUbCZrPWcJNrjvIui.jpg",
       "source": "imdb",
       "imdb_id": "tt0087363",
-      "year": 2010,
-      "genres": [
-        "Fantasy",
-        "Horror",
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.14,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.57,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1335,15 +1282,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gCgt1WARPZaXnq523ySQEUKinCs.jpg",
       "source": "imdb",
       "imdb_id": "tt0107048",
-      "year": 2010,
-      "genres": [
-        "Romance",
-        "Fantasy",
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.63,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.81,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1351,15 +1296,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/vbeyOZm2bvBXcbgPD3v6o94epPX.jpg",
       "source": "both",
       "imdb_id": "tt14905854",
-      "year": 2021,
-      "genres": [
-        "Drama",
-        "Romance",
-        "History"
-      ],
-      "rating_imdb_10": 7.71,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.86,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1367,13 +1310,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/oBXJwfgGwshKAHEqDXgj0pJ2LRb.jpg",
       "source": "letterboxd",
       "imdb_id": "tt11316824",
-      "year": 2019,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1381,14 +1324,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3Z0oPHyLnk3Vx6ZMC1MiVwIrKhO.jpg",
       "source": "imdb",
       "imdb_id": "tt0093177",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1396,15 +1338,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hjlZSXM86wJrfCv5VKfR5DI2VeU.jpg",
       "source": "imdb",
       "imdb_id": "tt7784604",
-      "year": 2017,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1412,14 +1352,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/9lfz2W2uGjyow3am00rsPJ8iOyq.jpg",
       "source": "imdb",
       "imdb_id": "tt4846340",
-      "year": 2016,
-      "genres": [
-        "Drama",
-        "History"
-      ],
-      "rating_imdb_10": 8.04,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.02,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1427,14 +1366,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4ZuTrrDQhCS9f6KzIX6HfsjjyMd.jpg",
       "source": "imdb",
       "imdb_id": "tt2076220",
-      "year": 2012,
-      "genres": [
-        "Drama",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1442,17 +1380,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/xjtWQ2CL1mpmMNwuU5HeS4Iuwuu.jpg",
       "source": "letterboxd",
       "imdb_id": "tt26443616",
-      "year": 2024,
-      "genres": [
-        "Animation",
-        "Family",
-        "Science Fiction",
-        "Comedy",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.62,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.81,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1460,14 +1394,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/8Gu30dMoeLhz7fulx1uohyIOlqT.jpg",
       "source": "imdb",
       "imdb_id": "tt14913282",
-      "year": 2022,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1475,15 +1408,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5ynWWapdl45hJXUh0KIevxSG9JQ.jpg",
       "source": "imdb",
       "imdb_id": "tt7939766",
-      "year": 2018,
-      "genres": [
-        "Mystery",
-        "Thriller",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1491,16 +1422,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/cXOLaxcNjNAYmEx1trZxOTKhK3Q.jpg",
       "source": "imdb",
       "imdb_id": "tt1080016",
-      "year": 2010,
-      "genres": [
-        "Animation",
-        "Comedy",
-        "Family",
-        "Adventure"
-      ],
-      "rating_imdb_10": 6.76,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.38,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1508,13 +1436,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4HllE4JWVl3YbaWKmHXsBVkH4Sr.jpg",
       "source": "imdb",
       "imdb_id": "tt1491044",
-      "year": 2010,
-      "genres": [
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1522,14 +1450,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/msh4tEUzbnEqlHcFOUH4O0Zti8r.jpg",
       "source": "imdb",
       "imdb_id": "tt0113409",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1537,14 +1464,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/Af4bXE63pVsb2FtbW8uYIyPBadD.jpg",
       "source": "imdb",
       "imdb_id": "tt1462764",
-      "year": 2015,
-      "genres": [
-        "Adventure",
-        "Action"
-      ],
-      "rating_imdb_10": 6.52,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.26,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1552,15 +1478,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/A4azclZQjqeQxXvcok3rdUmuq8a.jpg",
       "source": "imdb",
       "imdb_id": "tt0093260",
-      "year": 2010,
-      "genres": [
-        "Action",
-        "Comedy",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1568,14 +1492,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/jnLnLYP5pGDfri04gxtAqAvkHMw.jpg",
       "source": "imdb",
       "imdb_id": "tt0758758",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1583,14 +1506,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/skS02wdeH2C0nrbCQP3qKwJdZtZ.jpg",
       "source": "imdb",
       "imdb_id": "tt0077745",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.23,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.61,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1598,15 +1520,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sIwakdbMGS1krtgendTWpxTY9Hw.jpg",
       "source": "imdb",
       "imdb_id": "tt27564844",
-      "year": 2023,
-      "genres": [
-        "Horror",
-        "Science Fiction",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.26,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.63,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1614,15 +1534,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/c0nUX6Q1ZB0P2t1Jo6EeFSVnOGQ.jpg",
       "source": "imdb",
       "imdb_id": "tt5104604",
-      "year": 2016,
-      "genres": [
-        "Adventure",
-        "Comedy",
-        "Animation"
-      ],
-      "rating_imdb_10": 7.85,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.92,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1633,7 +1551,9 @@
       "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1642,15 +1562,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ufLcHIi1aXjjH8MediAMvnwDsVI.jpg",
       "source": "imdb",
       "imdb_id": "tt0099871",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Mystery",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.36,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.68,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1658,14 +1576,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6vdj47RAWOUZBkeQmqToeZ7eaio.jpg",
       "source": "imdb",
       "imdb_id": "tt0418763",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "War"
-      ],
-      "rating_imdb_10": 6.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1673,14 +1590,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kuFjZlcZhQFDtIjuI3GQJjsQG03.jpg",
       "source": "letterboxd",
       "imdb_id": "tt0055032",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1688,15 +1604,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/dB6Krk806zeqd0YNp2ngQ9zXteH.jpg",
       "source": "imdb",
       "imdb_id": "tt5537002",
-      "year": 2017,
-      "genres": [
-        "Crime",
-        "History",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1704,15 +1618,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gEbQi5QWUg3CQ9R5dwvPBvbOX17.jpg",
       "source": "letterboxd",
       "imdb_id": "tt27367464",
-      "year": 2023,
-      "genres": [
-        "Music",
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1720,15 +1632,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/dm06L9pxDOL9jNSK4Cb6y139rrG.jpg",
       "source": "letterboxd",
       "imdb_id": "tt15679400",
-      "year": 2019,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.25,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.12,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1736,15 +1646,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/uDO8zWDhfWwoFdKS4fzkUJt0Rf0.jpg",
       "source": "imdb",
       "imdb_id": "tt3783958",
-      "year": 2014,
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1755,7 +1663,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1764,14 +1674,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7B9t8lTFCJQ6GVvSbhrbrA7nsVu.jpg",
       "source": "imdb",
       "imdb_id": "tt8015444",
-      "year": 2018,
-      "genres": [
-        "Drama",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1779,14 +1688,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/n1ZRmjlk1BJTY7aASqACfPAaLn2.jpg",
       "source": "imdb",
       "imdb_id": "tt9639470",
-      "year": 2019,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.28,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.64,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1794,14 +1702,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mu8LRWT9GHkfiyHm7kgxT6YNvMW.jpg",
       "source": "imdb",
       "imdb_id": "tt14966898",
-      "year": 2022,
-      "genres": [
-        "Horror",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.11,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1809,15 +1716,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/AiAm0EtDvyGqNpVoieRw4u65vD1.jpg",
       "source": "imdb",
       "imdb_id": "tt0056172",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "History",
-        "War"
-      ],
-      "rating_imdb_10": 7.99,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1825,14 +1730,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mfnkSeeVOBVheuyn2lo4tfmOPQb.jpg",
       "source": "imdb",
       "imdb_id": "tt0118799",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 8.44,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.22,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1840,14 +1744,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/yn5ihODtZ7ofn8pDYfxCmxh8AXI.jpg",
       "source": "imdb",
       "imdb_id": "tt3281548",
-      "year": 2015,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.86,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.93,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1858,7 +1761,9 @@
       "year": 1976,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -1867,15 +1772,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3cxMwPuV5BroI91DZLGdio6WB34.jpg",
       "source": "imdb",
       "imdb_id": "tt11893676",
-      "year": 2021,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1883,15 +1786,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3jCLmYDIIiSMPujbwygNpqdpM8N.jpg",
       "source": "imdb",
       "imdb_id": "tt0335266",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.38,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.69,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1899,15 +1800,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt2366608",
-      "year": 2013,
-      "genres": [
-        "Drama",
-        "Fantasy",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1915,16 +1814,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/105stT9GkiENXiYqvWYKoAuHKQL.jpg",
       "source": "imdb",
       "imdb_id": "tt15090124",
-      "year": 2021,
-      "genres": [
-        "Animation",
-        "Fantasy",
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.81,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1932,16 +1828,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/aL6JGWMt0Op6OLSS1TZJZVmhJNf.jpg",
       "source": "imdb",
       "imdb_id": "tt1392190",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Action",
-        "Thriller",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.68,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.34,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1949,14 +1842,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/AsX4bdvZ8UCayWTmAf9lAqOA8V7.jpg",
       "source": "imdb",
       "imdb_id": "tt28821371",
-      "year": 2024,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1964,13 +1856,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/vSidx9NHKuQIPEQ4yI9b9zkTeh3.jpg",
       "source": "imdb",
       "imdb_id": "tt13652142",
-      "year": 2021,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1978,14 +1870,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/dGv2BWjzwAz6LB8a8JeRIZL8hSz.jpg",
       "source": "both",
       "imdb_id": "tt3811906",
-      "year": 2019,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.75,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.38,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -1993,13 +1884,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/o9VXYOuaJxCEKOxbA86xqtwmqYn.jpg",
       "source": "imdb",
       "imdb_id": "tt4034228",
-      "year": 2015,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2007,13 +1898,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2JRyCKaRKyJAVpsIHeLvPw5nHmw.jpg",
       "source": "imdb",
       "imdb_id": "tt7653254",
-      "year": 2017,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2021,15 +1912,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/g8rUn0khoYB3G4gPPGTF1Xv9Olu.jpg",
       "source": "imdb",
       "imdb_id": "tt26915336",
-      "year": 2019,
-      "genres": [
-        "Animation",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.47,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.73,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2037,14 +1926,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt1441326",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2052,14 +1940,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt32916440",
-      "year": 2024,
-      "genres": [
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.45,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.73,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2070,7 +1957,9 @@
       "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2082,7 +1971,9 @@
       "year": 2021,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2091,14 +1982,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5oRbZ2vBCuOiboc0WJ928KOwKAD.jpg",
       "source": "imdb",
       "imdb_id": "tt0071396",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2109,7 +1999,9 @@
       "year": 2021,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2118,14 +2010,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7PqmgaQBuD0Zp9pDIkkEjkhCJUj.jpg",
       "source": "imdb",
       "imdb_id": "tt1046997",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "War"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2136,7 +2027,9 @@
       "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2145,15 +2038,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/x7A59t6ySylr1L7aubOQEA480vM.jpg",
       "source": "imdb",
       "imdb_id": "tt0166924",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Drama",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2161,13 +2052,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/p9TF90Pb5yg2MNb2UztzyXktMm4.jpg",
       "source": "imdb",
       "imdb_id": "tt0102494",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2175,13 +2066,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt12860964",
-      "year": 2020,
-      "genres": [
-        "Documentary"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2192,7 +2083,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2201,15 +2094,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7okcm65P7WfpF3f0HiQBFTsvcXV.jpg",
       "source": "imdb",
       "imdb_id": "tt1334260",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2217,16 +2108,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z9tEEsEMhaF87acSAuFq91fADyG.jpg",
       "source": "imdb",
       "imdb_id": "tt19595494",
-      "year": 2022,
-      "genres": [
-        "Science Fiction",
-        "Comedy",
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2237,7 +2125,9 @@
       "year": 2020,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2249,7 +2139,9 @@
       "year": 2016,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2258,14 +2150,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/pE5anFf7nf6ah7V3VRezQ1KSovi.jpg",
       "source": "imdb",
       "imdb_id": "tt0349903",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Crime"
-      ],
-      "rating_imdb_10": 6.57,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.28,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2273,13 +2164,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0151804",
-      "year": 2010,
-      "genres": [
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.37,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.69,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2287,14 +2178,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mv5v3xtiRqpMyP1XWRnRl5s38lV.jpg",
       "source": "imdb",
       "imdb_id": "tt11160650",
-      "year": 2020,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2302,14 +2192,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4zzam82e6rCY2Ktm0fyRoseHhkh.jpg",
       "source": "imdb",
       "imdb_id": "tt0093593",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2317,14 +2206,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/uTgzQvzlKN87CLsjdfTqbuNgjAm.jpg",
       "source": "imdb",
       "imdb_id": "tt7131622",
-      "year": 2010,
-      "genres": [
-        "Action",
-        "Drama"
-      ],
-      "rating_imdb_10": 5.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2332,15 +2220,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt30144839",
-      "year": 2022,
-      "genres": [
-        "Thriller",
-        "Crime",
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.39,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2348,15 +2234,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt29929565",
-      "year": 2023,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2364,17 +2248,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/bxBmfyzK0ARF9hqf2pbFWsddH14.jpg",
       "source": "imdb",
       "imdb_id": "tt3006802",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Action",
-        "Thriller",
-        "Crime",
-        "Western"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2382,13 +2262,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt2479800",
-      "year": 2013,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2396,15 +2276,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z7xXihu5wHuSMWymq5VAulPVuvg.jpg",
       "source": "imdb",
       "imdb_id": "tt0457430",
-      "year": 2010,
-      "genres": [
-        "Fantasy",
-        "Drama",
-        "War"
-      ],
-      "rating_imdb_10": 7.76,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.88,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2415,7 +2293,9 @@
       "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2424,15 +2304,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/c0OSsG2akVhYMOrCd3EYNGY4AuN.jpg",
       "source": "imdb",
       "imdb_id": "tt0851578",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Thriller",
-        "Animation"
-      ],
-      "rating_imdb_10": 7.82,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.91,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2440,14 +2318,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/3hhzXIPVWffx5ViVGKR5W4nLvwR.jpg",
       "source": "imdb",
       "imdb_id": "tt0129290",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2455,17 +2332,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/qDOtGWeSQNwB3dG7Amt1K0JW0az.jpg",
       "source": "imdb",
       "imdb_id": "tt0071994",
-      "year": 2010,
-      "genres": [
-        "Music",
-        "Comedy",
-        "Horror",
-        "Drama",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2476,7 +2349,9 @@
       "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2485,16 +2360,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/fDPdjGc8SUEDWfTwMaZlCE6NSi3.jpg",
       "source": "imdb",
       "imdb_id": "tt0409182",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Action",
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2502,15 +2374,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/xC9GZeJZ3NagdkGg9nLQx0aPG6J.jpg",
       "source": "both",
       "imdb_id": "tt5918982",
-      "year": 2017,
-      "genres": [
-        "Horror",
-        "Thriller",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2521,7 +2391,9 @@
       "year": 2018,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2530,15 +2402,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/erTRAi241eYF4K8KoGGOI8kFPox.jpg",
       "source": "imdb",
       "imdb_id": "tt31227572",
-      "year": 2024,
-      "genres": [
-        "Action",
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2546,14 +2416,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
       "source": "imdb",
       "imdb_id": "tt12042730",
-      "year": 2020,
-      "genres": [
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 8.17,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.09,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2561,14 +2430,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt1446714",
-      "year": 2011,
-      "genres": [
-        "Science Fiction",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.59,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2576,13 +2444,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0095953",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.75,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.88,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2593,7 +2461,9 @@
       "year": 2016,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2602,15 +2472,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1hY6AUl92cL9GdZx031UWFiGETt.jpg",
       "source": "imdb",
       "imdb_id": "tt0089885",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Comedy",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2618,15 +2486,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/6svTVlVEJDoOOEz1G09HLeb7vtF.jpg",
       "source": "imdb",
       "imdb_id": "tt0199753",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Action",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 5.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2637,7 +2503,9 @@
       "year": 2005,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2646,14 +2514,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/nOd6vjEmzCT0k4VYqsA2hwyi87C.jpg",
       "source": "imdb",
       "imdb_id": "tt0180093",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "rating_imdb_10": 8.01,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.01,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2661,16 +2528,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/qayga07ICNDswm0cMJ8P3VwklFZ.jpg",
       "source": "imdb",
       "imdb_id": "tt26674627",
-      "year": 2023,
-      "genres": [
-        "Action",
-        "Animation",
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2678,13 +2542,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gsA8J9HFsXUNzzHOGgzqivEOys5.jpg",
       "source": "imdb",
       "imdb_id": "tt5638642",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.71,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.86,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2692,14 +2556,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0073650",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2707,14 +2570,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/VTqLdveNXxGsIAZL5I4RliTTt7.jpg",
       "source": "imdb",
       "imdb_id": "tt0081455",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2722,15 +2584,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sF1U4EUQS8YHUYjNl3pMGNIQyr0.jpg",
       "source": "imdb",
       "imdb_id": "tt0108052",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "History",
-        "War"
-      ],
-      "rating_imdb_10": 8.57,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.28,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2738,14 +2598,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hlSWmmuuLeV1p3YcIkU59khEHLY.jpg",
       "source": "imdb",
       "imdb_id": "tt26084002",
-      "year": 2023,
-      "genres": [
-        "Comedy",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2753,13 +2612,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt27714581",
-      "year": 2023,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.53,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.77,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2770,7 +2629,9 @@
       "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2782,7 +2643,9 @@
       "year": 1986,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2791,15 +2654,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/nrmXQ0zcZUL8jFLrakWc90IR8z9.jpg",
       "source": "imdb",
       "imdb_id": "tt1130884",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Mystery"
-      ],
-      "rating_imdb_10": 8.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2807,15 +2668,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ahasZ5HILZHtlrl6cbXgpfk0y8H.jpg",
       "source": "imdb",
       "imdb_id": "tt0067756",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Science Fiction",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2826,7 +2685,9 @@
       "year": 2014,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2835,13 +2696,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/o942912KFh89SGhqWuKXuT0SXzN.jpg",
       "source": "imdb",
       "imdb_id": "tt21307994",
-      "year": 2022,
-      "genres": [
-        "Horror"
-      ],
-      "rating_imdb_10": 5.36,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.68,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2849,15 +2710,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gM2q9pGW9x2zdEMPRsXLBgTDDFH.jpg",
       "source": "imdb",
       "imdb_id": "tt0069280",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Science Fiction",
-        "War"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2865,16 +2724,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7u3IZPuIOPjICi55K7cJgzV3e3B.jpg",
       "source": "imdb",
       "imdb_id": "tt0133189",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Crime",
-        "Music"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2885,7 +2741,9 @@
       "year": 2013,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2897,7 +2755,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -2906,16 +2766,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt34548722",
-      "year": 2024,
-      "genres": [
-        "Fantasy",
-        "Romance",
-        "Drama",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2923,16 +2780,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt1748207",
-      "year": 2012,
-      "genres": [
-        "Science Fiction",
-        "Drama",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2940,16 +2794,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/jHwarubiAKFdMt6MfM0TZ8mY8uO.jpg",
       "source": "imdb",
       "imdb_id": "tt4935334",
-      "year": 2015,
-      "genres": [
-        "Fantasy",
-        "Thriller",
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 5.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2957,16 +2808,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5nbkShkOEXUoKVhaX0XG41wyBkq.jpg",
       "source": "imdb",
       "imdb_id": "tt0070723",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Thriller",
-        "Crime",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2974,16 +2822,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hDNVRmrprxI9NQ0zc2Uu03p65Fw.jpg",
       "source": "imdb",
       "imdb_id": "tt6673840",
-      "year": 2017,
-      "genres": [
-        "Adventure",
-        "Drama",
-        "History",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -2999,7 +2844,9 @@
         "Science Fiction"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3015,7 +2862,9 @@
         "Adventure"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3027,7 +2876,9 @@
       "year": 1979,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3036,15 +2887,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/wfiAfNwH6CMKxz4vRaW8CPTabtk.jpg",
       "source": "imdb",
       "imdb_id": "tt0079945",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Adventure",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3052,13 +2901,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0280491",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3066,15 +2915,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/sEcvc9h1X3hYZdFgtiiKMm6RB3f.jpg",
       "source": "imdb",
       "imdb_id": "tt1034415",
-      "year": 2015,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.91,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3085,7 +2932,9 @@
       "year": 1996,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3097,7 +2946,9 @@
       "year": 2012,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3106,13 +2957,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5UwdhrjXhUgsiDhe1dpS9z4yj7q.jpg",
       "source": "imdb",
       "imdb_id": "tt0383028",
-      "year": 2010,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3125,7 +2976,9 @@
         "Horror"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3134,15 +2987,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4F2QwCOYHJJjecSvdOjStuVLkpu.jpg",
       "source": "imdb",
       "imdb_id": "tt12758060",
-      "year": 2020,
-      "genres": [
-        "Thriller",
-        "History",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.8,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3153,7 +3004,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3165,7 +3018,9 @@
       "year": 1971,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3174,16 +3029,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt7339248",
-      "year": 2017,
-      "genres": [
-        "Comedy",
-        "Thriller",
-        "Drama",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3194,7 +3046,9 @@
       "year": 2022,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3206,7 +3060,9 @@
       "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3215,15 +3071,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ssCHRmnR5Z93ACvWIXsZuCSo3hK.jpg",
       "source": "imdb",
       "imdb_id": "tt10843306",
-      "year": 2018,
-      "genres": [
-        "TV Movie",
-        "Romance",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3231,14 +3085,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0036868",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.77,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.88,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3246,15 +3099,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt11738830",
-      "year": 2020,
-      "genres": [
-        "Thriller",
-        "Horror",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3265,7 +3116,9 @@
       "year": 1978,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3274,15 +3127,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt30851137",
-      "year": 2023,
-      "genres": [
-        "Science Fiction",
-        "Horror",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3290,14 +3141,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt8999762",
-      "year": 2018,
-      "genres": [
-        "Drama",
-        "History"
-      ],
-      "rating_imdb_10": 6.96,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.48,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3305,15 +3155,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/qxz3WIyjZiSKUhaTIEJ3c1GcC9z.jpg",
       "source": "imdb",
       "imdb_id": "tt0499448",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Family",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 6.63,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.32,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3321,14 +3169,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kEmgt2dLFSQy7jX3g2dIn7ECsuY.jpg",
       "source": "imdb",
       "imdb_id": "tt1756479",
-      "year": 2012,
-      "genres": [
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3336,15 +3183,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0115963",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Drama",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3352,15 +3197,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ggtG9DZELyTtM2Y0DRJDOJa5iP8.jpg",
       "source": "imdb",
       "imdb_id": "tt0455407",
-      "year": 2010,
-      "genres": [
-        "Mystery",
-        "Horror",
-        "Action"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3368,15 +3211,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/1M876KPjulVwppEpldhdc8V4o68.jpg",
       "source": "imdb",
       "imdb_id": "tt0109506",
-      "year": 2022,
-      "genres": [
-        "Action",
-        "Fantasy",
-        "Horror"
-      ],
-      "rating_imdb_10": 5.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3384,15 +3225,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/e6ygRbkCbAlgczfcNu0DwPmEBmR.jpg",
       "source": "imdb",
       "imdb_id": "tt15010692",
-      "year": 2021,
-      "genres": [
-        "Horror",
-        "Drama",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3403,7 +3242,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3412,15 +3253,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/o6RAeajCWAw9BOCDuCZ2Ib1qSD.jpg",
       "source": "imdb",
       "imdb_id": "tt0970416",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.65,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.83,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3428,15 +3267,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/nT97ifVT2J1yMQmeq20Qblg61T.jpg",
       "source": "imdb",
       "imdb_id": "tt0407887",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Crime"
-      ],
-      "rating_imdb_10": 8.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3444,14 +3281,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/mxFPI4KYBk5ri9cPteIS8jiDFgj.jpg",
       "source": "imdb",
       "imdb_id": "tt0435625",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.98,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.49,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3459,14 +3295,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0309987",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.18,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.59,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3474,14 +3309,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/8apzu9JFTUMtOpYkHk6LNPOs3pY.jpg",
       "source": "imdb",
       "imdb_id": "tt5867314",
-      "year": 2018,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.17,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.08,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3489,14 +3323,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5XetJwmAiDC0EtH23NIXaqFn3Wl.jpg",
       "source": "imdb",
       "imdb_id": "tt0133751",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3507,7 +3340,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3516,15 +3351,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt10676052",
-      "year": 2019,
-      "genres": [
-        "Science Fiction",
-        "Adventure",
-        "Action"
-      ],
-      "rating_imdb_10": 6.96,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.48,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3532,15 +3365,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/z7wI0jpec9gz2IwVciND1nbRBy0.jpg",
       "source": "imdb",
       "imdb_id": "tt10676052",
-      "year": 2019,
-      "genres": [
-        "Science Fiction",
-        "Adventure",
-        "Action"
-      ],
-      "rating_imdb_10": 6.96,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.48,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3548,15 +3379,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt5083738",
-      "year": 2016,
-      "genres": [
-        "History",
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.49,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3567,7 +3396,9 @@
       "year": 2014,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3576,13 +3407,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5QnDxdJg1fi6uMSkSi4x8tHsltm.jpg",
       "source": "imdb",
       "imdb_id": "tt5649144",
-      "year": 2016,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3590,15 +3421,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/vfnsGUwurUQqlpvArBvUVc9rYXa.jpg",
       "source": "imdb",
       "imdb_id": "tt1220198",
-      "year": 2010,
-      "genres": [
-        "Mystery",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3606,14 +3435,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/eWdyYQreja6JGCzqHWXpWHDrrPo.jpg",
       "source": "imdb",
       "imdb_id": "tt2278388",
-      "year": 2012,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 8.03,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.02,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3621,14 +3449,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2eJL1Ccr1FN3dm9OSDwyd8uaX1b.jpg",
       "source": "imdb",
       "imdb_id": "tt0454841",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.46,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.23,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3636,14 +3463,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/VHSzNBTwxV8vh7wylo7O9CLdac.jpg",
       "source": "imdb",
       "imdb_id": "tt14849194",
-      "year": 2021,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.65,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.82,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3651,16 +3477,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/uQ3H8rO6zBDDvs6QUIv3xEr8NFD.jpg",
       "source": "imdb",
       "imdb_id": "tt31810018",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Drama",
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3675,7 +3498,9 @@
         "Adventure"
       ],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3684,14 +3509,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hOJeQXve8W9rNRhdgC1WV3GQJyA.jpg",
       "source": "imdb",
       "imdb_id": "tt0116654",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 4.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.45,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3702,7 +3526,9 @@
       "year": 2024,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3711,16 +3537,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/b1RBy3l297N0c7PHjlz35cClWju.jpg",
       "source": "imdb",
       "imdb_id": "tt0087538",
-      "year": 2010,
-      "genres": [
-        "Action",
-        "Adventure",
-        "Drama",
-        "Family"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3728,15 +3551,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/e4DGlsc9g0h5AyoyvvAuIRnofN7.jpg",
       "source": "imdb",
       "imdb_id": "tt5715874",
-      "year": 2016,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.01,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.51,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3744,14 +3565,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt2179116",
-      "year": 2013,
-      "genres": [
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3759,15 +3579,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/A7oAHTjtYnIEQjJs62IONRufooq.jpg",
       "source": "imdb",
       "imdb_id": "tt0087597",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Science Fiction",
-        "Action"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3775,15 +3593,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/qZoFLNBC78jzboWeDH6Ha0qavF2.jpg",
       "source": "imdb",
       "imdb_id": "tt0362270",
-      "year": 2010,
-      "genres": [
-        "Adventure",
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.55,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3791,15 +3607,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/f1tIYarTbkBdIT1aW0gzelDwknv.jpg",
       "source": "imdb",
       "imdb_id": "tt7984734",
-      "year": 2018,
-      "genres": [
-        "Drama",
-        "Fantasy",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.48,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.74,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3807,11 +3621,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0031580",
-      "year": 2025,
+      "year": null,
       "genres": [],
-      "rating_imdb_10": 10.0,
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 5.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3819,13 +3635,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ydsLYdSiPSIL1LOWWYu7VCvDTT8.jpg",
       "source": "imdb",
       "imdb_id": "tt1316536",
-      "year": 2010,
-      "genres": [
-        "Horror"
-      ],
-      "rating_imdb_10": 6.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.35,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3836,7 +3652,9 @@
       "year": 1976,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3845,14 +3663,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/lrCgt8NNMyFsfmXyXiSSCRXNH4u.jpg",
       "source": "imdb",
       "imdb_id": "tt0243133",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.51,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.75,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3860,15 +3677,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/4xEWtEbKK2EXMZ8UPff8hDCSiVW.jpg",
       "source": "imdb",
       "imdb_id": "tt0056218",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.5,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.25,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3876,14 +3691,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/65RDHC5fLwuvQG1LmKRoQugBqLl.jpg",
       "source": "imdb",
       "imdb_id": "tt0091472",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3891,14 +3705,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt33549478",
-      "year": 2024,
-      "genres": [
-        "Romance",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3906,15 +3719,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/Ap6zknBoIHaioieVfOLd5qaWd4X.jpg",
       "source": "imdb",
       "imdb_id": "tt0169005",
-      "year": 2013,
-      "genres": [
-        "Horror",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.23,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.62,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3925,7 +3736,9 @@
       "year": 2025,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3937,7 +3750,9 @@
       "year": 2014,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -3946,15 +3761,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ynPJkpmWNi4rnDUb0PuzDnJj5JI.jpg",
       "source": "imdb",
       "imdb_id": "tt7737734",
-      "year": 2019,
-      "genres": [
-        "Horror",
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.7,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.85,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3962,14 +3775,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt3844362",
-      "year": 2014,
-      "genres": [
-        "Mystery",
-        "Comedy"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3977,15 +3789,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/5ClPRox438lwK2Eze7X5xySDaYC.jpg",
       "source": "both",
       "imdb_id": "tt0071970",
-      "year": 2010,
-      "genres": [
-        "Crime",
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -3993,15 +3803,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt4364194",
-      "year": 2017,
-      "genres": [
-        "Adventure",
-        "Comedy",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4009,13 +3817,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/aKCvdFFF5n80P2VdS7d8YBwbCjh.jpg",
       "source": "imdb",
       "imdb_id": "tt1659337",
-      "year": 2012,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 7.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4023,14 +3831,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0032904",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.58,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.79,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4038,15 +3845,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/u2jxeYLXTYfu0bqJmnLGIgZswib.jpg",
       "source": "imdb",
       "imdb_id": "tt30840798",
-      "year": 2023,
-      "genres": [
-        "Comedy",
-        "Adventure",
-        "Crime"
-      ],
-      "rating_imdb_10": 6.53,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.26,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4054,14 +3859,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2hFvxCCWrTmCYwfy7yum0GKRi3Y.jpg",
       "source": "imdb",
       "imdb_id": "tt0253474",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "War"
-      ],
-      "rating_imdb_10": 8.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.2,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4069,15 +3873,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/9FhZ9VC999qeOWH2ytbangUMMt4.jpg",
       "source": "imdb",
       "imdb_id": "tt29319990",
-      "year": 2022,
-      "genres": [
-        "Crime",
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4088,7 +3890,9 @@
       "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4097,15 +3901,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/h0X2luIgPtN4LHH9s9so48jMuss.jpg",
       "source": "imdb",
       "imdb_id": "tt0089869",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.6,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.3,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4113,15 +3915,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/kSX2LJeoCUGObWmKnxMjmTVfTI2.jpg",
       "source": "imdb",
       "imdb_id": "tt0062190",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Family",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 5.9,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.95,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4129,15 +3929,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ji3ecJphATlVgWNY0B0RVXZizdf.jpg",
       "source": "imdb",
       "imdb_id": "tt1663202",
-      "year": 2014,
-      "genres": [
-        "Western",
-        "Drama",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.54,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.77,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4148,7 +3946,9 @@
       "year": 1983,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4160,7 +3960,9 @@
       "year": 2009,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4172,7 +3974,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4181,15 +3985,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0108071",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Family",
-        "Fantasy"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4197,14 +3999,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0430576",
-      "year": 2010,
-      "genres": [
-        "Romance",
-        "Drama"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4212,15 +4013,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/bnBV7hZmLuA0Si5Aop481sPF2RY.jpg",
       "source": "imdb",
       "imdb_id": "tt4052882",
-      "year": 2015,
-      "genres": [
-        "Horror",
-        "Drama",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.35,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.18,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4228,15 +4027,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0308878",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4244,15 +4041,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/9zfwPffUXpBrEP26yp0q1ckXDcj.jpg",
       "source": "imdb",
       "imdb_id": "tt5580390",
-      "year": 2016,
-      "genres": [
-        "Drama",
-        "Fantasy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.24,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.62,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4260,16 +4055,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/wHmubdzrVw8oq7htzrf364wsJNp.jpg",
       "source": "imdb",
       "imdb_id": "tt0397101",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Horror",
-        "Mystery",
-        "Thriller"
-      ],
-      "rating_imdb_10": 6.62,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.31,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4277,13 +4069,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt4995790",
-      "year": 2016,
-      "genres": [
-        "Drama"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4291,15 +4083,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ygr0Wlmm1KmE16TUefNitIscVBG.jpg",
       "source": "imdb",
       "imdb_id": "tt0327162",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Science Fiction",
-        "Horror"
-      ],
-      "rating_imdb_10": 5.68,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.84,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4307,14 +4097,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt1772398",
-      "year": 2013,
-      "genres": [
-        "Drama",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.4,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4322,14 +4111,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/77i7EBUyQKOUiZeYQ5tWDGQb0AI.jpg",
       "source": "imdb",
       "imdb_id": "tt3387648",
-      "year": 2014,
-      "genres": [
-        "Horror",
-        "Mystery"
-      ],
-      "rating_imdb_10": 6.55,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.28,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4337,15 +4125,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0084787",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Mystery",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 8.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4353,15 +4139,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/7oaie3ZBc9UuWZLF24crro1pone.jpg",
       "source": "imdb",
       "imdb_id": "tt0139809",
-      "year": 2010,
-      "genres": [
-        "Thriller",
-        "Science Fiction",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.5,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4372,7 +4156,9 @@
       "year": 2023,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4381,15 +4167,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/2WhZAPi3vomEQdzAPIYTvmvWaxI.jpg",
       "source": "imdb",
       "imdb_id": "tt4255304",
-      "year": 2016,
-      "genres": [
-        "Mystery",
-        "Horror",
-        "Science Fiction"
-      ],
-      "rating_imdb_10": 6.0,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.0,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4397,14 +4181,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/yvirUYrva23IudARHn3mMGVxWqM.jpg",
       "source": "imdb",
       "imdb_id": "tt13186306",
-      "year": 2020,
-      "genres": [
-        "Science Fiction",
-        "Thriller"
-      ],
-      "rating_imdb_10": 4.17,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.08,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4412,13 +4195,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/wwtrXRL8SiOWxhwLEvw7iBgYh0g.jpg",
       "source": "imdb",
       "imdb_id": "tt0070917",
-      "year": 2010,
-      "genres": [
-        "Horror"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4426,17 +4209,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/q2qXg4OmJgm0qGaBYLdXzP8nHPy.jpg",
       "source": "imdb",
       "imdb_id": "tt29623480",
-      "year": 2023,
-      "genres": [
-        "Animation",
-        "Science Fiction",
-        "Family",
-        "Adventure",
-        "Drama"
-      ],
-      "rating_imdb_10": 8.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 4.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4447,7 +4226,9 @@
       "year": 2021,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4456,15 +4237,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/ngnybFTuopfbfmmEeX9jjBQQmF6.jpg",
       "source": "imdb",
       "imdb_id": "tt0096256",
-      "year": 2010,
-      "genres": [
-        "Science Fiction",
-        "Action",
-        "Thriller"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4472,15 +4251,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
       "source": "imdb",
       "imdb_id": "tt20969586",
-      "year": 2022,
-      "genres": [
-        "Action",
-        "Science Fiction",
-        "Adventure"
-      ],
-      "rating_imdb_10": 7.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.65,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4488,15 +4265,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/gwVAb3hMYl5F68mvKGl2eqDOj0G.jpg",
       "source": "imdb",
       "imdb_id": "tt29120447",
-      "year": 2022,
-      "genres": [
-        "Horror",
-        "Thriller",
-        "Mystery"
-      ],
-      "rating_imdb_10": 5.93,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.96,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4504,15 +4279,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt10944760",
-      "year": 2019,
-      "genres": [
-        "Drama",
-        "Thriller",
-        "Horror"
-      ],
-      "rating_imdb_10": 6.3,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.15,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4523,7 +4296,9 @@
       "year": 1979,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4532,13 +4307,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0086465",
-      "year": 2010,
-      "genres": [
-        "Comedy"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4546,14 +4321,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/y0HmDV0bZDTtXWHqqYYbT9XoshB.jpg",
       "source": "imdb",
       "imdb_id": "tt0117951",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Crime"
-      ],
-      "rating_imdb_10": 7.96,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.98,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4561,15 +4335,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/chpWmskl3aKm1aTZqUHRCtviwPy.jpg",
       "source": "imdb",
       "imdb_id": "tt6604188",
-      "year": 2018,
-      "genres": [
-        "Science Fiction",
-        "Adventure",
-        "Action"
-      ],
-      "rating_imdb_10": 6.48,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.24,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4577,15 +4349,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt1441395",
-      "year": 2012,
-      "genres": [
-        "Thriller",
-        "Science Fiction",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.1,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.05,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4596,7 +4366,9 @@
       "year": 2005,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4608,7 +4380,9 @@
       "year": 1958,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4617,15 +4391,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0086541",
-      "year": 2010,
-      "genres": [
-        "Horror",
-        "Science Fiction",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4633,15 +4405,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0114885",
-      "year": 2010,
-      "genres": [
-        "Comedy",
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 6.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.1,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4649,15 +4419,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/78wCdphUzeb528wLZw2W0fn7yGB.jpg",
       "source": "imdb",
       "imdb_id": "tt0120889",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Fantasy",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.2,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.6,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4668,7 +4436,9 @@
       "year": 2019,
       "genres": [],
       "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
+      "rating_count_letterboxd": null,
       "rating_avg_5": null,
       "content_type": null
     },
@@ -4677,15 +4447,13 @@
       "poster_url": "https://image.tmdb.org/t/p/w185/hCHJNA3ZhfwmbMARfj0XqwYI0hC.jpg",
       "source": "imdb",
       "imdb_id": "tt0486051",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Horror",
-        "Thriller"
-      ],
-      "rating_imdb_10": 5.8,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 2.9,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4693,14 +4461,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt32897959",
-      "year": 2024,
-      "genres": [
-        "Romance",
-        "Drama"
-      ],
-      "rating_imdb_10": 6.38,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.19,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4708,14 +4475,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt0245574",
-      "year": 2010,
-      "genres": [
-        "Drama",
-        "Romance"
-      ],
-      "rating_imdb_10": 7.4,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.7,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     },
     {
@@ -4723,17 +4489,13 @@
       "poster_url": null,
       "source": "letterboxd",
       "imdb_id": "tt26443597",
-      "year": 2023,
-      "genres": [
-        "Animation",
-        "Comedy",
-        "Adventure",
-        "Family",
-        "Mystery"
-      ],
-      "rating_imdb_10": 7.61,
+      "year": null,
+      "genres": [],
+      "rating_imdb_10": null,
+      "rating_count_imdb": null,
       "rating_letterboxd_5": null,
-      "rating_avg_5": 3.81,
+      "rating_count_letterboxd": null,
+      "rating_avg_5": null,
       "content_type": null
     }
   ]
