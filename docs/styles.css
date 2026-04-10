@@ -300,6 +300,16 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .genre-more-popover__item + .genre-more-popover__item {
   border-top: 1px solid rgba(55, 42, 88, 0.5);
 }
+
+@media (min-width: 641px) {
+  .meta-row {
+    gap: 0.42rem;
+  }
+  .meta-sep {
+    padding: 0 0.22rem;
+  }
+}
+
 .poster {
   position: relative;
   width: 56px;
