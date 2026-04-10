@@ -2,9 +2,7 @@
 (async function init() {
   const gridEl = document.getElementById("grid");
   const emptyEl = document.getElementById("empty");
-  const updatedDateEl = document.getElementById("updatedDate");
-  const updatedRelEl = document.getElementById("updatedRel");
-  const updatedSepEl = document.getElementById("updatedSep");
+  const footerUpdatedLine = document.getElementById("footerUpdatedLine");
 
   const filterLb = document.getElementById("filterLb");
   const filterBoth = document.getElementById("filterBoth");
@@ -31,32 +29,35 @@
 
   let dataUpdatedAtMs = null;
 
-  function relativePhrase(targetMs) {
-    const rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
-    const diffSec = Math.round((targetMs - Date.now()) / 1000);
-    const a = Math.abs(diffSec);
-    if (a < 45) return rtf.format(0, "second");
-    if (a < 3600) return rtf.format(Math.round(diffSec / 60), "minute");
-    if (a < 86400) return rtf.format(Math.round(diffSec / 3600), "hour");
-    if (a < 604800) return rtf.format(Math.round(diffSec / 86400), "day");
-    if (a < 2629800) return rtf.format(Math.round(diffSec / 604800), "week");
-    if (a < 31557600 * 2) return rtf.format(Math.round(diffSec / 2629800), "month");
-    return rtf.format(Math.round(diffSec / 31557600), "year");
-  }
-
-  function updateFooterDates() {
-    if (!dataUpdatedAtMs || !updatedDateEl) return;
-    const d = new Date(dataUpdatedAtMs);
-    updatedDateEl.textContent = d.toLocaleDateString("en-US", {
+  /** Calendar + plain relative suffix (matches Flask footer; cap relative at 7 days). */
+  function footerCalAndRelative(targetMs) {
+    const d = new Date(targetMs);
+    const cal = d.toLocaleDateString("en-US", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
-    if (updatedRelEl && updatedSepEl) {
-      updatedRelEl.textContent = `Updated ${relativePhrase(dataUpdatedAtMs)}`;
-      updatedRelEl.hidden = false;
-      updatedSepEl.hidden = false;
+    const diffMs = Date.now() - targetMs;
+    if (diffMs < 0) return { cal, rel: "just now" };
+    const sec = Math.floor(diffMs / 1000);
+    if (sec < 60) return { cal, rel: "just now" };
+    if (sec < 3600) {
+      const m = Math.floor(sec / 60);
+      return { cal, rel: `${m} minute${m === 1 ? "" : "s"} ago` };
     }
+    if (sec < 86400) {
+      const h = Math.floor(sec / 3600);
+      return { cal, rel: `${h} hour${h === 1 ? "" : "s"} ago` };
+    }
+    const days = Math.floor(sec / 86400);
+    if (days < 7) return { cal, rel: `${days} day${days === 1 ? "" : "s"} ago` };
+    return { cal, rel: null };
+  }
+
+  function updateFooterDates() {
+    if (!dataUpdatedAtMs || !footerUpdatedLine) return;
+    const { cal, rel } = footerCalAndRelative(dataUpdatedAtMs);
+    footerUpdatedLine.textContent = rel ? `Updated ${cal}, ${rel}.` : `Updated ${cal}.`;
   }
 
   function clearLoadingState() {
@@ -67,12 +68,7 @@
   function failLoad(message) {
     clearLoadingState();
     gridEl.innerHTML = "";
-    if (updatedDateEl) updatedDateEl.textContent = message;
-    if (updatedRelEl) {
-      updatedRelEl.textContent = "";
-      updatedRelEl.hidden = true;
-    }
-    if (updatedSepEl) updatedSepEl.hidden = true;
+    if (footerUpdatedLine) footerUpdatedLine.textContent = message;
   }
 
   const res = await fetch("./data/watchlist.json", { cache: "no-store" });
@@ -96,10 +92,9 @@
 
   if (dataUpdatedAtMs) {
     updateFooterDates();
-  } else if (updatedDateEl) {
-    updatedDateEl.textContent = "Unknown date";
-    if (updatedRelEl) updatedRelEl.hidden = true;
-    if (updatedSepEl) updatedSepEl.hidden = true;
+  } else if (footerUpdatedLine) {
+    footerUpdatedLine.textContent =
+      "No sync time in this export — re-run export_watchlist.py from your machine.";
   }
 
   document.addEventListener("visibilitychange", () => {
@@ -480,15 +475,19 @@
         (m) => `
       <article class="card">
         <div class="poster">
-          ${m.poster_url ? `<img src="${m.poster_url}" alt="${m.title} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
+          ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
         </div>
-        <div>
-          <div class="title">${m.title || ""}</div>
-          <div class="meta">${m.year || "Year ?"} · ${(m.genres || []).slice(0, 2).join(", ") || "Genre ?"}</div>
-          <div class="card-rating-row">
-            ${ratingBlockHtml(m)}
-            ${sourceBadge(m)}
-            ${watchBlockHtml(m)}
+        <div class="movie-content">
+          <div class="movie-main">
+            <div class="title">${escapeHtmlText(m.title || "")}</div>
+            <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
+            <div class="badges-row">
+              <div class="card-rating-row">
+                ${ratingBlockHtml(m)}
+                ${sourceBadge(m)}
+              </div>
+              ${watchBlockHtml(m)}
+            </div>
           </div>
         </div>
       </article>

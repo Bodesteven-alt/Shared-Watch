@@ -365,6 +365,30 @@ def index():
         },
     )
     # endregion
+    # region agent log
+    _dbg_nd = {
+        "sessionId": "84e09d",
+        "runId": "index-render",
+        "hypothesisId": "H_flask_template_markers",
+        "location": "app.py:index:after_render",
+        "message": "flask_index_html_markers",
+        "data": {
+            "has_data_credits": "class=\"data-credits\"" in html,
+            "has_mobile_640": "max-width: 640px" in html,
+            "has_movie_main": "movie-main" in html,
+            "has_combined_watchlist_title": "Combined watchlist" in html,
+            "html_len": len(html),
+        },
+        "timestamp": int(time.time() * 1000),
+    }
+    if os.environ.get("WATCHLIST_DEBUG_LOG") == "84e09d":
+        try:
+            _nd_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "debug-84e09d.log")
+            with open(_nd_path, "a", encoding="utf-8") as _nd_f:
+                _nd_f.write(json.dumps(_dbg_nd) + "\n")
+        except OSError:
+            pass
+    # endregion
     return html
 
 

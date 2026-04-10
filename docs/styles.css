@@ -171,6 +171,26 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   gap: .6rem;
 }
+.card .movie-content {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.card .movie-main {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: .45rem;
+  flex: 1;
+}
+.card .badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem .55rem;
+}
 .poster {
   width: 56px; min-width: 56px; height: 84px;
   border-radius: 8px;
@@ -295,27 +315,6 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .watch-muted code {
   font-size: 0.65rem;
-}
-.footer-attribution {
-  margin-top: 0.75rem;
-  font-size: 0.65rem;
-  color: var(--muted);
-  line-height: 1.5;
-  max-width: 100%;
-  width: 100%;
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
-  overflow-wrap: anywhere;
-  word-wrap: break-word;
-  padding: 0 0.5rem;
-}
-.footer-attribution a {
-  color: var(--cyan);
-  text-decoration: none;
-}
-.footer-attribution a:hover {
-  text-decoration: underline;
 }
 .rating-block {
   display: inline-flex;
@@ -752,17 +751,104 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   border-radius: 4px;
 }
 
-.footer-updated {
-  margin: .3rem 0;
+.footer-strap {
+  margin: 0 0 1rem;
+  text-align: center;
 }
-.footer-updated__rel {
-  color: var(--muted);
+.footer-strap p {
+  margin: .35rem 0;
 }
-.footer-updated__sep {
-  color: var(--muted);
+.footer-strap p:last-child {
+  margin-bottom: 0;
 }
 
-@media (max-width: 600px) {
+details.data-credits {
+  margin: 0 auto;
+  max-width: 42rem;
+  text-align: left;
+  border-radius: 10px;
+  border: 1px solid rgba(74, 58, 120, 0.65);
+  background: rgba(22, 14, 40, 0.45);
+  overflow: hidden;
+}
+details.data-credits > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: .55rem .75rem;
+  font-size: .78rem;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  user-select: none;
+}
+details.data-credits > summary::-webkit-details-marker {
+  display: none;
+}
+details.data-credits > summary:hover,
+details.data-credits > summary:focus-visible {
+  color: var(--text);
+  background: rgba(1, 205, 254, 0.06);
+  outline: none;
+}
+details.data-credits > summary:focus-visible {
+  box-shadow: inset 0 0 0 2px rgba(1, 205, 254, 0.35);
+}
+.data-credits-chev {
+  display: inline-block;
+  font-size: .65rem;
+  opacity: .75;
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+details.data-credits[open] > summary .data-credits-chev {
+  transform: rotate(-180deg);
+}
+.data-credits-drawer {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease;
+}
+details.data-credits[open] .data-credits-drawer {
+  max-height: 28rem;
+}
+@media (prefers-reduced-motion: reduce) {
+  .data-credits-drawer {
+    transition: none;
+  }
+  .data-credits-chev {
+    transition: none;
+  }
+}
+.data-credits-inner {
+  padding: 0 .75rem .85rem;
+  max-width: 36rem;
+  margin: 0 auto;
+  font-size: .72rem;
+  line-height: 1.55;
+  color: rgba(184, 176, 214, 0.88);
+}
+.data-credits-inner p {
+  margin: 0 0 .75rem;
+}
+.data-credits-inner p:last-child {
+  margin-bottom: 0;
+}
+.data-credits-inner .tmdb-attribution {
+  font-size: .68rem;
+  color: rgba(184, 176, 214, 0.72);
+  margin-top: .35rem;
+}
+
+@media (max-width: 640px) {
+  html {
+    overflow-x: hidden;
+  }
+  main.wrap {
+    overflow-x: hidden;
+  }
+
   .source-filters {
     gap: .4rem;
   }
@@ -784,15 +870,98 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   .card {
     padding: .7rem;
   }
-  .poster {
-    width: 70px;
-    min-width: 70px;
-    height: 105px;
+  .card:not(.card-skeleton) {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: .65rem;
+    row-gap: .35rem;
+    align-items: start;
   }
+  .card:not(.card-skeleton) .movie-content {
+    display: contents;
+  }
+  .card:not(.card-skeleton) .movie-main {
+    display: contents;
+  }
+  .card:not(.card-skeleton) .badges-row {
+    display: contents;
+  }
+  .card:not(.card-skeleton) .poster {
+    grid-column: 1;
+    grid-row: 1;
+    width: 52px;
+    min-width: 52px;
+    height: 78px;
+    justify-self: center;
+  }
+  .card:not(.card-skeleton) .watch-details {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+    align-self: start;
+  }
+  .card:not(.card-skeleton) .title {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+  }
+  .card:not(.card-skeleton) .meta {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    margin-top: .12rem;
+  }
+  .card:not(.card-skeleton) .card-rating-row {
+    grid-column: 2;
+    grid-row: 3;
+    margin-top: .28rem;
+    align-self: start;
+  }
+
+  .card:not(.card-skeleton) .watch-details summary {
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: .02em;
+    padding: .3rem .6rem;
+    border: 1px solid var(--line);
+    color: var(--muted);
+    background: rgba(22, 14, 40, 0.65);
+    box-shadow: none;
+    animation: none;
+  }
+  .card:not(.card-skeleton) .watch-details summary:hover {
+    filter: none;
+    color: var(--text);
+    border-color: var(--cyan);
+    background: rgba(1, 205, 254, 0.12);
+  }
+  .card:not(.card-skeleton) .watch-details summary::after {
+    content: "";
+  }
+  .card:not(.card-skeleton) .watch-details[open] .watch-body {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
+    z-index: 300;
+    width: min(340px, calc(100vw - 24px));
+    max-width: min(340px, calc(100vw - 24px));
+    min-width: 0;
+    max-height: min(70dvh, 420px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+  .card:not(.card-skeleton) .watch-details[open] {
+    z-index: 299;
+  }
+
   .card-skeleton__poster {
-    width: 70px;
-    min-width: 70px;
-    height: 105px;
+    width: 56px;
+    min-width: 56px;
+    height: 84px;
   }
   .top .top-title {
     padding: .45rem .75rem;
