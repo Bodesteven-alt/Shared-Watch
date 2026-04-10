@@ -1168,12 +1168,15 @@
           ratingHtml || watchHtml
             ? `<div class="card-rating-row">${ratingHtml}${watchHtml}</div>`
             : "";
+        const srcKey = String(m.source || "")
+          .trim()
+          .toLowerCase();
         const srcCard =
-          m.source === "letterboxd"
+          srcKey === "letterboxd"
             ? "card--src-letterboxd"
-            : m.source === "both"
+            : srcKey === "both"
               ? "card--src-both"
-              : m.source === "imdb"
+              : srcKey === "imdb"
                 ? "card--src-imdb"
                 : "";
         return `

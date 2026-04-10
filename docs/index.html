@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=62">
+  <link rel="stylesheet" href="./styles.css?v=63">
 </head>
 <body>
   <main class="wrap">
@@ -16,32 +16,38 @@
       <div class="top-cluster">
         <h1 class="top-title top-title__gradient">Our Watch List</h1>
         <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
-          <button id="filterLb" class="srcbtn active" data-source="letterboxd">
-            <span class="srcbtn-count" id="srcCountLb">
-              <span class="srcbtn-count__total-line">
-                <span class="count srcbtn-count__total" id="countLb">0</span>
-                <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
+          <button id="filterLb" class="srcbtn active" data-source="letterboxd" type="button">
+            <span class="srcbtn-inner">
+              <span class="srcbtn-count" id="srcCountLb">
+                <span class="srcbtn-count__total-line">
+                  <span class="count srcbtn-count__total" id="countLb">0</span>
+                  <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
+                </span>
               </span>
+              <span class="srcbtn-label">Letterboxd</span>
             </span>
-            <span class="srcbtn-label">Letterboxd</span>
           </button>
-          <button id="filterBoth" class="srcbtn active" data-source="both">
-            <span class="srcbtn-count" id="srcCountBoth">
-              <span class="srcbtn-count__total-line">
-                <span class="count srcbtn-count__total" id="countBoth">0</span>
-                <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
+          <button id="filterBoth" class="srcbtn active" data-source="both" type="button">
+            <span class="srcbtn-inner">
+              <span class="srcbtn-count" id="srcCountBoth">
+                <span class="srcbtn-count__total-line">
+                  <span class="count srcbtn-count__total" id="countBoth">0</span>
+                  <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
+                </span>
               </span>
+              <span class="srcbtn-label">Both</span>
             </span>
-            <span class="srcbtn-label">Both</span>
           </button>
-          <button id="filterImdb" class="srcbtn active" data-source="imdb">
-            <span class="srcbtn-count" id="srcCountImdb">
-              <span class="srcbtn-count__total-line">
-                <span class="count srcbtn-count__total" id="countImdb">0</span>
-                <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
+          <button id="filterImdb" class="srcbtn active" data-source="imdb" type="button">
+            <span class="srcbtn-inner">
+              <span class="srcbtn-count" id="srcCountImdb">
+                <span class="srcbtn-count__total-line">
+                  <span class="count srcbtn-count__total" id="countImdb">0</span>
+                  <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
+                </span>
               </span>
+              <span class="srcbtn-label">IMDb</span>
             </span>
-            <span class="srcbtn-label">IMDb</span>
           </button>
         </section>
       </div>
@@ -141,6 +147,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=62"></script>
+  <script src="./app.js?v=63"></script>
 </body>
 </html>
