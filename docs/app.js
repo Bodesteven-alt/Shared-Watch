@@ -286,7 +286,7 @@
       </div>`;
   }
 
-  function watchBlockHtml(m) {
+  function watchBlockHtml(m, watchDomId) {
     const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
     const block = st[streamRegion] || {};
     const flatrate = Array.isArray(block.flatrate) ? block.flatrate : [];
@@ -305,8 +305,9 @@
     }
 
     const safeTitle = escapeAttr(m.title || "");
+    const idAttr = watchDomId ? ` id="${escapeAttr(watchDomId)}"` : "";
     return `
-      <details class="watch-details">
+      <details class="watch-details"${idAttr}>
         <summary class="watch-summary" aria-label="Where to watch ${safeTitle}">Watch</summary>
         <div class="watch-body">${bodyInner}</div>
       </details>`;
@@ -447,10 +448,58 @@
   }
 
   const watchBackdrop = document.getElementById("watchBackdrop");
+  const watchPanelHost = document.getElementById("watchPanelHost");
   const mobileWatchMq = window.matchMedia("(max-width: 640px)");
 
+  function getWatchBodyForDetail(detail) {
+    if (!detail) return null;
+    const local = detail.querySelector(".watch-body");
+    if (local) return local;
+    if (!detail.id || !watchPanelHost) return null;
+    return watchPanelHost.querySelector(`[data-watch-detail-id="${detail.id}"]`);
+  }
+
+  function syncWatchHostVisibility() {
+    if (!watchPanelHost) return;
+    const has = watchPanelHost.querySelector(".watch-body");
+    watchPanelHost.hidden = !has;
+    watchPanelHost.setAttribute("aria-hidden", has ? "false" : "true");
+  }
+
+  function restoreWatchBodyToDetail(detail) {
+    if (!detail?.id || !watchPanelHost) return;
+    const body = watchPanelHost.querySelector(`[data-watch-detail-id="${detail.id}"]`);
+    if (body) {
+      detail.appendChild(body);
+      delete body.dataset.watchDetailId;
+    }
+    syncWatchHostVisibility();
+  }
+
+  function portalWatchBodyToHost(detail) {
+    if (!detail?.id || !watchPanelHost) return;
+    const body = detail.querySelector(".watch-body");
+    if (!body) return;
+    body.dataset.watchDetailId = detail.id;
+    watchPanelHost.appendChild(body);
+    syncWatchHostVisibility();
+  }
+
+  function flushWatchPortalBeforeRender() {
+    if (watchPanelHost) {
+      watchPanelHost.replaceChildren();
+      watchPanelHost.hidden = true;
+      watchPanelHost.setAttribute("aria-hidden", "true");
+    }
+    document.documentElement.style.overflow = "";
+    if (watchBackdrop) {
+      watchBackdrop.hidden = true;
+      watchBackdrop.setAttribute("aria-hidden", "true");
+    }
+  }
+
   function clearWatchPanelLayout(detail) {
-    const body = detail?.querySelector?.(".watch-body");
+    const body = getWatchBodyForDetail(detail);
     if (!body) return;
     body.style.left = "";
     body.style.top = "";
@@ -477,7 +526,7 @@
   function positionWatchPanel(detail) {
     if (!mobileWatchMq.matches) return;
     const sum = detail.querySelector(".watch-summary");
-    const body = detail.querySelector(".watch-body");
+    const body = getWatchBodyForDetail(detail);
     if (!sum || !body) return;
     const pad = 12;
     const vw = window.innerWidth;
@@ -517,10 +566,12 @@
           }
         });
         if (mobileWatchMq.matches) {
+          portalWatchBodyToHost(d);
           positionWatchPanel(d);
           syncWatchBackdrop();
         }
       } else {
+        restoreWatchBodyToDetail(d);
         clearWatchPanelLayout(d);
         syncWatchBackdrop();
       }
@@ -542,8 +593,14 @@
     if (!mobileWatchMq.matches) {
       document.documentElement.style.overflow = "";
       if (watchBackdrop) watchBackdrop.hidden = true;
-      gridEl.querySelectorAll("details.watch-details").forEach(clearWatchPanelLayout);
-    } else if (open) {
+      gridEl.querySelectorAll("details.watch-details").forEach((d) => {
+        restoreWatchBodyToDetail(d);
+        clearWatchPanelLayout(d);
+      });
+    } else if (open && mobileWatchMq.matches) {
+      if (open.querySelector(".watch-body")) {
+        portalWatchBodyToHost(open);
+      }
       positionWatchPanel(open);
       syncWatchBackdrop();
     }
@@ -582,15 +639,17 @@
     sortRows(rows);
 
     if (!rows.length) {
+      flushWatchPortalBeforeRender();
       gridEl.innerHTML = "";
       emptyEl.classList.remove("hidden");
       syncUrl();
       return;
     }
     emptyEl.classList.add("hidden");
+    flushWatchPortalBeforeRender();
     gridEl.innerHTML = rows
       .map(
-        (m) => `
+        (m, i) => `
       <article class="card">
         <div class="poster">
           ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
@@ -600,7 +659,7 @@
             <div class="title">${escapeHtmlText(m.title || "")}</div>
             <div class="meta-watch-row">
               <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
-              ${watchBlockHtml(m)}
+              ${watchBlockHtml(m, `watch-card-${i}`)}
             </div>
             <div class="card-rating-row">
               ${ratingBlockHtml(m)}

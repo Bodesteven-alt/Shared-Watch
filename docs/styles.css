@@ -189,7 +189,9 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
   gap: .35rem .5rem;
+  width: 100%;
   margin-top: .05rem;
 }
 .meta-watch-row .meta {
@@ -334,6 +336,20 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .watch-backdrop[hidden] {
   display: none;
+}
+
+/* Above backdrop; .watch-body is moved here on mobile so it paints above the dimmer */
+.watch-panel-host {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  pointer-events: none;
+}
+.watch-panel-host[hidden] {
+  display: none;
+}
+.watch-panel-host .watch-body {
+  pointer-events: auto;
 }
 
 .rating-block {
@@ -891,66 +907,59 @@ details.data-credits[open] .data-credits-drawer {
     padding: .7rem;
   }
   .card:not(.card-skeleton) {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    column-gap: .55rem;
-    row-gap: .18rem;
-    align-items: start;
-    content-visibility: auto;
-    contain-intrinsic-size: auto 132px;
-  }
-  .card:not(.card-skeleton) .movie-content {
-    display: contents;
-  }
-  .card:not(.card-skeleton) .movie-main {
-    display: contents;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: .55rem;
   }
   .card:not(.card-skeleton) .poster {
-    grid-column: 1;
-    grid-row: 1 / -1;
+    flex-shrink: 0;
     width: 68px;
     min-width: 68px;
     height: 102px;
-    justify-self: start;
-    align-self: start;
   }
-  .card:not(.card-skeleton) .title {
-    grid-column: 2;
-    grid-row: 1;
+  .card:not(.card-skeleton) .movie-content {
+    flex: 1;
     min-width: 0;
-    align-self: start;
+    display: flex;
+    flex-direction: column;
+    gap: .14rem;
   }
-  .card:not(.card-skeleton) .meta-watch-row {
-    grid-column: 2;
-    grid-row: 2;
+  .card:not(.card-skeleton) .movie-main {
+    display: flex;
+    flex-direction: column;
+    gap: .14rem;
+    flex: 1;
     min-width: 0;
-    margin-top: 0;
-    align-self: start;
   }
   .card:not(.card-skeleton) .card-rating-row {
-    grid-column: 2;
-    grid-row: 3;
-    margin-top: .12rem;
-    align-self: start;
+    margin-top: .08rem;
   }
 
   .card:not(.card-skeleton) .watch-details summary::after {
     content: "";
   }
+  .card:not(.card-skeleton) .watch-details summary {
+    box-shadow: none;
+    animation: none;
+    border: 1px solid rgba(255, 113, 206, 0.35);
+    background: rgba(255, 113, 206, 0.12);
+    color: var(--acc);
+  }
   .card:not(.card-skeleton) .watch-details[open] .watch-body {
     position: fixed;
-    z-index: 300;
+    z-index: 1;
     right: auto;
     margin: 0;
     min-width: 0;
+    max-width: min(340px, calc(100vw - 24px));
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
-    /* left, top, width, max-height set in JS for left-align to Watch pill */
   }
   .card:not(.card-skeleton) .watch-details[open] {
-    z-index: 299;
     position: relative;
+    z-index: auto;
   }
 
   .card-skeleton__poster {
