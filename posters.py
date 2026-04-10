@@ -113,7 +113,7 @@ def _normalize_tmdb_cdn_poster_url(src: str) -> str | None:
         s = "https://www.themoviedb.org" + s
     m = re.search(r"/t/p/[^/]+(/.+)$", s)
     if m:
-        return "https://image.tmdb.org/t/p/w185" + m.group(1)
+        return "https://image.tmdb.org/t/p/w154" + m.group(1)
     if "image.tmdb.org" in s:
         return s
     return s

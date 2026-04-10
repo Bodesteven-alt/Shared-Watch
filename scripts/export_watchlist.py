@@ -1,9 +1,11 @@
 """Export local scraper cache into GitHub Pages JSON format."""
 from __future__ import annotations
 
+import html
 import json
 import os
 import re
+from datetime import datetime, timezone
 import sys
 import time
 from pathlib import Path
@@ -78,11 +80,53 @@ def load_json(path: Path, default):
         return default
 
 
-def save_json(path: Path, data) -> None:
+def save_json(path: Path, data, *, compact: bool = False) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+        if compact:
+            json.dump(data, f, ensure_ascii=False, separators=(",", ":"))
+        else:
+            json.dump(data, f, ensure_ascii=False, indent=2)
         f.write("\n")
+
+
+DOCS_INDEX_HTML = ROOT / "docs" / "index.html"
+WATCHLIST_VERSION_META_RE = re.compile(
+    r'<meta\s+name="watchlist-version"\s+content="[^"]*"\s*/?>',
+    re.I,
+)
+
+
+def export_poster_url(url: str | None) -> str | None:
+    """Match posters.py: TMDb w154 fills the same card box as w185 (object-fit: cover)."""
+    if not url or not isinstance(url, str):
+        return None
+    u = url.strip()
+    if "image.tmdb.org" in u and "/t/p/w185/" in u:
+        return u.replace("/t/p/w185/", "/t/p/w154/", 1)
+    return u
+
+
+def patch_docs_watchlist_version(version: str) -> None:
+    """Keep docs/index.html meta in sync with JSON updated_at for cache-busting fetch URL."""
+    path = DOCS_INDEX_HTML
+    if not path.is_file():
+        return
+    safe = html.escape(version.strip(), quote=True)
+    replacement = f'<meta name="watchlist-version" content="{safe}">'
+    text = path.read_text(encoding="utf-8")
+    if WATCHLIST_VERSION_META_RE.search(text):
+        text = WATCHLIST_VERSION_META_RE.sub(replacement, text, count=1)
+    else:
+        insert_after = re.search(
+            r'(<meta\s+name="viewport"[^>]*>)',
+            text,
+            flags=re.I,
+        )
+        if not insert_after:
+            return
+        text = text[: insert_after.end()] + "\n  " + replacement + text[insert_after.end() :]
+    path.write_text(text, encoding="utf-8", newline="\n")
 
 
 def lookup_imdb_hint_by_title(title: str) -> dict:
@@ -759,7 +803,7 @@ def main() -> int:
         movies.append(
             {
                 "title": title,
-                "poster_url": r.get("poster_url"),
+                "poster_url": export_poster_url(r.get("poster_url")),
                 "source": infer_source(r),
                 "imdb_id": imdb_id,
                 "year": c.get("year"),
@@ -831,8 +875,12 @@ def main() -> int:
     )
     # #endregion
 
+    updated_at = cache.get("updated_at")
+    if not updated_at:
+        updated_at = datetime.now(timezone.utc).isoformat()
+
     payload = {
-        "updated_at": cache.get("updated_at"),
+        "updated_at": updated_at,
         "stream_region": stream_region_export,
         "stream_owned_provider_ids": stream_owned_ids,
         "stats": {
@@ -848,8 +896,9 @@ def main() -> int:
         "movies": movies,
     }
 
-    save_json(output_path, payload)
+    save_json(output_path, payload, compact=True)
     save_json(meta_cache_path, meta_cache)
+    patch_docs_watchlist_version(str(payload["updated_at"]))
 
     missing_year = sum(1 for m in movies if m.get("year") is None)
     missing_genre = sum(1 for m in movies if not m.get("genres"))

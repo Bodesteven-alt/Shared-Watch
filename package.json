@@ -1,0 +1,7 @@
+{
+  "name": "website",
+  "private": true,
+  "scripts": {
+    "minify-docs": "python scripts/minify_docs.py"
+  }
+}

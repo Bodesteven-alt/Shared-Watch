@@ -84,7 +84,11 @@
     if (footerUpdatedLine) footerUpdatedLine.textContent = message;
   }
 
-  const res = await fetch("./data/watchlist.json", { cache: "no-store" });
+  const wlVer = document.querySelector('meta[name="watchlist-version"]')?.getAttribute("content")?.trim();
+  const wlUrl = wlVer
+    ? `./data/watchlist.json?v=${encodeURIComponent(wlVer)}`
+    : "./data/watchlist.json";
+  const res = await fetch(wlUrl);
   if (!res.ok) {
     failLoad("Failed to load list.");
     return;
@@ -1126,13 +1130,16 @@
     });
   }
 
-  let renderRaf = 0;
+  let renderDebounceTimer = 0;
+  const RENDER_DEBOUNCE_MS = 32;
   function scheduleRender() {
-    if (renderRaf) return;
-    renderRaf = requestAnimationFrame(() => {
-      renderRaf = 0;
-      render();
-    });
+    if (renderDebounceTimer) clearTimeout(renderDebounceTimer);
+    renderDebounceTimer = setTimeout(() => {
+      renderDebounceTimer = 0;
+      requestAnimationFrame(() => {
+        render();
+      });
+    }, RENDER_DEBOUNCE_MS);
   }
 
   function render() {
