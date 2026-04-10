@@ -446,6 +446,124 @@
     return sources;
   }
 
+  const watchBackdrop = document.getElementById("watchBackdrop");
+  const mobileWatchMq = window.matchMedia("(max-width: 640px)");
+
+  function clearWatchPanelLayout(detail) {
+    const body = detail?.querySelector?.(".watch-body");
+    if (!body) return;
+    body.style.left = "";
+    body.style.top = "";
+    body.style.right = "";
+    body.style.width = "";
+    body.style.maxHeight = "";
+    body.style.transform = "";
+  }
+
+  function syncWatchBackdrop() {
+    if (!watchBackdrop) return;
+    const any = gridEl.querySelector("details.watch-details[open]");
+    if (!mobileWatchMq.matches || !any) {
+      watchBackdrop.hidden = true;
+      watchBackdrop.setAttribute("aria-hidden", "true");
+      document.documentElement.style.overflow = "";
+    } else {
+      watchBackdrop.hidden = false;
+      watchBackdrop.setAttribute("aria-hidden", "false");
+      document.documentElement.style.overflow = "hidden";
+    }
+  }
+
+  function positionWatchPanel(detail) {
+    if (!mobileWatchMq.matches) return;
+    const sum = detail.querySelector(".watch-summary");
+    const body = detail.querySelector(".watch-body");
+    if (!sum || !body) return;
+    const pad = 12;
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const maxW = Math.min(340, vw - 2 * pad);
+    const rect = sum.getBoundingClientRect();
+    let left = rect.left;
+    left = Math.max(pad, Math.min(left, vw - pad - maxW));
+    let top = rect.bottom + 6;
+    body.style.position = "fixed";
+    body.style.left = `${left}px`;
+    body.style.top = `${top}px`;
+    body.style.width = `${maxW}px`;
+    body.style.transform = "none";
+    body.style.maxHeight = `${Math.max(120, Math.min(vh * 0.72, 420, vh - top - pad))}px`;
+
+    requestAnimationFrame(() => {
+      const br = body.getBoundingClientRect();
+      if (br.bottom > vh - pad) {
+        const above = rect.top - 6 - br.height;
+        if (above >= pad) body.style.top = `${above}px`;
+        else body.style.maxHeight = `${Math.max(100, vh - top - pad)}px`;
+      }
+    });
+  }
+
+  gridEl.addEventListener(
+    "toggle",
+    (e) => {
+      const d = e.target;
+      if (!d.classList.contains("watch-details")) return;
+      if (d.open) {
+        gridEl.querySelectorAll("details.watch-details[open]").forEach((o) => {
+          if (o !== d) {
+            clearWatchPanelLayout(o);
+            o.open = false;
+          }
+        });
+        if (mobileWatchMq.matches) {
+          positionWatchPanel(d);
+          syncWatchBackdrop();
+        }
+      } else {
+        clearWatchPanelLayout(d);
+        syncWatchBackdrop();
+      }
+    },
+    true,
+  );
+
+  if (watchBackdrop) {
+    watchBackdrop.addEventListener("click", () => {
+      gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
+        d.open = false;
+      });
+      syncWatchBackdrop();
+    });
+  }
+
+  function onWatchLayoutMqChange() {
+    const open = gridEl.querySelector("details.watch-details[open]");
+    if (!mobileWatchMq.matches) {
+      document.documentElement.style.overflow = "";
+      if (watchBackdrop) watchBackdrop.hidden = true;
+      gridEl.querySelectorAll("details.watch-details").forEach(clearWatchPanelLayout);
+    } else if (open) {
+      positionWatchPanel(open);
+      syncWatchBackdrop();
+    }
+  }
+  window.addEventListener("resize", onWatchLayoutMqChange);
+  if (mobileWatchMq.addEventListener) {
+    mobileWatchMq.addEventListener("change", onWatchLayoutMqChange);
+  } else {
+    mobileWatchMq.addListener(onWatchLayoutMqChange);
+  }
+
+  let renderRaf = 0;
+  function scheduleRender() {
+    if (renderRaf) return;
+    renderRaf = requestAnimationFrame(() => {
+      renderRaf = 0;
+      render();
+    });
+  }
+
   function render() {
     const activeSources = getActiveSources();
 
@@ -480,13 +598,13 @@
         <div class="movie-content">
           <div class="movie-main">
             <div class="title">${escapeHtmlText(m.title || "")}</div>
-            <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
-            <div class="badges-row">
-              <div class="card-rating-row">
-                ${ratingBlockHtml(m)}
-                ${sourceBadge(m)}
-              </div>
+            <div class="meta-watch-row">
+              <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
               ${watchBlockHtml(m)}
+            </div>
+            <div class="card-rating-row">
+              ${ratingBlockHtml(m)}
+              ${sourceBadge(m)}
             </div>
           </div>
         </div>
@@ -511,13 +629,13 @@
 
   clearLoadingState();
   updateSortUi();
-  render();
+  scheduleRender();
 
   [filterLb, filterBoth, filterImdb].forEach((btn) => {
     btn.addEventListener("click", () => {
       btn.classList.toggle("active");
       btn.blur();
-      render();
+      scheduleRender();
     });
   });
 
@@ -542,7 +660,7 @@
     syncGenreAriaSelected();
     setGenreOpen(false, {});
     updateSortUi();
-    render();
+    scheduleRender();
   });
 
   document.addEventListener("click", (e) => {
@@ -552,7 +670,16 @@
   });
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && isGenreOpen()) {
+    if (e.key !== "Escape") return;
+    if (gridEl.querySelector("details.watch-details[open]")) {
+      e.preventDefault();
+      gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
+        d.open = false;
+      });
+      syncWatchBackdrop();
+      return;
+    }
+    if (isGenreOpen()) {
       e.preventDefault();
       setGenreOpen(false, { focusButtonOnClose: true });
     }
@@ -565,7 +692,7 @@
       sortDir = "asc";
     }
     updateSortUi();
-    render();
+    scheduleRender();
   });
   sortYearBtn.addEventListener("click", () => {
     if (sortField === "year") sortDir = sortDir === "asc" ? "desc" : "asc";
@@ -574,7 +701,7 @@
       sortDir = "desc";
     }
     updateSortUi();
-    render();
+    scheduleRender();
   });
   sortRatingBtn.addEventListener("click", () => {
     if (sortField === "rating") sortDir = sortDir === "asc" ? "desc" : "asc";
@@ -583,7 +710,7 @@
       sortDir = "desc";
     }
     updateSortUi();
-    render();
+    scheduleRender();
   });
 
   function onGenreTruncateMqChange() {

@@ -181,15 +181,24 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: .45rem;
+  justify-content: flex-start;
+  gap: .2rem;
   flex: 1;
 }
-.card .badges-row {
+.meta-watch-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: .45rem .55rem;
+  gap: .35rem .5rem;
+  margin-top: .05rem;
+}
+.meta-watch-row .meta {
+  margin-top: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.meta-watch-row .watch-details {
+  flex-shrink: 0;
 }
 .poster {
   width: 56px; min-width: 56px; height: 84px;
@@ -215,7 +224,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   align-items: center;
   flex-wrap: wrap;
   gap: .45rem .55rem;
-  margin-top: .35rem;
+  margin-top: .25rem;
 }
 .card-rating-row .stars {
   margin-top: 0;
@@ -230,18 +239,17 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .watch-details summary {
   list-style: none;
   cursor: pointer;
-  font-size: .62rem;
-  font-weight: 700;
+  font-size: .68rem;
+  font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .06em;
-  padding: .2rem .5rem;
+  letter-spacing: .04em;
+  line-height: 1.2;
+  padding: .18rem .45rem;
   border-radius: 999px;
-  border: 1px solid rgba(185, 103, 255, 0.55);
+  border: 1px solid rgba(185, 103, 255, 0.45);
   color: #ece6ff;
-  background: linear-gradient(135deg, rgba(1, 205, 254, 0.22), rgba(185, 103, 255, 0.2));
-  box-shadow:
-    0 0 10px rgba(1, 205, 254, 0.35),
-    0 0 18px rgba(185, 103, 255, 0.18);
+  background: linear-gradient(135deg, rgba(1, 205, 254, 0.16), rgba(185, 103, 255, 0.14));
+  box-shadow: 0 0 8px rgba(1, 205, 254, 0.2);
   animation: watchGlow 2.8s ease-in-out infinite;
 }
 .watch-details summary::-webkit-details-marker {
@@ -316,6 +324,18 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .watch-muted code {
   font-size: 0.65rem;
 }
+
+.watch-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 297;
+  background: rgba(5, 3, 14, 0.52);
+  -webkit-tap-highlight-color: transparent;
+}
+.watch-backdrop[hidden] {
+  display: none;
+}
+
 .rating-block {
   display: inline-flex;
   align-items: center;
@@ -873,9 +893,11 @@ details.data-credits[open] .data-credits-drawer {
   .card:not(.card-skeleton) {
     display: grid;
     grid-template-columns: auto 1fr;
-    column-gap: .65rem;
-    row-gap: .35rem;
+    column-gap: .55rem;
+    row-gap: .18rem;
     align-items: start;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 132px;
   }
   .card:not(.card-skeleton) .movie-content {
     display: contents;
@@ -883,79 +905,52 @@ details.data-credits[open] .data-credits-drawer {
   .card:not(.card-skeleton) .movie-main {
     display: contents;
   }
-  .card:not(.card-skeleton) .badges-row {
-    display: contents;
-  }
   .card:not(.card-skeleton) .poster {
     grid-column: 1;
-    grid-row: 1;
-    width: 52px;
-    min-width: 52px;
-    height: 78px;
-    justify-self: center;
-  }
-  .card:not(.card-skeleton) .watch-details {
-    grid-column: 1;
-    grid-row: 2;
-    justify-self: center;
+    grid-row: 1 / -1;
+    width: 68px;
+    min-width: 68px;
+    height: 102px;
+    justify-self: start;
     align-self: start;
   }
   .card:not(.card-skeleton) .title {
     grid-column: 2;
     grid-row: 1;
     min-width: 0;
+    align-self: start;
   }
-  .card:not(.card-skeleton) .meta {
+  .card:not(.card-skeleton) .meta-watch-row {
     grid-column: 2;
     grid-row: 2;
     min-width: 0;
-    margin-top: .12rem;
+    margin-top: 0;
+    align-self: start;
   }
   .card:not(.card-skeleton) .card-rating-row {
     grid-column: 2;
     grid-row: 3;
-    margin-top: .28rem;
+    margin-top: .12rem;
     align-self: start;
   }
 
-  .card:not(.card-skeleton) .watch-details summary {
-    font-size: .8rem;
-    font-weight: 600;
-    text-transform: none;
-    letter-spacing: .02em;
-    padding: .3rem .6rem;
-    border: 1px solid var(--line);
-    color: var(--muted);
-    background: rgba(22, 14, 40, 0.65);
-    box-shadow: none;
-    animation: none;
-  }
-  .card:not(.card-skeleton) .watch-details summary:hover {
-    filter: none;
-    color: var(--text);
-    border-color: var(--cyan);
-    background: rgba(1, 205, 254, 0.12);
-  }
   .card:not(.card-skeleton) .watch-details summary::after {
     content: "";
   }
   .card:not(.card-skeleton) .watch-details[open] .watch-body {
     position: fixed;
-    left: 50%;
-    top: 50%;
-    right: auto;
-    transform: translate(-50%, -50%);
     z-index: 300;
-    width: min(340px, calc(100vw - 24px));
-    max-width: min(340px, calc(100vw - 24px));
+    right: auto;
+    margin: 0;
     min-width: 0;
-    max-height: min(70dvh, 420px);
     overflow-x: hidden;
     overflow-y: auto;
     box-sizing: border-box;
+    /* left, top, width, max-height set in JS for left-align to Watch pill */
   }
   .card:not(.card-skeleton) .watch-details[open] {
     z-index: 299;
+    position: relative;
   }
 
   .card-skeleton__poster {
