@@ -797,13 +797,12 @@
 
   const dataCreditsEl = document.querySelector("details.data-credits");
   if (dataCreditsEl) {
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (dataCreditsEl.open) dataCreditsEl.open = false;
-      },
-      { passive: true },
-    );
+    dataCreditsEl.addEventListener("toggle", () => {
+      if (!dataCreditsEl.open) return;
+      requestAnimationFrame(() => {
+        dataCreditsEl.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      });
+    });
   }
 
   document.addEventListener("keydown", (e) => {

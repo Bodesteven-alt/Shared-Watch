@@ -897,7 +897,16 @@ details.data-credits[open] > summary .data-credits-chev {
   transition: max-height 0.4s ease;
 }
 details.data-credits[open] .data-credits-drawer {
-  max-height: 28rem;
+  /* Cap height so the panel stays on-screen; scroll inside instead of pushing below the viewport. */
+  max-height: min(22rem, calc(100vh - 7.5rem));
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+@supports (height: 100dvh) {
+  details.data-credits[open] .data-credits-drawer {
+    max-height: min(22rem, calc(100dvh - 7.5rem));
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .data-credits-drawer {
