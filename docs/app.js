@@ -172,14 +172,19 @@
       servicesPopup.innerHTML =
         '<p class="watch-muted" style="margin:0;padding:.35rem .5rem;font-size:.78rem;">No streaming providers in this export.</p>';
     } else {
+      const listHtml = sortedProviders
+        .map(([id, name]) => {
+          const sid = escapeAttr(String(id));
+          return `<label class="service-option"><input type="checkbox" name="svc" value="${sid}"><span>${escapeHtmlText(name)}</span></label>`;
+        })
+        .join("");
       servicesPopup.innerHTML =
-        `<button type="button" class="genre-option service-clear-option" data-service-action="clear" role="option">Select your services</button>` +
-        sortedProviders
-          .map(([id, name]) => {
-            const sid = escapeAttr(String(id));
-            return `<label class="service-option"><input type="checkbox" name="svc" value="${sid}"><span>${escapeHtmlText(name)}</span></label>`;
-          })
-          .join("");
+        `<p class="services-sheet-heading">Streaming services</p>` +
+        `<div class="services-sheet-body">${listHtml}</div>` +
+        `<div class="services-sheet-footer">` +
+        `<button type="button" class="services-sheet-btn services-sheet-btn--clear" data-service-action="clear">Clear selection</button>` +
+        `<button type="button" class="services-sheet-btn services-sheet-btn--done" data-service-action="done">Done</button>` +
+        `</div>`;
     }
   }
 
@@ -348,7 +353,7 @@
     }
     servicesBtn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open && focusFirst) {
-      const first = servicesPopup.querySelector("input, .genre-option");
+      const first = servicesPopup.querySelector(".services-sheet-body input, input, .genre-option");
       if (first) first.focus();
     } else if (!open && focusBtn) {
       servicesBtn.focus({ preventScroll: true });
@@ -1189,6 +1194,10 @@
       }
     });
     servicesPopup.addEventListener("click", (e) => {
+      if (e.target.closest("[data-service-action='done']")) {
+        setServicesOpen(false, {});
+        return;
+      }
       const clr = e.target.closest("[data-service-action='clear']");
       if (!clr) return;
       selectedServiceIds = new Set();
