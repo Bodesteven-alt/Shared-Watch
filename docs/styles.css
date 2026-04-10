@@ -58,22 +58,22 @@
   box-shadow:0 0 18px rgba(1,205,254,0.5),0 0 36px rgba(1,205,254,0.2),inset 0 1px 0 rgba(1,205,254,0.35);
 }
 
-/* Movie cards: flat surface + source-colored border only (no background wash) */
-.card.card--src-letterboxd:not(.card-skeleton){
-  background:var(--surface);
-  background-image:none;
-  border:1px solid rgba(255,140,195,0.72);
-  box-shadow:none;
-}
-.card.card--src-both:not(.card-skeleton){
-  background:var(--surface);
-  background-image:none;
-  border:2px solid rgba(200,155,255,0.88);
-  box-shadow:none;
-}
+/* Movie cards: same 1px border width for all (saturated purple can look “fatter” at 2px) */
+.card.card--src-letterboxd:not(.card-skeleton),
+.card.card--src-both:not(.card-skeleton),
 .card.card--src-imdb:not(.card-skeleton){
   background:var(--surface);
   background-image:none;
-  border:1px solid rgba(1,205,254,0.58);
+  border-width:1px;
+  border-style:solid;
   box-shadow:none;
+}
+.card.card--src-letterboxd:not(.card-skeleton){
+  border-color:rgba(255,115,185,0.82);
+}
+.card.card--src-both:not(.card-skeleton){
+  border-color:rgba(168,55,245,0.92);
+}
+.card.card--src-imdb:not(.card-skeleton){
+  border-color:rgba(1,205,254,0.68);
 }
