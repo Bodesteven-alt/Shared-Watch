@@ -136,6 +136,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   background: rgba(22, 33, 62, 0.8);
   border: 1px solid var(--line);
   transition: background 0.2s, border-color 0.2s, color 0.2s, box-shadow 0.2s;
+  font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
+  font-weight: 500;
   font-size: clamp(0.72rem, 2.5vw, 1rem);
   padding: .55rem .5rem;
   min-width: 0;
@@ -411,6 +413,13 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .watch-details[open] summary::after {
   content: " ▴";
 }
+.watch-details--filter-hit .watch-summary {
+  border-color: rgba(1, 205, 254, 0.55);
+  color: var(--cyan);
+  background: linear-gradient(135deg, rgba(1, 205, 254, 0.2), rgba(185, 103, 255, 0.12));
+  box-shadow: 0 0 10px rgba(1, 205, 254, 0.35);
+  animation: none;
+}
 @keyframes watchGlow {
   0%,
   100% {
@@ -478,19 +487,26 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   color: var(--muted);
   margin-bottom: 0.2rem;
 }
-.watch-body ul {
+.watch-body .prov-list {
   margin: 0;
-  padding-left: 1rem;
+  padding: 0;
 }
-.watch-body li {
+.watch-body .prov-row {
   margin: 0.1rem 0;
   min-width: 0;
+}
+.watch-body .prov-row:first-child {
+  margin-top: 0;
 }
 .watch-body .prov-name {
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 .watch-body .prov-owned {
+  color: var(--cyan);
+  font-weight: 600;
+}
+.watch-body .prov-filter-match {
   color: var(--cyan);
   font-weight: 600;
 }
@@ -710,6 +726,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   max-width: 100%;
 }
 .srcbtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
   padding: .58rem 1.15rem;
   border-radius: 25px;
   border: 1px solid var(--line);
@@ -748,49 +768,68 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 
 .srcbtn-count {
   display: inline-flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  vertical-align: middle;
-  line-height: 1.05;
-  min-width: 1.5em;
-  position: relative;
-}
-.srcbtn-count__filtered {
-  display: block;
-  font-size: 0.72em;
-  font-weight: 800;
-  color: rgba(255, 255, 255, 0.92);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
-  margin-bottom: 0.06rem;
-}
-.srcbtn-count__filtered[hidden] {
-  display: none !important;
+  flex-shrink: 0;
+  line-height: 1;
 }
 .srcbtn-count__total-line {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.65em;
+  min-height: 1.15em;
+}
+.srcbtn-count__total {
+  position: relative;
+  z-index: 0;
+  line-height: 1.1;
 }
 .srcbtn-count--stale .srcbtn-count__total {
-  opacity: 0.38;
-  text-decoration: line-through;
-  text-decoration-color: rgba(255, 80, 100, 0.85);
+  opacity: 0.32;
 }
 .srcbtn-count__x {
   display: none;
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -52%);
-  font-size: 1.05em;
+  transform: translate(-50%, -54%);
+  z-index: 1;
+  font-size: 1.12em;
   font-weight: 800;
-  color: #ff3b5c;
+  color: rgba(120, 12, 28, 0.9);
   line-height: 1;
   pointer-events: none;
-  text-shadow: 0 0 6px rgba(0, 0, 0, 0.5);
 }
 .srcbtn-count--stale .srcbtn-count__x {
   display: block;
+}
+.srcbtn-count__filtered {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 800;
+  line-height: 1;
+  color: inherit;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+.srcbtn-count__filtered:not([hidden]) {
+  display: flex;
+}
+.srcbtn.active .srcbtn-count__filtered:not([hidden]) {
+  color: #fff;
+}
+.srcbtn:not(.active) .srcbtn-count__filtered:not([hidden]) {
+  color: var(--text);
+}
+.srcbtn-count__filtered[hidden] {
+  display: none !important;
 }
 .outlinks {
   display: flex;
@@ -1283,6 +1322,11 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     background: rgba(255, 113, 206, 0.12);
     color: var(--acc);
   }
+  .card:not(.card-skeleton) .watch-details--filter-hit.watch-details summary {
+    border-color: rgba(1, 205, 254, 0.5);
+    background: rgba(1, 205, 254, 0.14);
+    color: var(--cyan);
+  }
   .card:not(.card-skeleton) .watch-details[open] {
     position: relative;
     z-index: auto;
@@ -1325,7 +1369,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   .watch-panel-host .watch-body .prov-label {
     margin-bottom: 0.12rem;
   }
-  .watch-panel-host .watch-body li {
+  .watch-panel-host .watch-body .prov-row {
     margin: 0.06rem 0;
   }
 }

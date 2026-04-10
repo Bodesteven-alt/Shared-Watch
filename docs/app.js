@@ -434,24 +434,39 @@
     return false;
   }
 
-  function watchProvList(items, ownedSet) {
+  function movieMatchesSelectedServices(m) {
+    if (selectedServiceIds.size === 0) return false;
+    const ids = movieProviderIds(m);
+    for (const sid of selectedServiceIds) {
+      if (ids.has(sid)) return true;
+    }
+    return false;
+  }
+
+  function watchProvList(items, ownedSet, filterPickSet) {
     if (!items.length) return "";
+    const usePick = filterPickSet && filterPickSet.size > 0;
     return items
       .map((p) => {
         const id = Number(p && p.provider_id);
         const name = escapeHtmlText((p && p.provider_name) || (Number.isFinite(id) ? String(id) : "?"));
         const owned = Number.isFinite(id) && ownedSet.has(id);
-        return `<li><span class="prov-name${owned ? " prov-owned" : ""}">${name}</span></li>`;
+        const pick = usePick && Number.isFinite(id) && filterPickSet.has(id);
+        const cls =
+          "prov-name" +
+          (owned ? " prov-owned" : "") +
+          (pick ? " prov-filter-match" : "");
+        return `<div class="prov-row"><span class="${cls}">${name}</span></div>`;
       })
       .join("");
   }
 
-  function watchSectionHtml(label, items, ownedSet) {
+  function watchSectionHtml(label, items, ownedSet, filterPickSet) {
     if (!items.length) return "";
     return `
       <div class="prov-section">
         <div class="prov-label">${escapeHtmlText(label)}</div>
-        <ul>${watchProvList(items, ownedSet)}</ul>
+        <div class="prov-list">${watchProvList(items, ownedSet, filterPickSet)}</div>
       </div>`;
   }
 
@@ -465,14 +480,15 @@
     const buy = Array.isArray(block.buy) ? block.buy : [];
     const bodyInner =
       `<button type="button" class="watch-done" aria-label="Close where to watch">Done</button>` +
-      watchSectionHtml("Included with subscription", flatrate, streamOwnedIds) +
-      watchSectionHtml("Rent", rent, streamOwnedIds) +
-      watchSectionHtml("Buy", buy, streamOwnedIds);
+      watchSectionHtml("Included With Subscription", flatrate, streamOwnedIds, selectedServiceIds) +
+      watchSectionHtml("Rent", rent, streamOwnedIds, selectedServiceIds) +
+      watchSectionHtml("Buy", buy, streamOwnedIds, selectedServiceIds);
 
     const safeTitle = escapeAttr(m.title || "");
     const idAttr = watchDomId ? ` id="${escapeAttr(watchDomId)}"` : "";
+    const filterHit = movieMatchesSelectedServices(m);
     return `
-      <details class="watch-details"${idAttr}>
+      <details class="watch-details${filterHit ? " watch-details--filter-hit" : ""}"${idAttr}>
         <summary class="watch-summary" aria-label="Where to watch ${safeTitle}">Watch</summary>
         <div class="watch-body">${bodyInner}</div>
       </details>`;
@@ -616,7 +632,7 @@
     if (servicesBtn) {
       servicesBtn.textContent = formatServicesButtonLabel();
       servicesBtn.title =
-        selectedServiceIds.size === 0 ? "Filter by streaming service" : `${selectedServiceIds.size} service(s) selected`;
+        selectedServiceIds.size === 0 ? "Filter by streaming service" : `${selectedServiceIds.size} Service(s) selected`;
       servicesBtn.classList.toggle("active", selectedServiceIds.size > 0);
     }
   }
@@ -628,7 +644,7 @@
         const id = [...selectedServiceIds][0];
         return providerMap.get(id) || "Services";
       }
-      return `${selectedServiceIds.size} services`;
+      return `${selectedServiceIds.size} Services`;
     }
     const n = selectedServiceIds.size;
     if (n === 1) {

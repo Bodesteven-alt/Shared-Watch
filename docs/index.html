@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=43">
+  <link rel="stylesheet" href="./styles.css?v=44">
 </head>
 <body>
   <main class="wrap">
@@ -17,30 +17,30 @@
         <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
           <button id="filterLb" class="srcbtn active" data-source="letterboxd">
             <span class="srcbtn-count" id="srcCountLb">
-              <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
               <span class="srcbtn-count__total-line">
-                <span class="srcbtn-count__x" aria-hidden="true">×</span>
                 <span class="count srcbtn-count__total" id="countLb">0</span>
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
               </span>
             </span>
             Letterboxd
           </button>
           <button id="filterBoth" class="srcbtn active" data-source="both">
             <span class="srcbtn-count" id="srcCountBoth">
-              <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
               <span class="srcbtn-count__total-line">
-                <span class="srcbtn-count__x" aria-hidden="true">×</span>
                 <span class="count srcbtn-count__total" id="countBoth">0</span>
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
               </span>
             </span>
             Both
           </button>
           <button id="filterImdb" class="srcbtn active" data-source="imdb">
             <span class="srcbtn-count" id="srcCountImdb">
-              <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
               <span class="srcbtn-count__total-line">
-                <span class="srcbtn-count__x" aria-hidden="true">×</span>
                 <span class="count srcbtn-count__total" id="countImdb">0</span>
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
               </span>
             </span>
             IMDb
@@ -143,6 +143,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=40"></script>
+  <script src="./app.js?v=41"></script>
 </body>
 </html>
