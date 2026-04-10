@@ -298,7 +298,7 @@
                 <span class="meta-year">${year}</span><span class="meta-sep"> · </span>
                 <span class="meta-genres-clip">
                   <span class="meta-genres-text">${escapeHtmlText(text)}</span>
-                  <button type="button" class="genre-more-link hidden" data-genres="${dataGenres}" aria-label="Show all genres">more...</button>
+                  <button type="button" class="genre-more-link hidden" data-genres="${dataGenres}" aria-label="Show genres that do not fit on one line">more...</button>
                 </span>
               </div>
             </div>`;
@@ -572,6 +572,7 @@
     body.style.width = "";
     body.style.maxWidth = "";
     body.style.maxHeight = "";
+    body.style.overflowY = "";
     body.style.transform = "";
   }
 
@@ -597,7 +598,7 @@
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const maxW = Math.min(340, vw - 2 * pad);
-    const maxH = Math.max(120, Math.min(vh * 0.85, vh - 2 * pad));
+    const maxAvail = Math.max(120, vh - 2 * pad);
 
     body.style.position = "fixed";
     body.style.left = "50%";
@@ -606,7 +607,21 @@
     body.style.transform = "translate(-50%, -50%)";
     body.style.width = `${maxW}px`;
     body.style.maxWidth = `${maxW}px`;
-    body.style.maxHeight = `${maxH}px`;
+    body.style.maxHeight = "none";
+    body.style.overflowY = "visible";
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const natural = body.scrollHeight;
+        if (natural <= maxAvail) {
+          body.style.maxHeight = `${natural}px`;
+          body.style.overflowY = "visible";
+        } else {
+          body.style.maxHeight = `${maxAvail}px`;
+          body.style.overflowY = "auto";
+        }
+      });
+    });
   }
 
   gridEl.addEventListener(
@@ -672,12 +687,15 @@
   }
 
   function syncGenreOverflow() {
+    const epsilon = 2;
     gridEl.querySelectorAll(".meta-genres-clip").forEach((clip) => {
       const textEl = clip.querySelector(".meta-genres-text");
       const moreBtn = clip.querySelector(".genre-more-link");
       if (!textEl || !moreBtn) return;
       moreBtn.classList.add("hidden");
-      if (textEl.scrollWidth > textEl.clientWidth) {
+      const clippedY = textEl.scrollHeight > textEl.clientHeight + epsilon;
+      const clippedX = textEl.scrollWidth > textEl.clientWidth + epsilon;
+      if (clippedY || clippedX) {
         moreBtn.classList.remove("hidden");
       }
     });
@@ -831,6 +849,12 @@
       return;
     }
 
+    const onRatingToggle = e.target.closest(".rating-stars-toggle");
+    const onWatchControl = e.target.closest(".watch-summary") || e.target.closest(".watch-body");
+    if (!onRatingToggle && !onWatchControl) {
+      closeOpenRatingBlocks();
+    }
+
     if (!e.target.closest(".watch-summary") && !e.target.closest(".watch-body")) {
       const card = e.target.closest("article.card");
       if (card && gridEl.contains(card)) {
@@ -909,6 +933,15 @@
     updateSortUi();
     scheduleRender();
   });
+
+  document.addEventListener(
+    "pointerdown",
+    (e) => {
+      if (e.target.closest(".rating-block")) return;
+      closeOpenRatingBlocks();
+    },
+    true,
+  );
 
   document.addEventListener("click", (e) => {
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {

@@ -18,7 +18,16 @@ body {
     var(--bg);
   color: var(--text);
 }
-.wrap { max-width: 1080px; margin: 0 auto; padding: 1.2rem; }
+.wrap {
+  width: 100%;
+  max-width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: max(1.2rem, env(safe-area-inset-top, 0px))
+    max(1.2rem, env(safe-area-inset-right, 0px))
+    max(1.2rem, env(safe-area-inset-bottom, 0px))
+    max(1.2rem, env(safe-area-inset-left, 0px));
+  box-sizing: border-box;
+}
 .top { text-align: center; margin-bottom: .5rem; }
 .top-cluster {
   display: flex;
@@ -106,6 +115,9 @@ body {
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: .5rem;
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   align-items: stretch;
 }
 input, select, button {
@@ -162,6 +174,15 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: .7rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+/* Grid items default to min-width: auto, which prevents shrinking and causes horizontal overflow on narrow viewports. */
+.grid > * {
+  min-width: 0;
+  max-width: 100%;
 }
 .card {
   border: 1px solid var(--line);
@@ -171,6 +192,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   align-items: stretch;
   gap: .6rem;
+  box-sizing: border-box;
 }
 .card .movie-content {
   min-width: 0;
@@ -218,8 +240,12 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+  word-break: normal;
+  overflow-wrap: anywhere;
 }
 .genre-more-link {
   flex-shrink: 0;
@@ -300,6 +326,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .card .title {
   font-size: 1.02rem;
   letter-spacing: 0.01em;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .meta {
   margin-top: .22rem;
@@ -420,8 +448,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   line-height: 1.4;
   box-sizing: border-box;
   overflow-x: hidden;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: visible;
   overscroll-behavior: contain;
 }
 .watch-body .prov-section {
@@ -487,6 +514,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .watch-panel-host .watch-body {
   pointer-events: auto;
   max-width: min(340px, calc(100vw - 24px));
+  overflow-y: visible;
 }
 
 .rating-block {
@@ -562,7 +590,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   border-radius: inherit;
   background: rgba(30, 18, 52, 0.94);
   border: 1px solid var(--line);
-  color: var(--text);
+  color: var(--muted);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.35);
   line-height: 1;
 }
@@ -591,6 +619,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   font-weight: 600;
   color: var(--cyan);
   letter-spacing: -0.02em;
+}
+/* Entire "X.XX/5" lives in .rating-value-x5; keep score + slash + 5 uniformly cyan */
+.rating-value-score-wrap {
+  color: var(--cyan);
 }
 .rating-value-sep {
   flex: 0 0 auto;
@@ -764,7 +796,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .footer {
   max-width: 1080px;
   margin: 2rem auto 1rem;
-  padding: 1rem 1.2rem;
+  padding: 1rem max(1.2rem, env(safe-area-inset-right, 0px)) 1rem max(1.2rem, env(safe-area-inset-left, 0px));
+  padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
   text-align: center;
   border-top: 1px solid var(--line);
   color: var(--muted);
@@ -933,22 +966,23 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   justify-content: center;
   width: 100%;
-  max-width: 36rem;
+  max-width: 42rem;
   margin: 0 auto 0.35rem;
-  padding: 0;
+  padding: 0 max(0.5rem, env(safe-area-inset-left, 0px)) 0 max(0.5rem, env(safe-area-inset-right, 0px));
   box-sizing: border-box;
-  font-size: 0.58rem;
+  font-size: clamp(0.52rem, 2.8vw, 0.62rem);
   line-height: 1.35;
   color: rgba(145, 163, 195, 0.72);
 }
 .footer-data-sources__inner {
-  display: block;
+  display: inline-flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0;
   max-width: 100%;
   white-space: nowrap;
-  overflow-x: auto;
-  overflow-y: hidden;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: thin;
+  overflow: hidden;
   text-align: center;
 }
 .footer-data-sources__label {
@@ -986,8 +1020,11 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   html {
     overflow-x: hidden;
   }
+  body {
+    overflow-x: clip;
+  }
   main.wrap {
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   .source-filters {
