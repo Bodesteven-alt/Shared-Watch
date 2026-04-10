@@ -169,6 +169,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   border-radius: 12px;
   padding: .55rem;
   display: flex;
+  align-items: stretch;
   gap: .6rem;
 }
 .card .movie-content {
@@ -182,28 +183,21 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: .2rem;
+  gap: .1rem;
   flex: 1;
 }
-.meta-watch-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: .35rem .5rem;
+.card-meta-line {
   width: 100%;
-  margin-top: .05rem;
 }
-.meta-watch-row .meta {
+.card-meta-line .meta {
   margin-top: 0;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.meta-watch-row .watch-details {
-  flex-shrink: 0;
 }
 .poster {
-  width: 56px; min-width: 56px; height: 84px;
+  position: relative;
+  width: 56px;
+  min-width: 56px;
+  min-height: 84px;
+  align-self: stretch;
   border-radius: 8px;
   border: 1px solid var(--line);
   overflow: hidden;
@@ -212,27 +206,58 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   justify-content: center;
   color: var(--muted);
   font-size: .65rem;
+  flex-shrink: 0;
 }
-.poster img { width: 100%; height: 100%; object-fit: cover; }
+.poster img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+}
 .title { font-weight: 600; line-height: 1.35; }
+.card .title {
+  font-size: 1.02rem;
+  letter-spacing: 0.01em;
+}
 .meta {
   margin-top: .22rem;
   font-size: .72rem;
   color: var(--muted);
 }
+.card .meta {
+  margin-top: 0;
+  font-size: .82rem;
+  line-height: 1.4;
+}
 .card-rating-row {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   flex-wrap: wrap;
-  gap: .45rem .55rem;
-  margin-top: .25rem;
+  gap: .35rem .5rem;
+  margin-top: .08rem;
+  width: 100%;
+}
+.card-rating-row .rating-block {
+  flex: 0 1 auto;
+  min-width: 0;
+}
+.card-rating-row .watch-details {
+  flex-shrink: 0;
+  margin-left: auto;
 }
 .card-rating-row .stars {
   margin-top: 0;
 }
 .card-rating-row .badge {
   margin-top: 0;
+}
+.card .star {
+  width: 18px;
+  height: 18px;
 }
 .watch-details {
   position: relative;
@@ -909,14 +934,15 @@ details.data-credits[open] .data-credits-drawer {
   .card:not(.card-skeleton) {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     gap: .55rem;
   }
   .card:not(.card-skeleton) .poster {
     flex-shrink: 0;
     width: 68px;
     min-width: 68px;
-    height: 102px;
+    min-height: 102px;
+    align-self: stretch;
   }
   .card:not(.card-skeleton) .movie-content {
     flex: 1;
@@ -928,7 +954,7 @@ details.data-credits[open] .data-credits-drawer {
   .card:not(.card-skeleton) .movie-main {
     display: flex;
     flex-direction: column;
-    gap: .14rem;
+    gap: .1rem;
     flex: 1;
     min-width: 0;
   }

@@ -259,10 +259,13 @@
   applyUrlState();
   syncGenreAriaSelected();
 
-  function sourceBadge(m) {
-    if (m.source === "both") return '<span class="badge both">Both</span>';
-    if (m.source === "letterboxd") return '<span class="badge lb">Letterboxd</span>';
-    return '<span class="badge im">IMDb</span>';
+  function hasStreamingProviders(m) {
+    const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
+    const block = st[streamRegion] || {};
+    const flatrate = Array.isArray(block.flatrate) ? block.flatrate : [];
+    const rent = Array.isArray(block.rent) ? block.rent : [];
+    const buy = Array.isArray(block.buy) ? block.buy : [];
+    return flatrate.length > 0 || rent.length > 0 || buy.length > 0;
   }
 
   function watchProvList(items, ownedSet) {
@@ -287,22 +290,17 @@
   }
 
   function watchBlockHtml(m, watchDomId) {
+    if (!hasStreamingProviders(m)) return "";
+
     const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
     const block = st[streamRegion] || {};
     const flatrate = Array.isArray(block.flatrate) ? block.flatrate : [];
     const rent = Array.isArray(block.rent) ? block.rent : [];
     const buy = Array.isArray(block.buy) ? block.buy : [];
-    const hasAny = flatrate.length > 0 || rent.length > 0 || buy.length > 0;
-
-    let bodyInner;
-    if (!hasAny) {
-      bodyInner = `<p class="watch-muted">No provider listings in ${escapeHtmlText(streamRegion)} for this title. If you use TMDb on the Flask sync, run <strong>Refresh</strong> there, then re-run <code>export_watchlist.py</code> so this JSON includes streaming.</p>`;
-    } else {
-      bodyInner =
-        watchSectionHtml("Included with subscription", flatrate, streamOwnedIds) +
-        watchSectionHtml("Rent", rent, streamOwnedIds) +
-        watchSectionHtml("Buy", buy, streamOwnedIds);
-    }
+    const bodyInner =
+      watchSectionHtml("Included with subscription", flatrate, streamOwnedIds) +
+      watchSectionHtml("Rent", rent, streamOwnedIds) +
+      watchSectionHtml("Buy", buy, streamOwnedIds);
 
     const safeTitle = escapeAttr(m.title || "");
     const idAttr = watchDomId ? ` id="${escapeAttr(watchDomId)}"` : "";
@@ -648,8 +646,14 @@
     emptyEl.classList.add("hidden");
     flushWatchPortalBeforeRender();
     gridEl.innerHTML = rows
-      .map(
-        (m, i) => `
+      .map((m, i) => {
+        const ratingHtml = ratingBlockHtml(m);
+        const watchHtml = watchBlockHtml(m, `watch-card-${i}`);
+        const ratingRowHtml =
+          ratingHtml || watchHtml
+            ? `<div class="card-rating-row">${ratingHtml}${watchHtml}</div>`
+            : "";
+        return `
       <article class="card">
         <div class="poster">
           ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
@@ -657,19 +661,15 @@
         <div class="movie-content">
           <div class="movie-main">
             <div class="title">${escapeHtmlText(m.title || "")}</div>
-            <div class="meta-watch-row">
+            <div class="card-meta-line">
               <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
-              ${watchBlockHtml(m, `watch-card-${i}`)}
             </div>
-            <div class="card-rating-row">
-              ${ratingBlockHtml(m)}
-              ${sourceBadge(m)}
-            </div>
+            ${ratingRowHtml}
           </div>
         </div>
       </article>
-    `,
-      )
+    `;
+      })
       .join("");
     syncUrl();
   }
