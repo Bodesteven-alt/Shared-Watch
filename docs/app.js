@@ -23,6 +23,8 @@
 
   const genreBtn = document.getElementById("genreBtn");
   const genrePopup = document.getElementById("genrePopup");
+  const servicesBtn = document.getElementById("servicesBtn");
+  const servicesPopup = document.getElementById("servicesPopup");
   const genreMorePopover = document.getElementById("genreMorePopover");
   let genreMoreAnchor = null;
 
@@ -143,6 +145,39 @@
       : [],
   );
 
+  const providerMap = new Map();
+  function ingestStreamingProvidersFromMovie(m) {
+    const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
+    const block = st[streamRegion] || {};
+    for (const key of ["flatrate", "rent", "buy"]) {
+      const arr = Array.isArray(block[key]) ? block[key] : [];
+      for (const p of arr) {
+        const id = Number(p && p.provider_id);
+        if (!Number.isFinite(id)) continue;
+        const name = (p && p.provider_name) || String(id);
+        if (!providerMap.has(id)) providerMap.set(id, name);
+      }
+    }
+  }
+  for (const m of movies) ingestStreamingProvidersFromMovie(m);
+  const sortedProviders = [...providerMap.entries()].sort((a, b) => String(a[1]).localeCompare(String(b[1])));
+
+  if (servicesPopup) {
+    if (!sortedProviders.length) {
+      servicesPopup.innerHTML =
+        '<p class="watch-muted" style="margin:0;padding:.35rem .5rem;font-size:.78rem;">No streaming providers in this export.</p>';
+    } else {
+      servicesPopup.innerHTML =
+        `<button type="button" class="genre-option service-clear-option" data-service-action="clear" role="option">All services</button>` +
+        sortedProviders
+          .map(([id, name]) => {
+            const sid = escapeAttr(String(id));
+            return `<label class="service-option"><input type="checkbox" name="svc" value="${sid}"><span>${escapeHtmlText(name)}</span></label>`;
+          })
+          .join("");
+    }
+  }
+
   genrePopup.innerHTML =
     `<button type="button" class="genre-option active" data-genre="all" role="option" aria-selected="true">All Genres</button>` +
     sortedGenres
@@ -153,6 +188,8 @@
       .join("");
 
   let selectedGenre = "all";
+  /** When empty, no service filter. When non-empty, show titles that include any selected provider (region). */
+  let selectedServiceIds = new Set();
   let sortField = "title";
   let sortDir = "asc";
 
@@ -193,6 +230,7 @@
   function isDefaultState() {
     return (
       selectedGenre === "all" &&
+      selectedServiceIds.size === 0 &&
       sortField === "title" &&
       sortDir === "asc" &&
       allSourcesActive()
@@ -230,6 +268,15 @@
     if (s === "title" || s === "year" || s === "rating") sortField = s;
     const d = params.get("dir");
     if (d === "asc" || d === "desc") sortDir = d;
+
+    const svcRaw = params.get("svc");
+    selectedServiceIds = new Set();
+    if (svcRaw && sortedProviders.length) {
+      for (const part of svcRaw.split(",")) {
+        const n = Number(String(part).trim());
+        if (Number.isFinite(n) && providerMap.has(n)) selectedServiceIds.add(n);
+      }
+    }
   }
 
   function syncUrl() {
@@ -249,6 +296,9 @@
       if (active.length) p.set("src", active.join(","));
     }
     if (selectedGenre !== "all") p.set("genre", selectedGenre);
+    if (selectedServiceIds.size > 0) {
+      p.set("svc", [...selectedServiceIds].sort((a, b) => a - b).join(","));
+    }
     if (sortField !== "title" || sortDir !== "asc") {
       p.set("sort", sortField);
       p.set("dir", sortDir);
@@ -258,7 +308,34 @@
     history.replaceState(null, "", url);
   }
 
+  function syncServiceCheckboxUi() {
+    if (!servicesPopup) return;
+    servicesPopup.querySelectorAll('input[type="checkbox"][name="svc"]').forEach((inp) => {
+      const id = Number(inp.value);
+      inp.checked = Number.isFinite(id) && selectedServiceIds.has(id);
+    });
+  }
+
+  function isServicesOpen() {
+    return !!(servicesPopup && !servicesPopup.classList.contains("hidden"));
+  }
+
+  function setServicesOpen(open, opts) {
+    if (!servicesPopup || !servicesBtn) return;
+    const focusFirst = opts && opts.focusFirst;
+    const focusBtn = opts && opts.focusButtonOnClose;
+    servicesPopup.classList.toggle("hidden", !open);
+    servicesBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && focusFirst) {
+      const first = servicesPopup.querySelector("input, .genre-option");
+      if (first) first.focus();
+    } else if (!open && focusBtn) {
+      servicesBtn.focus({ preventScroll: true });
+    }
+  }
+
   applyUrlState();
+  syncServiceCheckboxUi();
   syncGenreAriaSelected();
 
   function displayGenreOnCard(g) {
@@ -313,6 +390,29 @@
     return flatrate.length > 0 || rent.length > 0 || buy.length > 0;
   }
 
+  function movieProviderIds(m) {
+    const ids = new Set();
+    const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
+    const block = st[streamRegion] || {};
+    for (const key of ["flatrate", "rent", "buy"]) {
+      const arr = Array.isArray(block[key]) ? block[key] : [];
+      for (const p of arr) {
+        const id = Number(p && p.provider_id);
+        if (Number.isFinite(id)) ids.add(id);
+      }
+    }
+    return ids;
+  }
+
+  function movieMatchesServiceFilter(m) {
+    if (selectedServiceIds.size === 0) return true;
+    const ids = movieProviderIds(m);
+    for (const sid of selectedServiceIds) {
+      if (ids.has(sid)) return true;
+    }
+    return false;
+  }
+
   function watchProvList(items, ownedSet) {
     if (!items.length) return "";
     return items
@@ -343,6 +443,7 @@
     const rent = Array.isArray(block.rent) ? block.rent : [];
     const buy = Array.isArray(block.buy) ? block.buy : [];
     const bodyInner =
+      `<button type="button" class="watch-done" aria-label="Close where to watch">Done</button>` +
       watchSectionHtml("Included with subscription", flatrate, streamOwnedIds) +
       watchSectionHtml("Rent", rent, streamOwnedIds) +
       watchSectionHtml("Buy", buy, streamOwnedIds);
@@ -447,10 +548,19 @@
 
     const ph = buildStarsPlaceholderInner();
     return `
-      <div class="rating-block rating-block--placeholder" role="img" aria-label="No average rating">
-        <div class="rating-stars-placeholder">
-          <span class="stars stars--placeholder">${ph}</span>
-        </div>
+      <div class="rating-block rating-block--placeholder">
+        <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show or hide rating details">
+          <span class="rating-stars-inner">
+            <span class="stars stars--placeholder">${ph}</span>
+          </span>
+          <span class="rating-value-overlay" aria-hidden="true">
+            <span class="rating-value-pill">
+              <span class="rating-value-line rating-value-line--solo">
+                <span class="rating-value-norating">No ratings</span>
+              </span>
+            </span>
+          </span>
+        </button>
       </div>`;
   }
 
@@ -481,6 +591,31 @@
     genreBtn.textContent = formatGenreButtonLabel(selectedGenre);
     genreBtn.title = selectedGenre === "all" ? "Filter by genre" : selectedGenre;
     genreBtn.classList.toggle("active", selectedGenre !== "all");
+
+    if (servicesBtn) {
+      servicesBtn.textContent = formatServicesButtonLabel();
+      servicesBtn.title =
+        selectedServiceIds.size === 0 ? "Filter by streaming service" : `${selectedServiceIds.size} service(s) selected`;
+      servicesBtn.classList.toggle("active", selectedServiceIds.size > 0);
+    }
+  }
+
+  function formatServicesButtonLabel() {
+    if (selectedServiceIds.size === 0) return "Services";
+    if (!genreTruncateMq.matches) {
+      if (selectedServiceIds.size === 1) {
+        const id = [...selectedServiceIds][0];
+        return providerMap.get(id) || "Services";
+      }
+      return `${selectedServiceIds.size} services`;
+    }
+    const n = selectedServiceIds.size;
+    if (n === 1) {
+      const id = [...selectedServiceIds][0];
+      const name = providerMap.get(id) || "?";
+      return name.length > 4 ? `${name.slice(0, 4)}...` : name;
+    }
+    return `${n} svc`;
   }
 
   function sortRows(rows) {
@@ -560,6 +695,7 @@
       watchBackdrop.hidden = true;
       watchBackdrop.setAttribute("aria-hidden", "true");
     }
+    updateWatchScrollDismissListeners();
   }
 
   function clearWatchPanelLayout(detail) {
@@ -576,6 +712,30 @@
     body.style.transform = "";
   }
 
+  let watchScrollDismissBound = false;
+  function watchScrollDismissHandler(e) {
+    if (!mobileWatchMq.matches) return;
+    if (!gridEl.querySelector("details.watch-details[open]")) return;
+    const t = e && e.target;
+    if (t && typeof t.closest === "function" && t.closest(".watch-body")) return;
+    gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
+      d.open = false;
+    });
+  }
+
+  function updateWatchScrollDismissListeners() {
+    const need = mobileWatchMq.matches && !!gridEl.querySelector("details.watch-details[open]");
+    if (need && !watchScrollDismissBound) {
+      document.addEventListener("wheel", watchScrollDismissHandler, { capture: true, passive: true });
+      document.addEventListener("touchmove", watchScrollDismissHandler, { capture: true, passive: true });
+      watchScrollDismissBound = true;
+    } else if (!need && watchScrollDismissBound) {
+      document.removeEventListener("wheel", watchScrollDismissHandler, { capture: true });
+      document.removeEventListener("touchmove", watchScrollDismissHandler, { capture: true });
+      watchScrollDismissBound = false;
+    }
+  }
+
   function syncWatchBackdrop() {
     if (!watchBackdrop) return;
     const any = gridEl.querySelector("details.watch-details[open]");
@@ -588,17 +748,18 @@
       watchBackdrop.setAttribute("aria-hidden", "false");
       document.documentElement.style.overflow = "hidden";
     }
+    updateWatchScrollDismissListeners();
   }
 
   function positionWatchPanel(detail) {
     if (!mobileWatchMq.matches) return;
     const body = getWatchBodyForDetail(detail);
     if (!body) return;
-    const pad = 12;
+    const pad = 16;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    const maxW = Math.min(340, vw - 2 * pad);
-    const maxAvail = Math.max(120, vh - 2 * pad);
+    const maxW = Math.min(420, Math.floor(vw * 0.92), vw - 2 * pad);
+    const maxAvail = Math.max(140, Math.floor(vh * 0.9) - 2 * pad);
 
     body.style.position = "fixed";
     body.style.left = "50%";
@@ -675,6 +836,7 @@
       positionWatchPanel(open);
       syncWatchBackdrop();
     }
+    updateWatchScrollDismissListeners();
   }
   window.addEventListener("resize", onWatchLayoutMqChange);
   window.addEventListener("resize", () => {
@@ -791,6 +953,7 @@
       if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
         return false;
       }
+      if (!movieMatchesServiceFilter(m)) return false;
       return true;
     });
 
@@ -934,6 +1097,40 @@
     scheduleRender();
   });
 
+  if (servicesBtn && servicesPopup) {
+    servicesBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const next = !isServicesOpen();
+      setServicesOpen(next, {});
+    });
+    servicesBtn.addEventListener("keydown", (e) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        const next = !isServicesOpen();
+        setServicesOpen(next, { focusFirst: next });
+      }
+    });
+    servicesPopup.addEventListener("click", (e) => {
+      const clr = e.target.closest("[data-service-action='clear']");
+      if (!clr) return;
+      selectedServiceIds = new Set();
+      syncServiceCheckboxUi();
+      updateSortUi();
+      scheduleRender();
+      setServicesOpen(false, {});
+    });
+    servicesPopup.addEventListener("change", (e) => {
+      const inp = e.target;
+      if (!(inp instanceof HTMLInputElement) || inp.name !== "svc") return;
+      const id = Number(inp.value);
+      if (!Number.isFinite(id)) return;
+      if (inp.checked) selectedServiceIds.add(id);
+      else selectedServiceIds.delete(id);
+      updateSortUi();
+      scheduleRender();
+    });
+  }
+
   document.addEventListener(
     "pointerdown",
     (e) => {
@@ -944,8 +1141,33 @@
   );
 
   document.addEventListener("click", (e) => {
+    const watchDone = e.target.closest(".watch-done");
+    if (watchDone) {
+      const body = watchDone.closest(".watch-body");
+      if (body) {
+        let detail = body.closest("details.watch-details");
+        if (!detail && body.dataset.watchDetailId) {
+          detail = document.getElementById(body.dataset.watchDetailId);
+        }
+        if (detail) {
+          detail.open = false;
+          syncWatchBackdrop();
+          return;
+        }
+      }
+    }
+
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
       if (isGenreOpen()) setGenreOpen(false, {});
+    }
+    if (
+      servicesPopup &&
+      servicesBtn &&
+      !servicesPopup.contains(e.target) &&
+      e.target !== servicesBtn &&
+      !servicesBtn.contains(e.target)
+    ) {
+      if (isServicesOpen()) setServicesOpen(false, {});
     }
     if (genreMorePopover && !genreMorePopover.classList.contains("hidden")) {
       if (!genreMorePopover.contains(e.target) && !e.target.closest(".genre-more-link")) {
@@ -970,6 +1192,11 @@
         d.open = false;
       });
       syncWatchBackdrop();
+      return;
+    }
+    if (isServicesOpen()) {
+      e.preventDefault();
+      setServicesOpen(false, { focusButtonOnClose: true });
       return;
     }
     if (isGenreOpen()) {

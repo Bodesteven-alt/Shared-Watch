@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=40">
+  <link rel="stylesheet" href="./styles.css?v=42">
 </head>
 <body>
   <main class="wrap">
@@ -59,6 +59,10 @@
           <span class="arr down" id="sortRatingDown">▼</span>
         </span>
       </button>
+      <div class="services-btn-wrap">
+        <button id="servicesBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="dialog" aria-controls="servicesPopup">Services</button>
+        <div id="servicesPopup" class="services-popup hidden" role="dialog" aria-label="Streaming services"></div>
+      </div>
     </section>
 
     <section id="grid" class="grid grid--loading" aria-busy="true" aria-label="Movie list">
@@ -87,10 +91,9 @@
     </div>
     <p class="footer-data-sources" role="note">
       <span class="footer-data-sources__inner">
-        <span class="footer-data-sources__label">Data sources</span><span class="footer-data-sources__gap"> </span><span class="footer-data-sources__list"><span class="footer-data-sources__src">Letterboxd</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">IMDb</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">TMDb</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">OMDb</span></span>
+        <span class="footer-data-sources__label">Data sources:</span><span class="footer-data-sources__gap"> </span><span class="footer-data-sources__list"><span class="footer-data-sources__src">Letterboxd</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">IMDb</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">TMDb</span><span class="footer-data-sources__sep">, </span><span class="footer-data-sources__src">OMDb</span></span>
       </span>
     </p>
-    <p class="footer-tmdb-attribution"><span class="footer-tmdb-attribution__inner">This product uses the TMDb API but is not endorsed or certified by TMDb.</span></p>
   </footer>
 
   <script>
@@ -115,6 +118,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=37"></script>
+  <script src="./app.js?v=39"></script>
 </body>
 </html>
