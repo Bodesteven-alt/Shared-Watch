@@ -58,25 +58,22 @@
   box-shadow:0 0 18px rgba(1,205,254,0.5),0 0 36px rgba(1,205,254,0.2),inset 0 1px 0 rgba(1,205,254,0.35);
 }
 
-/* Movie cards: soft mist around poster (Letterboxd), purple-only wash (both), neutral (IMDb) */
+/* Movie cards: flat surface + source-colored border only (no background wash) */
 .card.card--src-letterboxd:not(.card-skeleton){
-  background-color:var(--surface);
-  background-image:
-    radial-gradient(ellipse 95% 85% at 14% 42%,rgba(255,150,205,0.42) 0%,rgba(255,120,190,0.16) 42%,transparent 68%),
-    radial-gradient(ellipse 70% 60% at 8% 78%,rgba(255,130,195,0.18) 0%,transparent 55%);
-  border-color:rgba(255,140,195,0.38);
-  box-shadow:inset 0 0 28px rgba(255,120,185,0.06);
+  background:var(--surface);
+  background-image:none;
+  border:1px solid rgba(255,140,195,0.72);
+  box-shadow:none;
 }
 .card.card--src-both:not(.card-skeleton){
-  background-color:var(--surface);
-  background-image:
-    radial-gradient(ellipse 95% 85% at 14% 42%,rgba(205,150,255,0.38) 0%,rgba(185,103,255,0.14) 45%,transparent 70%),
-    radial-gradient(ellipse 70% 58% at 10% 80%,rgba(175,95,235,0.16) 0%,transparent 56%);
-  border-color:rgba(195,140,255,0.36);
-  box-shadow:inset 0 0 26px rgba(185,103,255,0.07);
+  background:var(--surface);
+  background-image:none;
+  border:2px solid rgba(200,155,255,0.88);
+  box-shadow:none;
 }
 .card.card--src-imdb:not(.card-skeleton){
   background:var(--surface);
-  border-color:var(--line);
+  background-image:none;
+  border:1px solid rgba(1,205,254,0.58);
   box-shadow:none;
 }
