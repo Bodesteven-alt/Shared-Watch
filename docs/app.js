@@ -259,6 +259,19 @@
   applyUrlState();
   syncGenreAriaSelected();
 
+  function displayGenreOnCard(g) {
+    const s = String(g || "").trim();
+    if (!s) return s;
+    const lower = s.toLowerCase();
+    if (lower === "science fiction" || lower === "sci-fi" || lower === "sci fi") return "Sci-Fi";
+    return s;
+  }
+
+  function cardGenresLine(m) {
+    const parts = (m.genres || []).slice(0, 2).map(displayGenreOnCard);
+    return parts.join(", ") || "Genre ?";
+  }
+
   function hasStreamingProviders(m) {
     const st = m.streaming && typeof m.streaming === "object" ? m.streaming : {};
     const block = st[streamRegion] || {};
@@ -533,20 +546,26 @@
     const rect = sum.getBoundingClientRect();
     let left = rect.left;
     left = Math.max(pad, Math.min(left, vw - pad - maxW));
-    let top = rect.bottom + 6;
+    const topBelow = rect.bottom + 6;
+    const maxHeightForTop = (y) => Math.max(120, Math.min(480, vh * 0.78, vh - y - pad));
+
     body.style.position = "fixed";
     body.style.left = `${left}px`;
-    body.style.top = `${top}px`;
     body.style.width = `${maxW}px`;
     body.style.transform = "none";
-    body.style.maxHeight = `${Math.max(120, Math.min(vh * 0.72, 420, vh - top - pad))}px`;
+    body.style.top = `${topBelow}px`;
+    body.style.maxHeight = `${maxHeightForTop(topBelow)}px`;
 
     requestAnimationFrame(() => {
       const br = body.getBoundingClientRect();
-      if (br.bottom > vh - pad) {
-        const above = rect.top - 6 - br.height;
-        if (above >= pad) body.style.top = `${above}px`;
-        else body.style.maxHeight = `${Math.max(100, vh - top - pad)}px`;
+      if (br.bottom <= vh - pad) return;
+      const aboveTop = rect.top - 6 - br.height;
+      if (aboveTop >= pad) {
+        body.style.top = `${aboveTop}px`;
+        body.style.maxHeight = `${maxHeightForTop(aboveTop)}px`;
+      } else {
+        body.style.top = `${topBelow}px`;
+        body.style.maxHeight = `${maxHeightForTop(topBelow)}px`;
       }
     });
   }
@@ -662,7 +681,7 @@
           <div class="movie-main">
             <div class="title">${escapeHtmlText(m.title || "")}</div>
             <div class="card-meta-line">
-              <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText((m.genres || []).slice(0, 2).join(", ") || "Genre ?")}</div>
+              <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText(cardGenresLine(m))}</div>
             </div>
             ${ratingRowHtml}
           </div>

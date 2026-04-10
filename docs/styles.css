@@ -235,9 +235,9 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  gap: .35rem .5rem;
+  gap: .35rem .45rem;
   margin-top: .08rem;
   width: 100%;
 }
@@ -246,8 +246,13 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   min-width: 0;
 }
 .card-rating-row .watch-details {
-  flex-shrink: 0;
-  margin-left: auto;
+  flex: 0 1 auto;
+  min-width: 0;
+}
+/* Flush star column with title/meta (toggle had horizontal padding) */
+.card-rating-row .rating-stars-toggle {
+  padding-left: 0;
+  margin-left: 0;
 }
 .card-rating-row .stars {
   margin-top: 0;
@@ -317,6 +322,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
   font-size: 0.74rem;
   line-height: 1.4;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .watch-body .prov-section {
   margin-top: 0.4rem;
