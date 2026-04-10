@@ -23,6 +23,8 @@
 
   const genreBtn = document.getElementById("genreBtn");
   const genrePopup = document.getElementById("genrePopup");
+  const genreMorePopover = document.getElementById("genreMorePopover");
+  let genreMoreAnchor = null;
 
   const SOURCE_KEYS = ["letterboxd", "both", "imdb"];
   const filterBySource = { letterboxd: filterLb, both: filterBoth, imdb: filterImdb };
@@ -267,9 +269,9 @@
     return s;
   }
 
-  function cardGenresLine(m) {
+  function cardGenresDisplayedList(m) {
     const raw = Array.isArray(m.genres) ? m.genres.map(String) : [];
-    if (!raw.length) return "Genre ?";
+    if (!raw.length) return [];
     let ordered = [...raw];
     if (selectedGenre !== "all" && raw.includes(selectedGenre)) {
       ordered = [selectedGenre, ...raw.filter((g) => g !== selectedGenre)];
@@ -281,7 +283,25 @@
       seen.add(g);
       unique.push(g);
     }
-    return unique.map(displayGenreOnCard).join(", ");
+    return unique.map(displayGenreOnCard);
+  }
+
+  function cardMetaLineHtml(m) {
+    const year = escapeHtmlText(m.year || "Year ?");
+    const genres = cardGenresDisplayedList(m);
+    const text = genres.length ? genres.join(", ") : "Genre ?";
+    const payload = genres.length ? genres : ["Genre ?"];
+    const dataGenres = escapeAttr(JSON.stringify(payload));
+    return `
+            <div class="card-meta-line">
+              <div class="meta meta-row">
+                <span class="meta-year">${year}</span><span class="meta-sep"> · </span>
+                <span class="meta-genres-clip">
+                  <span class="meta-genres-text">${escapeHtmlText(text)}</span>
+                  <button type="button" class="genre-more-link hidden" data-genres="${dataGenres}" aria-label="Show all genres">more…</button>
+                </span>
+              </div>
+            </div>`;
   }
 
   function hasStreamingProviders(m) {
@@ -569,38 +589,21 @@
 
   function positionWatchPanel(detail) {
     if (!mobileWatchMq.matches) return;
-    const sum = detail.querySelector(".watch-summary");
     const body = getWatchBodyForDetail(detail);
-    if (!sum || !body) return;
+    if (!body) return;
     const pad = 12;
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const maxW = Math.min(340, vw - 2 * pad);
-    const rect = sum.getBoundingClientRect();
-    let left = rect.left;
-    left = Math.max(pad, Math.min(left, vw - pad - maxW));
-    const topBelow = rect.bottom + 6;
-    const maxHeightForTop = (y) => Math.max(120, Math.min(480, vh * 0.78, vh - y - pad));
+    const maxH = Math.max(120, Math.min(vh * 0.85, vh - 2 * pad));
 
     body.style.position = "fixed";
-    body.style.left = `${left}px`;
+    body.style.left = "50%";
+    body.style.top = "50%";
+    body.style.right = "auto";
+    body.style.transform = "translate(-50%, -50%)";
     body.style.width = `${maxW}px`;
-    body.style.transform = "none";
-    body.style.top = `${topBelow}px`;
-    body.style.maxHeight = `${maxHeightForTop(topBelow)}px`;
-
-    requestAnimationFrame(() => {
-      const br = body.getBoundingClientRect();
-      if (br.bottom <= vh - pad) return;
-      const aboveTop = rect.top - 6 - br.height;
-      if (aboveTop >= pad) {
-        body.style.top = `${aboveTop}px`;
-        body.style.maxHeight = `${maxHeightForTop(aboveTop)}px`;
-      } else {
-        body.style.top = `${topBelow}px`;
-        body.style.maxHeight = `${maxHeightForTop(topBelow)}px`;
-      }
-    });
+    body.style.maxHeight = `${maxH}px`;
   }
 
   gridEl.addEventListener(
@@ -656,10 +659,89 @@
     }
   }
   window.addEventListener("resize", onWatchLayoutMqChange);
+  window.addEventListener("resize", () => {
+    if (genreMoreAnchor) positionGenreMorePopover(genreMoreAnchor);
+  });
   if (mobileWatchMq.addEventListener) {
     mobileWatchMq.addEventListener("change", onWatchLayoutMqChange);
   } else {
     mobileWatchMq.addListener(onWatchLayoutMqChange);
+  }
+
+  function syncGenreOverflow() {
+    gridEl.querySelectorAll(".meta-genres-clip").forEach((clip) => {
+      const textEl = clip.querySelector(".meta-genres-text");
+      const moreBtn = clip.querySelector(".genre-more-link");
+      if (!textEl || !moreBtn) return;
+      moreBtn.classList.add("hidden");
+      if (textEl.scrollWidth > textEl.clientWidth) {
+        moreBtn.classList.remove("hidden");
+      }
+    });
+  }
+
+  function closeGenreMorePopover() {
+    if (!genreMorePopover) return;
+    genreMorePopover.classList.add("hidden");
+    genreMorePopover.innerHTML = "";
+    genreMorePopover.setAttribute("aria-hidden", "true");
+    genreMoreAnchor = null;
+  }
+
+  function positionGenreMorePopover(anchor) {
+    if (!genreMorePopover || !anchor) return;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const pad = 8;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const r = anchor.getBoundingClientRect();
+        const pr = genreMorePopover.getBoundingClientRect();
+        let left = r.left;
+        left = Math.max(pad, Math.min(left, vw - pr.width - pad));
+        let top = r.bottom + 6;
+        if (top + pr.height > vh - pad) {
+          top = Math.max(pad, r.top - 6 - pr.height);
+        }
+        genreMorePopover.style.left = `${left}px`;
+        genreMorePopover.style.top = `${top}px`;
+      });
+    });
+  }
+
+  function openGenreMorePopover(anchor) {
+    if (!genreMorePopover || !anchor) return;
+    let list;
+    try {
+      list = JSON.parse(anchor.dataset.genres || "[]");
+    } catch {
+      return;
+    }
+    if (!Array.isArray(list) || !list.length) return;
+    genreMorePopover.innerHTML = list
+      .map((g) => `<div class="genre-more-popover__item">${escapeHtmlText(String(g))}</div>`)
+      .join("");
+    genreMoreAnchor = anchor;
+    genreMorePopover.classList.remove("hidden");
+    genreMorePopover.setAttribute("aria-hidden", "false");
+    positionGenreMorePopover(anchor);
+  }
+
+  function toggleGenreMorePopover(anchor) {
+    if (genreMorePopover && !genreMorePopover.classList.contains("hidden") && genreMoreAnchor === anchor) {
+      closeGenreMorePopover();
+    } else {
+      openGenreMorePopover(anchor);
+    }
+  }
+
+  function closeOpenRatingBlocks() {
+    gridEl.querySelectorAll(".rating-block--open").forEach((block) => {
+      block.classList.remove("rating-block--open");
+      const b = block.querySelector(".rating-stars-toggle");
+      if (b) b.setAttribute("aria-expanded", "false");
+      block.querySelector(".rating-value-overlay")?.setAttribute("aria-hidden", "true");
+    });
   }
 
   let renderRaf = 0;
@@ -672,6 +754,8 @@
   }
 
   function render() {
+    closeGenreMorePopover();
+
     const activeSources = getActiveSources();
 
     let rows = movies.filter((m) => {
@@ -713,9 +797,7 @@
         <div class="movie-content">
           <div class="movie-main">
             <div class="title">${escapeHtmlText(m.title || "")}</div>
-            <div class="card-meta-line">
-              <div class="meta">${escapeHtmlText(m.year || "Year ?")} · ${escapeHtmlText(cardGenresLine(m))}</div>
-            </div>
+            ${cardMetaLineHtml(m)}
             ${ratingRowHtml}
           </div>
         </div>
@@ -724,9 +806,25 @@
       })
       .join("");
     syncUrl();
+    requestAnimationFrame(() => {
+      syncGenreOverflow();
+      requestAnimationFrame(syncGenreOverflow);
+    });
+  }
+
+  if (typeof ResizeObserver !== "undefined") {
+    const genreOverflowRo = new ResizeObserver(() => syncGenreOverflow());
+    genreOverflowRo.observe(gridEl);
   }
 
   gridEl.addEventListener("click", (e) => {
+    const genreMore = e.target.closest(".genre-more-link");
+    if (genreMore && gridEl.contains(genreMore)) {
+      e.preventDefault();
+      toggleGenreMorePopover(genreMore);
+      return;
+    }
+
     if (!e.target.closest(".watch-summary") && !e.target.closest(".watch-body")) {
       const card = e.target.closest("article.card");
       if (card && gridEl.contains(card)) {
@@ -748,6 +846,24 @@
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     overlay.setAttribute("aria-hidden", open ? "false" : "true");
   });
+
+  gridEl.addEventListener(
+    "focusout",
+    (e) => {
+      if (!e.target.classList.contains("rating-stars-toggle")) return;
+      const block = e.target.closest(".rating-block");
+      if (!block || !gridEl.contains(block) || !block.classList.contains("rating-block--open")) return;
+      requestAnimationFrame(() => {
+        const ae = document.activeElement;
+        if (!block.contains(ae)) {
+          block.classList.remove("rating-block--open");
+          e.target.setAttribute("aria-expanded", "false");
+          block.querySelector(".rating-value-overlay")?.setAttribute("aria-hidden", "true");
+        }
+      });
+    },
+    true,
+  );
 
   clearLoadingState();
   updateSortUi();
@@ -789,24 +905,23 @@
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
       if (isGenreOpen()) setGenreOpen(false, {});
     }
-    const dataCredits = document.querySelector("details.data-credits");
-    if (dataCredits && dataCredits.open && !dataCredits.contains(e.target)) {
-      dataCredits.open = false;
+    if (genreMorePopover && !genreMorePopover.classList.contains("hidden")) {
+      if (!genreMorePopover.contains(e.target) && !e.target.closest(".genre-more-link")) {
+        closeGenreMorePopover();
+      }
+    }
+    if (!e.target.closest(".rating-block")) {
+      closeOpenRatingBlocks();
     }
   });
 
-  const dataCreditsEl = document.querySelector("details.data-credits");
-  if (dataCreditsEl) {
-    dataCreditsEl.addEventListener("toggle", () => {
-      if (!dataCreditsEl.open) return;
-      requestAnimationFrame(() => {
-        dataCreditsEl.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
-      });
-    });
-  }
-
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
+    if (genreMorePopover && !genreMorePopover.classList.contains("hidden")) {
+      e.preventDefault();
+      closeGenreMorePopover();
+      return;
+    }
     if (gridEl.querySelector("details.watch-details[open]")) {
       e.preventDefault();
       gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
