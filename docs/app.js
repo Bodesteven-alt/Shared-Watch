@@ -1168,8 +1168,16 @@
           ratingHtml || watchHtml
             ? `<div class="card-rating-row">${ratingHtml}${watchHtml}</div>`
             : "";
+        const srcCard =
+          m.source === "letterboxd"
+            ? "card--src-letterboxd"
+            : m.source === "both"
+              ? "card--src-both"
+              : m.source === "imdb"
+                ? "card--src-imdb"
+                : "";
         return `
-      <article class="card">
+      <article class="card ${srcCard}">
         <div class="poster">
           ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
         </div>
