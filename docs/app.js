@@ -484,7 +484,6 @@
     const rent = Array.isArray(block.rent) ? block.rent : [];
     const buy = Array.isArray(block.buy) ? block.buy : [];
     const bodyInner =
-      `<button type="button" class="watch-done" aria-label="Close where to watch">Done</button>` +
       watchSectionHtml("Included With Subscription", flatrate, streamOwnedIds, selectedServiceIds) +
       watchSectionHtml("Rent", rent, streamOwnedIds, selectedServiceIds) +
       watchSectionHtml("Buy", buy, streamOwnedIds, selectedServiceIds);
@@ -495,7 +494,7 @@
     return `
       <details class="watch-details${filterHit ? " watch-details--filter-hit" : ""}"${idAttr}>
         <summary class="watch-summary" aria-label="Where to watch ${safeTitle}">Watch</summary>
-        <div class="watch-body">${bodyInner}</div>
+        <div class="watch-body"><div class="watch-body__content">${bodyInner}</div></div>
       </details>`;
   }
 
@@ -598,7 +597,7 @@
           <span class="rating-value-overlay" aria-hidden="true">
             <span class="rating-value-pill">
               <span class="rating-value-line rating-value-line--solo">
-                <span class="rating-value-norating">No ratings</span>
+                <span class="rating-value-norating" role="status">No ratings</span>
               </span>
             </span>
           </span>
@@ -910,6 +909,77 @@
         d.open = false;
       });
       syncWatchBackdrop();
+    });
+  }
+
+  let watchSwipeStart = null;
+  if (watchPanelHost) {
+    watchPanelHost.addEventListener(
+      "click",
+      (e) => {
+        if (!mobileWatchMq.matches) return;
+        const body = e.target.closest(".watch-body");
+        if (!body || !watchPanelHost.contains(body)) return;
+        if (e.target.closest("a[href], button, input, label, summary")) return;
+        const content = body.querySelector(".watch-body__content");
+        if (!content) return;
+        const r = content.getBoundingClientRect();
+        const { clientX: cx, clientY: cy } = e;
+        const inContent = cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom;
+        const onChrome =
+          !inContent ||
+          e.target.closest(".prov-label") ||
+          e.target.classList.contains("watch-body__content");
+        if (!onChrome) return;
+        gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
+          d.open = false;
+        });
+        syncWatchBackdrop();
+      },
+      true,
+    );
+
+    watchPanelHost.addEventListener(
+      "touchstart",
+      (e) => {
+        if (!mobileWatchMq.matches || e.touches.length !== 1) return;
+        const b = e.target.closest(".watch-body");
+        if (!b || !watchPanelHost.contains(b)) return;
+        watchSwipeStart = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+          scrollTop: b.scrollTop,
+          body: b,
+        };
+      },
+      { passive: true },
+    );
+    watchPanelHost.addEventListener(
+      "touchend",
+      (e) => {
+        if (!watchSwipeStart || e.changedTouches.length !== 1) {
+          watchSwipeStart = null;
+          return;
+        }
+        const t = e.changedTouches[0];
+        const dx = t.clientX - watchSwipeStart.x;
+        const dy = t.clientY - watchSwipeStart.y;
+        const dist = Math.hypot(dx, dy);
+        const b = watchSwipeStart.body;
+        const scrollable = b.scrollHeight > b.clientHeight + 2;
+        const scrollDelta = Math.abs(b.scrollTop - watchSwipeStart.scrollTop);
+        watchSwipeStart = null;
+        if (dist < 52) return;
+        if (scrollable && Math.abs(dy) >= Math.abs(dx) && scrollDelta > 10) return;
+        gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
+          d.open = false;
+        });
+        syncWatchBackdrop();
+      },
+      { passive: true },
+    );
+    watchPanelHost.addEventListener("touchcancel", () => {
+      watchSwipeStart = null;
     });
   }
 
@@ -1314,22 +1384,6 @@
   );
 
   document.addEventListener("click", (e) => {
-    const watchDone = e.target.closest(".watch-done");
-    if (watchDone) {
-      const body = watchDone.closest(".watch-body");
-      if (body) {
-        let detail = body.closest("details.watch-details");
-        if (!detail && body.dataset.watchDetailId) {
-          detail = document.getElementById(body.dataset.watchDetailId);
-        }
-        if (detail) {
-          detail.open = false;
-          syncWatchBackdrop();
-          return;
-        }
-      }
-    }
-
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
       if (isGenreOpen()) setGenreOpen(false, {});
     }
