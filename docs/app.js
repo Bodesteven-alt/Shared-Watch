@@ -10,6 +10,15 @@
   const countLb = document.getElementById("countLb");
   const countBoth = document.getElementById("countBoth");
   const countImdb = document.getElementById("countImdb");
+  const countLbFiltered = document.getElementById("countLbFiltered");
+  const countBothFiltered = document.getElementById("countBothFiltered");
+  const countImdbFiltered = document.getElementById("countImdbFiltered");
+  const srcCountLb = document.getElementById("srcCountLb");
+  const srcCountBoth = document.getElementById("srcCountBoth");
+  const srcCountImdb = document.getElementById("srcCountImdb");
+  const genreSheetBackdrop = document.getElementById("genreSheetBackdrop");
+  const servicesSheetBackdrop = document.getElementById("servicesSheetBackdrop");
+  const scrollTopBtn = document.getElementById("scrollTopBtn");
 
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
@@ -113,10 +122,6 @@
     else if (m.source === "both") bothCount++;
     else if (m.source === "imdb") imdbCount++;
   }
-  countLb.textContent = lbCount;
-  countBoth.textContent = bothCount;
-  countImdb.textContent = imdbCount;
-
   const allGenres = new Set();
   for (const m of movies) {
     for (const g of m.genres || []) allGenres.add(String(g));
@@ -168,7 +173,7 @@
         '<p class="watch-muted" style="margin:0;padding:.35rem .5rem;font-size:.78rem;">No streaming providers in this export.</p>';
     } else {
       servicesPopup.innerHTML =
-        `<button type="button" class="genre-option service-clear-option" data-service-action="clear" role="option">All services</button>` +
+        `<button type="button" class="genre-option service-clear-option" data-service-action="clear" role="option">Select your services</button>` +
         sortedProviders
           .map(([id, name]) => {
             const sid = escapeAttr(String(id));
@@ -202,7 +207,15 @@
   function setGenreOpen(open, opts) {
     const focusFirstOption = opts && opts.focusFirstOption;
     const focusButtonOnClose = opts && opts.focusButtonOnClose;
+    const mobile = genreTruncateMq.matches;
     genrePopup.classList.toggle("hidden", !open);
+    genrePopup.classList.toggle("genre-popup--mobile", !!(open && mobile));
+    if (!open) genrePopup.classList.remove("genre-popup--mobile");
+    if (genreSheetBackdrop) {
+      const showBackdrop = !!(open && mobile);
+      genreSheetBackdrop.classList.toggle("hidden", !showBackdrop);
+      genreSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
+    }
     genreBtn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open && focusFirstOption) {
       const first = genrePopup.querySelector(".genre-option");
@@ -324,7 +337,15 @@
     if (!servicesPopup || !servicesBtn) return;
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
+    const mobile = genreTruncateMq.matches;
     servicesPopup.classList.toggle("hidden", !open);
+    servicesPopup.classList.toggle("services-popup--mobile", !!(open && mobile));
+    if (!open) servicesPopup.classList.remove("services-popup--mobile");
+    if (servicesSheetBackdrop) {
+      const showBackdrop = !!(open && mobile);
+      servicesSheetBackdrop.classList.toggle("hidden", !showBackdrop);
+      servicesSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
+    }
     servicesBtn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open && focusFirst) {
       const first = servicesPopup.querySelector("input, .genre-option");
@@ -646,6 +667,57 @@
     return sources;
   }
 
+  function moviePassesFilters(m, activeSources) {
+    if (!(activeSources.length === 0 || activeSources.length === 3) && !activeSources.includes(m.source)) {
+      return false;
+    }
+    if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
+      return false;
+    }
+    if (!movieMatchesServiceFilter(m)) return false;
+    return true;
+  }
+
+  function getPreSortFilteredRows() {
+    const activeSources = getActiveSources();
+    return movies.filter((mm) => moviePassesFilters(mm, activeSources));
+  }
+
+  function countSourcesInRows(list) {
+    let lb = 0;
+    let both = 0;
+    let im = 0;
+    for (const m of list) {
+      if (m.source === "letterboxd") lb++;
+      else if (m.source === "both") both++;
+      else if (m.source === "imdb") im++;
+    }
+    return { lb, both, im };
+  }
+
+  function setSrcCountDisplay(wrap, filteredEl, totalEl, visible, total) {
+    if (!wrap || !totalEl) return;
+    const stale = visible !== total;
+    wrap.classList.toggle("srcbtn-count--stale", stale);
+    totalEl.textContent = String(total);
+    if (filteredEl) {
+      if (stale) {
+        filteredEl.hidden = false;
+        filteredEl.textContent = String(visible);
+      } else {
+        filteredEl.hidden = true;
+        filteredEl.textContent = "";
+      }
+    }
+  }
+
+  function updateSourceCountUi(filteredMovies) {
+    const v = countSourcesInRows(filteredMovies);
+    setSrcCountDisplay(srcCountLb, countLbFiltered, countLb, v.lb, lbCount);
+    setSrcCountDisplay(srcCountBoth, countBothFiltered, countBoth, v.both, bothCount);
+    setSrcCountDisplay(srcCountImdb, countImdbFiltered, countImdb, v.im, imdbCount);
+  }
+
   const watchBackdrop = document.getElementById("watchBackdrop");
   const watchPanelHost = document.getElementById("watchPanelHost");
   const mobileWatchMq = window.matchMedia("(max-width: 640px)");
@@ -942,21 +1014,9 @@
   function render() {
     closeGenreMorePopover();
 
-    const activeSources = getActiveSources();
-
-    let rows = movies.filter((m) => {
-      if (activeSources.length === 0 || activeSources.length === 3) {
-        /* show all */
-      } else if (!activeSources.includes(m.source)) {
-        return false;
-      }
-      if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
-        return false;
-      }
-      if (!movieMatchesServiceFilter(m)) return false;
-      return true;
-    });
-
+    const filtered = getPreSortFilteredRows();
+    updateSourceCountUi(filtered);
+    const rows = [...filtered];
     sortRows(rows);
 
     if (!rows.length) {
@@ -964,6 +1024,7 @@
       gridEl.innerHTML = "";
       emptyEl.classList.remove("hidden");
       syncUrl();
+      updateScrollTopBtn();
       return;
     }
     emptyEl.classList.add("hidden");
@@ -996,6 +1057,7 @@
     requestAnimationFrame(() => {
       syncGenreOverflow();
       requestAnimationFrame(syncGenreOverflow);
+      updateScrollTopBtn();
     });
   }
 
@@ -1131,6 +1193,92 @@
     });
   }
 
+  if (genreSheetBackdrop) {
+    genreSheetBackdrop.addEventListener("click", () => setGenreOpen(false, {}));
+  }
+  if (servicesSheetBackdrop) {
+    servicesSheetBackdrop.addEventListener("click", () => setServicesOpen(false, {}));
+  }
+
+  function updateScrollTopBtn() {
+    if (!scrollTopBtn) return;
+    const doc = document.documentElement;
+    const sh = doc.scrollHeight - window.innerHeight;
+    const threshold = sh > 200 ? Math.min(420, sh * 0.2) : 400;
+    scrollTopBtn.classList.toggle("scroll-top-btn--visible", window.scrollY > threshold);
+  }
+  if (scrollTopBtn) {
+    window.addEventListener("scroll", updateScrollTopBtn, { passive: true });
+    window.addEventListener("resize", updateScrollTopBtn);
+    scrollTopBtn.addEventListener("click", () => {
+      const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" });
+    });
+    updateScrollTopBtn();
+  }
+
+  const HINT_KEY = "docsServicesHintDismissed";
+  let servicesHintEl = null;
+  function removeServicesHint() {
+    if (!servicesHintEl) return;
+    servicesHintEl.remove();
+    servicesHintEl = null;
+    try {
+      localStorage.setItem(HINT_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+  }
+  function positionServicesHint() {
+    if (!servicesHintEl || !servicesBtn) return;
+    const r = servicesBtn.getBoundingClientRect();
+    const w = servicesHintEl.offsetWidth;
+    const h = servicesHintEl.offsetHeight;
+    const left = Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8));
+    const top = Math.max(8, r.top - h - 8);
+    servicesHintEl.style.left = `${left}px`;
+    servicesHintEl.style.top = `${top}px`;
+  }
+  function maybeShowServicesHint() {
+    try {
+      if (localStorage.getItem(HINT_KEY)) return;
+    } catch {
+      return;
+    }
+    if (!servicesBtn) return;
+    servicesHintEl = document.createElement("div");
+    servicesHintEl.className = "services-hint";
+    servicesHintEl.setAttribute("role", "tooltip");
+    servicesHintEl.textContent = "Select your services";
+    document.body.appendChild(servicesHintEl);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(positionServicesHint);
+    });
+    function onHintResize() {
+      positionServicesHint();
+    }
+    window.addEventListener("resize", onHintResize);
+    let hintDismissed = false;
+    function dismissServicesHintUi() {
+      if (hintDismissed) return;
+      hintDismissed = true;
+      window.removeEventListener("resize", onHintResize);
+      removeServicesHint();
+    }
+    servicesBtn.addEventListener("click", dismissServicesHintUi, { once: true });
+    setTimeout(() => {
+      document.addEventListener(
+        "pointerdown",
+        (e) => {
+          if (servicesBtn.contains(e.target)) return;
+          dismissServicesHintUi();
+        },
+        { once: true, capture: true },
+      );
+    }, 120);
+  }
+  requestAnimationFrame(() => requestAnimationFrame(maybeShowServicesHint));
+
   document.addEventListener(
     "pointerdown",
     (e) => {
@@ -1235,6 +1383,18 @@
 
   function onGenreTruncateMqChange() {
     updateSortUi();
+    if (!genreTruncateMq.matches) {
+      genrePopup.classList.remove("genre-popup--mobile");
+      if (servicesPopup) servicesPopup.classList.remove("services-popup--mobile");
+      if (genreSheetBackdrop) {
+        genreSheetBackdrop.classList.add("hidden");
+        genreSheetBackdrop.setAttribute("aria-hidden", "true");
+      }
+      if (servicesSheetBackdrop) {
+        servicesSheetBackdrop.classList.add("hidden");
+        servicesSheetBackdrop.setAttribute("aria-hidden", "true");
+      }
+    }
   }
   if (genreTruncateMq.addEventListener) {
     genreTruncateMq.addEventListener("change", onGenreTruncateMqChange);

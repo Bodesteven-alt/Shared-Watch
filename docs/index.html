@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=42">
+  <link rel="stylesheet" href="./styles.css?v=43">
 </head>
 <body>
   <main class="wrap">
@@ -16,13 +16,34 @@
         <h1 class="top-title top-title__gradient">Our Watch List</h1>
         <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
           <button id="filterLb" class="srcbtn active" data-source="letterboxd">
-            <span class="count" id="countLb">0</span> Letterboxd
+            <span class="srcbtn-count" id="srcCountLb">
+              <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
+              <span class="srcbtn-count__total-line">
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="count srcbtn-count__total" id="countLb">0</span>
+              </span>
+            </span>
+            Letterboxd
           </button>
           <button id="filterBoth" class="srcbtn active" data-source="both">
-            <span class="count" id="countBoth">0</span> Both
+            <span class="srcbtn-count" id="srcCountBoth">
+              <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
+              <span class="srcbtn-count__total-line">
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="count srcbtn-count__total" id="countBoth">0</span>
+              </span>
+            </span>
+            Both
           </button>
           <button id="filterImdb" class="srcbtn active" data-source="imdb">
-            <span class="count" id="countImdb">0</span> IMDb
+            <span class="srcbtn-count" id="srcCountImdb">
+              <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
+              <span class="srcbtn-count__total-line">
+                <span class="srcbtn-count__x" aria-hidden="true">×</span>
+                <span class="count srcbtn-count__total" id="countImdb">0</span>
+              </span>
+            </span>
+            IMDb
           </button>
         </section>
       </div>
@@ -34,24 +55,6 @@
     </div>
 
     <section class="sortbar">
-      <button id="sortTitleBtn" type="button" class="sortbtn active">
-        Name
-        <span class="arrows">
-          <span class="arr up active" id="sortTitleUp">▲</span>
-          <span class="arr down" id="sortTitleDown">▼</span>
-        </span>
-      </button>
-      <div class="genre-btn-wrap">
-        <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genrePopup">Genre</button>
-        <div id="genrePopup" class="genre-popup hidden" role="listbox" aria-label="Genres"></div>
-      </div>
-      <button id="sortYearBtn" type="button" class="sortbtn">
-        Year
-        <span class="arrows">
-          <span class="arr up" id="sortYearUp">▲</span>
-          <span class="arr down" id="sortYearDown">▼</span>
-        </span>
-      </button>
       <button id="sortRatingBtn" type="button" class="sortbtn">
         Rating
         <span class="arrows">
@@ -59,6 +62,24 @@
           <span class="arr down" id="sortRatingDown">▼</span>
         </span>
       </button>
+      <button id="sortTitleBtn" type="button" class="sortbtn active">
+        Name
+        <span class="arrows">
+          <span class="arr up active" id="sortTitleUp">▲</span>
+          <span class="arr down" id="sortTitleDown">▼</span>
+        </span>
+      </button>
+      <button id="sortYearBtn" type="button" class="sortbtn">
+        Year
+        <span class="arrows">
+          <span class="arr up" id="sortYearUp">▲</span>
+          <span class="arr down" id="sortYearDown">▼</span>
+        </span>
+      </button>
+      <div class="genre-btn-wrap">
+        <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genrePopup">Genre</button>
+        <div id="genrePopup" class="genre-popup hidden" role="listbox" aria-label="Genres"></div>
+      </div>
       <div class="services-btn-wrap">
         <button id="servicesBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="dialog" aria-controls="servicesPopup">Services</button>
         <div id="servicesPopup" class="services-popup hidden" role="dialog" aria-label="Streaming services"></div>
@@ -76,6 +97,10 @@
     </section>
     <p id="empty" class="empty hidden">No movies match your filters.</p>
   </main>
+
+  <div id="genreSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
+  <div id="servicesSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
+  <button type="button" id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">↑</button>
 
   <div id="watchBackdrop" class="watch-backdrop" hidden aria-hidden="true"></div>
   <div id="watchPanelHost" class="watch-panel-host" hidden aria-hidden="true"></div>
@@ -118,6 +143,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=39"></script>
+  <script src="./app.js?v=40"></script>
 </body>
 </html>
