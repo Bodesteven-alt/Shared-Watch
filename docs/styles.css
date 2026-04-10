@@ -367,6 +367,13 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .card-rating-row .stars {
   margin-top: 0;
 }
+.card-rating-row .rating-value-overlay {
+  align-items: stretch;
+  justify-content: stretch;
+}
+.card-rating-row .rating-value-pill {
+  border-radius: inherit;
+}
 .stars--placeholder .star--muted {
   opacity: 0.55;
 }
@@ -579,8 +586,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   inset: 0;
   z-index: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: stretch;
+  justify-content: stretch;
   border-radius: inherit;
   opacity: 0;
   visibility: hidden;
@@ -594,19 +601,22 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .rating-value-pill {
   font-family: "Fredoka", "Segoe UI", system-ui, sans-serif;
   box-sizing: border-box;
-  width: 100%;
-  max-width: 100%;
+  flex: 1 1 auto;
+  align-self: stretch;
+  width: auto;
+  min-width: 0;
+  max-width: none;
   min-height: 0;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  padding: 0.1rem 0.24rem;
+  padding: 0.12rem 0.2rem;
   border-radius: inherit;
   background: rgba(30, 18, 52, 0.94);
   border: 1px solid var(--line);
   color: var(--muted);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 2px 8px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
   line-height: 1.2;
 }
 .rating-value-line {
@@ -1366,32 +1376,28 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     margin-top: .08rem;
   }
 
-  /* No-rating placeholder: same slot width as 5×star row; show pill in place of stars */
+  /*
+   * No-rating placeholder: use the same layout box as rated rows (inline-flex toggle + stars
+   * defining width). Grid/static overlay broke alignment vs the star row; absolute overlay matches.
+   */
   .card:not(.card-skeleton) .rating-block--placeholder .rating-stars-toggle {
-    min-width: calc(5 * 18px + 4 * 2px);
-    display: grid;
-    grid-template-columns: minmax(0, auto);
-    grid-template-rows: auto;
+    display: inline-flex;
     align-items: center;
-    justify-items: stretch;
+    justify-content: center;
+    vertical-align: middle;
   }
-  .card:not(.card-skeleton) .rating-block--placeholder .rating-stars-inner {
-    grid-column: 1;
-    grid-row: 1;
+  .card:not(.card-skeleton) .rating-block--placeholder .rating-stars-inner .stars {
     visibility: hidden;
-    width: max-content;
   }
   .card:not(.card-skeleton) .rating-block--placeholder .rating-value-overlay {
-    grid-column: 1;
-    grid-row: 1;
-    position: static;
-    inset: auto;
+    position: absolute;
+    inset: 0;
     opacity: 1;
     visibility: visible;
     pointer-events: none;
-    justify-self: stretch;
   }
   .card:not(.card-skeleton) .rating-block--placeholder.rating-block--open .rating-stars-toggle .stars {
+    visibility: hidden;
     opacity: 1;
     filter: none;
   }
