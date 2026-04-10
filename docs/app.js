@@ -268,8 +268,20 @@
   }
 
   function cardGenresLine(m) {
-    const parts = (m.genres || []).slice(0, 2).map(displayGenreOnCard);
-    return parts.join(", ") || "Genre ?";
+    const raw = Array.isArray(m.genres) ? m.genres.map(String) : [];
+    if (!raw.length) return "Genre ?";
+    let ordered = [...raw];
+    if (selectedGenre !== "all" && raw.includes(selectedGenre)) {
+      ordered = [selectedGenre, ...raw.filter((g) => g !== selectedGenre)];
+    }
+    const seen = new Set();
+    const unique = [];
+    for (const g of ordered) {
+      if (seen.has(g)) continue;
+      seen.add(g);
+      unique.push(g);
+    }
+    return unique.map(displayGenreOnCard).join(", ");
   }
 
   function hasStreamingProviders(m) {
@@ -346,6 +358,19 @@
     return html;
   }
 
+  function buildStarsPlaceholderInner() {
+    let html = "";
+    for (let i = 0; i < 5; i++) {
+      html += `
+        <span class="star star--muted">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="star-empty star-empty--muted" d="${STAR_PATH}"/>
+          </svg>
+        </span>`;
+    }
+    return html;
+  }
+
   function formatCompactCount(n) {
     if (n == null || n === "") return null;
     const v = Number(n);
@@ -373,14 +398,12 @@
 
   function ratingBlockHtml(m) {
     const avg5 = m.rating_avg_5;
-    if (avg5 == null || Number.isNaN(Number(avg5))) return "";
-    const inner = buildStarsInner(avg5);
-    if (!inner) return "";
-
-    const avgNum = Number(avg5).toFixed(2);
-    const ratesText = ratingOverlayRatesText(m);
-
-    return `
+    if (avg5 != null && !Number.isNaN(Number(avg5))) {
+      const inner = buildStarsInner(avg5);
+      if (inner) {
+        const avgNum = Number(avg5).toFixed(2);
+        const ratesText = ratingOverlayRatesText(m);
+        return `
       <div class="rating-block">
         <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show or hide average rating">
           <span class="rating-stars-inner">
@@ -398,6 +421,16 @@
             </span>
           </span>
         </button>
+      </div>`;
+      }
+    }
+
+    const ph = buildStarsPlaceholderInner();
+    return `
+      <div class="rating-block rating-block--placeholder" role="img" aria-label="No average rating">
+        <div class="rating-stars-placeholder">
+          <span class="stars stars--placeholder">${ph}</span>
+        </div>
       </div>`;
   }
 
@@ -694,6 +727,17 @@
   }
 
   gridEl.addEventListener("click", (e) => {
+    if (!e.target.closest(".watch-summary") && !e.target.closest(".watch-body")) {
+      const card = e.target.closest("article.card");
+      if (card && gridEl.contains(card)) {
+        const openWatch = card.querySelector("details.watch-details[open]");
+        if (openWatch) {
+          openWatch.open = false;
+          syncWatchBackdrop();
+        }
+      }
+    }
+
     const btn = e.target.closest(".rating-stars-toggle");
     if (!btn || !gridEl.contains(btn)) return;
     const block = btn.closest(".rating-block");
@@ -745,7 +789,22 @@
     if (!genrePopup.contains(e.target) && e.target !== genreBtn) {
       if (isGenreOpen()) setGenreOpen(false, {});
     }
+    const dataCredits = document.querySelector("details.data-credits");
+    if (dataCredits && dataCredits.open && !dataCredits.contains(e.target)) {
+      dataCredits.open = false;
+    }
   });
+
+  const dataCreditsEl = document.querySelector("details.data-credits");
+  if (dataCreditsEl) {
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (dataCreditsEl.open) dataCreditsEl.open = false;
+      },
+      { passive: true },
+    );
+  }
 
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;

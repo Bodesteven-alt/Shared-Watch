@@ -254,8 +254,24 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   padding-left: 0;
   margin-left: 0;
 }
+.card-rating-row .rating-stars-placeholder {
+  line-height: 0;
+  padding: 0;
+  margin: 0;
+}
 .card-rating-row .stars {
   margin-top: 0;
+}
+.rating-block--placeholder {
+  pointer-events: none;
+}
+.stars--placeholder .star--muted {
+  opacity: 0.55;
+}
+.stars--placeholder .star-empty--muted {
+  fill: rgba(60, 48, 92, 0.65);
+  stroke: rgba(90, 78, 130, 0.45);
+  stroke-width: 1;
 }
 .card-rating-row .badge {
   margin-top: 0;
@@ -671,12 +687,12 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   text-align: center;
   border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: .85rem;
+  font-size: .72rem;
 }
 .footer p { margin: .3rem 0; }
 .footer .footer-tagline { margin-top: .5rem; }
 .footer-github {
-  font-size: .72rem;
+  font-size: .65rem;
   margin-top: .15rem;
   margin-bottom: 0;
 }
@@ -834,8 +850,8 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 
 details.data-credits {
   margin: 0 auto;
-  max-width: 42rem;
-  text-align: left;
+  max-width: 36rem;
+  text-align: center;
   border-radius: 10px;
   border: 1px solid rgba(74, 58, 120, 0.65);
   background: rgba(22, 14, 40, 0.45);
@@ -844,13 +860,13 @@ details.data-credits {
 details.data-credits > summary {
   list-style: none;
   cursor: pointer;
-  padding: .55rem .75rem;
-  font-size: .78rem;
+  padding: .4rem .65rem;
+  font-size: .62rem;
   color: var(--muted);
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: .5rem;
+  justify-content: center;
+  gap: .35rem;
   user-select: none;
 }
 details.data-credits > summary::-webkit-details-marker {
@@ -892,23 +908,24 @@ details.data-credits[open] .data-credits-drawer {
   }
 }
 .data-credits-inner {
-  padding: 0 .75rem .85rem;
-  max-width: 36rem;
+  padding: 0 .65rem .65rem;
+  max-width: 32rem;
   margin: 0 auto;
-  font-size: .72rem;
-  line-height: 1.55;
-  color: rgba(184, 176, 214, 0.88);
+  font-size: .58rem;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(184, 176, 214, 0.82);
 }
 .data-credits-inner p {
-  margin: 0 0 .75rem;
+  margin: 0 0 .5rem;
 }
 .data-credits-inner p:last-child {
   margin-bottom: 0;
 }
 .data-credits-inner .tmdb-attribution {
-  font-size: .68rem;
-  color: rgba(184, 176, 214, 0.72);
-  margin-top: .35rem;
+  font-size: .54rem;
+  color: rgba(184, 176, 214, 0.68);
+  margin-top: .25rem;
 }
 
 @media (max-width: 640px) {
