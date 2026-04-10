@@ -410,7 +410,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   left: 0;
   top: calc(100% + 6px);
   min-width: 220px;
-  max-width: min(300px, 88vw);
+  max-width: min(300px, calc(100vw - 16px));
   padding: 0.5rem 0.6rem;
   border-radius: 10px;
   border: 1px solid var(--line);
@@ -422,6 +422,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
 }
 .watch-body .prov-section {
   margin-top: 0.4rem;
@@ -443,6 +444,11 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .watch-body li {
   margin: 0.1rem 0;
+  min-width: 0;
+}
+.watch-body .prov-name {
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 .watch-body .prov-owned {
   color: var(--cyan);
@@ -480,6 +486,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 }
 .watch-panel-host .watch-body {
   pointer-events: auto;
+  max-width: min(340px, calc(100vw - 24px));
 }
 
 .rating-block {
@@ -572,24 +579,18 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .rating-value-score-wrap {
   flex: 0 1 auto;
   min-width: 0;
-  max-width: 42%;
+  max-width: 52%;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   text-align: right;
   line-height: 1.15;
-  font-size: .6rem;
 }
-.rating-value-num {
-  font-size: inherit;
+.rating-value-x5 {
+  font-size: .6rem;
   font-weight: 600;
   color: var(--cyan);
   letter-spacing: -0.02em;
-}
-.rating-value-scale {
-  font-size: inherit;
-  font-weight: 600;
-  color: var(--cyan);
 }
 .rating-value-sep {
   flex: 0 0 auto;
@@ -959,6 +960,10 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
 .footer-data-sources__list {
   color: rgba(145, 163, 195, 0.62);
 }
+.footer-data-sources__src,
+.footer-data-sources__sep {
+  color: inherit;
+}
 .footer-tmdb-attribution {
   display: flex;
   justify-content: center;
@@ -1046,12 +1051,6 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
     border: 1px solid rgba(255, 113, 206, 0.35);
     background: rgba(255, 113, 206, 0.12);
     color: var(--acc);
-  }
-  .watch-panel-host .watch-body {
-    max-width: min(340px, calc(100vw - 24px));
-    overflow-x: hidden;
-    overflow-y: auto;
-    box-sizing: border-box;
   }
   .card:not(.card-skeleton) .watch-details[open] {
     position: relative;

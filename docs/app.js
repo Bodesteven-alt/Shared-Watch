@@ -298,7 +298,7 @@
                 <span class="meta-year">${year}</span><span class="meta-sep"> · </span>
                 <span class="meta-genres-clip">
                   <span class="meta-genres-text">${escapeHtmlText(text)}</span>
-                  <button type="button" class="genre-more-link hidden" data-genres="${dataGenres}" aria-label="Show all genres">more…</button>
+                  <button type="button" class="genre-more-link hidden" data-genres="${dataGenres}" aria-label="Show all genres">more...</button>
                 </span>
               </div>
             </div>`;
@@ -433,7 +433,7 @@
             <span class="rating-value-pill">
               <span class="rating-value-line">
                 <span class="rating-value-score-wrap">
-                  <span class="rating-value-num">${avgNum}</span><span class="rating-value-scale">/5</span>
+                  <span class="rating-value-x5">${avgNum}/5</span>
                 </span>
                 <span class="rating-value-sep" aria-hidden="true">·</span>
                 <span class="rating-value-rates">${ratesText}</span>
@@ -565,10 +565,12 @@
   function clearWatchPanelLayout(detail) {
     const body = getWatchBodyForDetail(detail);
     if (!body) return;
+    body.style.position = "";
     body.style.left = "";
     body.style.top = "";
     body.style.right = "";
     body.style.width = "";
+    body.style.maxWidth = "";
     body.style.maxHeight = "";
     body.style.transform = "";
   }
@@ -603,6 +605,7 @@
     body.style.right = "auto";
     body.style.transform = "translate(-50%, -50%)";
     body.style.width = `${maxW}px`;
+    body.style.maxWidth = `${maxW}px`;
     body.style.maxHeight = `${maxH}px`;
   }
 
@@ -739,7 +742,10 @@
     gridEl.querySelectorAll(".rating-block--open").forEach((block) => {
       block.classList.remove("rating-block--open");
       const b = block.querySelector(".rating-stars-toggle");
-      if (b) b.setAttribute("aria-expanded", "false");
+      if (b) {
+        b.setAttribute("aria-expanded", "false");
+        b.blur();
+      }
       block.querySelector(".rating-value-overlay")?.setAttribute("aria-hidden", "true");
     });
   }
@@ -841,10 +847,13 @@
     const block = btn.closest(".rating-block");
     const overlay = block?.querySelector(".rating-value-overlay");
     if (!block || !overlay) return;
+    const wasOpen = block.classList.contains("rating-block--open");
+    if (!wasOpen) closeOpenRatingBlocks();
     const open = !block.classList.contains("rating-block--open");
     block.classList.toggle("rating-block--open", open);
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     overlay.setAttribute("aria-hidden", open ? "false" : "true");
+    if (!open) btn.blur();
   });
 
   gridEl.addEventListener(
