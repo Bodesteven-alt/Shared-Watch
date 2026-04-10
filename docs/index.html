@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=47">
+  <link rel="stylesheet" href="./styles.css?v=48">
 </head>
 <body>
   <main class="wrap">
@@ -22,7 +22,7 @@
                 <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
               </span>
             </span>
-            Letterboxd
+            <span class="srcbtn-label">Letterboxd</span>
           </button>
           <button id="filterBoth" class="srcbtn active" data-source="both">
             <span class="srcbtn-count" id="srcCountBoth">
@@ -31,7 +31,7 @@
                 <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
               </span>
             </span>
-            Both
+            <span class="srcbtn-label">Both</span>
           </button>
           <button id="filterImdb" class="srcbtn active" data-source="imdb">
             <span class="srcbtn-count" id="srcCountImdb">
@@ -40,7 +40,7 @@
                 <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
               </span>
             </span>
-            IMDb
+            <span class="srcbtn-label">IMDb</span>
           </button>
         </section>
       </div>
@@ -140,6 +140,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=44"></script>
+  <script src="./app.js?v=45"></script>
 </body>
 </html>

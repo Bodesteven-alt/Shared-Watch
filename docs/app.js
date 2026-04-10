@@ -877,6 +877,27 @@
     });
   }
 
+  /** Inline card dropdown (tablet/desktop): cap height so the menu stays in the viewport. */
+  function clampWatchBodyToViewport(detail) {
+    if (!detail || mobileWatchMq.matches) return;
+    const body = detail.querySelector(".watch-body");
+    if (!body) return;
+    body.style.maxHeight = "";
+    body.style.overflowY = "";
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        const pad = 12;
+        const r = body.getBoundingClientRect();
+        const natural = body.scrollHeight;
+        const availBelow = window.innerHeight - r.top - pad;
+        if (availBelow <= 0 || natural <= availBelow) return;
+        const cap = Math.max(100, Math.min(natural, availBelow));
+        body.style.maxHeight = `${cap}px`;
+        body.style.overflowY = "auto";
+      });
+    });
+  }
+
   gridEl.addEventListener(
     "toggle",
     (e) => {
@@ -893,6 +914,8 @@
           portalWatchBodyToHost(d);
           positionWatchPanel(d);
           syncWatchBackdrop();
+        } else {
+          clampWatchBodyToViewport(d);
         }
       } else {
         restoreWatchBodyToDetail(d);
@@ -1004,6 +1027,8 @@
   window.addEventListener("resize", onWatchLayoutMqChange);
   window.addEventListener("resize", () => {
     if (genreMoreAnchor) positionGenreMorePopover(genreMoreAnchor);
+    const openWd = gridEl.querySelector("details.watch-details[open]");
+    if (openWd && !mobileWatchMq.matches) clampWatchBodyToViewport(openWd);
   });
   if (mobileWatchMq.addEventListener) {
     mobileWatchMq.addEventListener("change", onWatchLayoutMqChange);
