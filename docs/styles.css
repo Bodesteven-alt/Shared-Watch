@@ -604,6 +604,7 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   max-width: 100%;
   min-width: 0;
 }
+/* Full "X.XX/5" uses cyan on the wrap so slash and 5 match the score */
 .rating-value-score-wrap {
   flex: 0 1 auto;
   min-width: 0;
@@ -613,16 +614,13 @@ button { cursor: pointer; background: linear-gradient(135deg, #ff71ce, #b967ff);
   white-space: nowrap;
   text-align: right;
   line-height: 1.15;
+  color: var(--cyan);
 }
 .rating-value-x5 {
   font-size: .6rem;
   font-weight: 600;
   color: var(--cyan);
   letter-spacing: -0.02em;
-}
-/* Entire "X.XX/5" lives in .rating-value-x5; keep score + slash + 5 uniformly cyan */
-.rating-value-score-wrap {
-  color: var(--cyan);
 }
 .rating-value-sep {
   flex: 0 0 auto;
