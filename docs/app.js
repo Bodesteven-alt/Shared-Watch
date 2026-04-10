@@ -343,9 +343,12 @@
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
     const mobile = genreTruncateMq.matches;
+    if (open && mobile) {
+      servicesPopup.classList.add("services-popup--mobile");
+    } else {
+      servicesPopup.classList.remove("services-popup--mobile");
+    }
     servicesPopup.classList.toggle("hidden", !open);
-    servicesPopup.classList.toggle("services-popup--mobile", !!(open && mobile));
-    if (!open) servicesPopup.classList.remove("services-popup--mobile");
     if (servicesSheetBackdrop) {
       const showBackdrop = !!(open && mobile);
       servicesSheetBackdrop.classList.toggle("hidden", !showBackdrop);
@@ -926,14 +929,19 @@
     true,
   );
 
-  if (watchBackdrop) {
-    watchBackdrop.addEventListener("click", () => {
+  /* Mobile: dimmer uses pointer-events none so Watch summary stays clickable; close from outside via capture */
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (!mobileWatchMq.matches) return;
+      if (!gridEl.querySelector("details.watch-details[open]")) return;
+      if (e.target.closest(".watch-body") || e.target.closest(".watch-summary")) return;
       gridEl.querySelectorAll("details.watch-details[open]").forEach((d) => {
         d.open = false;
       });
-      syncWatchBackdrop();
-    });
-  }
+    },
+    true,
+  );
 
   let watchSwipeStart = null;
   if (watchPanelHost) {
