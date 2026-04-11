@@ -64,6 +64,10 @@ _data_dir = os.environ.get("DATA_DIR", os.path.join(os.path.dirname(os.path.absp
 CACHE_PATH = os.path.join(_data_dir, "cache.json")
 POSTER_CACHE_PATH = os.path.join(_data_dir, "posters.json")
 IMDB_ID_CACHE_PATH = os.path.join(_data_dir, "imdb_ids.json")
+IMDB_ID_OVERRIDES_PATH = os.path.join(
+    _data_dir,
+    os.environ.get("IMDB_ID_OVERRIDES_FILE", "imdb_id_overrides.json"),
+)
 TMDB_WATCH_PROVIDERS_CACHE_PATH = os.path.join(
     _data_dir,
     os.environ.get("TMDB_WATCH_PROVIDERS_CACHE_FILE", "tmdb_watch_providers_cache.json"),

@@ -29,6 +29,7 @@ Optional environment overrides:
 - `WATCHLIST_SOURCE_CACHE` (default: `data/cache.json`)
 - `WATCHLIST_OUTPUT_JSON` (default: `docs/data/watchlist.json`)
 - `WATCHLIST_METADATA_CACHE` (default: `data/imdb_metadata_cache.json`)
+- `IMDB_ID_OVERRIDES_FILE` (default: `imdb_id_overrides.json` under `DATA_DIR`, usually `data/imdb_id_overrides.json`)
 
 ### Metadata enrichment
 
@@ -41,6 +42,18 @@ The exporter enriches each movie with best-effort metadata (no API key):
 - `rating_avg_5` (normalized average on 0-5 scale)
 
 Metadata is cached to speed up subsequent runs. If IMDb page scraping is blocked for a title, exporter falls back to TMDB public pages for year/genre/rating fields.
+
+### Title disambiguation (same name, different films)
+
+When the watchlist title has no reliable IMDb `tt` id, the pipeline used to take the **first** IMDb suggestion and the **first** TMDB search hit, which can mismatch homonyms (for example *Paprika* 2006 vs 2018).
+
+Current behavior:
+
+- **Year hint:** If `display`, `letterboxd_title`, or `imdb_title` ends with `(YYYY)` (Letterboxd-style), that year is used to pick the matching IMDb suggestion and to narrow TMDb search when `TMDB_READ_ACCESS_TOKEN` or `TMDB_API_KEY` is set.
+- **TMDb API:** With TMDb configured, the exporter uses `/search/movie` with `primary_release_year` when a year hint exists, then `/movie/{id}` for metadata gap-fill before falling back to scraping TMDB’s public HTML.
+- **Manual overrides:** Optional file `data/imdb_id_overrides.json` (copy from [`data/imdb_id_overrides.example.json`](data/imdb_id_overrides.example.json)). Keys are normalized titles (same as `imdb_metadata_cache.json`) or `display:Exact List Title (2006)`. Values are `{"imdb_id": "tt1234567"}` or a plain `"tt1234567"` string. Applied before IMDb suggestion lookup in export and poster enrichment.
+
+**Caches:** Wrong rows can be pinned by `data/imdb_metadata_cache.json`, `data/imdb_ids.json`, or `data/posters.json`. After fixing overrides or list titles, remove the affected keys or delete those files once, then refresh and re-export.
 
 ## 2) GitHub Pages setup
 

@@ -6,12 +6,11 @@ import os
 import re
 import time
 from typing import Callable
-from urllib.parse import quote
-
 import requests
 from bs4 import BeautifulSoup
 
 import config
+import title_hints
 import tmdb_client
 
 TMDB_HTTP_HEADERS = {
@@ -197,22 +196,42 @@ def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
     return poster
 
 
-def _fetch_tmdb_poster(title: str) -> str | None:
+def _fetch_tmdb_poster(title: str, year_hint: int | None = None) -> str | None:
     if not config.TMDB_API_CONFIGURED:
         return None
-    data = tmdb_client.tmdb_v3_get(
-        "/search/movie",
-        {"query": title, "include_adult": "false"},
-    )
+    q = (title or "").strip()
+    if not q:
+        return None
+    params: dict[str, str | int] = {"query": q, "include_adult": "false"}
+    if year_hint is not None:
+        params["primary_release_year"] = year_hint
+    data = tmdb_client.tmdb_v3_get("/search/movie", params)
     if not data:
         return None
     results = data.get("results") or []
     if not results:
         return None
-    poster_path = results[0].get("poster_path")
-    if not poster_path:
+
+    def _pick_poster(candidates: list) -> str | None:
+        for item in candidates:
+            if not isinstance(item, dict):
+                continue
+            pp = item.get("poster_path")
+            if pp:
+                return f"{config.TMDB_IMAGE_BASE}{pp}"
         return None
-    return f"{config.TMDB_IMAGE_BASE}{poster_path}"
+
+    if year_hint is not None:
+        ys = str(year_hint)
+        matching = [
+            r
+            for r in results
+            if isinstance(r, dict) and str((r.get("release_date") or ""))[:4] == ys
+        ]
+        picked = _pick_poster(matching)
+        if picked:
+            return picked
+    return _pick_poster(results)
 
 
 def _fetch_tmdb_web_poster(title: str) -> str | None:
@@ -337,29 +356,14 @@ def _fetch_imdb_poster_by_id(imdb_id: str) -> str | None:
     return None
 
 
-def _lookup_imdb_id_by_title(title: str) -> str | None:
-    q = (title or "").strip()
-    if not q:
-        return None
-    first = re.sub(r"[^a-zA-Z0-9]", "", q[:1].lower()) or "a"
-    slug = quote(q)
-    # Public suggestion endpoint used by IMDb autocomplete.
-    url = f"https://v2.sg.media-imdb.com/suggestion/{first}/{slug}.json"
-    try:
-        r = requests.get(url, timeout=12, headers={"User-Agent": "Mozilla/5.0"})
-    except requests.RequestException:
-        return None
-    if r.status_code != 200:
-        return None
-    try:
-        data = r.json()
-    except ValueError:
-        return None
-    for item in data.get("d", []) or []:
-        imdb_id = (item.get("id") or "").strip()
-        if re.fullmatch(r"tt\d+", imdb_id):
-            return imdb_id
-    return None
+def _lookup_imdb_id_by_title(title: str, year_hint: int | None = None) -> str | None:
+    got = title_hints.imdb_suggestion_lookup(
+        title,
+        year_hint,
+        headers={"User-Agent": "Mozilla/5.0"},
+    )
+    iid = got.get("imdb_id")
+    return iid if isinstance(iid, str) else None
 
 
 def enrich_rows_with_posters(
@@ -381,6 +385,7 @@ def enrich_rows_with_posters(
 
     cache = _load_cache()
     id_cache = _load_id_cache()
+    id_overrides = title_hints.load_imdb_id_overrides(config.IMDB_ID_OVERRIDES_PATH)
     lb_posters = _get_letterboxd_poster_map(log=log)
     stats = {
         "resolved_total": 0,
@@ -427,10 +432,14 @@ def enrich_rows_with_posters(
         source = "none"
 
         imdb_id = (row.get("imdb_id") or "").strip()
+        year_hint = title_hints.year_hint_from_row(row)
+        if not imdb_id:
+            okey = title_hints.normalize_metadata_key(title)
+            imdb_id = (id_overrides.get(okey) or "").strip()
         if not imdb_id and key in id_cache:
             imdb_id = id_cache[key] or ""
         if not imdb_id:
-            imdb_id = _lookup_imdb_id_by_title(title) or ""
+            imdb_id = _lookup_imdb_id_by_title(title, year_hint) or ""
             id_cache[key] = imdb_id or None
         if imdb_id and not row.get("imdb_id"):
             row["imdb_id"] = imdb_id
@@ -458,7 +467,7 @@ def enrich_rows_with_posters(
                 source = "tmdb_web"
 
         if (not poster) and config.TMDB_API_CONFIGURED:
-            poster = _fetch_tmdb_poster(title)
+            poster = _fetch_tmdb_poster(title, year_hint)
             if poster:
                 source = "tmdb"
 

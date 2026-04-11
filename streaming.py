@@ -10,6 +10,7 @@ from typing import Any, Callable
 import agent_debug
 import config
 import posters as posters_mod
+import title_hints
 import tmdb_client
 
 
@@ -100,20 +101,6 @@ def _find_movie_id_by_imdb(imdb_id: str) -> int | None:
             return int(mid)
         except (TypeError, ValueError):
             return None
-    return None
-
-
-def _release_year_hint_from_title(title: str) -> int | None:
-    """e.g. 'Some Film (2019)' -> 2019 for TMDb search disambiguation."""
-    m = re.search(r"\((\d{4})\)\s*$", (title or "").strip())
-    if not m:
-        return None
-    try:
-        y = int(m.group(1))
-    except ValueError:
-        return None
-    if 1870 < y < 2100:
-        return y
     return None
 
 
@@ -285,14 +272,20 @@ def enrich_rows_with_streaming(
                         continue
                     yh = row.get("release_year")
                     if yh is None:
-                        yh = _release_year_hint_from_title(title)
+                        yh = title_hints.year_hint_from_row(row)
+                        if yh is None:
+                            yh = title_hints.release_year_hint_from_title(title)
                     else:
                         try:
                             yh = int(yh)
                             if not (1870 < yh < 2100):
-                                yh = _release_year_hint_from_title(title)
+                                yh = title_hints.year_hint_from_row(row)
+                                if yh is None:
+                                    yh = title_hints.release_year_hint_from_title(title)
                         except (TypeError, ValueError):
-                            yh = _release_year_hint_from_title(title)
+                            yh = title_hints.year_hint_from_row(row)
+                            if yh is None:
+                                yh = title_hints.release_year_hint_from_title(title)
                     tmdb_id = _find_movie_id_by_title(title, year_hint=yh)
                     api_calls += 1
 

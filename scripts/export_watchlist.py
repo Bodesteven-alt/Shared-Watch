@@ -20,6 +20,9 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 import agent_debug  # noqa: E402
 import config  # noqa: E402
+import streaming  # noqa: E402
+import title_hints  # noqa: E402
+import tmdb_client  # noqa: E402
 DEFAULT_INPUT = ROOT / "data" / "cache.json"
 DEFAULT_OUTPUT = ROOT / "docs" / "data" / "watchlist.json"
 DEFAULT_METADATA_CACHE = ROOT / "data" / "imdb_metadata_cache.json"
@@ -62,12 +65,7 @@ def infer_source(row: dict) -> str:
 
 
 def normalize_title(title: str) -> str:
-    t = (title or "").strip().lower()
-    t = re.sub(r"\([^)]*\)", "", t)
-    t = re.sub(r"\[[^\]]*\]", "", t)
-    t = re.sub(r"[^a-z0-9 ]+", " ", t)
-    t = re.sub(r"\s+", " ", t).strip()
-    return t
+    return title_hints.normalize_metadata_key(title)
 
 
 def load_json(path: Path, default):
@@ -129,32 +127,8 @@ def patch_docs_watchlist_version(version: str) -> None:
     path.write_text(text, encoding="utf-8", newline="\n")
 
 
-def lookup_imdb_hint_by_title(title: str) -> dict:
-    q = (title or "").strip()
-    if not q:
-        return {"imdb_id": None, "year": None}
-    first = re.sub(r"[^a-zA-Z0-9]", "", q[:1].lower()) or "a"
-    url = f"https://v2.sg.media-imdb.com/suggestion/{first}/{quote(q)}.json"
-    try:
-        r = requests.get(url, headers=HEADERS, timeout=12)
-    except requests.RequestException:
-        return {"imdb_id": None, "year": None}
-    if r.status_code != 200:
-        return {"imdb_id": None, "year": None}
-    try:
-        data = r.json()
-    except ValueError:
-        return {"imdb_id": None, "year": None}
-    for item in data.get("d", []) or []:
-        imdb_id = (item.get("id") or "").strip()
-        if re.fullmatch(r"tt\d+", imdb_id):
-            y = item.get("y")
-            try:
-                year = int(y) if y is not None else None
-            except (TypeError, ValueError):
-                year = None
-            return {"imdb_id": imdb_id, "year": year}
-    return {"imdb_id": None, "year": None}
+def lookup_imdb_hint_by_title(title: str, year_hint: int | None = None) -> dict:
+    return title_hints.imdb_suggestion_lookup(title, year_hint, headers=HEADERS)
 
 
 def _parse_int_loose(v) -> int | None:
@@ -214,12 +188,145 @@ def _merge_title_meta(base: dict, extra: dict) -> dict:
     return out
 
 
+def _apply_omdb_truth_for_imdb_id(base: dict, omdb: dict) -> dict:
+    """Overwrite fields when OMDb was queried by imdb_id (corrects bad HTML JSON-LD)."""
+    out = dict(base)
+    if omdb.get("year") is not None:
+        out["year"] = omdb["year"]
+    if omdb.get("genres"):
+        out["genres"] = list(omdb["genres"])
+    if omdb.get("rating_imdb_10") is not None:
+        out["rating_imdb_10"] = omdb["rating_imdb_10"]
+    if omdb.get("rating_count_imdb") is not None:
+        out["rating_count_imdb"] = omdb["rating_count_imdb"]
+    return out
+
+
+_IMDB_JSONLD_MAIN_TYPES = frozenset(
+    {
+        "movie",
+        "tvmovie",
+        "tvseries",
+        "tvminiseries",
+        "tvepisode",
+        "tvmovieseries",
+    }
+)
+
+
+def _imdb_jsonld_types(node: dict) -> frozenset[str]:
+    t = node.get("@type")
+    if t is None:
+        return frozenset()
+    if isinstance(t, str):
+        return frozenset(x.strip().lower() for x in t.split(",") if x.strip())
+    if isinstance(t, list):
+        return frozenset(str(x).strip().lower() for x in t if x)
+    return frozenset({str(t).strip().lower()})
+
+
+def _imdb_jsonld_node_references_title(node: dict, imdb_tt: str) -> bool:
+    needle = f"/title/{imdb_tt}/"
+    for key in ("url", "@id", "sameAs"):
+        val = node.get(key)
+        if isinstance(val, str) and needle in val:
+            return True
+        if isinstance(val, list):
+            for item in val:
+                if isinstance(item, str) and needle in item:
+                    return True
+    return False
+
+
+def _imdb_jsonld_is_main_work(types: frozenset[str]) -> bool:
+    return bool(types & _IMDB_JSONLD_MAIN_TYPES)
+
+
+def _jsonld_candidate_nodes(root) -> list[dict]:
+    if isinstance(root, list):
+        nodes: list[dict] = []
+        for el in root:
+            nodes.extend(_jsonld_candidate_nodes(el))
+        return nodes
+    if not isinstance(root, dict):
+        return []
+    graph = root.get("@graph")
+    nodes = []
+    if isinstance(graph, list):
+        for el in graph:
+            if isinstance(el, dict):
+                nodes.append(el)
+    if root.get("@type") is not None:
+        if root not in nodes:
+            nodes.append(root)
+    if not nodes:
+        nodes.append(root)
+    return nodes
+
+
+def _ld_genre_list(genre) -> list[str]:
+    if isinstance(genre, str):
+        return [genre] if genre.strip() else []
+    if isinstance(genre, list):
+        out: list[str] = []
+        for x in genre:
+            if isinstance(x, str):
+                if x.strip():
+                    out.append(x)
+            elif isinstance(x, dict):
+                n = (x.get("name") or "").strip()
+                if n:
+                    out.append(n)
+        return out
+    return []
+
+
+def _meta_from_imdb_jsonld_node(node: dict) -> dict:
+    out = {
+        "year": None,
+        "genres": [],
+        "rating_imdb_10": None,
+        "rating_count_imdb": None,
+    }
+    out["genres"] = _ld_genre_list(node.get("genre"))
+    yr = _year_from_schema_movie(node)
+    if yr is not None:
+        out["year"] = yr
+    rating_obj = node.get("aggregateRating") or {}
+    if isinstance(rating_obj, dict):
+        rv = rating_obj.get("ratingValue")
+        try:
+            if rv is not None:
+                out["rating_imdb_10"] = float(rv)
+        except (TypeError, ValueError):
+            pass
+        for rc_key in ("ratingCount", "reviewCount"):
+            rc = rating_obj.get(rc_key)
+            if rc is not None:
+                n = _parse_int_loose(rc)
+                if n is not None:
+                    out["rating_count_imdb"] = n
+                    break
+    return out
+
+
 def parse_imdb_title_page(imdb_id: str) -> dict:
     """
     Return metadata from IMDb title page:
       year, genres[], rating_imdb_10, rating_count_imdb (from JSON-LD or HTML)
     """
-    url = f"https://www.imdb.com/title/{imdb_id}/"
+    tid = (imdb_id or "").strip()
+    if not re.fullmatch(r"tt\d+", tid):
+        tid = "tt" + tid.lstrip("t") if tid else ""
+    if not tid:
+        return {
+            "year": None,
+            "genres": [],
+            "rating_imdb_10": None,
+            "rating_count_imdb": None,
+        }
+
+    url = f"https://www.imdb.com/title/{tid}/"
     out = {
         "year": None,
         "genres": [],
@@ -234,43 +341,47 @@ def parse_imdb_title_page(imdb_id: str) -> dict:
         return out
 
     soup = BeautifulSoup(r.text, "html.parser")
-    # Prefer JSON-LD for stable metadata extraction.
+    scored: list[tuple[int, dict]] = []
+
     for script in soup.find_all("script", type="application/ld+json"):
         txt = (script.string or "").strip()
         if not txt:
             continue
         try:
-            obj = json.loads(txt)
+            parsed = json.loads(txt)
         except ValueError:
             continue
-        if not isinstance(obj, dict):
-            continue
-        genre = obj.get("genre")
-        if isinstance(genre, str):
-            out["genres"] = [genre]
-        elif isinstance(genre, list):
-            out["genres"] = [str(x) for x in genre if x]
-        date = str(obj.get("datePublished") or "")
-        m = re.match(r"(\d{4})", date)
-        if m:
-            out["year"] = int(m.group(1))
-        rating_obj = obj.get("aggregateRating") or {}
-        if isinstance(rating_obj, dict):
-            rv = rating_obj.get("ratingValue")
-            try:
-                if rv is not None:
-                    out["rating_imdb_10"] = float(rv)
-            except (TypeError, ValueError):
-                pass
-            for rc_key in ("ratingCount", "reviewCount"):
-                rc = rating_obj.get(rc_key)
-                if rc is not None:
-                    n = _parse_int_loose(rc)
-                    if n is not None:
-                        out["rating_count_imdb"] = n
-                        break
-        if out["year"] or out["genres"] or out["rating_imdb_10"] is not None:
-            return out
+        for node in _jsonld_candidate_nodes(parsed):
+            if not isinstance(node, dict):
+                continue
+            types = _imdb_jsonld_types(node)
+            url_ok = _imdb_jsonld_node_references_title(node, tid)
+            main = _imdb_jsonld_is_main_work(types)
+            if not main and not url_ok:
+                continue
+            meta = _meta_from_imdb_jsonld_node(node)
+            if not (meta["year"] or meta["genres"] or meta["rating_imdb_10"] is not None):
+                continue
+            score = 0
+            if url_ok:
+                score += 200
+            if main:
+                score += 50
+            if "movie" in types or "tvmovie" in types:
+                score += 15
+            if meta["rating_imdb_10"] is not None:
+                score += 2
+            if meta["year"] is not None:
+                score += 1
+            scored.append((score, meta))
+
+    if scored:
+        scored.sort(key=lambda x: -x[0])
+        best = scored[0][1]
+        out["year"] = best["year"]
+        out["genres"] = list(best["genres"])
+        out["rating_imdb_10"] = best["rating_imdb_10"]
+        out["rating_count_imdb"] = best["rating_count_imdb"]
 
     # Fallback for rating if JSON-LD wasn't present/parseable.
     t = soup.get_text(" ", strip=True)
@@ -590,6 +701,76 @@ def fetch_tmdb_metadata_by_title(title: str) -> dict:
     return out
 
 
+def _tmdb_movie_detail_to_meta(detail: dict | None) -> dict:
+    """Map TMDb /movie/{id} JSON to exporter metadata fields."""
+    out: dict = {"year": None, "genres": [], "rating_imdb_10": None, "rating_count_imdb": None}
+    if not detail or not isinstance(detail, dict):
+        return out
+    rd = detail.get("release_date") or ""
+    if len(rd) >= 4 and str(rd[:4]).isdigit():
+        try:
+            out["year"] = int(rd[:4])
+        except ValueError:
+            pass
+    for g in detail.get("genres") or []:
+        if isinstance(g, dict):
+            n = (g.get("name") or "").strip()
+            if n:
+                out["genres"].append(n)
+    va = detail.get("vote_average")
+    if va is not None:
+        try:
+            v = float(va)
+            if v > 0:
+                out["rating_imdb_10"] = v
+        except (TypeError, ValueError):
+            pass
+    vc = detail.get("vote_count")
+    if vc is not None:
+        try:
+            out["rating_count_imdb"] = int(vc)
+        except (TypeError, ValueError):
+            pass
+    return out
+
+
+def fetch_tmdb_metadata_via_imdb_id(imdb_id: str) -> dict:
+    """TMDb /find by IMDb id, then /movie/{id} — avoids wrong title search hits."""
+    empty: dict = {"year": None, "genres": [], "rating_imdb_10": None, "rating_count_imdb": None}
+    if not config.TMDB_API_CONFIGURED or not (imdb_id or "").strip():
+        return empty
+    tid = (imdb_id or "").strip()
+    if not re.fullmatch(r"tt\d+", tid):
+        tid = "tt" + tid.lstrip("t")
+    data = tmdb_client.tmdb_v3_get(f"/find/{tid}", {"external_source": "imdb_id"})
+    if not data:
+        return empty
+    mid = None
+    for mr in data.get("movie_results") or []:
+        if not isinstance(mr, dict):
+            continue
+        try:
+            mid = int(mr.get("id"))
+            break
+        except (TypeError, ValueError):
+            continue
+    if mid is None:
+        return empty
+    detail = tmdb_client.tmdb_v3_get(f"/movie/{mid}", {})
+    return _tmdb_movie_detail_to_meta(detail)
+
+
+def fetch_tmdb_metadata_via_api(title: str, year_hint: int | None = None) -> dict:
+    """TMDb v3 search (with optional primary_release_year) + /movie/{id} for gap-fill metadata."""
+    if not config.TMDB_API_CONFIGURED:
+        return {"year": None, "genres": [], "rating_imdb_10": None, "rating_count_imdb": None}
+    mid = streaming._find_movie_id_by_title((title or "").strip(), year_hint)
+    if mid is None:
+        return {"year": None, "genres": [], "rating_imdb_10": None, "rating_count_imdb": None}
+    detail = tmdb_client.tmdb_v3_get(f"/movie/{mid}", {})
+    return _tmdb_movie_detail_to_meta(detail)
+
+
 def round2(x: float | None) -> float | None:
     if x is None:
         return None
@@ -608,6 +789,7 @@ def main() -> int:
     cache = load_json(source_path, {})
     meta_cache_path = Path(os.environ.get("WATCHLIST_METADATA_CACHE", str(DEFAULT_METADATA_CACHE)))
     meta_cache = load_json(meta_cache_path, {})
+    id_overrides = title_hints.load_imdb_id_overrides(config.IMDB_ID_OVERRIDES_PATH)
 
     rows = cache.get("rows") or []
     stats = cache.get("stats") or {}
@@ -615,6 +797,8 @@ def main() -> int:
 
     print(f"Processing {len(rows)} movies...")
     print(f"OMDb API: {'enabled' if OMDB_API_KEY else 'disabled'}")
+    if id_overrides:
+        print(f"IMDb id overrides: {len(id_overrides)} keys ({config.IMDB_ID_OVERRIDES_PATH})")
     print()
 
     movies = []
@@ -626,12 +810,17 @@ def main() -> int:
         norm = normalize_title(title)
         c = meta_cache.get(norm) if isinstance(meta_cache.get(norm), dict) else {}
 
+        yr_row = title_hints.year_hint_from_row(r)
         imdb_id = r.get("imdb_id")
-        hint = {"imdb_id": None, "year": None}
+        hint: dict = {"imdb_id": None, "year": None}
+        if not imdb_id:
+            oid = id_overrides.get(norm)
+            if oid:
+                imdb_id = oid
         if not imdb_id:
             imdb_id = c.get("imdb_id")
         if not imdb_id:
-            hint = lookup_imdb_hint_by_title(title)
+            hint = lookup_imdb_hint_by_title(title, year_hint=yr_row)
             imdb_id = hint.get("imdb_id")
 
         meta_incomplete = (
@@ -665,17 +854,38 @@ def main() -> int:
                 or not parsed.get("genres")
                 or parsed.get("rating_imdb_10") is None
             ):
-                tmdb_p = fetch_tmdb_metadata_by_title(title)
+                tmdb_p = {
+                    "year": None,
+                    "genres": [],
+                    "rating_imdb_10": None,
+                    "rating_count_imdb": None,
+                }
+                if config.TMDB_API_CONFIGURED:
+                    tmdb_p = _merge_title_meta(
+                        tmdb_p,
+                        fetch_tmdb_metadata_via_imdb_id(imdb_id),
+                    )
+                    tmdb_p = _merge_title_meta(
+                        tmdb_p,
+                        fetch_tmdb_metadata_via_api(title, yr_row),
+                    )
+                still_missing = (
+                    (parsed.get("year") is None and tmdb_p.get("year") is None)
+                    or (not parsed.get("genres") and not tmdb_p.get("genres"))
+                    or (
+                        parsed.get("rating_imdb_10") is None
+                        and tmdb_p.get("rating_imdb_10") is None
+                    )
+                )
+                if still_missing:
+                    tmdb_p = _merge_title_meta(tmdb_p, fetch_tmdb_metadata_by_title(title))
                 parsed = _merge_title_meta(parsed, tmdb_p)
                 if tmdb_p.get("year") or tmdb_p.get("genres") or tmdb_p.get("rating_imdb_10") is not None:
                     sources.append("TMDB")
-            if (
-                parsed.get("year") is None
-                or not parsed.get("genres")
-                or parsed.get("rating_imdb_10") is None
-            ):
+            if OMDB_API_KEY and imdb_id:
                 omdb_p = fetch_omdb_metadata(imdb_id=imdb_id, title=title)
                 parsed = _merge_title_meta(parsed, omdb_p)
+                parsed = _apply_omdb_truth_for_imdb_id(parsed, omdb_p)
                 content_type = omdb_p.get("content_type")
                 if omdb_p.get("year") or omdb_p.get("genres") or omdb_p.get("rating_imdb_10"):
                     sources.append("OMDb")
@@ -689,7 +899,9 @@ def main() -> int:
                 omdb_check = fetch_omdb_metadata(imdb_id=imdb_id)
                 content_type = omdb_check.get("content_type")
             merged_genres = parsed.get("genres") if parsed.get("genres") else (prev_meta.get("genres") or [])
-            merged_year = parsed.get("year") or hint.get("year") or prev_meta.get("year")
+            merged_year = (
+                parsed.get("year") or hint.get("year") or yr_row or prev_meta.get("year")
+            )
             merged_rating = (
                 parsed.get("rating_imdb_10")
                 if parsed.get("rating_imdb_10") is not None
@@ -713,11 +925,32 @@ def main() -> int:
             }
             meta_cache[norm] = c
         elif not imdb_id and needs_refresh:
-            # No imdb_id - try TMDB and OMDb by title only
-            parsed = fetch_tmdb_metadata_by_title(title)
+            # No imdb_id - try TMDB (API + optional web scrape) and OMDb by title
+            parsed = {
+                "year": None,
+                "genres": [],
+                "rating_imdb_10": None,
+                "rating_count_imdb": None,
+            }
+            tmdb_p = {
+                "year": None,
+                "genres": [],
+                "rating_imdb_10": None,
+                "rating_count_imdb": None,
+            }
+            if config.TMDB_API_CONFIGURED:
+                tmdb_p = _merge_title_meta(tmdb_p, fetch_tmdb_metadata_via_api(title, yr_row))
+            still_missing = (
+                tmdb_p.get("year") is None
+                and not tmdb_p.get("genres")
+                and tmdb_p.get("rating_imdb_10") is None
+            )
+            if still_missing:
+                tmdb_p = _merge_title_meta(tmdb_p, fetch_tmdb_metadata_by_title(title))
+            parsed = _merge_title_meta(parsed, tmdb_p)
             content_type = None
             sources_no_id: list[str] = []
-            if parsed.get("year") or parsed.get("genres") or parsed.get("rating_imdb_10") is not None:
+            if tmdb_p.get("year") or tmdb_p.get("genres") or tmdb_p.get("rating_imdb_10") is not None:
                 sources_no_id.append("TMDB")
             if (
                 parsed.get("year") is None
@@ -732,7 +965,7 @@ def main() -> int:
             source_used = "+".join(sources_no_id) if sources_no_id else "no data"
             c = {
                 "imdb_id": None,
-                "year": parsed.get("year") or hint.get("year"),
+                "year": parsed.get("year") or hint.get("year") or yr_row,
                 "genres": parsed.get("genres") or [],
                 "rating_imdb_10": parsed.get("rating_imdb_10"),
                 "rating_count_imdb": parsed.get("rating_count_imdb"),

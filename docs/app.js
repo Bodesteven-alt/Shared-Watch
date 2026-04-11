@@ -193,15 +193,75 @@
   }
 
   genrePopup.innerHTML =
-    `<button type="button" class="genre-option active" data-genre="all" role="option" aria-selected="true">All Genres</button>` +
-    sortedGenres
-      .map(
-        (g) =>
-          `<button type="button" class="genre-option" data-genre="${escapeAttr(g)}" role="option" aria-selected="false">${escapeAttr(g)}</button>`,
-      )
-      .join("");
+    `<div class="genre-popup__inner">` +
+    `<div class="genre-popup__search">` +
+    `<input type="search" id="genrePopupFilter" class="genre-popup__filter" autocomplete="off" aria-label="Filter genres" placeholder="Search genres…">` +
+    `<button type="button" class="genre-popup__clear" aria-label="Clear search" hidden aria-hidden="true">×</button>` +
+    `</div>` +
+    `<div id="genreListbox" class="genre-popup__list" role="listbox" aria-label="Genres"></div>` +
+    `</div>`;
+
+  function getGenreFilterInput() {
+    return genrePopup.querySelector(".genre-popup__filter");
+  }
+
+  function getGenreClearBtn() {
+    return genrePopup.querySelector(".genre-popup__clear");
+  }
+
+  function getGenreListEl() {
+    return genrePopup.querySelector(".genre-popup__list");
+  }
+
+  function syncGenreClearVisibility() {
+    const inp = getGenreFilterInput();
+    const btn = getGenreClearBtn();
+    if (!inp || !btn) return;
+    const has = !!inp.value.trim();
+    btn.hidden = !has;
+    btn.setAttribute("aria-hidden", has ? "false" : "true");
+  }
+
+  function genreOptionLabelHtml(g, queryRaw) {
+    const esc = escapeHtmlText(g);
+    const q = (queryRaw || "").trim();
+    if (!q) return esc;
+    const low = g.toLowerCase();
+    const ql = q.toLowerCase();
+    const idx = low.indexOf(ql);
+    if (idx < 0) return esc;
+    const before = escapeHtmlText(g.slice(0, idx));
+    const mid = escapeHtmlText(g.slice(idx, idx + q.length));
+    const after = escapeHtmlText(g.slice(idx + q.length));
+    return `${before}<mark class="genre-popup__hl">${mid}</mark>${after}`;
+  }
 
   let selectedGenre = "all";
+
+  function renderGenreList() {
+    const listEl = getGenreListEl();
+    if (!listEl) return;
+    const input = getGenreFilterInput();
+    const raw = input ? input.value : "";
+    const q = raw.trim().toLowerCase();
+    const filtered = q ? sortedGenres.filter((g) => g.toLowerCase().includes(q)) : sortedGenres;
+    let inner = `<button type="button" class="genre-option${selectedGenre === "all" ? " active" : ""}" data-genre="all" role="option" aria-selected="${selectedGenre === "all" ? "true" : "false"}">All Genres</button>`;
+    if (q && filtered.length === 0) {
+      inner += `<div class="genre-popup__empty" role="status">No results found</div>`;
+    } else {
+      inner += filtered
+        .map((g) => {
+          const active = selectedGenre === g;
+          const label = genreOptionLabelHtml(g, raw);
+          return `<button type="button" class="genre-option${active ? " active" : ""}" data-genre="${escapeAttr(g)}" role="option" aria-selected="${active ? "true" : "false"}">${label}</button>`;
+        })
+        .join("");
+    }
+    listEl.innerHTML = inner;
+  }
+
+  renderGenreList();
+  syncGenreClearVisibility();
   /** When empty, no service filter. When non-empty, show titles that include any selected provider (region). */
   let selectedServiceIds = new Set();
   let sortField = "title";
@@ -214,9 +274,17 @@
   }
 
   function setGenreOpen(open, opts) {
-    const focusFirstOption = opts && opts.focusFirstOption;
+    const focusFilter = opts && (opts.focusFilter || opts.focusFirstOption);
     const focusButtonOnClose = opts && opts.focusButtonOnClose;
     const mobile = genreTruncateMq.matches;
+    if (!open) {
+      const fi = getGenreFilterInput();
+      if (fi) {
+        fi.value = "";
+        syncGenreClearVisibility();
+        renderGenreList();
+      }
+    }
     genrePopup.classList.toggle("hidden", !open);
     genrePopup.classList.toggle("genre-popup--mobile", !!(open && mobile));
     if (!open) genrePopup.classList.remove("genre-popup--mobile");
@@ -226,9 +294,9 @@
       genreSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
     }
     genreBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open && focusFirstOption) {
-      const first = genrePopup.querySelector(".genre-option");
-      if (first) first.focus();
+    if (open && focusFilter) {
+      const fi = getGenreFilterInput();
+      if (fi) requestAnimationFrame(() => fi.focus());
     }
     if (!open && focusButtonOnClose) {
       genreBtn.focus({ preventScroll: true });
@@ -236,11 +304,7 @@
   }
 
   function syncGenreAriaSelected() {
-    genrePopup.querySelectorAll(".genre-option").forEach((el) => {
-      const on = el.dataset.genre === selectedGenre;
-      el.classList.toggle("active", on);
-      el.setAttribute("aria-selected", on ? "true" : "false");
-    });
+    renderGenreList();
   }
 
   function allSourcesActive() {
@@ -553,16 +617,15 @@
     return String(Math.round(v));
   }
 
-  /** Compact "2k rates" from combined IMDb + Letterboxd vote counts (for star overlay). */
-  function ratingOverlayRatesText(m) {
+  /** Compact count (e.g. 12k, 1.2M) from combined IMDb + Letterboxd votes for star overlay; null if none. */
+  function ratingOverlayCountText(m) {
     const ni = Number(m.rating_count_imdb);
     const nl = Number(m.rating_count_letterboxd);
     const hasIm = Number.isFinite(ni) && ni > 0;
     const hasLb = Number.isFinite(nl) && nl > 0;
-    if (!hasIm && !hasLb) return "— rates";
+    if (!hasIm && !hasLb) return null;
     const total = Math.round((hasIm ? ni : 0) + (hasLb ? nl : 0));
-    const t = formatCompactCount(total);
-    return t ? `${t} rates` : "— rates";
+    return formatCompactCount(total);
   }
 
   function ratingBlockHtml(m) {
@@ -571,7 +634,8 @@
       const inner = buildStarsInner(avg5);
       if (inner) {
         const avgNum = Number(avg5).toFixed(2);
-        const ratesText = ratingOverlayRatesText(m);
+        const countCompact = ratingOverlayCountText(m);
+        const countSeg = countCompact != null ? countCompact : "—";
         return `
       <div class="rating-block">
         <button type="button" class="rating-stars-toggle" aria-expanded="false" aria-label="Show or hide average rating">
@@ -585,7 +649,7 @@
                   <span class="rating-value-x5">${avgNum}/5</span>
                 </span>
                 <span class="rating-value-sep" aria-hidden="true">·</span>
-                <span class="rating-value-rates">${ratesText}</span>
+                <span class="rating-value-rates">${escapeHtmlText(countSeg)}</span>
               </span>
             </span>
           </span>
@@ -1280,16 +1344,39 @@
   genreBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     const next = !isGenreOpen();
-    setGenreOpen(next, {});
+    setGenreOpen(next, { focusFilter: next });
   });
 
   genreBtn.addEventListener("keydown", (e) => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
       const next = !isGenreOpen();
-      setGenreOpen(next, { focusFirstOption: next });
+      setGenreOpen(next, { focusFilter: next });
     }
   });
+
+  const genreFilterEl = getGenreFilterInput();
+  if (genreFilterEl) {
+    genreFilterEl.addEventListener("input", () => {
+      syncGenreClearVisibility();
+      renderGenreList();
+    });
+    genreFilterEl.addEventListener("click", (e) => e.stopPropagation());
+  }
+  const genreClearEl = getGenreClearBtn();
+  if (genreClearEl) {
+    genreClearEl.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const fi = getGenreFilterInput();
+      if (fi) {
+        fi.value = "";
+        syncGenreClearVisibility();
+        renderGenreList();
+        fi.focus();
+      }
+    });
+  }
 
   genrePopup.addEventListener("click", (e) => {
     const opt = e.target.closest(".genre-option");
