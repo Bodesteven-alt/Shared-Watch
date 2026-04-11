@@ -759,7 +759,10 @@
   }
 
   function moviePassesFilters(m, activeSources) {
-    if (!(activeSources.length === 0 || activeSources.length === 3) && !activeSources.includes(m.source)) {
+    if (activeSources.length === 0) {
+      return false;
+    }
+    if (activeSources.length < 3 && !activeSources.includes(m.source)) {
       return false;
     }
     if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
