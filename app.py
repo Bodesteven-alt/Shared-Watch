@@ -10,7 +10,6 @@ from datetime import datetime, timedelta, timezone
 
 from flask import Flask, redirect, render_template, request, url_for
 
-import agent_debug
 import config
 import posters
 import scrape
@@ -150,26 +149,6 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
     rows, poster_stats = posters.enrich_rows_with_posters(rows, log=append)
     rows, streaming_stats = streaming.enrich_rows_with_streaming(rows, log=append)
 
-    # region agent log
-    sample_streaming = False
-    for _r in rows[:5]:
-        st = (_r.get("streaming") or {}) if isinstance(_r, dict) else {}
-        if st:
-            sample_streaming = True
-            break
-    agent_debug.log(
-        hypothesis_id="H2",
-        location="app.py:_run_refresh",
-        message="after_streaming_enrich",
-        data={
-            "tmdb_configured": config.TMDB_API_CONFIGURED,
-            "streaming_stats": dict(streaming_stats),
-            "row_count": len(rows),
-            "sample_rows_have_streaming_block": sample_streaming,
-        },
-    )
-    # endregion
-
     payload = {
         "updated_at": _utc_now_iso(),
         "letterboxd": lb,
@@ -303,26 +282,6 @@ def index():
         "all_total": len(all_rows),
     }
 
-    # region agent log
-    first = rows[0] if rows else {}
-    fst = (first.get("streaming") or {}) if isinstance(first, dict) else {}
-    reg_block = fst.get(stream_region) if isinstance(fst, dict) else None
-    agent_debug.log(
-        hypothesis_id="H1",
-        location="app.py:index",
-        message="render_context",
-        data={
-            "tmdb_configured": bool(config.TMDB_API_CONFIGURED),
-            "has_read_token": bool((config.TMDB_READ_ACCESS_TOKEN or "").strip()),
-            "has_api_key": bool((config.TMDB_API_KEY or "").strip()),
-            "filtered_row_count": len(rows),
-            "stream_region": stream_region,
-            "first_row_has_streaming_key": isinstance(first, dict) and "streaming" in first,
-            "first_row_region_block_keys": list(reg_block.keys()) if isinstance(reg_block, dict) else None,
-        },
-    )
-    # endregion
-
     html = render_template(
         "index.html",
         rows=rows,
@@ -354,41 +313,6 @@ def index():
         available_now_count=available_now_count,
         has_streaming_profile=bool(owned_providers),
     )
-    # region agent log
-    agent_debug.log(
-        hypothesis_id="H4",
-        location="app.py:index",
-        message="html_render_check",
-        data={
-            "has_watch_details": "watch-details" in html,
-            "watch_summary_count": html.count("watch-summary"),
-        },
-    )
-    # endregion
-    # region agent log
-    _dbg_nd = {
-        "sessionId": "84e09d",
-        "runId": "index-render",
-        "hypothesisId": "H_flask_template_markers",
-        "location": "app.py:index:after_render",
-        "message": "flask_index_html_markers",
-        "data": {
-            "has_data_credits": "class=\"data-credits\"" in html,
-            "has_mobile_640": "max-width: 640px" in html,
-            "has_movie_main": "movie-main" in html,
-            "has_combined_watchlist_title": "Combined watchlist" in html,
-            "html_len": len(html),
-        },
-        "timestamp": int(time.time() * 1000),
-    }
-    if os.environ.get("WATCHLIST_DEBUG_LOG") == "84e09d":
-        try:
-            _nd_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "debug-84e09d.log")
-            with open(_nd_path, "a", encoding="utf-8") as _nd_f:
-                _nd_f.write(json.dumps(_dbg_nd) + "\n")
-        except OSError:
-            pass
-    # endregion
     return html
 
 

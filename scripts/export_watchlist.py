@@ -18,7 +18,6 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
-import agent_debug  # noqa: E402
 import config  # noqa: E402
 import streaming  # noqa: E402
 import title_hints  # noqa: E402
@@ -1073,40 +1072,6 @@ def main() -> int:
         return False
 
     streaming_nonempty = sum(1 for m in movies if _streaming_has_providers(m))
-
-    # #region agent log
-    sample_keys: list[str] = []
-    for m in movies:
-        st = m.get("streaming")
-        if isinstance(st, dict) and st:
-            sample_keys = sorted(st.keys())[:12]
-            break
-    any_movie_has_region = any(
-        stream_region_export in (m.get("streaming") or {}) for m in movies if isinstance(m.get("streaming"), dict)
-    )
-    agent_debug.log(
-        hypothesis_id="C",
-        location="export_watchlist.py:before_save",
-        message="export streaming summary",
-        data={
-            "runId": "pre-fix",
-            "movies": len(movies),
-            "streaming_nonempty": streaming_nonempty,
-            "stream_region_export": stream_region_export,
-            "first_nonempty_streaming_keys": sample_keys,
-        },
-    )
-    agent_debug.log(
-        hypothesis_id="D",
-        location="export_watchlist.py:region_alignment",
-        message="JSON stream_region vs per-movie streaming keys",
-        data={
-            "runId": "pre-fix",
-            "stream_region_export": stream_region_export,
-            "any_movie_has_export_region_key": any_movie_has_region,
-        },
-    )
-    # #endregion
 
     updated_at = cache.get("updated_at")
     if not updated_at:

@@ -47,17 +47,7 @@ def tmdb_v3_get(
 
     try:
         r = _do_get()
-    except requests.RequestException as ex:
-        # region agent log
-        import agent_debug
-
-        agent_debug.log(
-            hypothesis_id="H3",
-            location="tmdb_client.py:tmdb_v3_get",
-            message="tmdb_request_exception",
-            data={"path": path, "auth_mode": auth_mode, "exc_type": type(ex).__name__},
-        )
-        # endregion
+    except requests.RequestException:
         return None
 
     # TMDb sometimes returns 401 when both Bearer and api_key are sent but one is wrong or mismatched.
@@ -118,16 +108,6 @@ def tmdb_v3_get(
             path,
             auth_mode,
         )
-        # region agent log
-        import agent_debug
-
-        agent_debug.log(
-            hypothesis_id="H3",
-            location="tmdb_client.py:tmdb_v3_get",
-            message="tmdb_non_200",
-            data={"path": path, "auth_mode": auth_mode, "status": r.status_code},
-        )
-        # endregion
         return None
     try:
         data = r.json()

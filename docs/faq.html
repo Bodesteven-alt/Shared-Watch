@@ -7,141 +7,71 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=70">
+  <link rel="stylesheet" href="./styles.css?v=71">
 </head>
 <body class="faq-page">
   <main class="wrap">
     <header class="top">
       <div class="top-cluster">
-        <h1 class="top-title top-title__gradient">Our Watch List</h1>
+        <h1 class="faq-page__brand">
+          <a href="./index.html" class="top-title top-title__gradient">Our Watch List</a>
+        </h1>
       </div>
     </header>
 
     <h2 class="faq-page__title">Frequently Asked Questions</h2>
-    <p class="faq-page__intro muted small">Quick answers about filters, ratings, genres, streaming info, and how this page stays up to date.</p>
 
-    <div class="faq-list">
-      <details class="faq-item">
-        <summary class="faq-item__summary">What do the Letterboxd, Both, and IMDb buttons do?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>They <strong>filter</strong> the list. <strong>Letterboxd</strong> shows titles that are only on the Letterboxd watchlist, <strong>IMDb</strong> shows titles only on the IMDb watchlist, and <strong>Both</strong> shows titles that appear on <strong>both</strong> lists. You can turn any combination on or off.</p>
-          </div>
-        </div>
-      </details>
+    <article class="faq-essay">
+      <h3 class="faq-essay__q">What do the Letterboxd, Both, and IMDb buttons do?</h3>
+      <p class="faq-essay__a">They <strong>filter</strong> the list. <strong>Letterboxd</strong> shows titles that are only on the Letterboxd watchlist, <strong>IMDb</strong> shows titles only on the IMDb watchlist, and <strong>Both</strong> shows titles that appear on <strong>both</strong> lists. You can turn any combination on or off.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">Why do the numbers on those buttons sometimes show two values?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>The large faded number is the <strong>full count</strong> for that source. When genre, streaming, or other source filters hide some titles, a <strong>second number</strong> appears on top showing how many titles still match everything you have selected.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">Why do the numbers on those buttons sometimes show two values?</h3>
+      <p class="faq-essay__a">The large faded number is the <strong>full count</strong> for that source. When genre, streaming, or other source filters hide some titles, a <strong>second number</strong> appears on top showing how many titles still match everything you have selected.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">What do the stars mean?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>The stars show a <strong>combined audience score</strong> on a <strong>0–5</strong> scale. That value is computed when the list is exported from our movie-database data (it is not your personal Letterboxd or IMDb score).</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">What do the stars mean?</h3>
+      <p class="faq-essay__a">The stars show a <strong>combined audience score</strong> on a <strong>0–5</strong> scale. That value is computed when the list is exported from our movie-database data (it is not your personal Letterboxd or IMDb score).</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">What does the small number next to the score mean?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>Tap the stars to see the overlay. The compact number (for example <strong>12k</strong>) is a shortened <strong>vote total</strong>: IMDb and Letterboxd vote counts are <strong>added together</strong> when both exist. It is not the star rating itself.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">What does the small number next to the score mean?</h3>
+      <p class="faq-essay__a">Tap the stars to see the overlay. The compact number (for example <strong>12k</strong>) is a shortened <strong>vote total</strong>: IMDb and Letterboxd vote counts are <strong>added together</strong> when both exist. It is not the star rating itself.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">Why do some movies say “No ratings”?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>The export did not have enough reliable data to build an average score for that title, so the site leaves the rating blank.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">Why do some movies say “No ratings”?</h3>
+      <p class="faq-essay__a">The export did not have enough reliable data to build an average score for that title, so the site leaves the rating blank.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">Where do genres come from, and what is “more…”?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>Genres are filled in from public movie-database metadata when we build the list. <strong>“more…”</strong> only appears when the genre line is <strong>cut off</strong> on the card; tap it to see the full genre list in a small popover.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">Where do genres come from, and what is “more…”?</h3>
+      <p class="faq-essay__a">Genres are filled in from public movie-database metadata when we build the list. <strong>“more…”</strong> only appears when the genre line is <strong>cut off</strong> on the card; tap it to see the full genre list in a small popover.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">How do Genre and Services differ from Name, Year, and Rating?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p><strong>Name</strong>, <strong>Year</strong>, and <strong>Rating</strong> <strong>sort</strong> the grid (use the arrows for direction). <strong>Genre</strong> and <strong>Services</strong> are <strong>filters</strong>: pick one genre, and/or any streaming services—titles that match <strong>any</strong> selected service in the site’s region stay visible.</p>
-            <p>When you sort by <strong>rating</strong>, titles with no average score are treated as lower than rated ones (they usually end up at the bottom in ascending order).</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">How do Genre and Services differ from Name, Year, and Rating?</h3>
+      <p class="faq-essay__a"><strong>Name</strong>, <strong>Year</strong>, and <strong>Rating</strong> <strong>sort</strong> the grid (use the arrows for direction). <strong>Genre</strong> and <strong>Services</strong> are <strong>filters</strong>: pick one genre, and/or any streaming services—titles that match <strong>any</strong> selected service in the site’s region stay visible.</p>
+      <p class="faq-essay__a">When you sort by <strong>rating</strong>, titles with no average score are treated as lower than rated ones (they usually end up at the bottom in ascending order).</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">What does the Watch button do?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>It shows where the title may be available to stream, rent, or buy in the list’s <strong>region</strong> (usually the US), based on data from the export. <strong>Cyan</strong> highlights mark services you picked in the <strong>Services</strong> filter and/or subscriptions saved when the list was exported.</p>
-            <p>On small screens the panel opens centered over a dimmed backdrop; scrolling outside the panel closes it.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">What does the Watch button do?</h3>
+      <p class="faq-essay__a">It shows where the title may be available to stream, rent, or buy in the list’s <strong>region</strong> (usually the US), based on data from the export. <strong>Cyan</strong> highlights mark services you picked in the <strong>Services</strong> filter and/or subscriptions saved when the list was exported.</p>
+      <p class="faq-essay__a">On small screens the panel opens centered over a dimmed backdrop; scrolling outside the panel closes it.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">When does this site update?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>The main watch list page shows when <code class="faq-code">watchlist.json</code> was last generated and published (for example after a sync from a computer). The browser does <strong>not</strong> scrape Letterboxd or IMDb live.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">When does this site update?</h3>
+      <p class="faq-essay__a">The main watch list page shows when <code class="faq-code">watchlist.json</code> was last generated and published (for example after a sync from a computer). The browser does <strong>not</strong> scrape Letterboxd or IMDb live.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">Why is a movie on our Letterboxd or IMDb list but tagged as only one source here?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>We <strong>merge</strong> the two watchlists by matching titles. If a title on one list does not match a title on the other, it stays labeled <strong>Letterboxd</strong> or <strong>IMDb</strong> only. Small title differences can prevent a match.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">Why is a movie on our Letterboxd or IMDb list but tagged as only one source here?</h3>
+      <p class="faq-essay__a">We <strong>merge</strong> the two watchlists by matching titles. If a title on one list does not match a title on the other, it stays labeled <strong>Letterboxd</strong> or <strong>IMDb</strong> only. Small title differences can prevent a match.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">Why is the Watch list empty for some movies?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p>The export may have <strong>no streaming-provider data</strong> for that film in this region, or providers may not be listed for it in the database we use.</p>
-          </div>
-        </div>
-      </details>
+      <h3 class="faq-essay__q">Why is the Watch list empty for some movies?</h3>
+      <p class="faq-essay__a">The export may have <strong>no streaming-provider data</strong> for that film in this region, or providers may not be listed for it in the database we use.</p>
 
-      <details class="faq-item">
-        <summary class="faq-item__summary">What do the names in the footer under “Data sources” mean?</summary>
-        <div class="faq-item__anim">
-          <div class="faq-item__body">
-            <p><strong>Letterboxd</strong> and <strong>IMDb</strong> are the two watchlists we combine. <strong>TMDb</strong> and <strong>OMDb</strong> help supply posters, genres, ratings, and (where configured) where to watch.</p>
-          </div>
-        </div>
-      </details>
-    </div>
+      <h3 class="faq-essay__q">What do the names in the footer under “Data sources” mean?</h3>
+      <p class="faq-essay__a"><strong>Letterboxd</strong> and <strong>IMDb</strong> are the two watchlists we combine. <strong>TMDb</strong> and <strong>OMDb</strong> help supply posters, genres, ratings, and (where configured) where to watch.</p>
+    </article>
   </main>
 
   <footer class="footer">
     <div class="footer-strap">
       <p>FAQ last updated: Apr 12, 2026</p>
-      <p>Made by Steven Bode</p>
+      <p>Made with love by Steven Bode</p>
       <p class="footer-github">
+        <a href="./index.html">Home</a>
+        <span class="footer-github__sep" aria-hidden="true"> · </span>
+        <a href="./faq.html">FAQ</a>
+        <span class="footer-github__sep" aria-hidden="true"> · </span>
         <a href="https://github.com/Bodesteven-alt/Shared-Watch" target="_blank" rel="noopener noreferrer">View on GitHub</a>
-      </p>
-      <p class="footer-back">
-        <a href="./index.html">Back to Watch List</a>
       </p>
     </div>
     <p class="footer-data-sources" role="note">
@@ -150,25 +80,5 @@
       </span>
     </p>
   </footer>
-
-  <script>
-    (function () {
-      var root = document.querySelector(".faq-list");
-      if (!root) return;
-      var items = root.querySelectorAll(".faq-item");
-      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!reduceMotion) {
-        root.classList.add("faq-list--animate");
-      }
-      items.forEach(function (el) {
-        el.addEventListener("toggle", function () {
-          if (!el.open) return;
-          items.forEach(function (other) {
-            if (other !== el) other.open = false;
-          });
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
