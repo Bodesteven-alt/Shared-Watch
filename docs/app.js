@@ -815,6 +815,11 @@
   const watchBackdrop = document.getElementById("watchBackdrop");
   const watchPanelHost = document.getElementById("watchPanelHost");
   const mobileWatchMq = window.matchMedia("(max-width: 640px)");
+  const ratingHoverDesktopMq = window.matchMedia("(hover: hover) and (pointer: fine)");
+
+  function ratingHoverDesktopActive() {
+    return ratingHoverDesktopMq.matches && !mobileWatchMq.matches;
+  }
 
   function getWatchBodyForDetail(detail) {
     if (!detail) return null;
@@ -1185,15 +1190,19 @@
     }
   }
 
+  function setRatingBlockOpen(block, open) {
+    const btn = block.querySelector(".rating-stars-toggle");
+    const overlay = block.querySelector(".rating-value-overlay");
+    if (!btn || !overlay) return;
+    block.classList.toggle("rating-block--open", open);
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    overlay.setAttribute("aria-hidden", open ? "false" : "true");
+    if (!open) btn.blur();
+  }
+
   function closeOpenRatingBlocks() {
     gridEl.querySelectorAll(".rating-block--open").forEach((block) => {
-      block.classList.remove("rating-block--open");
-      const b = block.querySelector(".rating-stars-toggle");
-      if (b) {
-        b.setAttribute("aria-expanded", "false");
-        b.blur();
-      }
-      block.querySelector(".rating-value-overlay")?.setAttribute("aria-hidden", "true");
+      setRatingBlockOpen(block, false);
     });
   }
 
@@ -1307,11 +1316,27 @@
     if (!block || !overlay) return;
     const wasOpen = block.classList.contains("rating-block--open");
     if (!wasOpen) closeOpenRatingBlocks();
-    const open = !block.classList.contains("rating-block--open");
-    block.classList.toggle("rating-block--open", open);
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-    overlay.setAttribute("aria-hidden", open ? "false" : "true");
-    if (!open) btn.blur();
+    const open = !wasOpen;
+    setRatingBlockOpen(block, open);
+  });
+
+  gridEl.addEventListener("mouseover", (e) => {
+    if (!ratingHoverDesktopActive()) return;
+    const block = e.target.closest(".rating-block");
+    if (!block || !gridEl.contains(block)) return;
+    const from = e.relatedTarget;
+    if (from && block.contains(from)) return;
+    closeOpenRatingBlocks();
+    setRatingBlockOpen(block, true);
+  });
+
+  gridEl.addEventListener("mouseout", (e) => {
+    if (!ratingHoverDesktopActive()) return;
+    const block = e.target.closest(".rating-block");
+    if (!block || !gridEl.contains(block)) return;
+    const rel = e.relatedTarget;
+    if (rel && block.contains(rel)) return;
+    setRatingBlockOpen(block, false);
   });
 
   gridEl.addEventListener(
@@ -1323,9 +1348,7 @@
       requestAnimationFrame(() => {
         const ae = document.activeElement;
         if (!block.contains(ae)) {
-          block.classList.remove("rating-block--open");
-          e.target.setAttribute("aria-expanded", "false");
-          block.querySelector(".rating-value-overlay")?.setAttribute("aria-hidden", "true");
+          setRatingBlockOpen(block, false);
         }
       });
     },

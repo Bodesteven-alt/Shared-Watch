@@ -864,10 +864,8 @@ def main() -> int:
                         tmdb_p,
                         fetch_tmdb_metadata_via_imdb_id(imdb_id),
                     )
-                    tmdb_p = _merge_title_meta(
-                        tmdb_p,
-                        fetch_tmdb_metadata_via_api(title, yr_row),
-                    )
+                    # Do not merge TMDb title-search here: same title can match a different remake
+                    # (e.g. 2025 vs 1953 "The War of the Worlds") and corrupt year/genres vs imdb_id.
                 still_missing = (
                     (parsed.get("year") is None and tmdb_p.get("year") is None)
                     or (not parsed.get("genres") and not tmdb_p.get("genres"))

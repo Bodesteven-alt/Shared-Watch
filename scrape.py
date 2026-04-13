@@ -130,6 +130,34 @@ IMDB_WATCHLIST_LINK_SELECTORS: tuple[str, ...] = (
     "li.ipc-metadata-list-summary-item a[href*='/title/tt']",
 )
 
+# IMDb CSV "Title Type" values normalized (lowercase, no spaces) for movies-only filtering.
+_IMDB_NON_MOVIE_TITLE_TYPES = frozenset(
+    {
+        "tvseries",
+        "tvminiseries",
+        "tvepisode",
+        "tvspecial",
+        "tvshort",
+        "tvmovie",
+        "tvpilot",
+        "videogame",
+    }
+)
+
+
+def _imdb_csv_title_type_token(raw: str | None) -> str | None:
+    if not raw or not isinstance(raw, str):
+        return None
+    t = re.sub(r"[\s_-]+", "", raw.strip().lower())
+    return t or None
+
+
+def imdb_title_type_is_tv(token: str | None) -> bool:
+    """True when CSV/merged title type is TV (or non-movie) per IMDb export."""
+    if not token:
+        return False
+    return _imdb_csv_title_type_token(token) in _IMDB_NON_MOVIE_TITLE_TYPES
+
 
 def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     titles: list[str] = []
@@ -137,21 +165,37 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     seen: set[str] = set()
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
-        for row in reader:
+        for raw in reader:
+            row = {(k or "").strip(): (v if v is None else str(v).strip()) for k, v in raw.items()}
             title = (row.get("Title") or row.get("title") or "").strip()
-            imdb_id = (row.get("Const") or row.get("const") or "").strip()
+            imdb_id = (row.get("Const") or row.get("const") or row.get("tconst") or "").strip()
+            if not imdb_id:
+                url = (row.get("URL") or row.get("url") or "").strip()
+                m = re.search(r"(tt\d+)", url)
+                if m:
+                    imdb_id = m.group(1)
             if not title:
+                continue
+            raw_ty = (
+                row.get("Title Type")
+                or row.get("title type")
+                or row.get("TitleType")
+                or row.get("Type")
+                or ""
+            )
+            ty_token = _imdb_csv_title_type_token(raw_ty if isinstance(raw_ty, str) else "")
+            if config.IMDB_WATCHLIST_MOVIES_ONLY and ty_token and imdb_title_type_is_tv(ty_token):
                 continue
             norm = normalize_title(title)
             if not norm or norm in seen:
                 continue
             seen.add(norm)
             titles.append(title)
-            items.append({"title": title, "imdb_id": imdb_id or None})
+            items.append({"title": title, "imdb_id": imdb_id or None, "imdb_title_type": ty_token})
     return titles, items
 
 
-def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_rounds: int = 45) -> None:
+def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_rounds: int = 80) -> None:
     """Scroll to bottom repeatedly so lazy-loaded watchlist rows appear."""
     from selenium.webdriver.common.by import By
 
@@ -169,8 +213,6 @@ def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_round
         else:
             stable_rounds = 0
         last_count = count
-        if count >= 180 and stable_rounds >= 2:
-            break
 
 
 def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
@@ -508,14 +550,18 @@ def merge_watchlists(
 
     im_map: dict[str, str] = {}
     im_id_map: dict[str, str | None] = {}
+    im_type_map: dict[str, str | None] = {}
     if imdb_items:
         for item in imdb_items:
             t = (item.get("title") or "").strip()
             imdb_id = item.get("imdb_id")
+            raw_it = item.get("imdb_title_type")
+            ty_tok = _imdb_csv_title_type_token(raw_it) if isinstance(raw_it, str) else None
             n = normalize_title(t)
             if n and n not in im_map:
                 im_map[n] = t
                 im_id_map[n] = imdb_id
+                im_type_map[n] = ty_tok
     else:
         for t in imdb:
             n = normalize_title(t)
@@ -542,8 +588,25 @@ def merge_watchlists(
                 "letterboxd_title": lb_map.get(norm),
                 "imdb_title": im_map.get(norm),
                 "imdb_id": im_id_map.get(norm),
+                "imdb_title_type": im_type_map.get(norm),
             }
         )
+
+    if config.IMDB_WATCHLIST_MOVIES_ONLY:
+        adjusted: list[dict] = []
+        for row in rows:
+            tyt = row.get("imdb_title_type")
+            tv = imdb_title_type_is_tv(tyt if isinstance(tyt, str) else None)
+            if tv and row["imdb"] and not row["letterboxd"]:
+                continue
+            if tv and row["imdb"] and row["letterboxd"]:
+                row = dict(row)
+                row["imdb"] = False
+                row["imdb_title"] = None
+                row["imdb_id"] = None
+                row["imdb_title_type"] = None
+            adjusted.append(row)
+        rows = adjusted
 
     stats = {
         "letterboxd_only": sum(1 for r in rows if r["letterboxd"] and not r["imdb"]),

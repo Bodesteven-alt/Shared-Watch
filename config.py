@@ -49,10 +49,13 @@ SELENIUM_BROWSER = os.environ.get("SELENIUM_BROWSER", "chrome").lower()
 # Default headless so the server can run without a visible window. Set SELENIUM_HEADLESS=0 for a visible browser.
 SELENIUM_HEADLESS = _env_bool("SELENIUM_HEADLESS", True)
 # If True, retry IMDb once with visible browser when headless gets zero titles.
-IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", False)
-# CSV export can lag behind the live watchlist (IMDb regenerates files asynchronously).
-# Live DOM (scoped list rows) is tried first; enable export only as fallback when needed.
-IMDB_USE_EXPORT_FLOW = _env_bool("IMDB_USE_EXPORT_FLOW", False)
+IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", True)
+# When True, IMDb CSV rows with TV types are skipped; merged rows drop IMDb-only TV (see scrape.merge_watchlists).
+IMDB_WATCHLIST_MOVIES_ONLY = _env_bool("IMDB_WATCHLIST_MOVIES_ONLY", True)
+# CSV export can lag slightly behind removals until IMDb regenerates the file.
+# When the live DOM scrape finds no titles (common in headless), try Export → /exports/ CSV next.
+# Public watchlists often work without logging in; private lists need a logged-in browser profile.
+IMDB_USE_EXPORT_FLOW = _env_bool("IMDB_USE_EXPORT_FLOW", True)
 
 # Background refresh: interval in minutes (0 = timer off; manual refresh still works).
 AUTO_REFRESH_MINUTES = int(os.environ.get("AUTO_REFRESH_MINUTES", "360") or "0")

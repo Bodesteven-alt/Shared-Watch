@@ -142,7 +142,8 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
         im_items = previous.get("imdb_items") or [{"title": t, "imdb_id": None} for t in (previous.get("imdb") or [])]
         im = [x.get("title", "") for x in im_items if x.get("title")]
         append(f"[IMDb] Using previous cached IMDb list ({len(im)} titles) because current fetch failed")
-        im_err = None
+        prior = (im_err or "").strip() or "IMDb fetch returned no titles this run."
+        im_err = f"{prior} Showing cached IMDb list ({len(im)} titles); figures may not match the live IMDb watchlist."
     append(f"[Done] IMDb: {len(im)} titles")
 
     rows, stats = scrape.merge_watchlists(lb, im, imdb_items=im_items)
