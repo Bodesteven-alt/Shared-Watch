@@ -48,14 +48,31 @@ IMDB_WATCHLIST_URL = os.environ.get(
 SELENIUM_BROWSER = os.environ.get("SELENIUM_BROWSER", "chrome").lower()
 # Default headless so the server can run without a visible window. Set SELENIUM_HEADLESS=0 for a visible browser.
 SELENIUM_HEADLESS = _env_bool("SELENIUM_HEADLESS", True)
-# If True, retry IMDb once with visible browser when headless gets zero titles.
-IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", True)
+# If True, retry IMDb once with a visible browser when headless gets zero titles (opens a window).
+IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", False)
 # When True, IMDb CSV rows with TV types are skipped; merged rows drop IMDb-only TV (see scrape.merge_watchlists).
 IMDB_WATCHLIST_MOVIES_ONLY = _env_bool("IMDB_WATCHLIST_MOVIES_ONLY", True)
 # CSV export can lag slightly behind removals until IMDb regenerates the file.
 # When the live DOM scrape finds no titles (common in headless), try Export → /exports/ CSV next.
 # Public watchlists often work without logging in; private lists need a logged-in browser profile.
 IMDB_USE_EXPORT_FLOW = _env_bool("IMDB_USE_EXPORT_FLOW", True)
+
+
+def _abs_dir_from_env(name: str) -> str | None:
+    raw = (os.environ.get(name) or "").strip()
+    if not raw:
+        return None
+    return os.path.abspath(os.path.expanduser(os.path.expandvars(raw)))
+
+
+# Persistent Chrome profile for IMDb (cookies/session). Use a dedicated folder, not your main Chrome profile.
+SELENIUM_CHROME_USER_DATA_DIR = _abs_dir_from_env("SELENIUM_CHROME_USER_DATA_DIR")
+# Optional: profile name inside user-data-dir (e.g. Default, Profile 1). Omit when user-data-dir is already a single-profile folder.
+SELENIUM_CHROME_PROFILE_DIRECTORY = (os.environ.get("SELENIUM_CHROME_PROFILE_DIRECTORY") or "").strip() or None
+# Language/locale passed to Chrome (--lang).
+SELENIUM_CHROME_LANG = (os.environ.get("SELENIUM_CHROME_LANG") or "en-US").strip() or "en-US"
+# If set, save imdb_watchlist_debug.html here when scoped scrape finds 0 titles and unscoped is also empty.
+SELENIUM_DEBUG_HTML_DIR = _abs_dir_from_env("SELENIUM_DEBUG_HTML_DIR")
 
 # Background refresh: interval in minutes (0 = timer off; manual refresh still works).
 AUTO_REFRESH_MINUTES = int(os.environ.get("AUTO_REFRESH_MINUTES", "360") or "0")

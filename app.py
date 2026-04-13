@@ -138,12 +138,40 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
 
     im_items, im_err = scrape.get_imdb_items(use_selenium=True, log=append)
     im = [x.get("title", "") for x in im_items if x.get("title")]
+    imdb_cache_reused = False
     if not im and (previous.get("imdb_items") or previous.get("imdb") or []):
+        imdb_cache_reused = True
         im_items = previous.get("imdb_items") or [{"title": t, "imdb_id": None} for t in (previous.get("imdb") or [])]
         im = [x.get("title", "") for x in im_items if x.get("title")]
         append(f"[IMDb] Using previous cached IMDb list ({len(im)} titles) because current fetch failed")
         prior = (im_err or "").strip() or "IMDb fetch returned no titles this run."
         im_err = f"{prior} Showing cached IMDb list ({len(im)} titles); figures may not match the live IMDb watchlist."
+    # #region agent log
+    _dbg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "debug-06e316.log")
+    try:
+        with open(_dbg_path, "a", encoding="utf-8") as f:
+            f.write(
+                json.dumps(
+                    {
+                        "sessionId": "06e316",
+                        "hypothesisId": "E",
+                        "location": "app.py:_run_refresh",
+                        "message": "imdb_fetch_outcome",
+                        "data": {
+                            "imdb_cache_reused": imdb_cache_reused,
+                            "im_err_set": bool(im_err),
+                            "n_imdb_items": len(im_items),
+                            "n_with_title_type": sum(1 for x in im_items if x.get("imdb_title_type")),
+                        },
+                        "timestamp": int(time.time() * 1000),
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
+    except OSError:
+        pass
+    # #endregion
     append(f"[Done] IMDb: {len(im)} titles")
 
     rows, stats = scrape.merge_watchlists(lb, im, imdb_items=im_items)

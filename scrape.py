@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import csv
 import glob
+import json
 import os
 import re
 import tempfile
@@ -14,6 +15,32 @@ import requests
 from bs4 import BeautifulSoup
 
 import config
+
+
+# #region agent log
+def _agent_dbg(hypothesis_id: str, location: str, message: str, data: dict) -> None:
+    p = os.path.join(os.path.dirname(os.path.abspath(__file__)), "debug-06e316.log")
+    try:
+        with open(p, "a", encoding="utf-8") as f:
+            f.write(
+                json.dumps(
+                    {
+                        "sessionId": "06e316",
+                        "hypothesisId": hypothesis_id,
+                        "location": location,
+                        "message": message,
+                        "data": data,
+                        "timestamp": int(time.time() * 1000),
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
+    except OSError:
+        pass
+
+
+# #endregion
 
 HEADERS = {
     "User-Agent": (
@@ -163,8 +190,11 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     titles: list[str] = []
     items: list[dict] = []
     seen: set[str] = set()
+    skipped_tv = 0
+    fieldnames: list[str] | None = None
     with open(path, newline="", encoding="utf-8-sig") as f:
         reader = csv.DictReader(f)
+        fieldnames = list(reader.fieldnames or [])
         for raw in reader:
             row = {(k or "").strip(): (v if v is None else str(v).strip()) for k, v in raw.items()}
             title = (row.get("Title") or row.get("title") or "").strip()
@@ -185,6 +215,7 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
             )
             ty_token = _imdb_csv_title_type_token(raw_ty if isinstance(raw_ty, str) else "")
             if config.IMDB_WATCHLIST_MOVIES_ONLY and ty_token and imdb_title_type_is_tv(ty_token):
+                skipped_tv += 1
                 continue
             norm = normalize_title(title)
             if not norm or norm in seen:
@@ -192,6 +223,19 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
             seen.add(norm)
             titles.append(title)
             items.append({"title": title, "imdb_id": imdb_id or None, "imdb_title_type": ty_token})
+    # #region agent log
+    _agent_dbg(
+        "D",
+        "scrape.py:_parse_imdb_csv",
+        "csv_parse_summary",
+        {
+            "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY,
+            "fieldnames": fieldnames,
+            "out_titles": len(titles),
+            "skipped_tv_rows": skipped_tv,
+        },
+    )
+    # #endregion
     return titles, items
 
 
@@ -293,6 +337,8 @@ def _imdb_try_export_csv(
 
     log("[IMDb] Trying export CSV flow")
     try:
+        driver.execute_script("window.scrollTo(0, 0);")
+        time.sleep(0.5)
         export_button = wait.until(
             ec.element_to_be_clickable(
                 (
@@ -301,7 +347,9 @@ def _imdb_try_export_csv(
                 )
             )
         )
-        export_button.click()
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", export_button)
+        time.sleep(0.35)
+        driver.execute_script("arguments[0].click();", export_button)
         time.sleep(1.5)
         driver.get("https://www.imdb.com/exports/")
 
@@ -331,6 +379,31 @@ def _imdb_try_export_csv(
     return None
 
 
+def _imdb_dump_debug_page(driver, log: Callable[[str], None] | None) -> None:
+    """Write page source when IMDb scrape is empty and SELENIUM_DEBUG_HTML_DIR is set."""
+    out_dir = config.SELENIUM_DEBUG_HTML_DIR
+    if not out_dir:
+        return
+    try:
+        os.makedirs(out_dir, exist_ok=True)
+        path = os.path.join(out_dir, "imdb_watchlist_debug.html")
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(driver.page_source or "")
+        title = ""
+        cur = ""
+        try:
+            title = (driver.title or "")[:200]
+            cur = (driver.current_url or "")[:300]
+        except Exception:
+            pass
+        msg = f"[IMDb] Debug: saved page source to {path} (title={title!r} url={cur!r})"
+        if log:
+            log(msg)
+    except OSError as e:
+        if log:
+            log(f"[IMDb] Debug HTML dump failed: {e}")
+
+
 def _imdb_with_selenium(
     url: str,
     log: Callable[[str], None] | None,
@@ -350,6 +423,9 @@ def _imdb_with_selenium(
         from selenium.webdriver.support import expected_conditions as ec
         from selenium.webdriver.support.ui import WebDriverWait
     except ImportError:
+        # #region agent log
+        _agent_dbg("A", "scrape.py:_imdb_with_selenium", "imdb_source_branch", {"branch": "no_selenium"})
+        # #endregion
         return ImdbResult([], "Install selenium: pip install selenium webdriver-manager")
 
     driver = None
@@ -378,6 +454,16 @@ def _imdb_with_selenium(
             opts.add_argument("--disable-gpu")
             opts.add_argument("--no-sandbox")
             opts.add_argument("--window-size=1280,900")
+            lang = (config.SELENIUM_CHROME_LANG or "en-US").strip()
+            if lang:
+                opts.add_argument(f"--lang={lang}")
+            opts.add_argument("--disable-blink-features=AutomationControlled")
+            opts.add_experimental_option("excludeSwitches", ["enable-automation"])
+            opts.add_experimental_option("useAutomationExtension", False)
+            if config.SELENIUM_CHROME_USER_DATA_DIR:
+                opts.add_argument(f"--user-data-dir={config.SELENIUM_CHROME_USER_DATA_DIR}")
+            if config.SELENIUM_CHROME_PROFILE_DIRECTORY:
+                opts.add_argument(f"--profile-directory={config.SELENIUM_CHROME_PROFILE_DIRECTORY}")
             opts.add_experimental_option(
                 "prefs",
                 {
@@ -404,7 +490,47 @@ def _imdb_with_selenium(
         _imdb_scroll_watchlist_page(driver, _log)
         scoped_titles, scoped_items = _imdb_collect_scoped_watchlist(driver, _log)
         if scoped_titles:
+            _log(f"[IMDb] Found {len(scoped_titles)} titles via scoped watchlist selectors")
+            if config.IMDB_WATCHLIST_MOVIES_ONLY and config.IMDB_USE_EXPORT_FLOW:
+                exported_mo = _imdb_try_export_csv(driver, download_dir, wait, _log)
+                if exported_mo:
+                    t_csv_mo, it_csv_mo = exported_mo
+                    n_ty_csv = sum(1 for it in it_csv_mo if it.get("imdb_title_type"))
+                    if it_csv_mo and n_ty_csv > 0:
+                        _log("[IMDb] Using export CSV for movies-only (Title Type available)")
+                        # #region agent log
+                        _agent_dbg(
+                            "A",
+                            "scrape.py:_imdb_with_selenium",
+                            "imdb_source_branch",
+                            {
+                                "branch": "export_csv",
+                                "n_items": len(it_csv_mo),
+                                "n_with_imdb_title_type": n_ty_csv,
+                                "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY,
+                            },
+                        )
+                        # #endregion
+                        return ImdbResult(t_csv_mo, items=it_csv_mo, error=None)
+                _log(
+                    "[IMDb] movies-only: keeping scoped DOM "
+                    "(export unavailable or CSV had no Title Type column)"
+                )
             _log(f"[IMDb] Using {len(scoped_titles)} titles from live watchlist (scoped)")
+            # #region agent log
+            n_ty = sum(1 for it in scoped_items if it.get("imdb_title_type"))
+            _agent_dbg(
+                "A",
+                "scrape.py:_imdb_with_selenium",
+                "imdb_source_branch",
+                {
+                    "branch": "scoped_dom",
+                    "n_items": len(scoped_items),
+                    "n_with_imdb_title_type": n_ty,
+                    "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY,
+                },
+            )
+            # #endregion
             return ImdbResult(scoped_titles, items=scoped_items, error=None)
 
         # Phase 2: Export CSV (optional). Can lag behind removals until IMDb regenerates the file.
@@ -415,6 +541,20 @@ def _imdb_with_selenium(
             exported = _imdb_try_export_csv(driver, download_dir, wait, _log)
             if exported:
                 t_csv, it_csv = exported
+                # #region agent log
+                n_ty = sum(1 for it in it_csv if it.get("imdb_title_type"))
+                _agent_dbg(
+                    "A",
+                    "scrape.py:_imdb_with_selenium",
+                    "imdb_source_branch",
+                    {
+                        "branch": "export_csv",
+                        "n_items": len(it_csv),
+                        "n_with_imdb_title_type": n_ty,
+                        "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY,
+                    },
+                )
+                # #endregion
                 return ImdbResult(t_csv, items=it_csv, error=None)
 
         # Phase 3: Reload watchlist — export may have left us on /exports/. Unscoped fallback
@@ -425,9 +565,33 @@ def _imdb_with_selenium(
         time.sleep(2)
         _imdb_scroll_watchlist_page(driver, _log)
         raw, raw_items = _imdb_collect_unscoped_page(driver, _log)
+        if not raw:
+            _imdb_dump_debug_page(driver, _log)
+        # #region agent log
+        n_ty = sum(1 for it in raw_items if it.get("imdb_title_type"))
+        _agent_dbg(
+            "A",
+            "scrape.py:_imdb_with_selenium",
+            "imdb_source_branch",
+            {
+                "branch": "unscoped_dom",
+                "n_items": len(raw_items),
+                "n_with_imdb_title_type": n_ty,
+                "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY,
+            },
+        )
+        # #endregion
         return ImdbResult(raw, items=raw_items, error=None)
 
     except Exception as e:
+        # #region agent log
+        _agent_dbg(
+            "A",
+            "scrape.py:_imdb_with_selenium",
+            "imdb_source_branch",
+            {"branch": "selenium_error", "error": str(e)[:200], "movies_only": config.IMDB_WATCHLIST_MOVIES_ONLY},
+        )
+        # #endregion
         return ImdbResult([], f"IMDb Selenium error: {e!s}")
     finally:
         if driver:
@@ -592,6 +756,43 @@ def merge_watchlists(
             }
         )
 
+    # #region agent log
+    def _interest(norm: str, disp: str) -> bool:
+        s = f"{norm} {disp}".lower()
+        return "ahsoka" in s or "borderland" in s
+
+    interest_pre = [
+        {
+            "normalized": r["normalized"],
+            "display": r["display"],
+            "letterboxd": r["letterboxd"],
+            "imdb": r["imdb"],
+            "imdb_id": r.get("imdb_id"),
+            "imdb_title_type": r.get("imdb_title_type"),
+        }
+        for r in rows
+        if _interest(r["normalized"], r["display"])
+    ]
+    imdb_only_no_type = sum(
+        1 for r in rows if r["imdb"] and not r["letterboxd"] and not r.get("imdb_title_type")
+    )
+    n_items_ty = (
+        sum(1 for it in imdb_items if it.get("imdb_title_type")) if imdb_items else 0
+    )
+    _agent_dbg(
+        "B",
+        "scrape.py:merge_watchlists",
+        "pre_movies_only_filter",
+        {
+            "IMDB_WATCHLIST_MOVIES_ONLY": config.IMDB_WATCHLIST_MOVIES_ONLY,
+            "imdb_items_len": len(imdb_items or []),
+            "imdb_items_with_title_type": n_items_ty,
+            "imdb_only_rows_missing_type": imdb_only_no_type,
+            "interest_rows": interest_pre,
+        },
+    )
+    # #endregion
+
     if config.IMDB_WATCHLIST_MOVIES_ONLY:
         adjusted: list[dict] = []
         for row in rows:
@@ -607,6 +808,27 @@ def merge_watchlists(
                 row["imdb_title_type"] = None
             adjusted.append(row)
         rows = adjusted
+
+    # #region agent log
+    interest_post = [
+        {
+            "normalized": r["normalized"],
+            "display": r["display"],
+            "letterboxd": r["letterboxd"],
+            "imdb": r["imdb"],
+            "imdb_id": r.get("imdb_id"),
+            "imdb_title_type": r.get("imdb_title_type"),
+        }
+        for r in rows
+        if _interest(r["normalized"], r["display"])
+    ]
+    _agent_dbg(
+        "B",
+        "scrape.py:merge_watchlists",
+        "post_movies_only_filter",
+        {"interest_rows": interest_post, "total_rows": len(rows)},
+    )
+    # #endregion
 
     stats = {
         "letterboxd_only": sum(1 for r in rows if r["letterboxd"] and not r["imdb"]),
