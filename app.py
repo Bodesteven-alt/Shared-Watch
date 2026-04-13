@@ -172,6 +172,7 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
     except OSError:
         pass
     # #endregion
+    scrape.backfill_imdb_title_types_from_omdb(im_items, log=append)
     append(f"[Done] IMDb: {len(im)} titles")
 
     rows, stats = scrape.merge_watchlists(lb, im, imdb_items=im_items)

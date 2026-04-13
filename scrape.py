@@ -667,6 +667,77 @@ def get_imdb_titles(
     return get_imdb_titles_requests(url)
 
 
+def _omdb_imdb_id_to_title_type_label(imdb_id: str) -> str | None:
+    """Map OMDb Type to a label that tokenizes like IMDb CSV Title Type (see imdb_title_type_is_tv)."""
+    if not config.OMDB_API_KEY or not imdb_id or not str(imdb_id).strip().startswith("tt"):
+        return None
+    try:
+        r = requests.get(
+            "https://www.omdbapi.com/",
+            params={"apikey": config.OMDB_API_KEY, "i": imdb_id.strip()},
+            timeout=12,
+        )
+    except requests.RequestException:
+        return None
+    if r.status_code != 200:
+        return None
+    try:
+        data = r.json()
+    except ValueError:
+        return None
+    if data.get("Response") != "True":
+        return None
+    t = (data.get("Type") or "").strip().lower()
+    if t == "movie":
+        return "movie"
+    if t == "series":
+        return "TV Series"
+    if t == "episode":
+        return "TV Episode"
+    if t == "game":
+        return "Video Game"
+    return None
+
+
+def backfill_imdb_title_types_from_omdb(
+    imdb_items: list[dict],
+    log: Callable[[str], None] | None = None,
+) -> None:
+    """
+    When IMDB_WATCHLIST_MOVIES_ONLY is on, DOM-scraped items often have tt ids but no Title Type.
+    OMDb (free key) fills imdb_title_type so merge_watchlists can drop IMDb-only TV.
+    """
+    if not config.IMDB_WATCHLIST_MOVIES_ONLY or not config.OMDB_API_KEY:
+        return
+    cache: dict[str, str | None] = {}
+    filled = 0
+    for item in imdb_items:
+        iid = item.get("imdb_id")
+        if not iid or not isinstance(iid, str):
+            continue
+        iid = iid.strip()
+        if not iid.startswith("tt"):
+            continue
+        if item.get("imdb_title_type"):
+            continue
+        if iid not in cache:
+            cache[iid] = _omdb_imdb_id_to_title_type_label(iid)
+        label = cache[iid]
+        if label:
+            item["imdb_title_type"] = label
+            filled += 1
+    if log and cache:
+        log(
+            f"[IMDb] OMDb Title Type backfill: {len(cache)} tt id(s) looked up, "
+            f"{filled} item(s) labeled (movies-only)"
+        )
+        if filled == 0:
+            log(
+                "[IMDb] OMDb returned no Title Types (often invalid/expired API key); "
+                "TV rows cannot be filtered without types. Check OMDB_API_KEY at omdbapi.com."
+            )
+
+
 def get_imdb_items(
     url: str | None = None,
     use_selenium: bool = True,

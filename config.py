@@ -167,8 +167,13 @@ TMDB_IMAGE_BASE = os.environ.get("TMDB_IMAGE_BASE", "https://image.tmdb.org/t/p/
 SITE_GITHUB_URL = (os.environ.get("SITE_GITHUB_URL") or "").strip()
 
 
+def _clean_omdb_key(value: str) -> str:
+    """Strip whitespace and UTF-8 BOM (Notepad / .env)."""
+    return (value or "").strip().lstrip("\ufeff")
+
+
 def _load_omdb_api_key() -> str:
-    k = os.environ.get("OMDB_API_KEY", "").strip()
+    k = _clean_omdb_key(os.environ.get("OMDB_API_KEY", ""))
     if k:
         return k
     key_path = os.path.join(_data_dir, "omdb_api_key.txt")
@@ -176,7 +181,7 @@ def _load_omdb_api_key() -> str:
         try:
             with open(key_path, encoding="utf-8") as f:
                 for line in f:
-                    line = line.strip()
+                    line = _clean_omdb_key(line)
                     if line and not line.startswith("#"):
                         return line
         except OSError:
@@ -184,6 +189,7 @@ def _load_omdb_api_key() -> str:
     return ""
 
 
+# Used by posters and, when set, OMDb backfills IMDb Title Type for DOM-scraped tt ids (movies-only TV filter).
 OMDB_API_KEY = _load_omdb_api_key()
 # Enough for full watchlist in one refresh (Letterboxd-only rows retry after cache misses).
 POSTER_MAX_NETWORK_LOOKUPS = int(os.environ.get("POSTER_MAX_NETWORK_LOOKUPS", "400") or "400")
