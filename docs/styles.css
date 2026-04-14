@@ -401,3 +401,54 @@
   outline-offset: 3px;
   border-radius: 4px;
 }
+
+/* Infinite scroll sentinel (spans full grid width) */
+.grid-load-sentinel {
+  grid-column: 1 / -1;
+  min-height: 1px;
+  pointer-events: none;
+}
+
+/* Back to top: clearer layout + keyboard focus */
+main#mainContent:focus {
+  outline: none;
+}
+main#mainContent:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.scroll-top-btn {
+  width: auto;
+  min-width: 48px;
+  height: auto;
+  min-height: 44px;
+  padding: 0.42rem 0.85rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.28rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+}
+.scroll-top-btn__icon {
+  font-size: 1.05rem;
+  line-height: 1;
+}
+.scroll-top-btn__text {
+  letter-spacing: 0.02em;
+}
+.scroll-top-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+.scroll-top-btn:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 4px;
+  box-shadow:
+    0 0 0 2px rgba(26, 10, 46, 0.98),
+    0 0 0 6px rgba(1, 205, 254, 0.35);
+}

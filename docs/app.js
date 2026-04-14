@@ -20,6 +20,20 @@
   const servicesSheetBackdrop = document.getElementById("servicesSheetBackdrop");
   const ratingSheetBackdrop = document.getElementById("ratingSheetBackdrop");
   const scrollTopBtn = document.getElementById("scrollTopBtn");
+  const mainContentEl = document.getElementById("mainContent");
+
+  const GRID_BATCH_SIZE = 24;
+  let gridRowsBuffer = [];
+  let gridDisplayedCount = 0;
+  let gridRenderGeneration = 0;
+  let gridLoadObserver = null;
+
+  function teardownGridLoadObserver() {
+    if (gridLoadObserver) {
+      gridLoadObserver.disconnect();
+      gridLoadObserver = null;
+    }
+  }
 
   const sortTitleBtn = document.getElementById("sortTitleBtn");
   const sortYearBtn = document.getElementById("sortYearBtn");
@@ -83,6 +97,10 @@
 
   function failLoad(message) {
     clearLoadingState();
+    gridRenderGeneration += 1;
+    teardownGridLoadObserver();
+    gridRowsBuffer = [];
+    gridDisplayedCount = 0;
     gridEl.innerHTML = "";
     if (footerUpdatedLine) footerUpdatedLine.textContent = message;
   }
@@ -1276,6 +1294,103 @@
     });
   }
 
+  function cardHtmlForMovie(m, i) {
+    const ratingHtml = ratingBlockHtml(m);
+    const watchHtml = watchBlockHtml(m, `watch-card-${i}`);
+    const ratingRowHtml =
+      ratingHtml || watchHtml ? `<div class="card-rating-row">${ratingHtml}${watchHtml}</div>` : "";
+    const srcKey = String(m.source || "")
+      .trim()
+      .toLowerCase();
+    const srcCard =
+      srcKey === "letterboxd"
+        ? "card--src-letterboxd"
+        : srcKey === "both"
+          ? "card--src-both"
+          : srcKey === "imdb"
+            ? "card--src-imdb"
+            : "";
+    return `
+      <article class="card ${srcCard}">
+        <div class="poster">
+          ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
+        </div>
+        <div class="movie-content">
+          <div class="movie-main">
+            <div class="title">${escapeHtmlText(m.title || "")}</div>
+            ${cardMetaLineHtml(m)}
+            ${ratingRowHtml}
+          </div>
+        </div>
+      </article>
+    `;
+  }
+
+  function finishGridLoading(gen) {
+    if (gen !== gridRenderGeneration) return;
+    teardownGridLoadObserver();
+    const sentinel = document.getElementById("gridLoadSentinel");
+    if (sentinel) sentinel.remove();
+  }
+
+  function loadMoreGridRows(gen) {
+    if (gen !== gridRenderGeneration) return;
+    const rows = gridRowsBuffer;
+    const start = gridDisplayedCount;
+    if (start >= rows.length) {
+      finishGridLoading(gen);
+      return;
+    }
+    const end = Math.min(start + GRID_BATCH_SIZE, rows.length);
+    const html = rows.slice(start, end).map((m, idx) => cardHtmlForMovie(m, start + idx)).join("");
+    const sentinel = document.getElementById("gridLoadSentinel");
+    if (!sentinel || gen !== gridRenderGeneration) return;
+    sentinel.insertAdjacentHTML("beforebegin", html);
+    gridDisplayedCount = end;
+    requestAnimationFrame(() => {
+      if (gen !== gridRenderGeneration) return;
+      syncGenreOverflow();
+      requestAnimationFrame(() => {
+        if (gen !== gridRenderGeneration) return;
+        syncGenreOverflow();
+        updateScrollTopBtn();
+      });
+    });
+    if (gridDisplayedCount >= rows.length) {
+      finishGridLoading(gen);
+    }
+  }
+
+  function setupGridLoadObserver(gen) {
+    teardownGridLoadObserver();
+    if (gen !== gridRenderGeneration) return;
+    if (gridDisplayedCount >= gridRowsBuffer.length) return;
+    const sentinel = document.getElementById("gridLoadSentinel");
+    if (!sentinel) return;
+    gridLoadObserver = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        if (gen !== gridRenderGeneration) return;
+        loadMoreGridRows(gen);
+      },
+      { root: null, rootMargin: "0px 0px 400px 0px", threshold: 0 },
+    );
+    gridLoadObserver.observe(sentinel);
+  }
+
+  function runAfterGridPaint(gen, setupObserver) {
+    requestAnimationFrame(() => {
+      if (gen !== gridRenderGeneration) return;
+      syncGenreOverflow();
+      requestAnimationFrame(() => {
+        if (gen !== gridRenderGeneration) return;
+        syncGenreOverflow();
+        updateScrollTopBtn();
+        if (setupObserver) setupGridLoadObserver(gen);
+      });
+    });
+  }
+
   let renderDebounceTimer = 0;
   const RENDER_DEBOUNCE_MS = 32;
   function scheduleRender() {
@@ -1290,6 +1405,8 @@
 
   function render() {
     closeGenreMorePopover();
+    gridRenderGeneration += 1;
+    const gen = gridRenderGeneration;
 
     const filtered = getPreSortFilteredRows();
     updateSourceCountUi(filtered);
@@ -1298,6 +1415,9 @@
 
     if (!rows.length) {
       flushWatchPortalBeforeRender();
+      teardownGridLoadObserver();
+      gridRowsBuffer = [];
+      gridDisplayedCount = 0;
       gridEl.innerHTML = "";
       emptyEl.classList.remove("hidden");
       syncUrl();
@@ -1306,47 +1426,17 @@
     }
     emptyEl.classList.add("hidden");
     flushWatchPortalBeforeRender();
-    gridEl.innerHTML = rows
-      .map((m, i) => {
-        const ratingHtml = ratingBlockHtml(m);
-        const watchHtml = watchBlockHtml(m, `watch-card-${i}`);
-        const ratingRowHtml =
-          ratingHtml || watchHtml
-            ? `<div class="card-rating-row">${ratingHtml}${watchHtml}</div>`
-            : "";
-        const srcKey = String(m.source || "")
-          .trim()
-          .toLowerCase();
-        const srcCard =
-          srcKey === "letterboxd"
-            ? "card--src-letterboxd"
-            : srcKey === "both"
-              ? "card--src-both"
-              : srcKey === "imdb"
-                ? "card--src-imdb"
-                : "";
-        return `
-      <article class="card ${srcCard}">
-        <div class="poster">
-          ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
-        </div>
-        <div class="movie-content">
-          <div class="movie-main">
-            <div class="title">${escapeHtmlText(m.title || "")}</div>
-            ${cardMetaLineHtml(m)}
-            ${ratingRowHtml}
-          </div>
-        </div>
-      </article>
-    `;
-      })
-      .join("");
+    teardownGridLoadObserver();
+    gridRowsBuffer = rows;
+    const firstEnd = Math.min(GRID_BATCH_SIZE, rows.length);
+    gridDisplayedCount = firstEnd;
+    const firstHtml = rows.slice(0, firstEnd).map((m, i) => cardHtmlForMovie(m, i)).join("");
+    const needsMore = firstEnd < rows.length;
+    gridEl.innerHTML = needsMore
+      ? `${firstHtml}<div class="grid-load-sentinel" id="gridLoadSentinel" aria-hidden="true"></div>`
+      : firstHtml;
     syncUrl();
-    requestAnimationFrame(() => {
-      syncGenreOverflow();
-      requestAnimationFrame(syncGenreOverflow);
-      updateScrollTopBtn();
-    });
+    runAfterGridPaint(gen, needsMore);
   }
 
   if (typeof ResizeObserver !== "undefined") {
@@ -1567,7 +1657,9 @@
     const doc = document.documentElement;
     const sh = doc.scrollHeight - window.innerHeight;
     const threshold = sh > 200 ? Math.min(420, sh * 0.2) : 400;
-    scrollTopBtn.classList.toggle("scroll-top-btn--visible", window.scrollY > threshold);
+    const visible = window.scrollY > threshold;
+    scrollTopBtn.classList.toggle("scroll-top-btn--visible", visible);
+    scrollTopBtn.tabIndex = visible ? 0 : -1;
   }
   if (scrollTopBtn) {
     window.addEventListener("scroll", updateScrollTopBtn, { passive: true });
@@ -1575,6 +1667,16 @@
     scrollTopBtn.addEventListener("click", () => {
       const instant = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       window.scrollTo({ top: 0, behavior: instant ? "auto" : "smooth" });
+      const focusMain = () => {
+        if (mainContentEl && typeof mainContentEl.focus === "function") {
+          mainContentEl.focus({ preventScroll: true });
+        }
+      };
+      if (instant) {
+        focusMain();
+      } else {
+        window.setTimeout(focusMain, 450);
+      }
     });
     updateScrollTopBtn();
   }

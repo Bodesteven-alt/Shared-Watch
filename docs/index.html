@@ -9,10 +9,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=73">
+  <link rel="stylesheet" href="./styles.css?v=74">
 </head>
 <body>
-  <main class="wrap">
+  <main class="wrap" id="mainContent" tabindex="-1">
     <header class="top">
       <div class="top-cluster">
         <h1 class="top-title top-title__gradient">Our Watch List</h1>
@@ -142,7 +142,10 @@
   <div id="genreSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="servicesSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="ratingSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
-  <button type="button" id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top">↑</button>
+  <button type="button" id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top" tabindex="-1">
+    <span class="scroll-top-btn__icon" aria-hidden="true">↑</span>
+    <span class="scroll-top-btn__text">Top</span>
+  </button>
 
   <div id="watchBackdrop" class="watch-backdrop" hidden aria-hidden="true"></div>
   <div id="watchPanelHost" class="watch-panel-host" hidden aria-hidden="true"></div>
@@ -189,6 +192,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=64"></script>
+  <script src="./app.js?v=65"></script>
 </body>
 </html>
