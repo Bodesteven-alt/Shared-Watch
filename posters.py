@@ -234,11 +234,9 @@ def _fetch_tmdb_poster(title: str, year_hint: int | None = None) -> str | None:
     return _pick_poster(results)
 
 
-def _fetch_tmdb_web_poster(title: str) -> str | None:
-    """
-    No-key: TMDB search → first real movie link → detail page → JSON-LD / poster img.
-    """
-    q = (title or "").strip()
+def _fetch_tmdb_web_poster_for_query(q: str) -> str | None:
+    """TMDB search → first real movie link → detail page → JSON-LD / poster img."""
+    q = (q or "").strip()
     if not q:
         return None
     try:
@@ -267,6 +265,21 @@ def _fetch_tmdb_web_poster(title: str) -> str | None:
     if page.status_code != 200:
         return None
     return _poster_from_tmdb_movie_page_html(page.text)
+
+
+def _fetch_tmdb_web_poster(title: str, year_hint: int | None = None) -> str | None:
+    """
+    No-key: TMDB search → detail page poster. When year_hint is set, search
+    "Title YYYY" first so short titles like "Tron" do not land on a newer sequel.
+    """
+    t = (title or "").strip()
+    if not t:
+        return None
+    if year_hint is not None:
+        yfirst = _fetch_tmdb_web_poster_for_query(f"{t} {year_hint}")
+        if yfirst:
+            return yfirst
+    return _fetch_tmdb_web_poster_for_query(t)
 
 
 def _normalize_lb_image_url(url: str) -> str:
@@ -374,11 +387,10 @@ def enrich_rows_with_posters(
     Sources in order:
       1) Letterboxd watchlist scrape (no key)
       2) Disk cache (posters.json)
-      3) IMDb title-page og:image by imdb_id (suggestion if missing)
-      4) TMDB find by imdb_id (API key)
-      5) OMDb Poster (API key; imdb_id or title)
-      6) TMDB movie page scrape by title (no key)
-      7) TMDB search/movie API (API key)
+      3) TMDB find by imdb_id (API key), then IMDb og:image (IMDb og can show franchise promos)
+      4) OMDb Poster (API key; imdb_id or title)
+      5) TMDB movie page scrape by title (no key; year-qualified query when year hint exists)
+      6) TMDB search/movie API (API key)
     """
     if not rows:
         return rows, {}
@@ -444,17 +456,17 @@ def enrich_rows_with_posters(
         if imdb_id and not row.get("imdb_id"):
             row["imdb_id"] = imdb_id
         if imdb_id:
-            poster = _fetch_imdb_poster_by_id(imdb_id)
-            if poster:
-                source = "imdb"
-            else:
-                # Small pacing to reduce temporary blocks.
-                time.sleep(0.12)
-
-        if not poster and imdb_id:
-            poster = _fetch_tmdb_poster_by_imdb_find(imdb_id)
-            if poster:
-                source = "tmdb"
+            if config.TMDB_API_CONFIGURED:
+                poster = _fetch_tmdb_poster_by_imdb_find(imdb_id)
+                if poster:
+                    source = "tmdb"
+            if not poster:
+                poster = _fetch_imdb_poster_by_id(imdb_id)
+                if poster:
+                    source = "imdb"
+                else:
+                    # Small pacing to reduce temporary blocks.
+                    time.sleep(0.12)
 
         if not poster:
             poster = _fetch_omdb_poster(imdb_id or None, title)
@@ -462,7 +474,7 @@ def enrich_rows_with_posters(
                 source = "omdb"
 
         if not poster:
-            poster = _fetch_tmdb_web_poster(title)
+            poster = _fetch_tmdb_web_poster(title, year_hint)
             if poster:
                 source = "tmdb_web"
 

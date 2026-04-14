@@ -299,13 +299,11 @@ def _meta_from_imdb_jsonld_node(node: dict) -> dict:
                 out["rating_imdb_10"] = float(rv)
         except (TypeError, ValueError):
             pass
-        for rc_key in ("ratingCount", "reviewCount"):
-            rc = rating_obj.get(rc_key)
-            if rc is not None:
-                n = _parse_int_loose(rc)
-                if n is not None:
-                    out["rating_count_imdb"] = n
-                    break
+        rc = rating_obj.get("ratingCount")
+        if rc is not None:
+            n = _parse_int_loose(rc)
+            if n is not None:
+                out["rating_count_imdb"] = n
     return out
 
 
@@ -412,6 +410,7 @@ def _letterboxd_stats_from_film_html(html: str) -> dict:
         txt = (script.string or "").strip()
         if not txt:
             continue
+        txt = txt.replace("/* <![CDATA[ */", "").replace("/* ]]> */", "").strip()
         try:
             obj = json.loads(txt)
         except ValueError:
@@ -439,27 +438,50 @@ def _letterboxd_stats_from_film_html(html: str) -> dict:
                 out["rating_letterboxd_5"] = min(5.0, max(0.0, r5))
         except (TypeError, ValueError):
             pass
-        for rc_key in ("ratingCount", "reviewCount"):
-            rc = ar.get(rc_key)
-            if rc is not None:
-                n = _parse_int_loose(rc)
-                if n is not None:
-                    out["rating_count_letterboxd"] = n
-                    break
+        rc = ar.get("ratingCount")
+        if rc is not None:
+            n = _parse_int_loose(rc)
+            if n is not None:
+                out["rating_count_letterboxd"] = n
         if out["rating_letterboxd_5"] is not None or out["rating_count_letterboxd"] is not None:
             break
     return out
 
 
+def _letterboxd_slug_guess(title: str) -> str:
+    raw = (title or "").strip().lower()
+    if not raw:
+        return ""
+    s = re.sub(r"[^a-z0-9]+", "-", raw)
+    return re.sub(r"-+", "-", s).strip("-")
+
+
 def fetch_letterboxd_film_stats(title: str, year: int | None = None) -> dict:
     """
     Best-effort Letterboxd community average (0–5) and rating count from film pages
-    (search → try several /film/…/ hits → JSON-LD aggregateRating).
+    (direct /film/{slug}/ when possible → search → try several /film/…/ hits → JSON-LD).
     """
     out = {"rating_letterboxd_5": None, "rating_count_letterboxd": None}
     t = (title or "").strip()
     if not t:
         return out
+    # Letterboxd often returns HTTP 403 on /search/ for scripted clients; /film/{slug}/ still works.
+    slug_guess = _letterboxd_slug_guess(t)
+    if slug_guess:
+        try:
+            fr = requests.get(
+                f"https://letterboxd.com/film/{slug_guess}/",
+                headers=HEADERS,
+                timeout=15,
+            )
+            if fr.status_code == 200:
+                st = _letterboxd_stats_from_film_html(fr.text)
+                if st["rating_letterboxd_5"] is not None:
+                    return st
+                if st["rating_count_letterboxd"] is not None:
+                    out["rating_count_letterboxd"] = st["rating_count_letterboxd"]
+        except requests.RequestException:
+            pass
     enc = quote(t, safe="")
     try:
         r = requests.get(f"https://letterboxd.com/search/{enc}/", headers=HEADERS, timeout=15)
@@ -689,13 +711,7 @@ def fetch_tmdb_metadata_by_title(title: str) -> dict:
                     out["rating_imdb_10"] = val
             except (TypeError, ValueError):
                 pass
-            for rc_key in ("ratingCount", "reviewCount"):
-                rc = rating_obj.get(rc_key)
-                if rc is not None:
-                    n = _parse_int_loose(rc)
-                    if n is not None:
-                        out["rating_count_imdb"] = n
-                        break
+            # TMDB JSON-LD counts are TMDb user votes, not IMDb — do not store as rating_count_imdb.
         return out
     return out
 
@@ -724,12 +740,8 @@ def _tmdb_movie_detail_to_meta(detail: dict | None) -> dict:
                 out["rating_imdb_10"] = v
         except (TypeError, ValueError):
             pass
-    vc = detail.get("vote_count")
-    if vc is not None:
-        try:
-            out["rating_count_imdb"] = int(vc)
-        except (TypeError, ValueError):
-            pass
+    # Do not map TMDb vote_count into rating_count_imdb — it is not IMDb vote totals and
+    # breaks the UI when compared to imdb.com (see _tmdb_movie_detail_to_meta).
     return out
 
 
@@ -788,6 +800,20 @@ def main() -> int:
     cache = load_json(source_path, {})
     meta_cache_path = Path(os.environ.get("WATCHLIST_METADATA_CACHE", str(DEFAULT_METADATA_CACHE)))
     meta_cache = load_json(meta_cache_path, {})
+    _META_RATING_COUNT_SCHEMA = 1
+    if meta_cache.get("_rating_count_schema") != _META_RATING_COUNT_SCHEMA:
+        meta_cache["_rating_count_schema"] = _META_RATING_COUNT_SCHEMA
+        cleared = 0
+        for mk, mv in list(meta_cache.items()):
+            if mk.startswith("_") or not isinstance(mv, dict):
+                continue
+            if mv.pop("rating_count_imdb", None) is not None:
+                cleared += 1
+        if cleared:
+            print(
+                f"Cleared stored IMDb vote totals from metadata cache ({cleared} rows); "
+                "they will be re-fetched (OMDb / IMDb HTML) without TMDb vote_count pollution."
+            )
     id_overrides = title_hints.load_imdb_id_overrides(config.IMDB_ID_OVERRIDES_PATH)
 
     rows = cache.get("rows") or []
