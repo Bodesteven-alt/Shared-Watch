@@ -62,6 +62,58 @@
       </section>
 
       <section class="sortbar">
+        <div class="sort-mobile-wrap">
+          <button
+            id="sortMobileBtn"
+            type="button"
+            class="sortbtn sort-mobile-btn"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            aria-controls="sortPopup"
+          >
+            Sort
+          </button>
+          <div id="sortPopup" class="sort-popup hidden" role="dialog" aria-labelledby="sortPopupHeading" aria-modal="true">
+            <p id="sortPopupHeading" class="sort-popup__heading">Sort by</p>
+            <div class="sort-popup__body" role="radiogroup" aria-label="Sort mode">
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="title-asc" />
+                <span>Name (A-Z)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="title-desc" />
+                <span>Name (Z-A)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="year-desc" />
+                <span>Year (Newest)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="year-asc" />
+                <span>Year (Oldest)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="rating-desc" />
+                <span>Rating (Highest)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="rating-asc" />
+                <span>Rating (Lowest)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="popular-desc" />
+                <span>Popular (Most votes)</span>
+              </label>
+              <label class="sort-popup-option">
+                <input type="radio" name="sortMode" value="popular-asc" />
+                <span>Popular (Fewest votes)</span>
+              </label>
+            </div>
+            <div class="sort-popup__footer">
+              <button type="button" class="sort-popup__done" data-sort-action="done">Done</button>
+            </div>
+          </div>
+        </div>
         <div class="rating-sort-wrap">
           <button id="sortRatingBtn" type="button" class="sortbtn rating-sort-wrap__main">
             Rating
@@ -145,6 +197,7 @@
   <div id="genreSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="servicesSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="ratingSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
+  <div id="sortSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <button type="button" id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top" tabindex="-1">
     <span class="scroll-top-btn__icon" aria-hidden="true">↑</span>
     <span class="scroll-top-btn__text">Top</span>

@@ -19,6 +19,7 @@
   const genreSheetBackdrop = document.getElementById("genreSheetBackdrop");
   const servicesSheetBackdrop = document.getElementById("servicesSheetBackdrop");
   const ratingSheetBackdrop = document.getElementById("ratingSheetBackdrop");
+  const sortSheetBackdrop = document.getElementById("sortSheetBackdrop");
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   const mainContentEl = document.getElementById("mainContent");
 
@@ -44,6 +45,8 @@
   const sortYearDown = document.getElementById("sortYearDown");
   const sortRatingUp = document.getElementById("sortRatingUp");
   const sortRatingDown = document.getElementById("sortRatingDown");
+  const sortMobileBtn = document.getElementById("sortMobileBtn");
+  const sortPopup = document.getElementById("sortPopup");
   const ratingModeBtn = document.getElementById("ratingModeBtn");
   const ratingModePopup = document.getElementById("ratingModePopup");
 
@@ -334,6 +337,104 @@
     }
     if (!open && focusBtn) {
       ratingModeBtn.focus({ preventScroll: true });
+    }
+  }
+
+  function getSortModeValue() {
+    if (sortField === "title") return sortDir === "asc" ? "title-asc" : "title-desc";
+    if (sortField === "year") return sortDir === "desc" ? "year-desc" : "year-asc";
+    if (sortField === "rating" && ratingSortMode === "votes") {
+      return sortDir === "desc" ? "popular-desc" : "popular-asc";
+    }
+    if (sortField === "rating") return sortDir === "desc" ? "rating-desc" : "rating-asc";
+    return "title-asc";
+  }
+
+  function applySortModeValue(mode) {
+    if (mode === "title-asc" || mode === "title-desc") {
+      sortField = "title";
+      sortDir = mode === "title-asc" ? "asc" : "desc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (mode === "year-desc" || mode === "year-asc") {
+      sortField = "year";
+      sortDir = mode === "year-desc" ? "desc" : "asc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (mode === "rating-desc" || mode === "rating-asc") {
+      sortField = "rating";
+      sortDir = mode === "rating-desc" ? "desc" : "asc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (mode === "popular-desc" || mode === "popular-asc") {
+      sortField = "rating";
+      sortDir = mode === "popular-desc" ? "desc" : "asc";
+      ratingSortMode = "votes";
+      return;
+    }
+  }
+
+  function getSortMobileLabel() {
+    const mode = getSortModeValue();
+    switch (mode) {
+      case "title-asc":
+        return "Sort: Name A-Z";
+      case "title-desc":
+        return "Sort: Name Z-A";
+      case "year-desc":
+        return "Sort: Newest";
+      case "year-asc":
+        return "Sort: Oldest";
+      case "rating-desc":
+        return "Sort: Highest";
+      case "rating-asc":
+        return "Sort: Lowest";
+      case "popular-desc":
+        return "Sort: Popular";
+      case "popular-asc":
+        return "Sort: Unpopular";
+      default:
+        return "Sort";
+    }
+  }
+
+  function syncSortPopupRadios() {
+    if (!sortPopup) return;
+    const current = getSortModeValue();
+    sortPopup.querySelectorAll('input[name="sortMode"]').forEach((inp) => {
+      inp.checked = inp.value === current;
+    });
+  }
+
+  function isSortOpen() {
+    return !!(sortPopup && !sortPopup.classList.contains("hidden"));
+  }
+
+  function setSortOpen(open, opts) {
+    if (!sortPopup || !sortMobileBtn) return;
+    const focusFirst = opts && opts.focusFirst;
+    const focusBtn = opts && opts.focusButtonOnClose;
+    const mobile = genreTruncateMq.matches;
+    sortPopup.classList.toggle("sort-popup--mobile", !!(open && mobile));
+    sortPopup.classList.toggle("hidden", !open);
+    sortMobileBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (sortSheetBackdrop) {
+      const showBackdrop = !!(open && mobile);
+      sortSheetBackdrop.classList.toggle("hidden", !showBackdrop);
+      sortSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
+    }
+    if (open) {
+      syncSortPopupRadios();
+      if (focusFirst) {
+        const first = sortPopup.querySelector('input[name="sortMode"]');
+        if (first) requestAnimationFrame(() => first.focus());
+      }
+    }
+    if (!open && focusBtn) {
+      sortMobileBtn.focus({ preventScroll: true });
     }
   }
 
@@ -781,6 +882,12 @@
     }
 
     syncRatingModeRadios();
+    syncSortPopupRadios();
+
+    if (sortMobileBtn) {
+      sortMobileBtn.textContent = getSortMobileLabel();
+      sortMobileBtn.classList.toggle("active", true);
+    }
 
     genreBtn.textContent = formatGenreButtonLabel(selectedGenre);
     genreBtn.title = selectedGenre === "all" ? "Filter by genre" : selectedGenre;
@@ -1529,6 +1636,7 @@
 
   genreBtn.addEventListener("click", (e) => {
     e.stopPropagation();
+    if (isSortOpen()) setSortOpen(false, {});
     if (isRatingModeOpen()) setRatingModeOpen(false, {});
     const next = !isGenreOpen();
     setGenreOpen(next, { focusFilter: next });
@@ -1578,6 +1686,7 @@
   if (servicesBtn && servicesPopup) {
     servicesBtn.addEventListener("click", (e) => {
       e.stopPropagation();
+      if (isSortOpen()) setSortOpen(false, {});
       if (isRatingModeOpen()) setRatingModeOpen(false, {});
       const next = !isServicesOpen();
       setServicesOpen(next, {});
@@ -1623,6 +1732,9 @@
   if (ratingSheetBackdrop) {
     ratingSheetBackdrop.addEventListener("click", () => setRatingModeOpen(false, { focusButtonOnClose: true }));
   }
+  if (sortSheetBackdrop) {
+    sortSheetBackdrop.addEventListener("click", () => setSortOpen(false, { focusButtonOnClose: true }));
+  }
 
   if (ratingModeBtn && ratingModePopup) {
     ratingModeBtn.addEventListener("click", (e) => {
@@ -1647,6 +1759,37 @@
       const inp = e.target;
       if (!(inp instanceof HTMLInputElement) || inp.name !== "ratingMode") return;
       ratingSortMode = inp.value === "votes" ? "votes" : "avg";
+      updateSortUi();
+      scheduleRender();
+    });
+  }
+
+  if (sortMobileBtn && sortPopup) {
+    sortMobileBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (isGenreOpen()) setGenreOpen(false, {});
+      if (isServicesOpen()) setServicesOpen(false, {});
+      if (isRatingModeOpen()) setRatingModeOpen(false, {});
+      const next = !isSortOpen();
+      setSortOpen(next, { focusFirst: next });
+    });
+    sortMobileBtn.addEventListener("keydown", (e) => {
+      if (e.key === " " || e.key === "Enter") {
+        e.preventDefault();
+        const next = !isSortOpen();
+        setSortOpen(next, { focusFirst: next });
+      }
+    });
+    sortPopup.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (e.target.closest("[data-sort-action='done']")) {
+        setSortOpen(false, { focusButtonOnClose: true });
+      }
+    });
+    sortPopup.addEventListener("change", (e) => {
+      const inp = e.target;
+      if (!(inp instanceof HTMLInputElement) || inp.name !== "sortMode") return;
+      applySortModeValue(inp.value);
       updateSortUi();
       scheduleRender();
     });
@@ -1775,6 +1918,16 @@
     ) {
       setRatingModeOpen(false, {});
     }
+    if (
+      sortPopup &&
+      sortMobileBtn &&
+      isSortOpen() &&
+      !sortPopup.contains(e.target) &&
+      e.target !== sortMobileBtn &&
+      !sortMobileBtn.contains(e.target)
+    ) {
+      setSortOpen(false, {});
+    }
     if (genreMorePopover && !genreMorePopover.classList.contains("hidden")) {
       if (!genreMorePopover.contains(e.target) && !e.target.closest(".genre-more-link")) {
         closeGenreMorePopover();
@@ -1805,6 +1958,11 @@
       setRatingModeOpen(false, { focusButtonOnClose: true });
       return;
     }
+    if (isSortOpen()) {
+      e.preventDefault();
+      setSortOpen(false, { focusButtonOnClose: true });
+      return;
+    }
     if (isServicesOpen()) {
       e.preventDefault();
       setServicesOpen(false, { focusButtonOnClose: true });
@@ -1817,6 +1975,7 @@
   });
 
   sortTitleBtn.addEventListener("click", () => {
+    if (isSortOpen()) setSortOpen(false, {});
     if (isRatingModeOpen()) setRatingModeOpen(false, {});
     if (sortField === "title") sortDir = sortDir === "asc" ? "desc" : "asc";
     else {
@@ -1827,6 +1986,7 @@
     scheduleRender();
   });
   sortYearBtn.addEventListener("click", () => {
+    if (isSortOpen()) setSortOpen(false, {});
     if (isRatingModeOpen()) setRatingModeOpen(false, {});
     if (sortField === "year") sortDir = sortDir === "asc" ? "desc" : "asc";
     else {
@@ -1837,6 +1997,7 @@
     scheduleRender();
   });
   sortRatingBtn.addEventListener("click", () => {
+    if (isSortOpen()) setSortOpen(false, {});
     if (isRatingModeOpen()) setRatingModeOpen(false, {});
     if (sortField === "rating") sortDir = sortDir === "asc" ? "desc" : "asc";
     else {
@@ -1853,6 +2014,7 @@
       genrePopup.classList.remove("genre-popup--mobile");
       if (servicesPopup) servicesPopup.classList.remove("services-popup--mobile");
       if (ratingModePopup) ratingModePopup.classList.remove("rating-mode-popup--mobile");
+      if (sortPopup) sortPopup.classList.remove("sort-popup--mobile");
       if (genreSheetBackdrop) {
         genreSheetBackdrop.classList.add("hidden");
         genreSheetBackdrop.setAttribute("aria-hidden", "true");
@@ -1864,6 +2026,10 @@
       if (ratingSheetBackdrop) {
         ratingSheetBackdrop.classList.add("hidden");
         ratingSheetBackdrop.setAttribute("aria-hidden", "true");
+      }
+      if (sortSheetBackdrop) {
+        sortSheetBackdrop.classList.add("hidden");
+        sortSheetBackdrop.setAttribute("aria-hidden", "true");
       }
     }
   }
