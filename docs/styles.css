@@ -670,13 +670,15 @@ main#mainContent:focus-visible {
 /* Keep mobile popups fully on-screen and list content visible */
 @media (max-width: 640px) {
   .services-popup.services-popup--mobile {
-    top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
-    left: max(12px, env(safe-area-inset-left, 0px)) !important;
-    right: max(12px, env(safe-area-inset-right, 0px)) !important;
-    max-width: none !important;
-    width: auto !important;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) !important;
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(92vw, 460px) !important;
+    max-width: calc(100vw - 24px) !important;
+    max-height: min(78dvh, 560px) !important;
     overflow: hidden;
     z-index: 185;
   }
@@ -686,12 +688,15 @@ main#mainContent:focus-visible {
     -webkit-overflow-scrolling: touch;
   }
   .genre-popup.genre-popup--mobile {
-    top: max(12px, env(safe-area-inset-top, 0px)) !important;
-    bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
-    left: max(10px, env(safe-area-inset-left, 0px)) !important;
-    right: max(10px, env(safe-area-inset-right, 0px)) !important;
-    max-width: none !important;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) !important;
+    position: fixed !important;
+    left: 50% !important;
+    top: 50% !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: min(92vw, 460px) !important;
+    max-width: calc(100vw - 20px) !important;
+    max-height: min(78dvh, 560px) !important;
     overflow: hidden;
     z-index: 185;
   }

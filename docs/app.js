@@ -54,8 +54,12 @@
 
   const genreBtn = document.getElementById("genreBtn");
   const genrePopup = document.getElementById("genrePopup");
+  const genrePopupOriginalParent = genrePopup ? genrePopup.parentElement : null;
+  const genrePopupOriginalNext = genrePopup ? genrePopup.nextElementSibling : null;
   const servicesBtn = document.getElementById("servicesBtn");
   const servicesPopup = document.getElementById("servicesPopup");
+  const servicesPopupOriginalParent = servicesPopup ? servicesPopup.parentElement : null;
+  const servicesPopupOriginalNext = servicesPopup ? servicesPopup.nextElementSibling : null;
   const genreMorePopover = document.getElementById("genreMorePopover");
   let genreMoreAnchor = null;
 
@@ -395,6 +399,22 @@
     }
   }
 
+  function mountPopupForMobileSheet(popup, originalParent, originalNext, open, mobile) {
+    if (!popup || !originalParent) return;
+    if (open && mobile) {
+      if (popup.parentElement !== document.body) {
+        document.body.appendChild(popup);
+      }
+      return;
+    }
+    if (popup.parentElement === originalParent) return;
+    if (originalNext && originalNext.parentElement === originalParent) {
+      originalParent.insertBefore(popup, originalNext);
+    } else {
+      originalParent.appendChild(popup);
+    }
+  }
+
   function setMobileSortField(field) {
     if (field !== "title" && field !== "year" && field !== "rating" && field !== "popularity") return;
     const changed = sortField !== field;
@@ -457,17 +477,15 @@
   function syncSortPopupState() {
     if (!sortPopup) return;
     sortPopup.querySelectorAll("[data-sort-field]").forEach((btn) => {
-      btn.classList.toggle("active", btn.getAttribute("data-sort-field") === sortField);
+      const field = btn.getAttribute("data-sort-field");
+      const active = field === sortField;
+      const label = btn.dataset.label || btn.textContent.trim();
+      btn.dataset.label = label;
+      btn.classList.toggle("active", active);
+      btn.textContent = active ? `${label} ${sortDir === "asc" ? "▲" : "▼"}` : label;
+      const hint = active ? "Tap again to toggle direction." : "Tap to sort by this field.";
+      btn.setAttribute("aria-label", `${label}. ${hint}`);
     });
-    const dirValue = document.getElementById("sortDirectionValue");
-    const dirIcon = document.getElementById("sortDirectionIcon");
-    const directionBtn = document.getElementById("sortDirectionBtn");
-    if (dirValue || dirIcon || directionBtn) {
-      const direction = getDirectionMeta();
-      if (dirValue) dirValue.textContent = direction.full;
-      if (dirIcon) dirIcon.textContent = direction.icon;
-      if (directionBtn) directionBtn.setAttribute("aria-label", `Direction: ${direction.full}. Tap to toggle`);
-    }
   }
 
   function isSortOpen() {
@@ -512,6 +530,7 @@
     const focusFilter = opts && (opts.focusFilter || opts.focusFirstOption);
     const focusButtonOnClose = opts && opts.focusButtonOnClose;
     const mobile = isPopupSheetMode();
+    mountPopupForMobileSheet(genrePopup, genrePopupOriginalParent, genrePopupOriginalNext, open, mobile);
     if (!open) {
       const fi = getGenreFilterInput();
       if (fi) {
@@ -658,6 +677,13 @@
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
     const mobile = isPopupSheetMode();
+    mountPopupForMobileSheet(
+      servicesPopup,
+      servicesPopupOriginalParent,
+      servicesPopupOriginalNext,
+      open,
+      mobile,
+    );
     if (open && mobile) {
       servicesPopup.classList.add("services-popup--mobile");
     } else {
@@ -1860,17 +1886,8 @@
       const fieldBtn = e.target.closest("[data-sort-field]");
       if (fieldBtn) {
         const clickedField = fieldBtn.getAttribute("data-sort-field");
-        const beforeSortField = sortField;
-        const beforeSortDir = sortDir;
-        setMobileSortField(fieldBtn.getAttribute("data-sort-field"));
-        updateSortUi();
-        scheduleRender();
-        return;
-      }
-      if (e.target.closest("#sortDirectionBtn")) {
-        const beforeSortField = sortField;
-        const beforeSortDir = sortDir;
-        toggleMobileSortDirection();
+        if (clickedField === sortField) toggleMobileSortDirection();
+        else setMobileSortField(clickedField);
         updateSortUi();
         scheduleRender();
         return;
@@ -2098,6 +2115,15 @@
   function onGenreTruncateMqChange() {
     updateSortUi();
     if (!isPopupSheetMode()) {
+      mountPopupForMobileSheet(genrePopup, genrePopupOriginalParent, genrePopupOriginalNext, false, false);
+      mountPopupForMobileSheet(
+        servicesPopup,
+        servicesPopupOriginalParent,
+        servicesPopupOriginalNext,
+        false,
+        false,
+      );
+      mountSortPopupForMobileSheet(false, false);
       genrePopup.classList.remove("genre-popup--mobile");
       if (servicesPopup) servicesPopup.classList.remove("services-popup--mobile");
       if (ratingModePopup) ratingModePopup.classList.remove("rating-mode-popup--mobile");
