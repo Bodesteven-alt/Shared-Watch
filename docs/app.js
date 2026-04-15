@@ -47,6 +47,8 @@
   const sortRatingDown = document.getElementById("sortRatingDown");
   const sortMobileBtn = document.getElementById("sortMobileBtn");
   const sortPopup = document.getElementById("sortPopup");
+  const sortPopupOriginalParent = sortPopup ? sortPopup.parentElement : null;
+  const sortPopupOriginalNext = sortPopup ? sortPopup.nextElementSibling : null;
   const ratingModeBtn = document.getElementById("ratingModeBtn");
   const ratingModePopup = document.getElementById("ratingModePopup");
 
@@ -374,7 +376,23 @@
 
   function getSortMobileLabel() {
     const dir = getDirectionMeta();
-    return `Sort: ${getMobileSortFieldLabel()} ${dir.short}`;
+    return `${getMobileSortFieldLabel()} ${dir.short}`;
+  }
+
+  function mountSortPopupForMobileSheet(open, mobile) {
+    if (!sortPopup || !sortPopupOriginalParent) return;
+    if (open && mobile) {
+      if (sortPopup.parentElement !== document.body) {
+        document.body.appendChild(sortPopup);
+      }
+      return;
+    }
+    if (sortPopup.parentElement === sortPopupOriginalParent) return;
+    if (sortPopupOriginalNext && sortPopupOriginalNext.parentElement === sortPopupOriginalParent) {
+      sortPopupOriginalParent.insertBefore(sortPopup, sortPopupOriginalNext);
+    } else {
+      sortPopupOriginalParent.appendChild(sortPopup);
+    }
   }
 
   function setMobileSortField(field) {
@@ -461,6 +479,7 @@
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
     const mobile = isPopupSheetMode();
+    mountSortPopupForMobileSheet(open, mobile);
     sortPopup.classList.toggle("sort-popup--mobile", !!(open && mobile));
     sortPopup.classList.toggle("hidden", !open);
     sortMobileBtn.setAttribute("aria-expanded", open ? "true" : "false");

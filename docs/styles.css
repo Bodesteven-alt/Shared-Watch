@@ -499,9 +499,9 @@ main#mainContent:focus-visible {
 
   .controls-sticky-wrap .sortbtn {
     min-height: 44px;
-    padding: 0.42rem 0.34rem;
+    padding: 0.4rem 0.24rem;
     gap: 0.14rem;
-    font-size: clamp(0.66rem, 2.75vw, 0.82rem);
+    font-size: clamp(0.62rem, 2.45vw, 0.78rem);
   }
 
   .controls-sticky-wrap .rating-mode-btn {
