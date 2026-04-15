@@ -340,73 +340,57 @@
     }
   }
 
-  function getSortModeValue() {
-    if (sortField === "title") return sortDir === "asc" ? "title-asc" : "title-desc";
-    if (sortField === "year") return sortDir === "desc" ? "year-desc" : "year-asc";
-    if (sortField === "rating" && ratingSortMode === "votes") {
-      return sortDir === "desc" ? "popular-desc" : "popular-asc";
-    }
-    if (sortField === "rating") return sortDir === "desc" ? "rating-desc" : "rating-asc";
-    return "title-asc";
+  function getMobileSortFieldLabel() {
+    if (sortField === "year") return "Year";
+    if (sortField === "rating") return ratingSortMode === "votes" ? "Popular" : "Rating";
+    return "Name";
   }
 
-  function applySortModeValue(mode) {
-    if (mode === "title-asc" || mode === "title-desc") {
-      sortField = "title";
-      sortDir = mode === "title-asc" ? "asc" : "desc";
-      ratingSortMode = "avg";
-      return;
+  function getDirectionMeta() {
+    if (sortField === "title") {
+      return sortDir === "asc"
+        ? { short: "A-Z", full: "Ascending", icon: "▲" }
+        : { short: "Z-A", full: "Descending", icon: "▼" };
     }
-    if (mode === "year-desc" || mode === "year-asc") {
-      sortField = "year";
-      sortDir = mode === "year-desc" ? "desc" : "asc";
-      ratingSortMode = "avg";
-      return;
+    if (sortField === "year") {
+      return sortDir === "asc"
+        ? { short: "Oldest", full: "Ascending", icon: "▲" }
+        : { short: "Newest", full: "Descending", icon: "▼" };
     }
-    if (mode === "rating-desc" || mode === "rating-asc") {
-      sortField = "rating";
-      sortDir = mode === "rating-desc" ? "desc" : "asc";
-      ratingSortMode = "avg";
-      return;
-    }
-    if (mode === "popular-desc" || mode === "popular-asc") {
-      sortField = "rating";
-      sortDir = mode === "popular-desc" ? "desc" : "asc";
-      ratingSortMode = "votes";
-      return;
-    }
+    return sortDir === "asc"
+      ? { short: "Low-High", full: "Ascending", icon: "▲" }
+      : { short: "High-Low", full: "Descending", icon: "▼" };
   }
 
   function getSortMobileLabel() {
-    const mode = getSortModeValue();
-    switch (mode) {
-      case "title-asc":
-        return "Sort: Name A-Z";
-      case "title-desc":
-        return "Sort: Name Z-A";
-      case "year-desc":
-        return "Sort: Newest";
-      case "year-asc":
-        return "Sort: Oldest";
-      case "rating-desc":
-        return "Sort: Highest";
-      case "rating-asc":
-        return "Sort: Lowest";
-      case "popular-desc":
-        return "Sort: Popular";
-      case "popular-asc":
-        return "Sort: Unpopular";
-      default:
-        return "Sort";
-    }
+    const dir = getDirectionMeta();
+    return `Sort: ${getMobileSortFieldLabel()} ${dir.short}`;
   }
 
-  function syncSortPopupRadios() {
+  function setMobileSortField(field) {
+    if (field !== "title" && field !== "year" && field !== "rating") return;
+    sortField = field;
+    if (field === "rating") ratingSortMode = "avg";
+  }
+
+  function toggleMobileSortDirection() {
+    sortDir = sortDir === "asc" ? "desc" : "asc";
+  }
+
+  function syncSortPopupState() {
     if (!sortPopup) return;
-    const current = getSortModeValue();
-    sortPopup.querySelectorAll('input[name="sortMode"]').forEach((inp) => {
-      inp.checked = inp.value === current;
+    sortPopup.querySelectorAll("[data-sort-field]").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-sort-field") === sortField);
     });
+    const dirValue = document.getElementById("sortDirectionValue");
+    const dirIcon = document.getElementById("sortDirectionIcon");
+    const directionBtn = document.getElementById("sortDirectionBtn");
+    if (dirValue || dirIcon || directionBtn) {
+      const direction = getDirectionMeta();
+      if (dirValue) dirValue.textContent = direction.full;
+      if (dirIcon) dirIcon.textContent = direction.icon;
+      if (directionBtn) directionBtn.setAttribute("aria-label", `Direction: ${direction.full}. Tap to toggle`);
+    }
   }
 
   function isSortOpen() {
@@ -427,9 +411,9 @@
       sortSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
     }
     if (open) {
-      syncSortPopupRadios();
+      syncSortPopupState();
       if (focusFirst) {
-        const first = sortPopup.querySelector('input[name="sortMode"]');
+        const first = sortPopup.querySelector(".sort-popup-option.active") || sortPopup.querySelector("[data-sort-field]");
         if (first) requestAnimationFrame(() => first.focus());
       }
     }
@@ -456,6 +440,7 @@
     }
     genrePopup.classList.toggle("hidden", !open);
     genrePopup.classList.toggle("genre-popup--mobile", !!(open && mobile));
+    if (open) renderGenreList();
     if (!open) genrePopup.classList.remove("genre-popup--mobile");
     if (genreSheetBackdrop) {
       const showBackdrop = !!(open && mobile);
@@ -882,7 +867,7 @@
     }
 
     syncRatingModeRadios();
-    syncSortPopupRadios();
+    syncSortPopupState();
 
     if (sortMobileBtn) {
       sortMobileBtn.textContent = getSortMobileLabel();
@@ -1782,16 +1767,22 @@
     });
     sortPopup.addEventListener("click", (e) => {
       e.stopPropagation();
+      const fieldBtn = e.target.closest("[data-sort-field]");
+      if (fieldBtn) {
+        setMobileSortField(fieldBtn.getAttribute("data-sort-field"));
+        updateSortUi();
+        scheduleRender();
+        return;
+      }
+      if (e.target.closest("#sortDirectionBtn")) {
+        toggleMobileSortDirection();
+        updateSortUi();
+        scheduleRender();
+        return;
+      }
       if (e.target.closest("[data-sort-action='done']")) {
         setSortOpen(false, { focusButtonOnClose: true });
       }
-    });
-    sortPopup.addEventListener("change", (e) => {
-      const inp = e.target;
-      if (!(inp instanceof HTMLInputElement) || inp.name !== "sortMode") return;
-      applySortModeValue(inp.value);
-      updateSortUi();
-      scheduleRender();
     });
   }
 
