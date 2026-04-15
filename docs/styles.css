@@ -651,16 +651,16 @@ main#mainContent:focus-visible {
   }
   .sort-popup.sort-popup--mobile {
     position: fixed;
-    left: max(12px, env(safe-area-inset-left, 0px));
-    right: max(12px, env(safe-area-inset-right, 0px));
-    top: max(12px, env(safe-area-inset-top, 0px));
-    bottom: max(12px, env(safe-area-inset-bottom, 0px));
-    transform: none;
-    width: auto;
+    left: 50%;
+    top: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    width: min(92vw, 420px);
     min-width: 0;
-    max-width: none;
+    max-width: calc(100vw - 24px);
     margin: 0;
-    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px);
+    max-height: min(78dvh, 520px);
     border-radius: 14px 14px 12px 12px;
     z-index: 185;
     overflow: hidden;
