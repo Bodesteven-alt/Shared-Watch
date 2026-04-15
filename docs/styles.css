@@ -642,7 +642,30 @@ main#mainContent:focus-visible {
     display: flex;
   }
   .sortbar {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+  }
+  .sort-mobile-wrap {
+    grid-column: 1 / span 2;
+  }
+  .genre-btn-wrap {
+    grid-column: 3 / span 1;
+    min-width: 0;
+  }
+  .services-btn-wrap {
+    grid-column: 4 / span 1;
+    min-width: 0;
+  }
+  .sort-mobile-wrap .sortbtn {
+    min-height: 40px;
+    padding: 0.3rem 0.22rem;
+    font-size: clamp(0.6rem, 2.3vw, 0.74rem);
+  }
+  #genreBtn,
+  #servicesBtn {
+    min-height: 40px;
+    padding: 0.3rem 0.12rem;
+    font-size: clamp(0.58rem, 2.15vw, 0.72rem);
   }
   .rating-sort-wrap,
   #sortTitleBtn,
