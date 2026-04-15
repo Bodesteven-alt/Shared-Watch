@@ -16,41 +16,6 @@
     <header class="top">
       <div class="top-cluster">
         <h1 class="top-title top-title__gradient">Our Watch List</h1>
-        <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
-          <button id="filterLb" class="srcbtn active" data-source="letterboxd" type="button">
-            <span class="srcbtn-inner">
-              <span class="srcbtn-count" id="srcCountLb">
-                <span class="srcbtn-count__total-line">
-                  <span class="count srcbtn-count__total" id="countLb">0</span>
-                  <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
-                </span>
-              </span>
-              <span class="srcbtn-label">Letterboxd</span>
-            </span>
-          </button>
-          <button id="filterBoth" class="srcbtn active" data-source="both" type="button">
-            <span class="srcbtn-inner">
-              <span class="srcbtn-count" id="srcCountBoth">
-                <span class="srcbtn-count__total-line">
-                  <span class="count srcbtn-count__total" id="countBoth">0</span>
-                  <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
-                </span>
-              </span>
-              <span class="srcbtn-label">Both</span>
-            </span>
-          </button>
-          <button id="filterImdb" class="srcbtn active" data-source="imdb" type="button">
-            <span class="srcbtn-inner">
-              <span class="srcbtn-count" id="srcCountImdb">
-                <span class="srcbtn-count__total-line">
-                  <span class="count srcbtn-count__total" id="countImdb">0</span>
-                  <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
-                </span>
-              </span>
-              <span class="srcbtn-label">IMDb</span>
-            </span>
-          </button>
-        </section>
       </div>
     </header>
 
@@ -59,73 +24,111 @@
       <a href="https://www.imdb.com/user/ur42352318/watchlist/" target="_blank" class="outlink">View IMDb List ↗</a>
     </div>
 
-    <section class="sortbar">
-      <div class="rating-sort-wrap">
-        <button id="sortRatingBtn" type="button" class="sortbtn rating-sort-wrap__main">
-          Rating
-          <span class="arrows">
-            <span class="arr up" id="sortRatingUp">▲</span>
-            <span class="arr down" id="sortRatingDown">▼</span>
+    <div class="controls-sticky-wrap">
+      <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
+        <button id="filterLb" class="srcbtn active" data-source="letterboxd" type="button">
+          <span class="srcbtn-inner">
+            <span class="srcbtn-count" id="srcCountLb">
+              <span class="srcbtn-count__total-line">
+                <span class="count srcbtn-count__total" id="countLb">0</span>
+                <span class="srcbtn-count__filtered" id="countLbFiltered" hidden></span>
+              </span>
+            </span>
+            <span class="srcbtn-label">Letterboxd</span>
           </span>
         </button>
-        <button
-          type="button"
-          id="ratingModeBtn"
-          class="rating-mode-btn hidden"
-          aria-expanded="false"
-          aria-haspopup="dialog"
-          aria-controls="ratingModePopup"
-          aria-label="Choose whether to sort by average score or total votes"
-          title="Average or total votes"
-        >
-          ▾
+        <button id="filterBoth" class="srcbtn active" data-source="both" type="button">
+          <span class="srcbtn-inner">
+            <span class="srcbtn-count" id="srcCountBoth">
+              <span class="srcbtn-count__total-line">
+                <span class="count srcbtn-count__total" id="countBoth">0</span>
+                <span class="srcbtn-count__filtered" id="countBothFiltered" hidden></span>
+              </span>
+            </span>
+            <span class="srcbtn-label">Both</span>
+          </span>
         </button>
-        <div
-          id="ratingModePopup"
-          class="rating-mode-popup hidden"
-          role="dialog"
-          aria-labelledby="ratingModeHeading"
-          aria-modal="true"
-        >
-          <p id="ratingModeHeading" class="rating-mode-popup__heading">Sort ratings by</p>
-          <div class="rating-mode-popup__body">
-            <label class="rating-mode-option">
-              <input type="radio" name="ratingMode" value="avg" checked />
-              <span>Average score</span>
-            </label>
-            <label class="rating-mode-option">
-              <input type="radio" name="ratingMode" value="votes" />
-              <span>Total votes (popularity)</span>
-            </label>
-          </div>
-          <div class="rating-mode-popup__footer">
-            <button type="button" class="rating-mode-popup__done" data-rating-mode-action="done">Done</button>
+        <button id="filterImdb" class="srcbtn active" data-source="imdb" type="button">
+          <span class="srcbtn-inner">
+            <span class="srcbtn-count" id="srcCountImdb">
+              <span class="srcbtn-count__total-line">
+                <span class="count srcbtn-count__total" id="countImdb">0</span>
+                <span class="srcbtn-count__filtered" id="countImdbFiltered" hidden></span>
+              </span>
+            </span>
+            <span class="srcbtn-label">IMDb</span>
+          </span>
+        </button>
+      </section>
+
+      <section class="sortbar">
+        <div class="rating-sort-wrap">
+          <button id="sortRatingBtn" type="button" class="sortbtn rating-sort-wrap__main">
+            Rating
+            <span class="arrows">
+              <span class="arr up" id="sortRatingUp">▲</span>
+              <span class="arr down" id="sortRatingDown">▼</span>
+            </span>
+          </button>
+          <button
+            type="button"
+            id="ratingModeBtn"
+            class="rating-mode-btn hidden"
+            aria-expanded="false"
+            aria-haspopup="dialog"
+            aria-controls="ratingModePopup"
+            aria-label="Choose whether to sort by average score or total votes"
+            title="Average or total votes"
+          >
+            ▾
+          </button>
+          <div
+            id="ratingModePopup"
+            class="rating-mode-popup hidden"
+            role="dialog"
+            aria-labelledby="ratingModeHeading"
+            aria-modal="true"
+          >
+            <p id="ratingModeHeading" class="rating-mode-popup__heading">Sort ratings by</p>
+            <div class="rating-mode-popup__body">
+              <label class="rating-mode-option">
+                <input type="radio" name="ratingMode" value="avg" checked />
+                <span>Average score</span>
+              </label>
+              <label class="rating-mode-option">
+                <input type="radio" name="ratingMode" value="votes" />
+                <span>Total votes (popularity)</span>
+              </label>
+            </div>
+            <div class="rating-mode-popup__footer">
+              <button type="button" class="rating-mode-popup__done" data-rating-mode-action="done">Done</button>
+            </div>
           </div>
         </div>
-      </div>
-      <button id="sortTitleBtn" type="button" class="sortbtn active">
-        Name
-        <span class="arrows">
-          <span class="arr up active" id="sortTitleUp">▲</span>
-          <span class="arr down" id="sortTitleDown">▼</span>
-        </span>
-      </button>
-      <button id="sortYearBtn" type="button" class="sortbtn">
-        Year
-        <span class="arrows">
-          <span class="arr up" id="sortYearUp">▲</span>
-          <span class="arr down" id="sortYearDown">▼</span>
-        </span>
-      </button>
-      <div class="genre-btn-wrap">
-        <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genreListbox">Genre</button>
-        <div id="genrePopup" class="genre-popup hidden"></div>
-      </div>
-      <div class="services-btn-wrap">
-        <button id="servicesBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="dialog" aria-controls="servicesPopup">Services</button>
-        <div id="servicesPopup" class="services-popup hidden" role="dialog" aria-label="Streaming services"></div>
-      </div>
-    </section>
+        <button id="sortTitleBtn" type="button" class="sortbtn active">
+          Name
+          <span class="arrows">
+            <span class="arr up active" id="sortTitleUp">▲</span>
+            <span class="arr down" id="sortTitleDown">▼</span>
+          </span>
+        </button>
+        <button id="sortYearBtn" type="button" class="sortbtn">
+          Year
+          <span class="arrows">
+            <span class="arr up" id="sortYearUp">▲</span>
+            <span class="arr down" id="sortYearDown">▼</span>
+          </span>
+        </button>
+        <div class="genre-btn-wrap">
+          <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genreListbox">Genre</button>
+          <div id="genrePopup" class="genre-popup hidden"></div>
+        </div>
+        <div class="services-btn-wrap">
+          <button id="servicesBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="dialog" aria-controls="servicesPopup">Services</button>
+          <div id="servicesPopup" class="services-popup hidden" role="dialog" aria-label="Streaming services"></div>
+        </div>
+      </section>
+    </div>
 
     <section id="grid" class="grid grid--loading" aria-busy="true" aria-label="Movie list">
       <article class="card card-skeleton" aria-hidden="true"><div class="card-skeleton__poster"></div><div class="card-skeleton__body"><div class="card-skeleton__line card-skeleton__line--title"></div><div class="card-skeleton__line card-skeleton__line--meta"></div><div class="card-skeleton__row"><span class="card-skeleton__stars"></span><span class="card-skeleton__pill"></span></div></div></article>
@@ -175,10 +178,12 @@
       var row = document.getElementById("sourceFiltersRow");
       var title = document.querySelector(".top-title");
       var cluster = document.querySelector(".top-cluster");
+      var controlsWrap = document.querySelector(".controls-sticky-wrap");
       if (!row || !title) return;
       function apply() {
         var w = row.offsetWidth;
-        var cap = cluster ? cluster.getBoundingClientRect().width : window.innerWidth;
+        var capHost = controlsWrap || cluster;
+        var cap = capHost ? capHost.getBoundingClientRect().width : window.innerWidth;
         if (w > 0) title.style.width = Math.min(w, cap) + "px";
       }
       apply();
@@ -188,6 +193,7 @@
       if (typeof ResizeObserver !== "undefined") {
         new ResizeObserver(apply).observe(row);
         if (cluster) new ResizeObserver(apply).observe(cluster);
+        if (controlsWrap) new ResizeObserver(apply).observe(controlsWrap);
       }
       window.addEventListener("resize", apply);
     })();

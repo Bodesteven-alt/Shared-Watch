@@ -452,3 +452,61 @@ main#mainContent:focus-visible {
     0 0 0 2px rgba(26, 10, 46, 0.98),
     0 0 0 6px rgba(1, 205, 254, 0.35);
 }
+
+/* Shared controls wrapper: source filters + sort row */
+.controls-sticky-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+.controls-sticky-wrap .source-filters {
+  margin: 0;
+}
+.controls-sticky-wrap .sortbar {
+  margin-top: 0.6rem;
+}
+
+@media (max-width: 640px) {
+  .controls-sticky-wrap {
+    position: sticky;
+    top: max(8px, env(safe-area-inset-top, 0px));
+    z-index: 120;
+    margin-top: 0.45rem;
+    margin-bottom: 0.25rem;
+    padding: 0.34rem;
+    border: 1px solid rgba(74, 44, 122, 0.72);
+    border-radius: 12px;
+    background: rgba(26, 10, 46, 0.82);
+    box-shadow: 0 8px 20px rgba(5, 3, 14, 0.32);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .controls-sticky-wrap .source-filters {
+    gap: 0.3rem;
+  }
+
+  .controls-sticky-wrap .sortbar {
+    margin-top: 0.34rem;
+    gap: 0.24rem;
+  }
+
+  .controls-sticky-wrap .srcbtn {
+    min-height: 44px;
+    padding: 0.45rem 0.38rem;
+    font-size: clamp(0.74rem, 2.7vw, 0.82rem);
+    gap: 0.18rem;
+  }
+
+  .controls-sticky-wrap .sortbtn {
+    min-height: 44px;
+    padding: 0.42rem 0.34rem;
+    gap: 0.14rem;
+    font-size: clamp(0.66rem, 2.75vw, 0.82rem);
+  }
+
+  .controls-sticky-wrap .rating-mode-btn {
+    width: 1.5rem;
+    min-width: 1.5rem;
+    padding: 0.38rem 0.08rem;
+  }
+}
