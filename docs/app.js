@@ -294,6 +294,11 @@
   let ratingSortMode = "avg";
 
   const genreTruncateMq = window.matchMedia("(max-width: 640px)");
+  const popupSheetMq = window.matchMedia("(max-width: 640px), (pointer: coarse)");
+
+  function isPopupSheetMode() {
+    return popupSheetMq.matches;
+  }
 
   function totalRatingVotes(m) {
     const ni = Number(m.rating_count_imdb);
@@ -319,7 +324,7 @@
     if (!ratingModePopup || !ratingModeBtn) return;
     const focusBtn = opts && opts.focusButtonOnClose;
     const focusFirst = opts && opts.focusFirst;
-    const mobile = genreTruncateMq.matches;
+    const mobile = isPopupSheetMode();
     ratingModePopup.classList.toggle("rating-mode-popup--mobile", !!(open && mobile));
     ratingModePopup.classList.toggle("hidden", !open);
     if (ratingSheetBackdrop) {
@@ -330,11 +335,15 @@
     ratingModeBtn.setAttribute("aria-expanded", open ? "true" : "false");
     if (open) {
       syncRatingModeRadios();
+      if (!mobile) {
+        requestAnimationFrame(() => clampDesktopPopupToViewport(ratingModePopup));
+      }
       if (focusFirst) {
         const first = ratingModePopup.querySelector('input[name="ratingMode"]');
         if (first) requestAnimationFrame(() => first.focus());
       }
     }
+    if (!open) resetDesktopPopupClamp(ratingModePopup);
     if (!open && focusBtn) {
       ratingModeBtn.focus({ preventScroll: true });
     }
@@ -342,7 +351,8 @@
 
   function getMobileSortFieldLabel() {
     if (sortField === "year") return "Year";
-    if (sortField === "rating") return ratingSortMode === "votes" ? "Popular" : "Rating";
+    if (sortField === "rating") return "Rating";
+    if (sortField === "popularity") return "Popular";
     return "Name";
   }
 
@@ -368,9 +378,58 @@
   }
 
   function setMobileSortField(field) {
-    if (field !== "title" && field !== "year" && field !== "rating") return;
+    if (field !== "title" && field !== "year" && field !== "rating" && field !== "popularity") return;
+    const changed = sortField !== field;
     sortField = field;
-    if (field === "rating") ratingSortMode = "avg";
+    if (field === "title") {
+      if (changed) sortDir = "asc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (field === "year") {
+      if (changed) sortDir = "desc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (field === "rating") {
+      if (changed) sortDir = "desc";
+      ratingSortMode = "avg";
+      return;
+    }
+    if (changed) sortDir = "desc";
+    ratingSortMode = "votes";
+  }
+
+  function resetDesktopPopupClamp(popup) {
+    if (!popup) return;
+    popup.style.left = "";
+    popup.style.right = "";
+    popup.style.top = "";
+    popup.style.bottom = "";
+  }
+
+  function clampDesktopPopupToViewport(popup) {
+    if (!popup || popup.classList.contains("hidden")) return;
+    resetDesktopPopupClamp(popup);
+    const pad = 8;
+    let rect = popup.getBoundingClientRect();
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    if (rect.right > vw - pad) {
+      popup.style.left = "auto";
+      popup.style.right = "0";
+      rect = popup.getBoundingClientRect();
+    }
+    if (rect.left < pad) {
+      popup.style.left = "0";
+      popup.style.right = "auto";
+      rect = popup.getBoundingClientRect();
+    }
+    if (rect.bottom > vh - pad) {
+      popup.style.top = "auto";
+      popup.style.bottom = "calc(100% + 0.45rem)";
+    }
   }
 
   function toggleMobileSortDirection() {
@@ -401,7 +460,7 @@
     if (!sortPopup || !sortMobileBtn) return;
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
-    const mobile = genreTruncateMq.matches;
+    const mobile = isPopupSheetMode();
     sortPopup.classList.toggle("sort-popup--mobile", !!(open && mobile));
     sortPopup.classList.toggle("hidden", !open);
     sortMobileBtn.setAttribute("aria-expanded", open ? "true" : "false");
@@ -412,11 +471,15 @@
     }
     if (open) {
       syncSortPopupState();
+      if (!mobile) {
+        requestAnimationFrame(() => clampDesktopPopupToViewport(sortPopup));
+      }
       if (focusFirst) {
         const first = sortPopup.querySelector(".sort-popup-option.active") || sortPopup.querySelector("[data-sort-field]");
         if (first) requestAnimationFrame(() => first.focus());
       }
     }
+    if (!open) resetDesktopPopupClamp(sortPopup);
     if (!open && focusBtn) {
       sortMobileBtn.focus({ preventScroll: true });
     }
@@ -429,7 +492,7 @@
   function setGenreOpen(open, opts) {
     const focusFilter = opts && (opts.focusFilter || opts.focusFirstOption);
     const focusButtonOnClose = opts && opts.focusButtonOnClose;
-    const mobile = genreTruncateMq.matches;
+    const mobile = isPopupSheetMode();
     if (!open) {
       const fi = getGenreFilterInput();
       if (fi) {
@@ -452,9 +515,13 @@
       const fi = getGenreFilterInput();
       if (fi) requestAnimationFrame(() => fi.focus());
     }
+    if (open && !mobile) {
+      requestAnimationFrame(() => clampDesktopPopupToViewport(genrePopup));
+    }
     if (!open && focusButtonOnClose) {
       genreBtn.focus({ preventScroll: true });
     }
+    if (!open) resetDesktopPopupClamp(genrePopup);
   }
 
   function syncGenreAriaSelected() {
@@ -505,7 +572,7 @@
     }
 
     const s = params.get("sort");
-    if (s === "title" || s === "year" || s === "rating") sortField = s;
+    if (s === "title" || s === "year" || s === "rating" || s === "popularity") sortField = s;
     const d = params.get("dir");
     if (d === "asc" || d === "desc") sortDir = d;
 
@@ -571,7 +638,7 @@
     if (!servicesPopup || !servicesBtn) return;
     const focusFirst = opts && opts.focusFirst;
     const focusBtn = opts && opts.focusButtonOnClose;
-    const mobile = genreTruncateMq.matches;
+    const mobile = isPopupSheetMode();
     if (open && mobile) {
       servicesPopup.classList.add("services-popup--mobile");
     } else {
@@ -590,6 +657,10 @@
     } else if (!open && focusBtn) {
       servicesBtn.focus({ preventScroll: true });
     }
+    if (open && !mobile) {
+      requestAnimationFrame(() => clampDesktopPopupToViewport(servicesPopup));
+    }
+    if (!open) resetDesktopPopupClamp(servicesPopup);
   }
 
   applyUrlState();
@@ -847,7 +918,7 @@
   function updateSortUi() {
     sortTitleBtn.classList.toggle("active", sortField === "title");
     sortYearBtn.classList.toggle("active", sortField === "year");
-    sortRatingBtn.classList.toggle("active", sortField === "rating");
+    sortRatingBtn.classList.toggle("active", sortField === "rating" || sortField === "popularity");
 
     if (ratingModeBtn) {
       const showMode = sortField === "rating";
@@ -862,7 +933,7 @@
       (sortDir === "asc" ? sortTitleUp : sortTitleDown).classList.add("active");
     } else if (sortField === "year") {
       (sortDir === "asc" ? sortYearUp : sortYearDown).classList.add("active");
-    } else if (sortField === "rating") {
+    } else if (sortField === "rating" || sortField === "popularity") {
       (sortDir === "asc" ? sortRatingUp : sortRatingDown).classList.add("active");
     }
 
@@ -912,8 +983,8 @@
         const by = Number(b.year || 0);
         cmp = ay - by;
         if (cmp === 0) cmp = String(a.title || "").localeCompare(String(b.title || ""));
-      } else if (sortField === "rating") {
-        if (ratingSortMode === "votes") {
+      } else if (sortField === "rating" || sortField === "popularity") {
+        if (sortField === "popularity" || ratingSortMode === "votes") {
           const av = totalRatingVotes(a);
           const bv = totalRatingVotes(b);
           cmp = av - bv;
@@ -1769,12 +1840,17 @@
       e.stopPropagation();
       const fieldBtn = e.target.closest("[data-sort-field]");
       if (fieldBtn) {
+        const clickedField = fieldBtn.getAttribute("data-sort-field");
+        const beforeSortField = sortField;
+        const beforeSortDir = sortDir;
         setMobileSortField(fieldBtn.getAttribute("data-sort-field"));
         updateSortUi();
         scheduleRender();
         return;
       }
       if (e.target.closest("#sortDirectionBtn")) {
+        const beforeSortField = sortField;
+        const beforeSortDir = sortDir;
         toggleMobileSortDirection();
         updateSortUi();
         scheduleRender();
@@ -1995,13 +2071,14 @@
       sortField = "rating";
       sortDir = "desc";
     }
+    ratingSortMode = "avg";
     updateSortUi();
     scheduleRender();
   });
 
   function onGenreTruncateMqChange() {
     updateSortUi();
-    if (!genreTruncateMq.matches) {
+    if (!isPopupSheetMode()) {
       genrePopup.classList.remove("genre-popup--mobile");
       if (servicesPopup) servicesPopup.classList.remove("services-popup--mobile");
       if (ratingModePopup) ratingModePopup.classList.remove("rating-mode-popup--mobile");
@@ -2028,5 +2105,10 @@
     genreTruncateMq.addEventListener("change", onGenreTruncateMqChange);
   } else {
     genreTruncateMq.addListener(onGenreTruncateMqChange);
+  }
+  if (popupSheetMq.addEventListener) {
+    popupSheetMq.addEventListener("change", onGenreTruncateMqChange);
+  } else {
+    popupSheetMq.addListener(onGenreTruncateMqChange);
   }
 })();

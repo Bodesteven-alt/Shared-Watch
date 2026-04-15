@@ -653,16 +653,16 @@ main#mainContent:focus-visible {
     position: fixed;
     left: max(12px, env(safe-area-inset-left, 0px));
     right: max(12px, env(safe-area-inset-right, 0px));
-    top: auto;
-    bottom: max(10px, env(safe-area-inset-bottom, 0px));
+    top: max(12px, env(safe-area-inset-top, 0px));
+    bottom: max(12px, env(safe-area-inset-bottom, 0px));
     transform: none;
     width: auto;
     min-width: 0;
     max-width: none;
     margin: 0;
-    max-height: min(54vh, 420px);
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px);
     border-radius: 14px 14px 12px 12px;
-    z-index: 175;
+    z-index: 185;
     overflow: hidden;
   }
 }
@@ -670,13 +670,15 @@ main#mainContent:focus-visible {
 /* Keep mobile popups fully on-screen and list content visible */
 @media (max-width: 640px) {
   .services-popup.services-popup--mobile {
+    top: max(12px, env(safe-area-inset-top, 0px)) !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
     left: max(12px, env(safe-area-inset-left, 0px)) !important;
     right: max(12px, env(safe-area-inset-right, 0px)) !important;
     max-width: none !important;
     width: auto !important;
-    max-height: min(58vh, 430px) !important;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) !important;
     overflow: hidden;
-    z-index: 175;
+    z-index: 185;
   }
   .services-popup.services-popup--mobile .services-sheet-body {
     overflow-y: auto;
@@ -684,10 +686,14 @@ main#mainContent:focus-visible {
     -webkit-overflow-scrolling: touch;
   }
   .genre-popup.genre-popup--mobile {
+    top: max(12px, env(safe-area-inset-top, 0px)) !important;
+    bottom: max(12px, env(safe-area-inset-bottom, 0px)) !important;
     left: max(10px, env(safe-area-inset-left, 0px)) !important;
     right: max(10px, env(safe-area-inset-right, 0px)) !important;
     max-width: none !important;
+    max-height: calc(100dvh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px) - 24px) !important;
     overflow: hidden;
+    z-index: 185;
   }
   .genre-popup.genre-popup--mobile .genre-popup__inner {
     display: flex;
