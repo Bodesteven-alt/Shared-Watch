@@ -52,6 +52,14 @@ def _load_omdb_api_key() -> str:
 
 OMDB_API_KEY = _load_omdb_api_key()
 
+# Top-level copy in watchlist.json; keep aligned with docs/faq.html (#stars).
+RATING_SUMMARY = (
+    "Combined star scores use a vote-weighted blend of Letterboxd and IMDb-scale data. "
+    "IMDb-scale values prefer IMDb title-page data; OMDb or TMDb may fill gaps—TMDb averages "
+    "are TMDb community scores, not necessarily live imdb.com. The compact vote figure adds "
+    "IMDb and Letterboxd vote counts when both exist. Figures are a snapshot when this file was exported."
+)
+
 
 def infer_source(row: dict) -> str:
     lb = bool(row.get("letterboxd"))
@@ -789,6 +797,11 @@ def round2(x: float | None) -> float | None:
 
 
 def main() -> int:
+    """Export watchlist.json: merge IMDb title page (preferred), TMDB/OMDb gap-fill, Letterboxd stats.
+
+    Combined ``rating_avg_5`` is vote-weighted; a missing IMDb vote count still allows an
+    IMDb-scale average with weight 1 (see ``combined_rating_weighted_5``).
+    """
     source_path = Path(os.environ.get("WATCHLIST_SOURCE_CACHE", str(DEFAULT_INPUT)))
     output_path = Path(os.environ.get("WATCHLIST_OUTPUT_JSON", str(DEFAULT_OUTPUT)))
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -1103,6 +1116,7 @@ def main() -> int:
 
     payload = {
         "updated_at": updated_at,
+        "rating_summary": RATING_SUMMARY,
         "stream_region": stream_region_export,
         "stream_owned_provider_ids": stream_owned_ids,
         "stats": {

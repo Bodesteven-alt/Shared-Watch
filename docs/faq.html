@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=73">
+  <link rel="stylesheet" href="./styles.css?v=79">
 </head>
 <body class="faq-page">
   <main class="wrap">
@@ -29,11 +29,13 @@
       <h3 class="faq-essay__q">Why do the numbers on those buttons sometimes show two values?</h3>
       <p class="faq-essay__a">The large faded number is the <strong>full count</strong> for that source. When genre, streaming, or other source filters hide some titles, a <strong>second number</strong> appears on top showing how many titles still match everything you have selected.</p>
 
-      <h3 class="faq-essay__q">What do the stars mean?</h3>
-      <p class="faq-essay__a">The stars show a <strong>combined audience score</strong> on a <strong>0–5</strong> scale. That value is computed when the list is exported from our movie-database data (it is not your personal Letterboxd or IMDb score).</p>
+      <h3 class="faq-essay__q" id="stars">What do the stars mean?</h3>
+      <p class="faq-essay__a">The stars show a <strong>combined audience score</strong> on a <strong>0–5</strong> scale. It is <strong>not</strong> your personal Letterboxd or IMDb rating. When we export the list, we build that number by <strong>blending</strong> two sides: <strong>Letterboxd</strong>’s public average for the title (when we have it), and an <strong>IMDb-scale</strong> average from our metadata pipeline.</p>
+      <p class="faq-essay__a">For the IMDb-scale side we <strong>prefer data from IMDb’s own title pages</strong> when parsing succeeds. If something is still missing, <strong>OMDb</strong> and/or <strong>TMDb</strong> can <strong>fill gaps</strong>. Be careful: <strong>TMDb’s</strong> value is <strong>TMDb’s community average</strong> (on a 0–10–style scale we normalize into the blend). It is <strong>not</strong> guaranteed to match what you see on imdb.com at that exact moment—ratings move, and our export is a <strong>snapshot</strong>.</p>
 
       <h3 class="faq-essay__q">What does the small number next to the score mean?</h3>
       <p class="faq-essay__a">Tap the stars to see the overlay. The compact number (for example <strong>12k</strong>) is a shortened <strong>vote total</strong>: IMDb and Letterboxd vote counts are <strong>added together</strong> when both exist. It is not the star rating itself.</p>
+      <p class="faq-essay__a">Sometimes we have an IMDb-scale <strong>average</strong> but not a reliable IMDb <strong>vote count</strong> for that title. The blend still uses a small default weight on that side, while Letterboxd can have a very large vote count—so the <strong>0–5 score can look almost the same as Letterboxd’s average</strong> even though both sides were combined.</p>
 
       <h3 class="faq-essay__q">Why do some movies say “No ratings”?</h3>
       <p class="faq-essay__a">The export did not have enough reliable data to build an average score for that title, so the site leaves the rating blank.</p>
@@ -59,13 +61,13 @@
       <p class="faq-essay__a">The export may have <strong>no streaming-provider data</strong> for that film in this region, or providers may not be listed for it in the database we use.</p>
 
       <h3 class="faq-essay__q">What do the names in the footer under “Data sources” mean?</h3>
-      <p class="faq-essay__a"><strong>Letterboxd</strong> and <strong>IMDb</strong> are the two watchlists we combine. <strong>TMDb</strong> and <strong>OMDb</strong> help supply posters, genres, ratings, and (where configured) where to watch.</p>
+      <p class="faq-essay__a"><strong>Letterboxd</strong> and <strong>IMDb</strong> are the two <strong>watchlists</strong> we merge into one grid. <strong>TMDb</strong> and <strong>OMDb</strong> are supporting databases: posters, genres, streaming availability, and—when needed—extra metadata for the export (including gap-fill for averages as described above). See <a href="#stars">What do the stars mean?</a> for how ratings are built.</p>
     </article>
   </main>
 
   <footer class="footer">
     <div class="footer-strap">
-      <p>FAQ last updated: Apr 12, 2026</p>
+      <p>FAQ last updated: Apr 16, 2026</p>
       <p>Made with love by Steven Bode</p>
       <p class="footer-github">
         <a href="./index.html">Home</a>

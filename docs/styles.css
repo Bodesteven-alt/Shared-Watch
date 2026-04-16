@@ -620,3 +620,24 @@ main#mainContent:focus-visible {
     text-align: center;
   }
 }
+
+.footer-ratings-note {
+  max-width: 1080px;
+  margin: 0 auto 0.5rem;
+  padding: 0 max(1.2rem, env(safe-area-inset-left, 0px)) 0 max(1.2rem, env(safe-area-inset-right, 0px));
+  box-sizing: border-box;
+  font-size: clamp(0.58rem, 2.6vw, 0.68rem);
+  line-height: 1.4;
+  color: rgba(145, 163, 195, 0.88);
+  text-align: center;
+}
+
+.footer-ratings-note a {
+  color: var(--cyan);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.footer-ratings-note a:hover {
+  color: var(--text);
+}
