@@ -446,7 +446,7 @@ main#mainContent:focus-visible {
   -webkit-tap-highlight-color: transparent;
 }
 .sort-popup-option {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -462,6 +462,44 @@ main#mainContent:focus-visible {
   cursor: pointer;
   box-sizing: border-box;
   text-align: center;
+}
+.sort-popup-option__inner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  min-width: 0;
+  max-width: 100%;
+}
+.sort-popup-option__text {
+  flex: 0 1 auto;
+  text-align: center;
+}
+/* Fixed-width arrow slot so labels stay centered as a group and don’t shift between rows */
+.sort-popup-option__arrow {
+  position: relative;
+  flex: 0 0 0.75rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.sort-popup-option__chev {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  display: block;
+  pointer-events: none;
+  color: inherit;
+  opacity: 0.92;
+}
+.sort-popup-option__arrow--hidden .sort-popup-option__chev {
+  visibility: hidden;
+}
+.sort-popup-option__arrow--asc .sort-popup-option__chev--down,
+.sort-popup-option__arrow--desc .sort-popup-option__chev--up {
+  visibility: hidden;
 }
 .sort-popup-option:hover {
   background: rgba(255, 113, 206, 0.12);

@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=77">
+  <link rel="stylesheet" href="./styles.css?v=78">
 </head>
 <body>
   <main class="wrap" id="mainContent" tabindex="-1">
@@ -76,10 +76,72 @@
           <div id="sortPopup" class="sort-popup hidden" role="dialog" aria-labelledby="sortPopupHeading" aria-modal="true">
             <p id="sortPopupHeading" class="sort-popup__heading">Sort by</p>
             <div class="sort-popup__body" role="group" aria-label="Sort options">
-              <button type="button" class="sort-popup-option" data-sort-field="title">Name</button>
-              <button type="button" class="sort-popup-option" data-sort-field="year">Year</button>
-              <button type="button" class="sort-popup-option" data-sort-field="rating">Rating</button>
-              <button type="button" class="sort-popup-option" data-sort-field="popularity">Popularity</button>
+              <button type="button" class="sort-popup-option" data-sort-field="title" data-label="Name">
+                <span class="sort-popup-option__inner">
+                  <span class="sort-popup-option__text">Name</span>
+                  <span class="sort-popup-option__arrow sort-popup-option__arrow--hidden" aria-hidden="true">
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--up" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.15"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.75 7.5L6 3.75 9.25 7.5"
+                      />
+                    </svg>
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--down" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.15"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M2.75 4.5L6 8.25 9.25 4.5"
+                      />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+              <button type="button" class="sort-popup-option" data-sort-field="year" data-label="Year">
+                <span class="sort-popup-option__inner">
+                  <span class="sort-popup-option__text">Year</span>
+                  <span class="sort-popup-option__arrow sort-popup-option__arrow--hidden" aria-hidden="true">
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--up" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 7.5L6 3.75 9.25 7.5" />
+                    </svg>
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--down" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 4.5L6 8.25 9.25 4.5" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+              <button type="button" class="sort-popup-option" data-sort-field="rating" data-label="Rating">
+                <span class="sort-popup-option__inner">
+                  <span class="sort-popup-option__text">Rating</span>
+                  <span class="sort-popup-option__arrow sort-popup-option__arrow--hidden" aria-hidden="true">
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--up" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 7.5L6 3.75 9.25 7.5" />
+                    </svg>
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--down" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 4.5L6 8.25 9.25 4.5" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
+              <button type="button" class="sort-popup-option" data-sort-field="popularity" data-label="Popularity">
+                <span class="sort-popup-option__inner">
+                  <span class="sort-popup-option__text">Popularity</span>
+                  <span class="sort-popup-option__arrow sort-popup-option__arrow--hidden" aria-hidden="true">
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--up" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 7.5L6 3.75 9.25 7.5" />
+                    </svg>
+                    <svg class="sort-popup-option__chev sort-popup-option__chev--down" viewBox="0 0 12 12" width="12" height="12" aria-hidden="true" focusable="false">
+                      <path fill="none" stroke="currentColor" stroke-width="1.15" stroke-linecap="round" stroke-linejoin="round" d="M2.75 4.5L6 8.25 9.25 4.5" />
+                    </svg>
+                  </span>
+                </span>
+              </button>
             </div>
             <div class="sort-popup__footer">
               <button type="button" class="sort-popup__done" data-sort-action="done">Done</button>

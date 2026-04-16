@@ -443,10 +443,17 @@
     sortPopup.querySelectorAll("[data-sort-field]").forEach((btn) => {
       const field = btn.getAttribute("data-sort-field");
       const active = field === sortField;
-      const label = btn.dataset.label || btn.textContent.trim();
+      const textEl = btn.querySelector(".sort-popup-option__text");
+      const arrowEl = btn.querySelector(".sort-popup-option__arrow");
+      const label = btn.dataset.label || (textEl && textEl.textContent.trim()) || field;
       btn.dataset.label = label;
+      if (textEl) textEl.textContent = label;
       btn.classList.toggle("active", active);
-      btn.textContent = active ? `${label} ${sortDir === "asc" ? "▲" : "▼"}` : label;
+      if (arrowEl) {
+        arrowEl.classList.toggle("sort-popup-option__arrow--hidden", !active);
+        arrowEl.classList.toggle("sort-popup-option__arrow--asc", active && sortDir === "asc");
+        arrowEl.classList.toggle("sort-popup-option__arrow--desc", active && sortDir === "desc");
+      }
       const hint = active ? "Tap again to toggle direction." : "Tap to sort by this field.";
       btn.setAttribute("aria-label", `${label}. ${hint}`);
     });
