@@ -54,6 +54,7 @@ HEADERS = {
 
 def normalize_title(title: str) -> str:
     t = title.strip().lower()
+    t = title_hints.fold_english_number_words(t)
     t = re.sub(r"^\d+\.\s*", "", t)
     t = re.sub(r"\([^)]*\)", "", t)
     t = re.sub(r"\[[^\]]*\]", "", t)

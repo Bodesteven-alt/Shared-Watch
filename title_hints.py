@@ -11,10 +11,56 @@ import requests
 
 _LEADING_ARTICLES_RE = re.compile(r"^(?:the|an|a)\s+", re.IGNORECASE)
 
+# Whole English number words -> digits so "Fantastic Four" and "Fantastic 4" share a merge key.
+_EN_WORD_TO_DIGIT: dict[str, str] = {
+    "zero": "0",
+    "one": "1",
+    "two": "2",
+    "three": "3",
+    "four": "4",
+    "five": "5",
+    "six": "6",
+    "seven": "7",
+    "eight": "8",
+    "nine": "9",
+    "ten": "10",
+    "eleven": "11",
+    "twelve": "12",
+    "thirteen": "13",
+    "fourteen": "14",
+    "fifteen": "15",
+    "sixteen": "16",
+    "seventeen": "17",
+    "eighteen": "18",
+    "nineteen": "19",
+    "twenty": "20",
+    "thirty": "30",
+    "forty": "40",
+    "fifty": "50",
+    "sixty": "60",
+    "seventy": "70",
+    "eighty": "80",
+    "ninety": "90",
+}
+_EN_WORD_NUM_PATTERN = re.compile(
+    r"\b(" + "|".join(re.escape(w) for w in sorted(_EN_WORD_TO_DIGIT.keys(), key=len, reverse=True)) + r")\b",
+    re.IGNORECASE,
+)
+
+
+def fold_english_number_words(text: str) -> str:
+    """Replace standalone English number words with digits (merge key alignment)."""
+
+    def _repl(m: re.Match[str]) -> str:
+        return _EN_WORD_TO_DIGIT[m.group(1).lower()]
+
+    return _EN_WORD_NUM_PATTERN.sub(_repl, text)
+
 
 def normalize_metadata_key(title: str) -> str:
     """Match scripts/export_watchlist.normalize_title and posters._normalize for cache/override keys."""
     t = (title or "").strip().lower()
+    t = fold_english_number_words(t)
     t = re.sub(r"\([^)]*\)", "", t)
     t = re.sub(r"\[[^\]]*\]", "", t)
     t = re.sub(r"[^a-z0-9 ]+", " ", t)
