@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=76">
+  <link rel="stylesheet" href="./styles.css?v=77">
 </head>
 <body>
   <main class="wrap" id="mainContent" tabindex="-1">
@@ -86,63 +86,6 @@
             </div>
           </div>
         </div>
-        <div class="rating-sort-wrap">
-          <button id="sortRatingBtn" type="button" class="sortbtn rating-sort-wrap__main">
-            Rating
-            <span class="arrows">
-              <span class="arr up" id="sortRatingUp">▲</span>
-              <span class="arr down" id="sortRatingDown">▼</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            id="ratingModeBtn"
-            class="rating-mode-btn hidden"
-            aria-expanded="false"
-            aria-haspopup="dialog"
-            aria-controls="ratingModePopup"
-            aria-label="Choose whether to sort by average score or total votes"
-            title="Average or total votes"
-          >
-            ▾
-          </button>
-          <div
-            id="ratingModePopup"
-            class="rating-mode-popup hidden"
-            role="dialog"
-            aria-labelledby="ratingModeHeading"
-            aria-modal="true"
-          >
-            <p id="ratingModeHeading" class="rating-mode-popup__heading">Sort ratings by</p>
-            <div class="rating-mode-popup__body">
-              <label class="rating-mode-option">
-                <input type="radio" name="ratingMode" value="avg" checked />
-                <span>Average score</span>
-              </label>
-              <label class="rating-mode-option">
-                <input type="radio" name="ratingMode" value="votes" />
-                <span>Total votes (popularity)</span>
-              </label>
-            </div>
-            <div class="rating-mode-popup__footer">
-              <button type="button" class="rating-mode-popup__done" data-rating-mode-action="done">Done</button>
-            </div>
-          </div>
-        </div>
-        <button id="sortTitleBtn" type="button" class="sortbtn active">
-          Name
-          <span class="arrows">
-            <span class="arr up active" id="sortTitleUp">▲</span>
-            <span class="arr down" id="sortTitleDown">▼</span>
-          </span>
-        </button>
-        <button id="sortYearBtn" type="button" class="sortbtn">
-          Year
-          <span class="arrows">
-            <span class="arr up" id="sortYearUp">▲</span>
-            <span class="arr down" id="sortYearDown">▼</span>
-          </span>
-        </button>
         <div class="genre-btn-wrap">
           <button id="genreBtn" type="button" class="sortbtn" aria-expanded="false" aria-haspopup="listbox" aria-controls="genreListbox"><span class="sortbtn-label">Genre</span></button>
           <div id="genrePopup" class="genre-popup hidden"></div>
@@ -168,7 +111,6 @@
 
   <div id="genreSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="servicesSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
-  <div id="ratingSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <div id="sortSheetBackdrop" class="popup-sheet-backdrop hidden" aria-hidden="true"></div>
   <button type="button" id="scrollTopBtn" class="scroll-top-btn" aria-label="Back to top" tabindex="-1">
     <span class="scroll-top-btn__icon" aria-hidden="true">↑</span>

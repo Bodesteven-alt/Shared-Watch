@@ -18,7 +18,6 @@
   const srcCountImdb = document.getElementById("srcCountImdb");
   const genreSheetBackdrop = document.getElementById("genreSheetBackdrop");
   const servicesSheetBackdrop = document.getElementById("servicesSheetBackdrop");
-  const ratingSheetBackdrop = document.getElementById("ratingSheetBackdrop");
   const sortSheetBackdrop = document.getElementById("sortSheetBackdrop");
   const scrollTopBtn = document.getElementById("scrollTopBtn");
   const mainContentEl = document.getElementById("mainContent");
@@ -36,21 +35,10 @@
     }
   }
 
-  const sortTitleBtn = document.getElementById("sortTitleBtn");
-  const sortYearBtn = document.getElementById("sortYearBtn");
-  const sortRatingBtn = document.getElementById("sortRatingBtn");
-  const sortTitleUp = document.getElementById("sortTitleUp");
-  const sortTitleDown = document.getElementById("sortTitleDown");
-  const sortYearUp = document.getElementById("sortYearUp");
-  const sortYearDown = document.getElementById("sortYearDown");
-  const sortRatingUp = document.getElementById("sortRatingUp");
-  const sortRatingDown = document.getElementById("sortRatingDown");
   const sortMobileBtn = document.getElementById("sortMobileBtn");
   const sortPopup = document.getElementById("sortPopup");
   const sortPopupOriginalParent = sortPopup ? sortPopup.parentElement : null;
   const sortPopupOriginalNext = sortPopup ? sortPopup.nextElementSibling : null;
-  const ratingModeBtn = document.getElementById("ratingModeBtn");
-  const ratingModePopup = document.getElementById("ratingModePopup");
 
   const genreBtn = document.getElementById("genreBtn");
   const genreBtnLabel = genreBtn && genreBtn.querySelector(".sortbtn-label");
@@ -331,46 +319,6 @@
     return aKey.full.localeCompare(bKey.full);
   }
 
-  function isRatingModeOpen() {
-    return !!(ratingModePopup && !ratingModePopup.classList.contains("hidden"));
-  }
-
-  function syncRatingModeRadios() {
-    if (!ratingModePopup) return;
-    ratingModePopup.querySelectorAll('input[name="ratingMode"]').forEach((inp) => {
-      inp.checked = inp.value === ratingSortMode;
-    });
-  }
-
-  function setRatingModeOpen(open, opts) {
-    if (!ratingModePopup || !ratingModeBtn) return;
-    const focusBtn = opts && opts.focusButtonOnClose;
-    const focusFirst = opts && opts.focusFirst;
-    const mobile = isPopupSheetMode();
-    ratingModePopup.classList.toggle("rating-mode-popup--mobile", !!(open && mobile));
-    ratingModePopup.classList.toggle("hidden", !open);
-    if (ratingSheetBackdrop) {
-      const showBackdrop = !!(open && mobile);
-      ratingSheetBackdrop.classList.toggle("hidden", !showBackdrop);
-      ratingSheetBackdrop.setAttribute("aria-hidden", showBackdrop ? "false" : "true");
-    }
-    ratingModeBtn.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open) {
-      syncRatingModeRadios();
-      if (!mobile) {
-        requestAnimationFrame(() => clampDesktopPopupToViewport(ratingModePopup));
-      }
-      if (focusFirst) {
-        const first = ratingModePopup.querySelector('input[name="ratingMode"]');
-        if (first) requestAnimationFrame(() => first.focus());
-      }
-    }
-    if (!open) resetDesktopPopupClamp(ratingModePopup);
-    if (!open && focusBtn) {
-      ratingModeBtn.focus({ preventScroll: true });
-    }
-  }
-
   function getMobileSortFieldLabel() {
     if (sortField === "year") return "Year";
     if (sortField === "rating") return "Rating";
@@ -633,6 +581,9 @@
     const rm = params.get("ratingMode");
     if (rm === "votes") ratingSortMode = "votes";
     else ratingSortMode = "avg";
+    if (sortField === "rating" && ratingSortMode === "votes") {
+      sortField = "popularity";
+    }
 
     const svcRaw = params.get("svc");
     selectedServiceIds = new Set();
@@ -982,28 +933,6 @@
   }
 
   function updateSortUi() {
-    sortTitleBtn.classList.toggle("active", sortField === "title");
-    sortYearBtn.classList.toggle("active", sortField === "year");
-    sortRatingBtn.classList.toggle("active", sortField === "rating" || sortField === "popularity");
-
-    if (ratingModeBtn) {
-      const showMode = sortField === "rating";
-      ratingModeBtn.classList.toggle("hidden", !showMode);
-    }
-
-    [sortTitleUp, sortTitleDown, sortYearUp, sortYearDown, sortRatingUp, sortRatingDown].forEach((el) =>
-      el.classList.remove("active"),
-    );
-
-    if (sortField === "title") {
-      (sortDir === "asc" ? sortTitleUp : sortTitleDown).classList.add("active");
-    } else if (sortField === "year") {
-      (sortDir === "asc" ? sortYearUp : sortYearDown).classList.add("active");
-    } else if (sortField === "rating" || sortField === "popularity") {
-      (sortDir === "asc" ? sortRatingUp : sortRatingDown).classList.add("active");
-    }
-
-    syncRatingModeRadios();
     syncSortPopupState();
 
     if (sortMobileBtn) {
@@ -1757,7 +1686,6 @@
   genreBtn.addEventListener("click", (e) => {
     e.stopPropagation();
     if (isSortOpen()) setSortOpen(false, {});
-    if (isRatingModeOpen()) setRatingModeOpen(false, {});
     const next = !isGenreOpen();
     setGenreOpen(next, { focusFilter: next });
   });
@@ -1807,7 +1735,6 @@
     servicesBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (isSortOpen()) setSortOpen(false, {});
-      if (isRatingModeOpen()) setRatingModeOpen(false, {});
       const next = !isServicesOpen();
       setServicesOpen(next, {});
     });
@@ -1849,39 +1776,8 @@
   if (servicesSheetBackdrop) {
     servicesSheetBackdrop.addEventListener("click", () => setServicesOpen(false, {}));
   }
-  if (ratingSheetBackdrop) {
-    ratingSheetBackdrop.addEventListener("click", () => setRatingModeOpen(false, { focusButtonOnClose: true }));
-  }
   if (sortSheetBackdrop) {
     sortSheetBackdrop.addEventListener("click", () => setSortOpen(false, { focusButtonOnClose: true }));
-  }
-
-  if (ratingModeBtn && ratingModePopup) {
-    ratingModeBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const next = !isRatingModeOpen();
-      setRatingModeOpen(next, { focusFirst: next });
-    });
-    ratingModeBtn.addEventListener("keydown", (e) => {
-      if (e.key === " " || e.key === "Enter") {
-        e.preventDefault();
-        const next = !isRatingModeOpen();
-        setRatingModeOpen(next, { focusFirst: next });
-      }
-    });
-    ratingModePopup.addEventListener("click", (e) => {
-      e.stopPropagation();
-      if (e.target.closest("[data-rating-mode-action='done']")) {
-        setRatingModeOpen(false, { focusButtonOnClose: true });
-      }
-    });
-    ratingModePopup.addEventListener("change", (e) => {
-      const inp = e.target;
-      if (!(inp instanceof HTMLInputElement) || inp.name !== "ratingMode") return;
-      ratingSortMode = inp.value === "votes" ? "votes" : "avg";
-      updateSortUi();
-      scheduleRender();
-    });
   }
 
   if (sortMobileBtn && sortPopup) {
@@ -1889,7 +1785,6 @@
       e.stopPropagation();
       if (isGenreOpen()) setGenreOpen(false, {});
       if (isServicesOpen()) setServicesOpen(false, {});
-      if (isRatingModeOpen()) setRatingModeOpen(false, {});
       const next = !isSortOpen();
       setSortOpen(next, { focusFirst: next });
     });
@@ -2031,16 +1926,6 @@
       if (isServicesOpen()) setServicesOpen(false, {});
     }
     if (
-      ratingModePopup &&
-      ratingModeBtn &&
-      isRatingModeOpen() &&
-      !ratingModePopup.contains(e.target) &&
-      e.target !== ratingModeBtn &&
-      !ratingModeBtn.contains(e.target)
-    ) {
-      setRatingModeOpen(false, {});
-    }
-    if (
       sortPopup &&
       sortMobileBtn &&
       isSortOpen() &&
@@ -2075,11 +1960,6 @@
       syncWatchBackdrop();
       return;
     }
-    if (isRatingModeOpen()) {
-      e.preventDefault();
-      setRatingModeOpen(false, { focusButtonOnClose: true });
-      return;
-    }
     if (isSortOpen()) {
       e.preventDefault();
       setSortOpen(false, { focusButtonOnClose: true });
@@ -2096,41 +1976,6 @@
     }
   });
 
-  sortTitleBtn.addEventListener("click", () => {
-    if (isSortOpen()) setSortOpen(false, {});
-    if (isRatingModeOpen()) setRatingModeOpen(false, {});
-    if (sortField === "title") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else {
-      sortField = "title";
-      sortDir = "asc";
-    }
-    updateSortUi();
-    scheduleRender();
-  });
-  sortYearBtn.addEventListener("click", () => {
-    if (isSortOpen()) setSortOpen(false, {});
-    if (isRatingModeOpen()) setRatingModeOpen(false, {});
-    if (sortField === "year") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else {
-      sortField = "year";
-      sortDir = "desc";
-    }
-    updateSortUi();
-    scheduleRender();
-  });
-  sortRatingBtn.addEventListener("click", () => {
-    if (isSortOpen()) setSortOpen(false, {});
-    if (isRatingModeOpen()) setRatingModeOpen(false, {});
-    if (sortField === "rating") sortDir = sortDir === "asc" ? "desc" : "asc";
-    else {
-      sortField = "rating";
-      sortDir = "desc";
-    }
-    ratingSortMode = "avg";
-    updateSortUi();
-    scheduleRender();
-  });
-
   function onGenreTruncateMqChange() {
     updateSortUi();
     if (!isPopupSheetMode()) {
@@ -2145,7 +1990,6 @@
       mountSortPopupForMobileSheet(false, false);
       genrePopup.classList.remove("genre-popup--mobile");
       if (servicesPopup) servicesPopup.classList.remove("services-popup--mobile");
-      if (ratingModePopup) ratingModePopup.classList.remove("rating-mode-popup--mobile");
       if (sortPopup) sortPopup.classList.remove("sort-popup--mobile");
       if (genreSheetBackdrop) {
         genreSheetBackdrop.classList.add("hidden");
@@ -2154,10 +1998,6 @@
       if (servicesSheetBackdrop) {
         servicesSheetBackdrop.classList.add("hidden");
         servicesSheetBackdrop.setAttribute("aria-hidden", "true");
-      }
-      if (ratingSheetBackdrop) {
-        ratingSheetBackdrop.classList.add("hidden");
-        ratingSheetBackdrop.setAttribute("aria-hidden", "true");
       }
       if (sortSheetBackdrop) {
         sortSheetBackdrop.classList.add("hidden");
