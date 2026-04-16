@@ -9,6 +9,8 @@ from urllib.parse import quote
 
 import requests
 
+_LEADING_ARTICLES_RE = re.compile(r"^(?:the|an|a)\s+", re.IGNORECASE)
+
 
 def normalize_metadata_key(title: str) -> str:
     """Match scripts/export_watchlist.normalize_title and posters._normalize for cache/override keys."""
@@ -18,6 +20,15 @@ def normalize_metadata_key(title: str) -> str:
     t = re.sub(r"[^a-z0-9 ]+", " ", t)
     t = re.sub(r"\s+", " ", t).strip()
     return t
+
+
+def article_insensitive_sort_tuple(title: str) -> tuple[str, str]:
+    """Return (article-stripped key, full key) for stable alphabetic ordering."""
+    full = (title or "").strip().lower()
+    primary = _LEADING_ARTICLES_RE.sub("", full, count=1).strip()
+    if not primary:
+        primary = full
+    return primary, full
 
 
 def release_year_hint_from_title(title: str) -> int | None:

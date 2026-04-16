@@ -315,6 +315,20 @@
     return (hasI ? ni : 0) + (hasL ? nl : 0);
   }
 
+  function articleInsensitiveTitleSortKey(title) {
+    const full = String(title || "").trim().toLowerCase();
+    const primary = full.replace(/^(?:the|an|a)\s+/i, "").trim() || full;
+    return { primary, full };
+  }
+
+  function compareTitles(aTitle, bTitle) {
+    const aKey = articleInsensitiveTitleSortKey(aTitle);
+    const bKey = articleInsensitiveTitleSortKey(bTitle);
+    const primaryCmp = aKey.primary.localeCompare(bKey.primary);
+    if (primaryCmp !== 0) return primaryCmp;
+    return aKey.full.localeCompare(bKey.full);
+  }
+
   function isRatingModeOpen() {
     return !!(ratingModePopup && !ratingModePopup.classList.contains("hidden"));
   }
@@ -1027,7 +1041,7 @@
         const ay = Number(a.year || 0);
         const by = Number(b.year || 0);
         cmp = ay - by;
-        if (cmp === 0) cmp = String(a.title || "").localeCompare(String(b.title || ""));
+        if (cmp === 0) cmp = compareTitles(a.title, b.title);
       } else if (sortField === "rating" || sortField === "popularity") {
         if (sortField === "popularity" || ratingSortMode === "votes") {
           const av = totalRatingVotes(a);
@@ -1038,9 +1052,9 @@
           const br = b.rating_avg_5 != null ? Number(b.rating_avg_5) : -1;
           cmp = ar - br;
         }
-        if (cmp === 0) cmp = String(a.title || "").localeCompare(String(b.title || ""));
+        if (cmp === 0) cmp = compareTitles(a.title, b.title);
       } else {
-        cmp = String(a.title || "").localeCompare(String(b.title || ""));
+        cmp = compareTitles(a.title, b.title);
       }
       return sortDir === "asc" ? cmp : -cmp;
     });

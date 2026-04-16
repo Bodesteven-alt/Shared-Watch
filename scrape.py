@@ -15,6 +15,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import config
+import title_hints
 
 
 # #region agent log
@@ -806,7 +807,7 @@ def merge_watchlists(
 
     all_norms = sorted(
         set(lb_map.keys()) | set(im_map.keys()),
-        key=lambda n: (lb_map.get(n) or im_map.get(n) or "").lower(),
+        key=lambda n: title_hints.article_insensitive_sort_tuple(lb_map.get(n) or im_map.get(n) or ""),
     )
 
     rows: list[dict] = []

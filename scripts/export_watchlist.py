@@ -1079,7 +1079,7 @@ def main() -> int:
     movies = [m for m in movies if m.get("content_type") in (None, "movie")]
     filtered_count = total_before_filter - len(movies)
 
-    movies.sort(key=lambda m: m["title"].lower())
+    movies.sort(key=lambda m: title_hints.article_insensitive_sort_tuple(m.get("title", "")))
 
     profile = config.load_owned_streaming_profile()
     stream_region_export = (profile.get("region") or "US").upper()
