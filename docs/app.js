@@ -53,10 +53,12 @@
   const ratingModePopup = document.getElementById("ratingModePopup");
 
   const genreBtn = document.getElementById("genreBtn");
+  const genreBtnLabel = genreBtn && genreBtn.querySelector(".sortbtn-label");
   const genrePopup = document.getElementById("genrePopup");
   const genrePopupOriginalParent = genrePopup ? genrePopup.parentElement : null;
   const genrePopupOriginalNext = genrePopup ? genrePopup.nextElementSibling : null;
   const servicesBtn = document.getElementById("servicesBtn");
+  const servicesBtnLabel = servicesBtn && servicesBtn.querySelector(".sortbtn-label");
   const servicesPopup = document.getElementById("servicesPopup");
   const servicesPopupOriginalParent = servicesPopup ? servicesPopup.parentElement : null;
   const servicesPopupOriginalNext = servicesPopup ? servicesPopup.nextElementSibling : null;
@@ -969,9 +971,14 @@
 
   function formatGenreButtonLabel(genre) {
     if (genre === "all") return "Genre";
-    const s = String(genre);
-    if (!genreTruncateMq.matches) return s;
-    return s.length > 4 ? `${s.slice(0, 4)}...` : s;
+    return String(genre);
+  }
+
+  function formatServicesButtonTitle() {
+    if (selectedServiceIds.size === 0) return "Filter by streaming service";
+    return [...selectedServiceIds]
+      .map((id) => providerMap.get(id) || String(id))
+      .join(", ");
   }
 
   function updateSortUi() {
@@ -1004,34 +1011,32 @@
       sortMobileBtn.classList.toggle("active", true);
     }
 
-    genreBtn.textContent = formatGenreButtonLabel(selectedGenre);
+    if (genreBtnLabel) {
+      genreBtnLabel.textContent = formatGenreButtonLabel(selectedGenre);
+    } else {
+      genreBtn.textContent = formatGenreButtonLabel(selectedGenre);
+    }
     genreBtn.title = selectedGenre === "all" ? "Filter by genre" : selectedGenre;
     genreBtn.classList.toggle("active", selectedGenre !== "all");
 
     if (servicesBtn) {
-      servicesBtn.textContent = formatServicesButtonLabel();
-      servicesBtn.title =
-        selectedServiceIds.size === 0 ? "Filter by streaming service" : `${selectedServiceIds.size} Service(s) selected`;
+      if (servicesBtnLabel) {
+        servicesBtnLabel.textContent = formatServicesButtonLabel();
+      } else {
+        servicesBtn.textContent = formatServicesButtonLabel();
+      }
+      servicesBtn.title = formatServicesButtonTitle();
       servicesBtn.classList.toggle("active", selectedServiceIds.size > 0);
     }
   }
 
   function formatServicesButtonLabel() {
     if (selectedServiceIds.size === 0) return "Services";
-    if (!genreTruncateMq.matches) {
-      if (selectedServiceIds.size === 1) {
-        const id = [...selectedServiceIds][0];
-        return providerMap.get(id) || "Services";
-      }
-      return `${selectedServiceIds.size} Services`;
-    }
-    const n = selectedServiceIds.size;
-    if (n === 1) {
+    if (selectedServiceIds.size === 1) {
       const id = [...selectedServiceIds][0];
-      const name = providerMap.get(id) || "?";
-      return name.length > 4 ? `${name.slice(0, 4)}...` : name;
+      return providerMap.get(id) || "Services";
     }
-    return `${n} svc`;
+    return `${selectedServiceIds.size} Services`;
   }
 
   function sortRows(rows) {
