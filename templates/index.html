@@ -638,6 +638,11 @@
       {% if imdb_error %}
       <div class="err"><strong>IMDb:</strong> {{ imdb_error }}</div>
       {% endif %}
+      {% if imdb_cache_reused %}
+      <div class="err" style="border-color: rgba(255, 200, 120, 0.6); background: rgba(80, 60, 20, 0.35);">
+        <strong>Stale IMDb data:</strong> The last refresh could not read your live IMDb watchlist, so counts and “IMDb only” rows may be from an older cached list. Fix Selenium (logged-in Chrome profile, non-headless if needed) and refresh again — see <code>.env.example</code>.
+      </div>
+      {% endif %}
 
       <div class="stats">
         <div class="stat"><strong>{{ stats.get('total', 0) }}</strong><span>Unique titles</span></div>

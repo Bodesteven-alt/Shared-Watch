@@ -49,7 +49,7 @@ SELENIUM_BROWSER = os.environ.get("SELENIUM_BROWSER", "chrome").lower()
 # Default headless so the server can run without a visible window. Set SELENIUM_HEADLESS=0 for a visible browser.
 SELENIUM_HEADLESS = _env_bool("SELENIUM_HEADLESS", True)
 # If True, retry IMDb once with a visible browser when headless gets zero titles (opens a window).
-IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", False)
+IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", True)
 # When True, IMDb CSV rows with TV types are skipped; merged rows drop IMDb-only TV (see scrape.merge_watchlists).
 IMDB_WATCHLIST_MOVIES_ONLY = _env_bool("IMDB_WATCHLIST_MOVIES_ONLY", True)
 # CSV export can lag slightly behind removals until IMDb regenerates the file.

@@ -97,6 +97,7 @@ def _load_cache() -> dict:
             "log": [],
             "letterboxd_error": None,
             "imdb_error": None,
+            "imdb_cache_reused": False,
         }
     try:
         with open(config.CACHE_PATH, encoding="utf-8") as f:
@@ -114,6 +115,7 @@ def _load_cache() -> dict:
             "log": [],
             "letterboxd_error": None,
             "imdb_error": None,
+            "imdb_cache_reused": False,
         }
 
 
@@ -146,36 +148,15 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
         append(f"[IMDb] Using previous cached IMDb list ({len(im)} titles) because current fetch failed")
         prior = (im_err or "").strip() or "IMDb fetch returned no titles this run."
         im_err = f"{prior} Showing cached IMDb list ({len(im)} titles); figures may not match the live IMDb watchlist."
-    # #region agent log
-    _dbg_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "debug-06e316.log")
-    try:
-        with open(_dbg_path, "a", encoding="utf-8") as f:
-            f.write(
-                json.dumps(
-                    {
-                        "sessionId": "06e316",
-                        "hypothesisId": "E",
-                        "location": "app.py:_run_refresh",
-                        "message": "imdb_fetch_outcome",
-                        "data": {
-                            "imdb_cache_reused": imdb_cache_reused,
-                            "im_err_set": bool(im_err),
-                            "n_imdb_items": len(im_items),
-                            "n_with_title_type": sum(1 for x in im_items if x.get("imdb_title_type")),
-                        },
-                        "timestamp": int(time.time() * 1000),
-                    },
-                    ensure_ascii=False,
-                )
-                + "\n"
-            )
-    except OSError:
-        pass
-    # #endregion
     scrape.backfill_imdb_title_types_from_omdb(im_items, log=append)
     append(f"[Done] IMDb: {len(im)} titles")
 
     rows, stats = scrape.merge_watchlists(lb, im, imdb_items=im_items)
+    imdb_assoc = int(stats.get("imdb_only", 0)) + int(stats.get("both", 0))
+    append(
+        f"[Done] Merge: {imdb_assoc} IMDb-associated titles "
+        f"(imdb_only={stats.get('imdb_only', 0)}, both={stats.get('both', 0)})"
+    )
     rows, poster_stats = posters.enrich_rows_with_posters(rows, log=append)
     rows, streaming_stats = streaming.enrich_rows_with_streaming(rows, log=append)
 
@@ -191,6 +172,7 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
         "log": log_lines[-200:],
         "letterboxd_error": lb_err,
         "imdb_error": im_err,
+        "imdb_cache_reused": imdb_cache_reused,
     }
     _save_cache(payload)
     log.info(
@@ -324,6 +306,7 @@ def index():
         log_lines=cache.get("log") or [],
         letterboxd_error=cache.get("letterboxd_error"),
         imdb_error=cache.get("imdb_error"),
+        imdb_cache_reused=bool(cache.get("imdb_cache_reused")),
         filter_q=filter_q_raw,
         sort=sort,
         source=source,
