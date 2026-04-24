@@ -16,7 +16,6 @@ from bs4 import BeautifulSoup
 import config
 import title_hints
 
-
 HEADERS = {
     "User-Agent": (
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -234,13 +233,21 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     return titles, items
 
 
-def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_rounds: int = 80) -> None:
+def _imdb_scroll_watchlist_page(
+    driver,
+    log: Callable[[str], None],
+    *,
+    max_rounds: int = 80,
+) -> None:
     """Scroll to bottom repeatedly so lazy-loaded watchlist rows appear."""
     from selenium.webdriver.common.by import By
 
     last_count = 0
     stable_rounds = 0
+    rounds = 0
+    exit_reason = "max_rounds"
     for _ in range(max_rounds):
+        rounds += 1
         driver.execute_script(
             """
             var nodes = document.querySelectorAll(
@@ -258,10 +265,76 @@ def _imdb_scroll_watchlist_page(driver, log: Callable[[str], None], *, max_round
         if count == last_count:
             stable_rounds += 1
             if stable_rounds >= 3:
+                exit_reason = "stable_link_count"
                 break
         else:
             stable_rounds = 0
         last_count = count
+
+
+def _imdb_expand_watchlist_see_more(driver, log: Callable[[str], None], *, max_clicks: int = 60) -> int:
+    """
+    IMDb may paginate the watchlist with a 'see more' control. We only ever JS-click
+    `button.ipc-see-more__button` that sits *below* the last list row inside <main>.
+    Do not call .click() on <main>, on the page body, or on generic 'more' icon buttons; that
+    can activate the first 'Where to watch' / provider link and open Pluto, Disney+, etc.
+    """
+    from selenium.common.exceptions import StaleElementReferenceException
+    from selenium.webdriver.common.by import By
+
+    n = 0
+    for _ in range(max_clicks):
+        _imdb_scroll_watchlist_page(driver, log, max_rounds=10)
+        rows = driver.find_elements(By.CSS_SELECTOR, "main li.ipc-metadata-list-summary-item")
+        if not rows:
+            break
+        li_before = len(rows)
+        try:
+            last_y = rows[-1].rect["y"] + rows[-1].rect["height"]
+        except Exception:
+            last_y = 0.0
+        best = None
+        best_y = 1.0e12
+        for btn in driver.find_elements(By.CSS_SELECTOR, "main button.ipc-see-more__button"):
+            try:
+                if not btn.is_displayed():
+                    continue
+                y = float(btn.rect["y"])
+            except (StaleElementReferenceException, Exception):
+                continue
+            if y < last_y - 2.0:
+                continue
+            if y < best_y:
+                best_y = y
+                best = btn
+        if best is None:
+            if n == 0:
+                log(
+                    f"[IMDb] See-more: no safe ipc button below list "
+                    f"({li_before} rows; skipping load-more)"
+                )
+            break
+        try:
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", best)
+            time.sleep(0.2)
+            driver.execute_script("arguments[0].click();", best)
+        except (StaleElementReferenceException, Exception):
+            break
+        n += 1
+        time.sleep(1.2)
+        li_after = len(
+            driver.find_elements(By.CSS_SELECTOR, "main li.ipc-metadata-list-summary-item")
+        )
+        log(f"[IMDb] See-more click {n} (list rows: {li_before} → {li_after})")
+    if n:
+        log(f"[IMDb] See-more: {n} load-more click(s) for watchlist")
+    return n
+
+
+def _imdb_prepare_watchlist_dom_for_scrape(driver, log: Callable[[str], None]) -> None:
+    """Scroll + IMDb 'see more' chunks + final scroll so list rows are fully present for scrape."""
+    _imdb_expand_watchlist_see_more(driver, log, max_clicks=60)
+    _imdb_scroll_watchlist_page(driver, log, max_rounds=80)
 
 
 def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
@@ -527,7 +600,7 @@ def _imdb_with_selenium(
 
         # Phase 1: Live watchlist list in the DOM (scoped). Matches the on-page list; avoids
         # stale IMDb export CSVs and random /title/ links elsewhere on the page.
-        _imdb_scroll_watchlist_page(driver, _log)
+        _imdb_prepare_watchlist_dom_for_scrape(driver, _log)
         scoped_titles, scoped_items = _imdb_collect_scoped_watchlist(driver, _log)
         if not scoped_titles:
             scoped_titles, scoped_items = _imdb_collect_main_watchlist(driver, _log)
@@ -563,7 +636,7 @@ def _imdb_with_selenium(
         driver.get(url)
         wait.until(ec.presence_of_element_located((By.TAG_NAME, "body")))
         time.sleep(2)
-        _imdb_scroll_watchlist_page(driver, _log)
+        _imdb_prepare_watchlist_dom_for_scrape(driver, _log)
         raw, raw_items = _imdb_collect_scoped_watchlist(driver, _log)
         if not raw:
             raw, raw_items = _imdb_collect_main_watchlist(driver, _log)
@@ -703,7 +776,11 @@ def backfill_imdb_title_types_from_omdb(
         if item.get("imdb_title_type"):
             continue
         if iid not in cache:
-            cache[iid] = _omdb_imdb_id_to_title_type_label(iid)
+            v = _omdb_imdb_id_to_title_type_label(iid)
+            if v is None:
+                time.sleep(0.12)
+                v = _omdb_imdb_id_to_title_type_label(iid)
+            cache[iid] = v
         label = cache[iid]
         if label:
             item["imdb_title_type"] = label
@@ -809,14 +886,18 @@ def merge_watchlists(
             }
         )
 
+    dropped_imdb_only_tv = 0
+    stripped_both_tv = 0
     if config.IMDB_WATCHLIST_MOVIES_ONLY:
         adjusted: list[dict] = []
         for row in rows:
             tyt = row.get("imdb_title_type")
             tv = imdb_title_type_is_tv(tyt if isinstance(tyt, str) else None)
             if tv and row["imdb"] and not row["letterboxd"]:
+                dropped_imdb_only_tv += 1
                 continue
             if tv and row["imdb"] and row["letterboxd"]:
+                stripped_both_tv += 1
                 row = dict(row)
                 row["imdb"] = False
                 row["imdb_title"] = None
@@ -825,10 +906,26 @@ def merge_watchlists(
             adjusted.append(row)
         rows = adjusted
 
-    stats = {
+    missing_ttype = 0
+    if config.IMDB_WATCHLIST_MOVIES_ONLY and (imdb_items or []):
+        for item in imdb_items or []:
+            if not (item.get("title") or "").strip():
+                continue
+            iid = item.get("imdb_id")
+            if not (iid and str(iid).strip().startswith("tt")):
+                continue
+            if not item.get("imdb_title_type"):
+                missing_ttype += 1
+
+    stats: dict = {
         "letterboxd_only": sum(1 for r in rows if r["letterboxd"] and not r["imdb"]),
         "imdb_only": sum(1 for r in rows if r["imdb"] and not r["letterboxd"]),
         "both": sum(1 for r in rows if r["letterboxd"] and r["imdb"]),
         "total": len(rows),
+        "imdb_unique_titles": len(im_map),
     }
+    if config.IMDB_WATCHLIST_MOVIES_ONLY:
+        stats["imdb_dropped_movies_only_tv"] = dropped_imdb_only_tv
+        stats["imdb_stripped_tv_from_both"] = stripped_both_tv
+        stats["imdb_title_type_missing_omdb"] = missing_ttype
     return rows, stats

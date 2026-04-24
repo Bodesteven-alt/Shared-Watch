@@ -643,6 +643,14 @@
         <strong>Stale IMDb data:</strong> The last refresh could not read your live IMDb watchlist, so counts and “IMDb only” rows may be from an older cached list. Fix Selenium (logged-in Chrome profile, non-headless if needed) and refresh again — see <code>.env.example</code>.
       </div>
       {% endif %}
+      {% if stats.get('imdb_title_type_missing_omdb', 0) > 0 %}
+      <div class="err" style="border-color: rgba(200, 180, 120, 0.45); background: rgba(50, 45, 30, 0.35);">
+        <strong>IMDb / OMDb gap:</strong> OMDb did not return a title type for
+        <strong>{{ stats.get('imdb_title_type_missing_omdb', 0) }}</strong> IMDb id(s). Those entries are
+        <em>not</em> treated as TV in “movies only” mode, so counts can drift from IMDb’s own filter until types resolve.
+        Check <code>OMDB_API_KEY</code> and refresh; or set <code>IMDB_WATCHLIST_MOVIES_ONLY=0</code> to match the full IMDb watchlist.
+      </div>
+      {% endif %}
 
       <div class="stats">
         <div class="stat"><strong>{{ stats.get('total', 0) }}</strong><span>Unique titles</span></div>
@@ -720,6 +728,10 @@
           No data yet — a background fetch runs shortly after startup, or click Refresh from sites.
         {% endif %}
         Showing <strong>{{ filtered_stats.get('filtered_total', 0) }}</strong> of <strong>{{ filtered_stats.get('all_total', 0) }}</strong>.
+        {% if stats.get('imdb_unique_titles') is not none %}
+        Last IMDb fetch: <strong>{{ stats.get('imdb_unique_titles', 0) }}</strong> unique titles
+        (compare to your list on imdb.com; lower means Selenium did not load every chunk or <code>IMDB_WATCHLIST_URL</code> is not the list you edited).
+        {% endif %}
         Posters resolved: <strong>{{ poster_stats.get('resolved_total', 0) }}</strong>,
         unresolved: <strong>{{ poster_stats.get('unresolved', 0) }}</strong>.
         Sources: Letterboxd {{ poster_stats.get('resolved_letterboxd', 0) }},
