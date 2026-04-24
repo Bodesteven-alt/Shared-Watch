@@ -811,6 +811,29 @@ def main() -> int:
         return 1
 
     cache = load_json(source_path, {})
+    # #region agent log
+    try:
+        _ld = ROOT / "debug-060bd2.log"
+        with _ld.open("a", encoding="utf-8") as _sf:
+            _sf.write(
+                json.dumps(
+                    {
+                        "sessionId": "060bd2",
+                        "hypothesisId": "H1",
+                        "location": "scripts/export_watchlist.py:main",
+                        "message": "export start",
+                        "data": {
+                            "source_path": str(source_path),
+                            "cache_updated_at": str(cache.get("updated_at")),
+                        },
+                        "timestamp": int(time.time() * 1000),
+                    }
+                )
+                + "\n"
+            )
+    except OSError:
+        pass
+    # #endregion
     meta_cache_path = Path(os.environ.get("WATCHLIST_METADATA_CACHE", str(DEFAULT_METADATA_CACHE)))
     meta_cache = load_json(meta_cache_path, {})
     _META_RATING_COUNT_SCHEMA = 1
@@ -1157,6 +1180,35 @@ def main() -> int:
         print("  OMDb API: enabled")
     else:
         print("  OMDb API: not configured (add key to data/omdb_api_key.txt for better coverage)")
+    # #region agent log
+    try:
+        _imdb_src_n = sum(1 for m in movies if m.get("source") == "imdb")
+        _ld = ROOT / "debug-060bd2.log"
+        with _ld.open("a", encoding="utf-8") as _ef:
+            _ef.write(
+                json.dumps(
+                    {
+                        "sessionId": "060bd2",
+                        "hypothesisId": "H4",
+                        "location": "scripts/export_watchlist.py:main",
+                        "message": "export written",
+                        "data": {
+                            "source_path": str(source_path),
+                            "output_path": str(output_path),
+                            "cache_updated_at": str(cache.get("updated_at")),
+                            "stats_imdb_only": int(stats.get("imdb_only", 0)),
+                            "movies_count_imdb_source": _imdb_src_n,
+                            "imdb_cache_reused": bool(cache.get("imdb_cache_reused")),
+                            "written_updated_at": str(payload.get("updated_at")),
+                        },
+                        "timestamp": int(time.time() * 1000),
+                    }
+                )
+                + "\n"
+            )
+    except OSError:
+        pass
+    # #endregion
     return 0
 
 

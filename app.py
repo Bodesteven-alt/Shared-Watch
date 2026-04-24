@@ -189,6 +189,34 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
         lb_err,
         im_err,
     )
+    # #region agent log
+    try:
+        _ld = os.path.join(os.path.dirname(__file__), "debug-060bd2.log")
+        with open(_ld, "a", encoding="utf-8") as _af:
+            _af.write(
+                json.dumps(
+                    {
+                        "sessionId": "060bd2",
+                        "hypothesisId": "H2",
+                        "location": "app.py:_run_refresh",
+                        "message": "refresh saved",
+                        "data": {
+                            "imdb_only": stats.get("imdb_only"),
+                            "both": stats.get("both"),
+                            "letterboxd_only": stats.get("letterboxd_only"),
+                            "total": stats.get("total"),
+                            "imdb_cache_reused": imdb_cache_reused,
+                            "imdb_titles_len": len(im),
+                            "letterboxd_titles_len": len(lb),
+                        },
+                        "timestamp": int(time.time() * 1000),
+                    }
+                )
+                + "\n"
+            )
+    except OSError:
+        pass
+    # #endregion
     return payload
 
 
