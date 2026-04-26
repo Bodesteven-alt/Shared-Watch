@@ -146,28 +146,6 @@
     else if (m.source === "both") bothCount++;
     else if (m.source === "imdb") imdbCount++;
   }
-  // #region agent log
-  fetch("http://127.0.0.1:7275/ingest/8e63eb49-f8cd-4ac7-a393-dfbe561cd829", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "X-Debug-Session-Id": "060bd2" },
-    body: JSON.stringify({
-      sessionId: "060bd2",
-      hypothesisId: "H5",
-      location: "docs/app.js:init",
-      message: "static page counts vs stats",
-      data: {
-        imdbCount,
-        lbCount,
-        bothCount,
-        statsImdbOnly: data.stats && data.stats.imdb_only,
-        statsTotal: data.stats && data.stats.total,
-        updatedAt: data.updated_at,
-        watchlistVersionMeta: wlVer,
-      },
-      timestamp: Date.now(),
-    }),
-  }).catch(() => {});
-  // #endregion
   const allGenres = new Set();
   for (const m of movies) {
     for (const g of m.genres || []) allGenres.add(String(g));
