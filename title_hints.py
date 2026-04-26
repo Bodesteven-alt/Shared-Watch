@@ -58,7 +58,7 @@ def fold_english_number_words(text: str) -> str:
 
 
 def normalize_metadata_key(title: str) -> str:
-    """Match scripts/export_watchlist.normalize_title and posters._normalize for cache/override keys."""
+    """Base title part for cache keys; for year-specific keys use poster_cache_key_from_title or poster_cache_key_for_row."""
     t = (title or "").strip().lower()
     t = fold_english_number_words(t)
     t = re.sub(r"\([^)]*\)", "", t)
@@ -66,6 +66,33 @@ def normalize_metadata_key(title: str) -> str:
     t = re.sub(r"[^a-z0-9 ]+", " ", t)
     t = re.sub(r"\s+", " ", t).strip()
     return t
+
+
+def title_for_external_search(title: str) -> str:
+    """Strip trailing (YYYY) for APIs that take year as a separate parameter (TMDb, OMDb)."""
+    t = (title or "").strip()
+    t = re.sub(r"\s*\(\d{4}\)\s*$", "", t).strip()
+    return t
+
+
+def poster_cache_key_from_title(title: str) -> str:
+    """Cache/Letterboxd key: `basetitle|YYYY` when a trailing (YYYY) is present, else base only."""
+    raw = (title or "").strip()
+    base = normalize_metadata_key(raw)
+    y = release_year_hint_from_title(raw)
+    if y is not None:
+        return f"{base}|{y}"
+    return base
+
+
+def poster_cache_key_for_row(row: dict) -> str:
+    """Use display + year from any of display / Letterboxd / IMDb list titles to disambiguate remakes."""
+    d = (row.get("display") or "").strip()
+    base = normalize_metadata_key(d)
+    y = year_hint_from_row(row)
+    if y is not None:
+        return f"{base}|{y}"
+    return base
 
 
 def article_insensitive_sort_tuple(title: str) -> tuple[str, str]:
@@ -171,7 +198,8 @@ def imdb_suggestion_lookup(
 
 def load_imdb_id_overrides(path: str) -> dict[str, str]:
     """
-    JSON object: keys are normalize_metadata_key(title) or "display:Some Title (2006)".
+    JSON object: keys are poster_cache_key_from_title(title) (year suffix |YYYY when (YYYY) is in the
+    title) or "display:Some Title (2006)".
     Values: {"imdb_id": "tt123"} or plain "tt123".
     """
     if not path or not os.path.isfile(path):
@@ -189,9 +217,9 @@ def load_imdb_id_overrides(path: str) -> dict[str, str]:
             continue
         ks = k.strip()
         if ks.lower().startswith("display:"):
-            key = normalize_metadata_key(ks.split(":", 1)[1].strip())
+            key = poster_cache_key_from_title(ks.split(":", 1)[1].strip())
         else:
-            key = normalize_metadata_key(ks)
+            key = poster_cache_key_from_title(ks)
         if isinstance(v, dict):
             iid = (v.get("imdb_id") or "").strip()
         elif isinstance(v, str):

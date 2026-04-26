@@ -118,8 +118,35 @@ def _normalize_tmdb_cdn_poster_url(src: str) -> str | None:
     return s
 
 
-def _poster_from_tmdb_movie_page_html(html: str) -> str | None:
-    """Read poster from TMDB movie detail page (JSON-LD image or fallback img)."""
+def _tmdb_jsonld_date_year(obj: dict) -> int | None:
+    dpub = obj.get("datePublished")
+    if isinstance(dpub, str) and len(dpub) >= 4 and dpub[:4].isdigit():
+        try:
+            y = int(dpub[:4])
+        except ValueError:
+            return None
+        if 1870 < y < 2100:
+            return y
+    return None
+
+
+def _poster_from_tmdb_jsonld_movie(obj: dict) -> str | None:
+    img = obj.get("image")
+    if isinstance(img, str):
+        return _normalize_tmdb_cdn_poster_url(img)
+    if isinstance(img, list) and img:
+        first = img[0]
+        if isinstance(first, str):
+            return _normalize_tmdb_cdn_poster_url(first)
+        if isinstance(first, dict):
+            u = (first.get("url") or first.get("@id") or "").strip()
+            if u:
+                return _normalize_tmdb_cdn_poster_url(u)
+    return None
+
+
+def _tmdb_movie_page_poster_and_year(html: str) -> tuple[str | None, int | None]:
+    """Poster URL and release year (from JSON-LD) for TMDB movie detail HTML."""
     soup = BeautifulSoup(html, "html.parser")
     for script in soup.find_all("script", type="application/ld+json"):
         txt = (script.string or "").strip()
@@ -132,25 +159,31 @@ def _poster_from_tmdb_movie_page_html(html: str) -> str | None:
             continue
         if not isinstance(obj, dict):
             continue
-        if str(obj.get("@type", "")).lower() != "movie":
+        tpe = obj.get("@type")
+        if isinstance(tpe, list):
+            is_movie = any(str(x).lower() == "movie" for x in tpe)
+        else:
+            is_movie = str(tpe or "").lower() == "movie"
+        if not is_movie:
             continue
-        img = obj.get("image")
-        if isinstance(img, str):
-            return _normalize_tmdb_cdn_poster_url(img)
-        if isinstance(img, list) and img:
-            first = img[0]
-            if isinstance(first, str):
-                return _normalize_tmdb_cdn_poster_url(first)
-            if isinstance(first, dict):
-                u = (first.get("url") or first.get("@id") or "").strip()
-                if u:
-                    return _normalize_tmdb_cdn_poster_url(u)
+        y = _tmdb_jsonld_date_year(obj)
+        p = _poster_from_tmdb_jsonld_movie(obj)
+        if p:
+            return p, y
         break
     img = soup.select_one("img.poster, .poster img, .image_content img")
     if img:
         src = (img.get("data-src") or img.get("src") or "").strip()
-        return _normalize_tmdb_cdn_poster_url(src)
-    return None
+        p = _normalize_tmdb_cdn_poster_url(src)
+        if p:
+            return p, None
+    return None, None
+
+
+def _poster_from_tmdb_movie_page_html(html: str) -> str | None:
+    """Read poster from TMDB movie detail page (JSON-LD image or fallback img)."""
+    p, _y = _tmdb_movie_page_poster_and_year(html)
+    return p
 
 
 def _fetch_tmdb_poster_by_imdb_find(imdb_id: str) -> str | None:
@@ -167,7 +200,9 @@ def _fetch_tmdb_poster_by_imdb_find(imdb_id: str) -> str | None:
     return None
 
 
-def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
+def _fetch_omdb_poster(
+    imdb_id: str | None, title: str | None, year: int | None = None
+) -> str | None:
     if not config.OMDB_API_KEY:
         return None
     params: dict[str, str] = {"apikey": config.OMDB_API_KEY}
@@ -176,6 +211,8 @@ def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
         params["i"] = tid
     elif title and title.strip():
         params["t"] = title.strip()
+        if year is not None:
+            params["y"] = str(year)
     else:
         return None
     try:
@@ -199,7 +236,7 @@ def _fetch_omdb_poster(imdb_id: str | None, title: str | None) -> str | None:
 def _fetch_tmdb_poster(title: str, year_hint: int | None = None) -> str | None:
     if not config.TMDB_API_CONFIGURED:
         return None
-    q = (title or "").strip()
+    q = title_hints.title_for_external_search((title or "").strip())
     if not q:
         return None
     params: dict[str, str | int] = {"query": q, "include_adult": "false"}
@@ -228,14 +265,14 @@ def _fetch_tmdb_poster(title: str, year_hint: int | None = None) -> str | None:
             for r in results
             if isinstance(r, dict) and str((r.get("release_date") or ""))[:4] == ys
         ]
-        picked = _pick_poster(matching)
-        if picked:
-            return picked
+        return _pick_poster(matching)
     return _pick_poster(results)
 
 
-def _fetch_tmdb_web_poster_for_query(q: str) -> str | None:
-    """TMDB search → first real movie link → detail page → JSON-LD / poster img."""
+def _fetch_tmdb_web_poster_for_query(
+    q: str, expect_release_year: int | None = None
+) -> str | None:
+    """TMDB search → first real movie link → detail page; optional JSON-LD year match."""
     q = (q or "").strip()
     if not q:
         return None
@@ -264,22 +301,36 @@ def _fetch_tmdb_web_poster_for_query(q: str) -> str | None:
         return None
     if page.status_code != 200:
         return None
-    return _poster_from_tmdb_movie_page_html(page.text)
+    poster, page_y = _tmdb_movie_page_poster_and_year(page.text)
+    if expect_release_year is not None:
+        if page_y is None or page_y != expect_release_year:
+            return None
+    return poster
 
 
 def _fetch_tmdb_web_poster(title: str, year_hint: int | None = None) -> str | None:
     """
-    No-key: TMDB search → detail page poster. When year_hint is set, search
-    "Title YYYY" first so short titles like "Tron" do not land on a newer sequel.
+    No-key: TMDB search → detail page poster. When year_hint is set, only accept
+    a detail page whose JSON-LD year matches; never fall back to a title-only search
+    (avoids remakes with the same title).
     """
     t = (title or "").strip()
     if not t:
         return None
+    st = title_hints.title_for_external_search(t)
     if year_hint is not None:
-        yfirst = _fetch_tmdb_web_poster_for_query(f"{t} {year_hint}")
+        yfirst = _fetch_tmdb_web_poster_for_query(
+            f"{st} {year_hint}", expect_release_year=year_hint
+        )
         if yfirst:
             return yfirst
-    return _fetch_tmdb_web_poster_for_query(t)
+        yquote = _fetch_tmdb_web_poster_for_query(
+            f'"{st}" {year_hint}', expect_release_year=year_hint
+        )
+        if yquote:
+            return yquote
+        return None
+    return _fetch_tmdb_web_poster_for_query(st, expect_release_year=None)
 
 
 def _normalize_lb_image_url(url: str) -> str:
@@ -328,8 +379,9 @@ def _get_letterboxd_poster_map(log: Callable[[str], None] | None = None) -> dict
                 continue
             if _is_letterboxd_placeholder(src):
                 continue
-            if n not in out:
-                out[n] = src
+            k = title_hints.poster_cache_key_from_title(title)
+            if k not in out:
+                out[k] = src
                 found_this_page += 1
 
         if found_this_page == 0:
@@ -412,22 +464,26 @@ def enrich_rows_with_posters(
 
     for row in rows:
         title = (row.get("display") or "").strip()
-        key = _normalize(title)
-        if not key:
+        if not title:
+            row["poster_url"] = None
+            row["poster_source"] = "none"
+            continue
+        cache_key = title_hints.poster_cache_key_for_row(row)
+        if not cache_key:
             row["poster_url"] = None
             row["poster_source"] = "none"
             continue
 
-        if key in lb_posters:
-            row["poster_url"] = lb_posters[key]
+        if cache_key in lb_posters:
+            row["poster_url"] = lb_posters[cache_key]
             row["poster_source"] = "letterboxd"
             stats["resolved_total"] += 1
             stats["resolved_letterboxd"] += 1
             continue
 
-        if key in cache and cache[key]:
-            row["poster_url"] = cache[key]
-            if cache[key]:
+        if cache_key in cache and cache[cache_key]:
+            row["poster_url"] = cache[cache_key]
+            if cache[cache_key]:
                 row["poster_source"] = "cache"
                 stats["resolved_total"] += 1
                 stats["resolved_cache"] += 1
@@ -435,7 +491,7 @@ def enrich_rows_with_posters(
 
         stats["new_network_lookups"] += 1
         if stats["new_network_lookups"] > max(1, config.POSTER_MAX_NETWORK_LOOKUPS):
-            cache[key] = None
+            cache[cache_key] = None
             row["poster_url"] = None
             row["poster_source"] = "none"
             stats["unresolved"] += 1
@@ -445,14 +501,15 @@ def enrich_rows_with_posters(
 
         imdb_id = (row.get("imdb_id") or "").strip()
         year_hint = title_hints.year_hint_from_row(row)
+        search_title = title_hints.title_for_external_search(title)
+        override_base = title_hints.normalize_metadata_key(title)
         if not imdb_id:
-            okey = title_hints.normalize_metadata_key(title)
-            imdb_id = (id_overrides.get(okey) or "").strip()
-        if not imdb_id and key in id_cache:
-            imdb_id = id_cache[key] or ""
+            imdb_id = (id_overrides.get(cache_key) or id_overrides.get(override_base) or "").strip()
+        if not imdb_id and cache_key in id_cache:
+            imdb_id = id_cache[cache_key] or ""
         if not imdb_id:
-            imdb_id = _lookup_imdb_id_by_title(title, year_hint) or ""
-            id_cache[key] = imdb_id or None
+            imdb_id = _lookup_imdb_id_by_title(search_title, year_hint) or ""
+            id_cache[cache_key] = imdb_id or None
         if imdb_id and not row.get("imdb_id"):
             row["imdb_id"] = imdb_id
         if imdb_id:
@@ -469,7 +526,9 @@ def enrich_rows_with_posters(
                     time.sleep(0.12)
 
         if not poster:
-            poster = _fetch_omdb_poster(imdb_id or None, title)
+            poster = _fetch_omdb_poster(
+                imdb_id or None, search_title or None, year_hint
+            )
             if poster:
                 source = "omdb"
 
@@ -483,7 +542,7 @@ def enrich_rows_with_posters(
             if poster:
                 source = "tmdb"
 
-        cache[key] = poster
+        cache[cache_key] = poster
         row["poster_url"] = poster
         row["poster_source"] = source
         if poster:
