@@ -408,15 +408,24 @@
     popup.style.right = "";
     popup.style.top = "";
     popup.style.bottom = "";
+    popup.style.maxHeight = "";
+    popup.style.transform = "";
   }
 
   function clampDesktopPopupToViewport(popup) {
     if (!popup || popup.classList.contains("hidden")) return;
     resetDesktopPopupClamp(popup);
     const pad = 8;
+    const gap = 8;
     let rect = popup.getBoundingClientRect();
     const vw = window.innerWidth;
     const vh = window.innerHeight;
+    const anchorRect = popup.parentElement ? popup.parentElement.getBoundingClientRect() : null;
+
+    const minVisibleHeight = 120;
+    const viewportMaxHeight = Math.max(minVisibleHeight, Math.floor(vh - pad * 2));
+    const availableAbove = anchorRect ? Math.max(0, Math.floor(anchorRect.top - pad - gap)) : 0;
+    const availableBelow = anchorRect ? Math.max(0, Math.floor(vh - anchorRect.bottom - pad - gap)) : 0;
 
     if (rect.right > vw - pad) {
       popup.style.left = "auto";
@@ -428,9 +437,51 @@
       popup.style.right = "auto";
       rect = popup.getBoundingClientRect();
     }
+
+    if (rect.height > viewportMaxHeight) {
+      popup.style.maxHeight = `${viewportMaxHeight}px`;
+      rect = popup.getBoundingClientRect();
+    }
+
+    const canFitBelow = rect.height <= availableBelow;
+    const canFitAbove = rect.height <= availableAbove;
+    const preferAbove = availableAbove > availableBelow;
+
     if (rect.bottom > vh - pad) {
-      popup.style.top = "auto";
-      popup.style.bottom = "calc(100% + 0.45rem)";
+      const useAbove = canFitAbove || (!canFitBelow && preferAbove);
+      if (useAbove) {
+        popup.style.top = "auto";
+        popup.style.bottom = "calc(100% + 0.45rem)";
+        popup.style.maxHeight = `${Math.max(minVisibleHeight, Math.min(viewportMaxHeight, availableAbove || viewportMaxHeight))}px`;
+      } else {
+        popup.style.top = "100%";
+        popup.style.bottom = "auto";
+        popup.style.maxHeight = `${Math.max(minVisibleHeight, Math.min(viewportMaxHeight, availableBelow || viewportMaxHeight))}px`;
+      }
+      rect = popup.getBoundingClientRect();
+    }
+
+    if (rect.top < pad) {
+      const useBelow = availableBelow >= availableAbove;
+      if (useBelow) {
+        popup.style.top = "100%";
+        popup.style.bottom = "auto";
+        popup.style.maxHeight = `${Math.max(minVisibleHeight, Math.min(viewportMaxHeight, availableBelow || viewportMaxHeight))}px`;
+      } else {
+        popup.style.top = "auto";
+        popup.style.bottom = "calc(100% + 0.45rem)";
+        popup.style.maxHeight = `${Math.max(minVisibleHeight, Math.min(viewportMaxHeight, availableAbove || viewportMaxHeight))}px`;
+      }
+      rect = popup.getBoundingClientRect();
+    }
+
+    if (rect.top < pad || rect.bottom > vh - pad) {
+      const deltaDown = Math.max(0, pad - rect.top);
+      const deltaUp = Math.max(0, rect.bottom - (vh - pad));
+      const deltaY = deltaDown - deltaUp;
+      if (deltaY !== 0) {
+        popup.style.transform = `translateY(${deltaY}px)`;
+      }
     }
   }
 
@@ -1370,6 +1421,11 @@
     if (genreMoreAnchor) positionGenreMorePopover(genreMoreAnchor);
     const openWd = gridEl.querySelector("details.watch-details[open]");
     if (openWd && !mobileWatchMq.matches) clampWatchBodyToViewport(openWd);
+    if (!isPopupSheetMode()) {
+      if (isSortOpen()) clampDesktopPopupToViewport(sortPopup);
+      if (isGenreOpen()) clampDesktopPopupToViewport(genrePopup);
+      if (isServicesOpen()) clampDesktopPopupToViewport(servicesPopup);
+    }
   });
   if (mobileWatchMq.addEventListener) {
     mobileWatchMq.addEventListener("change", onWatchLayoutMqChange);
