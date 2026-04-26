@@ -682,6 +682,12 @@
     if (!open) resetDesktopPopupClamp(servicesPopup);
   }
 
+  function closeOtherFilterSortPopovers(except) {
+    if (except !== "sort" && isSortOpen()) setSortOpen(false, {});
+    if (except !== "genre" && isGenreOpen()) setGenreOpen(false, {});
+    if (except !== "services" && isServicesOpen()) setServicesOpen(false, {});
+  }
+
   applyUrlState();
   syncServiceCheckboxUi();
   syncGenreAriaSelected();
@@ -1692,7 +1698,7 @@
 
   genreBtn.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (isSortOpen()) setSortOpen(false, {});
+    closeOtherFilterSortPopovers("genre");
     const next = !isGenreOpen();
     setGenreOpen(next, { focusFilter: next });
   });
@@ -1700,6 +1706,7 @@
   genreBtn.addEventListener("keydown", (e) => {
     if (e.key === " " || e.key === "Enter") {
       e.preventDefault();
+      closeOtherFilterSortPopovers("genre");
       const next = !isGenreOpen();
       setGenreOpen(next, { focusFilter: next });
     }
@@ -1741,13 +1748,14 @@
   if (servicesBtn && servicesPopup) {
     servicesBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (isSortOpen()) setSortOpen(false, {});
+      closeOtherFilterSortPopovers("services");
       const next = !isServicesOpen();
       setServicesOpen(next, {});
     });
     servicesBtn.addEventListener("keydown", (e) => {
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
+        closeOtherFilterSortPopovers("services");
         const next = !isServicesOpen();
         setServicesOpen(next, { focusFirst: next });
       }
@@ -1790,14 +1798,14 @@
   if (sortMobileBtn && sortPopup) {
     sortMobileBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      if (isGenreOpen()) setGenreOpen(false, {});
-      if (isServicesOpen()) setServicesOpen(false, {});
+      closeOtherFilterSortPopovers("sort");
       const next = !isSortOpen();
       setSortOpen(next, { focusFirst: next });
     });
     sortMobileBtn.addEventListener("keydown", (e) => {
       if (e.key === " " || e.key === "Enter") {
         e.preventDefault();
+        closeOtherFilterSortPopovers("sort");
         const next = !isSortOpen();
         setSortOpen(next, { focusFirst: next });
       }
