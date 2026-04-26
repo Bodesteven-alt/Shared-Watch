@@ -9,6 +9,7 @@ import tempfile
 import time
 from dataclasses import dataclass
 from typing import Callable
+from urllib.parse import urljoin, urlencode, urlparse, urlunparse, parse_qs
 
 import requests
 from bs4 import BeautifulSoup
@@ -167,6 +168,9 @@ IMDB_WATCHLIST_LINK_SELECTORS: tuple[str, ...] = (
 )
 
 # IMDb CSV "Title Type" values normalized (lowercase, no spaces) for movies-only filtering.
+# Note: "tvmovie" is *not* included — IMDb's "only movies" view often still lists TV movies separately;
+# matching your counts (e.g. 256 + optional TV movie) needs TV movies to stay, not be lumped in with
+# long-running series/miniseries.
 _IMDB_NON_MOVIE_TITLE_TYPES = frozenset(
     {
         "tvseries",
@@ -174,7 +178,6 @@ _IMDB_NON_MOVIE_TITLE_TYPES = frozenset(
         "tvepisode",
         "tvspecial",
         "tvshort",
-        "tvmovie",
         "tvpilot",
         "videogame",
     }
@@ -233,6 +236,13 @@ def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     return titles, items
 
 
+def _imdb_watchlist_row_count(driver) -> int:
+    """Count real watchlist rows — not every /title/tt link on the page (ads, recommendations)."""
+    from selenium.webdriver.common.by import By
+
+    return len(driver.find_elements(By.CSS_SELECTOR, "main li.ipc-metadata-list-summary-item"))
+
+
 def _imdb_scroll_watchlist_page(
     driver,
     log: Callable[[str], None],
@@ -240,14 +250,9 @@ def _imdb_scroll_watchlist_page(
     max_rounds: int = 80,
 ) -> None:
     """Scroll to bottom repeatedly so lazy-loaded watchlist rows appear."""
-    from selenium.webdriver.common.by import By
-
-    last_count = 0
+    last_count = -1
     stable_rounds = 0
-    rounds = 0
-    exit_reason = "max_rounds"
     for _ in range(max_rounds):
-        rounds += 1
         driver.execute_script(
             """
             var nodes = document.querySelectorAll(
@@ -260,72 +265,78 @@ def _imdb_scroll_watchlist_page(
             """
         )
         time.sleep(0.85)
-        links = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/title/tt"]')
-        count = len(links)
+        count = _imdb_watchlist_row_count(driver)
         if count == last_count:
             stable_rounds += 1
             if stable_rounds >= 3:
-                exit_reason = "stable_link_count"
                 break
         else:
             stable_rounds = 0
         last_count = count
 
 
-def _imdb_expand_watchlist_see_more(driver, log: Callable[[str], None], *, max_clicks: int = 60) -> int:
+def _imdb_click_lowest_see_more_in_main(driver) -> bool:
     """
-    IMDb may paginate the watchlist with a 'see more' control. We only ever JS-click
-    `button.ipc-see-more__button` that sits *below* the last list row inside <main>.
-    Do not call .click() on <main>, on the page body, or on generic 'more' icon buttons; that
-    can activate the first 'Where to watch' / provider link and open Pluto, Disney+, etc.
+    Click the bottom-most visible `ipc-see-more` in <main> (watchlist load-more is usually last).
+    Avoids picking a 'see more' higher on the page that targets a different module.
     """
     from selenium.common.exceptions import StaleElementReferenceException
     from selenium.webdriver.common.by import By
 
+    buttons = driver.find_elements(By.CSS_SELECTOR, "main button.ipc-see-more__button")
+    best = None
+    best_bottom = -1.0
+    for btn in buttons:
+        try:
+            if not btn.is_displayed():
+                continue
+            r = btn.rect
+            bottom = float(r["y"]) + float(r["height"])
+        except (StaleElementReferenceException, Exception):
+            continue
+        if bottom > best_bottom:
+            best_bottom = bottom
+            best = btn
+    if best is None:
+        return False
+    try:
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", best)
+        time.sleep(0.25)
+        driver.execute_script("arguments[0].click();", best)
+        return True
+    except (StaleElementReferenceException, Exception):
+        return False
+
+
+def _imdb_expand_watchlist_see_more(driver, log: Callable[[str], None], *, max_clicks: int = 100) -> int:
+    """
+    IMDb paginates long watchlists. Load-more is `button.ipc-see-more__button` at the end of the list.
+    We pick the lowest such button in <main> each round, then re-scroll so virtualized rows mount.
+    """
     n = 0
     for _ in range(max_clicks):
-        _imdb_scroll_watchlist_page(driver, log, max_rounds=10)
-        rows = driver.find_elements(By.CSS_SELECTOR, "main li.ipc-metadata-list-summary-item")
-        if not rows:
+        _imdb_scroll_watchlist_page(driver, log, max_rounds=14)
+        li_before = _imdb_watchlist_row_count(driver)
+        if not li_before:
             break
-        li_before = len(rows)
-        try:
-            last_y = rows[-1].rect["y"] + rows[-1].rect["height"]
-        except Exception:
-            last_y = 0.0
-        best = None
-        best_y = 1.0e12
-        for btn in driver.find_elements(By.CSS_SELECTOR, "main button.ipc-see-more__button"):
-            try:
-                if not btn.is_displayed():
-                    continue
-                y = float(btn.rect["y"])
-            except (StaleElementReferenceException, Exception):
-                continue
-            if y < last_y - 2.0:
-                continue
-            if y < best_y:
-                best_y = y
-                best = btn
-        if best is None:
+        if not _imdb_click_lowest_see_more_in_main(driver):
             if n == 0:
                 log(
-                    f"[IMDb] See-more: no safe ipc button below list "
-                    f"({li_before} rows; skipping load-more)"
+                    f"[IMDb] See-more: no ipc-see-more button in main "
+                    f"({li_before} row(s) visible; list may be complete or markup changed)"
                 )
             break
-        try:
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", best)
-            time.sleep(0.2)
-            driver.execute_script("arguments[0].click();", best)
-        except (StaleElementReferenceException, Exception):
-            break
         n += 1
-        time.sleep(1.2)
-        li_after = len(
-            driver.find_elements(By.CSS_SELECTOR, "main li.ipc-metadata-list-summary-item")
-        )
+        time.sleep(1.35)
+        _imdb_scroll_watchlist_page(driver, log, max_rounds=24)
+        li_after = _imdb_watchlist_row_count(driver)
         log(f"[IMDb] See-more click {n} (list rows: {li_before} → {li_after})")
+        if li_after <= li_before:
+            # One more scroll pass; sometimes rows mount a tick late.
+            time.sleep(0.5)
+            _imdb_scroll_watchlist_page(driver, log, max_rounds=10)
+            li_after = _imdb_watchlist_row_count(driver)
+            log(f"[IMDb] See-more after extra scroll: {li_after} row(s)")
     if n:
         log(f"[IMDb] See-more: {n} load-more click(s) for watchlist")
     return n
@@ -333,15 +344,55 @@ def _imdb_expand_watchlist_see_more(driver, log: Callable[[str], None], *, max_c
 
 def _imdb_prepare_watchlist_dom_for_scrape(driver, log: Callable[[str], None]) -> None:
     """Scroll + IMDb 'see more' chunks + final scroll so list rows are fully present for scrape."""
-    _imdb_expand_watchlist_see_more(driver, log, max_clicks=60)
-    _imdb_scroll_watchlist_page(driver, log, max_rounds=80)
+    _imdb_expand_watchlist_see_more(driver, log, max_clicks=100)
+    _imdb_scroll_watchlist_page(driver, log, max_rounds=100)
+
+
+def _imdb_collect_watchlist_rows_js(driver) -> list[dict]:
+    """
+    One entry per `li.ipc-metadata-list-summary-item`, deduped by tt id. Aligns with IMDb's
+    on-page row count (e.g. 296) better than walking unscoped /title/ links.
+    """
+    script = r"""
+    var out = [];
+    var seen = new Set();
+    var rows = document.querySelectorAll('main li.ipc-metadata-list-summary-item');
+    for (var i = 0; i < rows.length; i++) {
+        var li = rows[i];
+        var a = li.querySelector("a[href*='/title/tt']");
+        if (!a) continue;
+        var href = a.getAttribute('href') || '';
+        var m = href.match(/\/(tt\d+)\/?/);
+        var tt = m ? m[1] : '';
+        if (tt && seen.has(tt)) continue;
+        if (tt) seen.add(tt);
+        var t = (a.innerText || a.textContent || '').trim();
+        t = t.replace(/^\d+\.\s*/, '').trim();
+        if (!t) {
+            var h3 = li.querySelector('h3, .ipc-title__text, span.ipc-title__text');
+            if (h3) t = (h3.innerText || h3.textContent || '').trim();
+            t = t.replace(/^\d+\.\s*/, '').trim();
+        }
+        if (!t) continue;
+        out.push({ title: t, imdb_id: tt || null });
+    }
+    return out;
+    """
+    try:
+        raw = driver.execute_script(script)
+    except Exception:
+        return []
+    if not raw or not isinstance(raw, list):
+        return []
+    return [x for x in raw if isinstance(x, dict)]
 
 
 def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
-    """Deduplicate by normalized title; collect display title and tt id from href."""
+    """Collect display title and tt id; prefer deduping by imdb_id when present."""
     raw: list[str] = []
     raw_items: list[dict] = []
     seen: set[str] = set()
+    seen_tt: set[str] = set()
     blocklist = {
         "watchlist",
         "ratings",
@@ -359,18 +410,24 @@ def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
             continue
         if "/title/tt" not in href:
             continue
+        m = re.search(r"/title/(tt\d+)", href)
+        imdb_id = m.group(1) if m else None
         cleaned = _imdb_anchor_display_title(a)
         if not cleaned:
             continue
         norm = normalize_title(cleaned)
         if not norm or norm in blocklist:
             continue
-        if norm in seen:
-            continue
-        seen.add(norm)
+        if imdb_id:
+            if imdb_id in seen_tt:
+                continue
+        else:
+            if norm in seen:
+                continue
+            seen.add(norm)
+        if imdb_id:
+            seen_tt.add(imdb_id)
         raw.append(cleaned)
-        m = re.search(r"/title/(tt\d+)", href)
-        imdb_id = m.group(1) if m else None
         raw_items.append({"title": cleaned, "imdb_id": imdb_id})
     return raw, raw_items
 
@@ -378,6 +435,31 @@ def _imdb_items_from_anchor_elements(elements) -> tuple[list[str], list[dict]]:
 def _imdb_collect_scoped_watchlist(driver, log: Callable[[str], None]) -> tuple[list[str], list[dict]]:
     """Titles from watchlist list rows only (excludes recommendations elsewhere on the page)."""
     from selenium.webdriver.common.by import By
+
+    row_n = _imdb_watchlist_row_count(driver)
+    row_data = _imdb_collect_watchlist_rows_js(driver)
+    if row_data:
+        items: list[dict] = []
+        for r in row_data:
+            t = (r.get("title") or "").strip()
+            if not t:
+                continue
+            t = clean_imdb_title(t)
+            if not t:
+                continue
+            iid = r.get("imdb_id")
+            if isinstance(iid, str):
+                iid = iid.strip() or None
+            else:
+                iid = None
+            items.append({"title": t, "imdb_id": iid})
+        titles = [x["title"] for x in items]
+        log(
+            f"[IMDb] Scoped watchlist row scrape: {len(titles)} title(s) "
+            f"({row_n} list row(s) in DOM)"
+        )
+        if titles:
+            return titles, items
 
     all_elements: list = []
     seen_ids: set[int] = set()
@@ -389,6 +471,191 @@ def _imdb_collect_scoped_watchlist(driver, log: Callable[[str], None]) -> tuple[
                 all_elements.append(el)
     titles, items = _imdb_items_from_anchor_elements(all_elements)
     log(f"[IMDb] Scoped watchlist selectors: {len(titles)} titles")
+    return titles, items
+
+
+def _imdb_watchlist_url_with_start(url: str, start: int) -> str:
+    """IMDb lists are ~250 per page; `start` is the 0-based offset (e.g. 250 for page 2)."""
+    p = urlparse(url)
+    q = {k: v[0] if v else "" for k, v in parse_qs(p.query, keep_blank_values=True).items()}
+    q["start"] = str(start)
+    return urlunparse((p.scheme, p.netloc, p.path, p.params, urlencode(list(q.items())), p.fragment))
+
+
+def _imdb_find_next_watchlist_href(driver) -> str | None:
+    """Pagination: 'Page 1 of 2' with Next, or rel=next on the watchlist."""
+    from selenium.common.exceptions import StaleElementReferenceException
+    from selenium.webdriver.common.by import By
+
+    selectors = (
+        "main a[rel='next']",
+        "a[rel='next'][href*='watchlist']",
+        "[class*='pagination'] a[rel='next']",
+        "nav[aria-label*='Pagination' i] a[rel='next']",
+    )
+    for sel in selectors:
+        try:
+            for el in driver.find_elements(By.CSS_SELECTOR, sel):
+                try:
+                    if not el.is_displayed():
+                        continue
+                    if (el.get_attribute("aria-disabled") or "").lower() == "true":
+                        continue
+                    href = (el.get_attribute("href") or "").strip()
+                except (StaleElementReferenceException, Exception):
+                    continue
+                if href and href != "#" and "javascript" not in href.lower():
+                    return href
+        except Exception:
+            continue
+    return None
+
+
+def _imdb_click_next_watchlist_page(driver, log: Callable[[str], None]) -> bool:
+    """Click Next when href is not available (SPA) or for accessibility-only controls."""
+    from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+    from selenium.webdriver.common.by import By
+
+    sels = (
+        "main a[rel='next']",
+        "main a[aria-label='Next']",
+        "main button[aria-label='Next']",
+        "nav[aria-label*='Pagination' i] a[aria-label='Next']",
+    )
+    for sel in sels:
+        try:
+            el = driver.find_element(By.CSS_SELECTOR, sel)
+            if not el.is_displayed():
+                continue
+            if (el.get_attribute("aria-disabled") or "").lower() == "true":
+                continue
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", el)
+            time.sleep(0.2)
+            driver.execute_script("arguments[0].click();", el)
+            log("[IMDb] Clicked watchlist Next page control")
+            return True
+        except (NoSuchElementException, StaleElementReferenceException, Exception):
+            continue
+    return False
+
+
+def _imdb_gather_watchlist_multipage(
+    driver,
+    start_url: str,
+    log: Callable[[str], None],
+    wait,  # WebDriverWait
+) -> tuple[list[str], list[dict]] | None:
+    """
+    IMDb caps ~250 rows per *page*; additional titles require Next / `start=` (or Export).
+    Page 1 is already loaded (caller did driver.get). We merge by tt id across pages.
+    """
+    from selenium.webdriver.common.by import By
+    from selenium.webdriver.support import expected_conditions as ec
+
+    by_key: dict[str, dict] = {}
+    order: list[str] = []
+    tried_start_fallback: set[str] = set()
+    per_page = int(os.environ.get("IMDB_WATCHLIST_PAGE_SIZE", "250") or "250")
+    if per_page < 1:
+        per_page = 250
+
+    def merge_from_batch(batch: list[dict]) -> int:
+        n_new = 0
+        for r in batch or []:
+            t = clean_imdb_title((r.get("title") or "").strip())
+            if not t:
+                continue
+            iid = r.get("imdb_id")
+            if isinstance(iid, str):
+                iid = iid.strip() or None
+            else:
+                iid = None
+            if iid:
+                if iid not in by_key:
+                    by_key[iid] = {"title": t, "imdb_id": iid}
+                    order.append(iid)
+                    n_new += 1
+            else:
+                n = normalize_title(t)
+                sk = f"__noid_{n}" if n else f"__noid_{len(order)}"
+                if sk not in by_key:
+                    by_key[sk] = {"title": t, "imdb_id": None}
+                    order.append(sk)
+                    n_new += 1
+        return n_new
+
+    current_url = start_url
+    for page_i in range(50):
+        if page_i > 0:
+            log(f"[IMDb] Loading watchlist page {page_i + 1} …")
+            driver.get(current_url)
+            time.sleep(1.6)
+        wait.until(ec.presence_of_element_located((By.TAG_NAME, "body")))
+        if page_i == 0:
+            try:
+                time.sleep(0.8)
+                WebDriverWait(driver, 20).until(
+                    ec.any_of(
+                        ec.presence_of_element_located(
+                            (By.CSS_SELECTOR, "li.ipc-metadata-list-summary-item")
+                        ),
+                        ec.presence_of_element_located(
+                            (By.CSS_SELECTOR, "main a[href*='/title/tt']")
+                        ),
+                        ec.presence_of_element_located((By.CSS_SELECTOR, "main")),
+                    )
+                )
+            except Exception:
+                log("[IMDb] Timeout waiting for list markup; continuing")
+        _imdb_prepare_watchlist_dom_for_scrape(driver, log)
+        batch = _imdb_collect_watchlist_rows_js(driver)
+        if not batch:
+            t_alt, it_alt = _imdb_collect_scoped_watchlist(driver, log)
+            batch = [{"title": x.get("title"), "imdb_id": x.get("imdb_id")} for x in it_alt]
+        n_rows = _imdb_watchlist_row_count(driver)
+        n_new = merge_from_batch(batch)
+        log(
+            f"[IMDb] Watchlist page {page_i + 1}: {n_rows} list row(s), {n_new} new unique, "
+            f"{len(order)} total unique title(s)"
+        )
+        if page_i == 0 and not batch and n_rows == 0:
+            return None
+
+        try:
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(0.4)
+        except Exception:
+            pass
+        next_href = _imdb_find_next_watchlist_href(driver)
+        before_url = driver.current_url
+        if next_href:
+            nxt = urljoin(before_url, next_href)
+            if nxt and nxt != before_url:
+                current_url = nxt
+                continue
+        if _imdb_click_next_watchlist_page(driver, log):
+            time.sleep(2.2)
+            if driver.current_url != before_url:
+                current_url = driver.current_url
+                continue
+        if page_i == 0 and len(batch) >= 200 and n_new > 0:
+            off = (page_i + 1) * per_page
+            guess = _imdb_watchlist_url_with_start(start_url, off)
+            if guess not in tried_start_fallback:
+                tried_start_fallback.add(guess)
+                if guess not in (before_url, start_url):
+                    log(
+                        f"[IMDb] No Next link; trying watchlist with start={off} (second+ page) …"
+                    )
+                    current_url = guess
+                    continue
+        log("[IMDb] End of watchlist pagination (or could not go to next page)")
+        break
+
+    if not order:
+        return None
+    items = [by_key[k] for k in order]
+    titles = [x["title"] for x in items]
     return titles, items
 
 
@@ -598,14 +865,20 @@ def _imdb_with_selenium(
         except Exception:
             _log("[IMDb] Timeout waiting for list markup; continuing anyway")
 
-        # Phase 1: Live watchlist list in the DOM (scoped). Matches the on-page list; avoids
-        # stale IMDb export CSVs and random /title/ links elsewhere on the page.
-        _imdb_prepare_watchlist_dom_for_scrape(driver, _log)
-        scoped_titles, scoped_items = _imdb_collect_scoped_watchlist(driver, _log)
+        # Phase 1: Live watchlist — IMDb uses ~250 titles per *page* ("Page 1 of 2" + Next, or
+        # `start=`). Merge all pages by tt id, then fall back to single-page/Export if needed.
+        mp = _imdb_gather_watchlist_multipage(driver, url, _log, wait)
+        if mp:
+            scoped_titles, scoped_items = mp
+        else:
+            scoped_titles, scoped_items = ([], [])
+        if not scoped_titles:
+            _imdb_prepare_watchlist_dom_for_scrape(driver, _log)
+            scoped_titles, scoped_items = _imdb_collect_scoped_watchlist(driver, _log)
         if not scoped_titles:
             scoped_titles, scoped_items = _imdb_collect_main_watchlist(driver, _log)
         if scoped_titles:
-            _log(f"[IMDb] Found {len(scoped_titles)} titles from live watchlist DOM")
+            _log(f"[IMDb] Found {len(scoped_titles)} titles from live watchlist DOM (after pagination if multi-page)")
             if config.IMDB_WATCHLIST_MOVIES_ONLY and config.IMDB_USE_EXPORT_FLOW:
                 exported_mo = _imdb_try_export_csv(driver, download_dir, wait, _log)
                 if exported_mo:

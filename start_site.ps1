@@ -15,6 +15,7 @@ $env:PORT = $listenPort
 $logDir = Join-Path $scriptDir "data"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $logFile = Join-Path $logDir "startup.log"
+$appLogFile = Join-Path $logDir "app_runtime.log"
 
 function Write-Log([string]$msg) {
   $line = "[{0}] {1}" -f (Get-Date).ToString("s"), $msg
@@ -38,7 +39,8 @@ try {
   Write-Log ("Starting watchlist site (listenHost={0}, listenPort={1})" -f $listenHost, $listenPort)
 
   $ErrorActionPreference = "Continue"
-  & $pythonExe "app.py" 1>> $logFile 2>> $logFile
+  # Keep Flask/stdout on a separate file to avoid file-share locks with Write-Log.
+  & $pythonExe "app.py" 1>> $appLogFile 2>> $appLogFile
   $exitCode = $LASTEXITCODE
   $ErrorActionPreference = "Stop"
   if ($null -eq $exitCode) { $exitCode = 0 }

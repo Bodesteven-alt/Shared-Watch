@@ -1110,11 +1110,6 @@ def main() -> int:
             }
         )
 
-    # Filter out TV series and episodes - keep only movies
-    total_before_filter = len(movies)
-    movies = [m for m in movies if m.get("content_type") in (None, "movie")]
-    filtered_count = total_before_filter - len(movies)
-
     movies.sort(key=lambda m: title_hints.article_insensitive_sort_tuple(m.get("title", "")))
 
     profile = config.load_owned_streaming_profile()
@@ -1171,8 +1166,6 @@ def main() -> int:
             "  Note: All streaming blocks are empty. Provider data is filled when cache refresh runs "
             "with TMDb configured; run: python scripts/check_streaming_setup.py"
         )
-    if filtered_count > 0:
-        print(f"  Filtered out: {filtered_count} TV series/episodes")
     print(f"  With year: {len(movies) - missing_year}/{len(movies)}")
     print(f"  With genre: {len(movies) - missing_genre}/{len(movies)}")
     print(f"  With rating: {len(movies) - missing_rating}/{len(movies)}")
