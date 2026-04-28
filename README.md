@@ -95,6 +95,11 @@ That script:
 
 Logs: `scripts/logs/startup_sync.log`
 
+Startup behavior:
+
+- Task action runs PowerShell hidden (`-WindowStyle Hidden -NonInteractive`) to avoid startup pop-ups.
+- Re-running `setup_startup_task.ps1` also removes stale watchlist startup tasks that still point at older repo paths.
+
 ### TMDb credentials (posters, streaming providers)
 
 Refresh and streaming enrichment need TMDb in the **same environment** as the Python process.
@@ -121,6 +126,8 @@ If watch listings stay empty after fixing credentials, delete **`data/tmdb_watch
 - Read the log: `scripts/logs/startup_sync.log` (look for Python or git errors)
 - Run history: `scripts/logs/startup_sync_attempts.log` — one line per run, comma-separated ISO timestamp and exit code (`timestamp,exit_code`)
 - To start the local Flask site at logon, run `.\scripts\setup_site_startup_task.ps1` (creates task `WatchlistLocalSite`). Optional delay: `-LogonDelayMinutes` (0–1439) on `setup_startup_task.ps1` and `setup_site_startup_task.ps1`
+- Local site runtime logs: `data/startup.log` and `data/app_runtime.log`; run history: `data/start_site_attempts.log`
+- Re-run both setup scripts after moving the repo path so stale task actions get cleaned up automatically
 - At logon, `py -3.12` must resolve (Windows Launcher). If not, install Python 3.12 or change `startup_sync.ps1` to use a full path to `python.exe`
 - IMDb uses Selenium; if refresh fails right after logon, try adding a short delay in Task Scheduler (task Properties → Triggers → Delay task for) so the desktop and browser drivers are ready, or pass `-LogonDelayMinutes` when registering the task
 

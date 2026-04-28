@@ -17,9 +17,41 @@ if (-not (Test-Path $syncScript)) {
 $taskName = "WatchlistGitHubPagesSync"
 $psExe = Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"
 $repoRoot = (Resolve-Path (Join-Path $scriptDir "..")).Path
+
+function Remove-StaleWatchlistTasks {
+  param(
+    [string]$CurrentRepoRoot
+  )
+
+  $normalizedRoot = $CurrentRepoRoot.ToLowerInvariant()
+  $tasks = Get-ScheduledTask -ErrorAction SilentlyContinue
+  foreach ($task in $tasks) {
+    foreach ($actionItem in $task.Actions) {
+      if (-not $actionItem.Execute) { continue }
+      if ($actionItem.Execute -notlike "*powershell.exe") { continue }
+      if (-not $actionItem.Arguments) { continue }
+
+      $argsLower = $actionItem.Arguments.ToLowerInvariant()
+      $matchesWatchlistScript = $argsLower.Contains("startup_sync.ps1") -or $argsLower.Contains("start_site.ps1")
+      if (-not $matchesWatchlistScript) { continue }
+      if ($argsLower.Contains($normalizedRoot)) { continue }
+
+      try {
+        Unregister-ScheduledTask -TaskName $task.TaskName -TaskPath $task.TaskPath -Confirm:$false -ErrorAction Stop | Out-Null
+        Write-Output ("Removed stale startup task: {0}{1}" -f $task.TaskPath, $task.TaskName)
+      } catch {
+        Write-Warning ("Failed to remove stale task {0}{1}: {2}" -f $task.TaskPath, $task.TaskName, $_.Exception.Message)
+      }
+      break
+    }
+  }
+}
+
+Remove-StaleWatchlistTasks -CurrentRepoRoot $repoRoot
+
 $action = New-ScheduledTaskAction `
   -Execute $psExe `
-  -Argument "-NoProfile -ExecutionPolicy Bypass -File `"$syncScript`"" `
+  -Argument "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$syncScript`"" `
   -WorkingDirectory $repoRoot
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 if ($LogonDelayMinutes -gt 0) {

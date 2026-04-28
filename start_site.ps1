@@ -16,11 +16,17 @@ $logDir = Join-Path $scriptDir "data"
 New-Item -ItemType Directory -Force -Path $logDir | Out-Null
 $logFile = Join-Path $logDir "startup.log"
 $appLogFile = Join-Path $logDir "app_runtime.log"
+$attemptsFile = Join-Path $logDir "start_site_attempts.log"
 
 function Write-Log([string]$msg) {
   $line = "[{0}] {1}" -f (Get-Date).ToString("s"), $msg
   Add-Content -Path $logFile -Value $line
   Write-Output $line
+}
+
+function Write-AttemptRecord([int]$code) {
+  $ts = (Get-Date).ToString("o")
+  Add-Content -Path $attemptsFile -Value ("{0},{1}" -f $ts, $code)
 }
 
 $pythonExe = (& py -3.12 -c "import sys; print(sys.executable)" 2>$null).Trim()
@@ -54,6 +60,7 @@ catch {
 }
 finally {
   Write-Log ("Exit code {0}" -f $exitCode)
+  Write-AttemptRecord $exitCode
 }
 
 exit $exitCode
