@@ -198,6 +198,16 @@ def imdb_title_type_is_tv(token: str | None) -> bool:
     return _imdb_csv_title_type_token(token) in _IMDB_NON_MOVIE_TITLE_TYPES
 
 
+def imdb_title_type_is_known_movie(token: str | None) -> bool:
+    """True only for explicitly known movie-like IMDb Title Type values."""
+    tok = _imdb_csv_title_type_token(token)
+    if not tok:
+        return False
+    if tok in _IMDB_NON_MOVIE_TITLE_TYPES:
+        return False
+    return tok in {"movie", "tvmovie"}
+
+
 def _parse_imdb_csv(path: str) -> tuple[list[str], list[dict]]:
     titles: list[str] = []
     items: list[dict] = []
@@ -1161,16 +1171,30 @@ def merge_watchlists(
 
     dropped_imdb_only_tv = 0
     stripped_both_tv = 0
+    dropped_imdb_only_unknown = 0
+    stripped_both_unknown = 0
     if config.IMDB_WATCHLIST_MOVIES_ONLY:
         adjusted: list[dict] = []
         for row in rows:
             tyt = row.get("imdb_title_type")
             tv = imdb_title_type_is_tv(tyt if isinstance(tyt, str) else None)
+            known_movie = imdb_title_type_is_known_movie(tyt if isinstance(tyt, str) else None)
+            unknown_non_movie = row["imdb"] and not tv and not known_movie
             if tv and row["imdb"] and not row["letterboxd"]:
                 dropped_imdb_only_tv += 1
                 continue
             if tv and row["imdb"] and row["letterboxd"]:
                 stripped_both_tv += 1
+                row = dict(row)
+                row["imdb"] = False
+                row["imdb_title"] = None
+                row["imdb_id"] = None
+                row["imdb_title_type"] = None
+            if unknown_non_movie and not row["letterboxd"]:
+                dropped_imdb_only_unknown += 1
+                continue
+            if unknown_non_movie and row["letterboxd"]:
+                stripped_both_unknown += 1
                 row = dict(row)
                 row["imdb"] = False
                 row["imdb_title"] = None
@@ -1200,5 +1224,7 @@ def merge_watchlists(
     if config.IMDB_WATCHLIST_MOVIES_ONLY:
         stats["imdb_dropped_movies_only_tv"] = dropped_imdb_only_tv
         stats["imdb_stripped_tv_from_both"] = stripped_both_tv
+        stats["imdb_dropped_movies_only_unknown_type"] = dropped_imdb_only_unknown
+        stats["imdb_stripped_unknown_type_from_both"] = stripped_both_unknown
         stats["imdb_title_type_missing_omdb"] = missing_ttype
     return rows, stats

@@ -160,10 +160,11 @@ def _run_refresh(*, log_prefix: str = "") -> dict:
     if config.IMDB_WATCHLIST_MOVIES_ONLY and stats.get("imdb_unique_titles") is not None:
         m = stats.get("imdb_title_type_missing_omdb")
         d = stats.get("imdb_dropped_movies_only_tv", 0)
+        du = stats.get("imdb_dropped_movies_only_unknown_type", 0)
         append(
             f"[Done] IMDb merge detail: {stats.get('imdb_unique_titles')} unique from scrape; "
             f"OMDb type missing for {m} tt id(s); "
-            f"dropped {d} IMDb-only as TV (movies-only mode)"
+            f"dropped {d} IMDb-only as TV and {du} as unknown type (movies-only mode)"
         )
     rows, poster_stats = posters.enrich_rows_with_posters(rows, log=append)
     rows, streaming_stats = streaming.enrich_rows_with_streaming(rows, log=append)

@@ -50,9 +50,9 @@ SELENIUM_BROWSER = os.environ.get("SELENIUM_BROWSER", "chrome").lower()
 SELENIUM_HEADLESS = _env_bool("SELENIUM_HEADLESS", True)
 # If True, retry IMDb once with a visible browser when headless gets zero titles (opens a window).
 IMDB_ALLOW_VISIBLE_FALLBACK = _env_bool("IMDB_ALLOW_VISIBLE_FALLBACK", True)
-# When True, IMDb CSV rows with TV types are skipped; merged rows drop IMDb-only TV (see scrape.merge_watchlists).
-# Default False so startup sync does not unexpectedly shrink IMDb counts when env/config is missing.
-IMDB_WATCHLIST_MOVIES_ONLY = _env_bool("IMDB_WATCHLIST_MOVIES_ONLY", False)
+# When True, IMDb CSV rows with TV types are skipped; merge keeps only IMDb rows with explicit movie types.
+# Default True to keep dashboard IMDb counts movie-only unless a deployment explicitly opts out.
+IMDB_WATCHLIST_MOVIES_ONLY = _env_bool("IMDB_WATCHLIST_MOVIES_ONLY", True)
 # CSV export can lag slightly behind removals until IMDb regenerates the file.
 # When the live DOM scrape finds no titles (common in headless), try Export → /exports/ CSV next.
 # Public watchlists often work without logging in; private lists need a logged-in browser profile.

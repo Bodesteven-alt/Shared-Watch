@@ -646,8 +646,8 @@
       {% if stats.get('imdb_title_type_missing_omdb', 0) > 0 %}
       <div class="err" style="border-color: rgba(200, 180, 120, 0.45); background: rgba(50, 45, 30, 0.35);">
         <strong>IMDb / OMDb gap:</strong> OMDb did not return a title type for
-        <strong>{{ stats.get('imdb_title_type_missing_omdb', 0) }}</strong> IMDb id(s). Those entries are
-        <em>not</em> treated as TV in “movies only” mode, so counts can drift from IMDb’s own filter until types resolve.
+        <strong>{{ stats.get('imdb_title_type_missing_omdb', 0) }}</strong> IMDb id(s). In “movies only” mode,
+        those entries are now excluded from IMDb counts until a valid type resolves.
         Check <code>OMDB_API_KEY</code> and refresh; or set <code>IMDB_WATCHLIST_MOVIES_ONLY=0</code> to match the full IMDb watchlist.
       </div>
       {% endif %}
