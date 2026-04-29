@@ -805,7 +805,7 @@ def _imdb_with_selenium(
         from selenium.webdriver.support import expected_conditions as ec
         from selenium.webdriver.support.ui import WebDriverWait
     except ImportError:
-        return ImdbResult([], "Install selenium: pip install selenium webdriver-manager")
+        return ImdbResult([], error="Install selenium: pip install selenium webdriver-manager")
 
     driver = None
     try:
@@ -930,7 +930,7 @@ def _imdb_with_selenium(
         return ImdbResult(raw, items=raw_items, error=None)
 
     except Exception as e:
-        return ImdbResult([], f"IMDb Selenium error: {e!s}")
+        return ImdbResult([], error=f"IMDb Selenium error: {e!s}")
     finally:
         if driver:
             try:
@@ -1093,6 +1093,9 @@ def get_imdb_items(
         r = _imdb_with_selenium(url, log)
         if r.error:
             return [], r.error
+        # Legacy/defensive: ImdbResult was sometimes built with positional args so error text landed in `.items`.
+        if isinstance(r.items, str):
+            return [], r.items
         if r.items:
             return r.items, None
         if r.titles:
@@ -1103,6 +1106,8 @@ def get_imdb_items(
             retry = _imdb_with_selenium(url, log, headless_override=False)
             if retry.error:
                 return [], retry.error
+            if isinstance(retry.items, str):
+                return [], retry.items
             if retry.items:
                 return retry.items, None
             if retry.titles:
