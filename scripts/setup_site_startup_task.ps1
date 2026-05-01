@@ -15,6 +15,7 @@ if (-not (Test-Path $siteScript)) {
 }
 
 $taskName = "WatchlistLocalSite"
+$conhostExe = Join-Path $env:SystemRoot "System32\conhost.exe"
 $psExe = Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe"
 $repoRoot = (Resolve-Path (Join-Path $scriptDir "..")).Path
 
@@ -28,7 +29,10 @@ function Remove-StaleWatchlistTasks {
   foreach ($task in $tasks) {
     foreach ($actionItem in $task.Actions) {
       if (-not $actionItem.Execute) { continue }
-      if ($actionItem.Execute -notlike "*powershell.exe") { continue }
+      $execLower = $actionItem.Execute.ToLowerInvariant()
+      $isPowerShellHost = $execLower -like "*powershell.exe" -or $execLower -like "*pwsh.exe"
+      $isConhostLauncher = $execLower -like "*conhost.exe"
+      if (-not $isPowerShellHost -and -not $isConhostLauncher) { continue }
       if (-not $actionItem.Arguments) { continue }
 
       $argsLower = $actionItem.Arguments.ToLowerInvariant()
@@ -49,9 +53,11 @@ function Remove-StaleWatchlistTasks {
 
 Remove-StaleWatchlistTasks -CurrentRepoRoot $repoRoot
 
+# conhost --headless avoids a visible PowerShell console flash (powershell.exe allocates a console before -WindowStyle Hidden applies).
+$taskArgument = '--headless "{0}" -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File "{1}"' -f $psExe, $siteScript
 $action = New-ScheduledTaskAction `
-  -Execute $psExe `
-  -Argument "-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File `"$siteScript`"" `
+  -Execute $conhostExe `
+  -Argument $taskArgument `
   -WorkingDirectory $repoRoot
 $trigger = New-ScheduledTaskTrigger -AtLogOn
 if ($LogonDelayMinutes -gt 0) {

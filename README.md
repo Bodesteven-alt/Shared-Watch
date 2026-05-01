@@ -97,8 +97,9 @@ Logs: `scripts/logs/startup_sync.log`
 
 Startup behavior:
 
-- Task action runs PowerShell hidden (`-WindowStyle Hidden -NonInteractive`) to avoid startup pop-ups.
-- Re-running `setup_startup_task.ps1` also removes stale watchlist startup tasks that still point at older repo paths.
+- Each logon task runs **`System32\conhost.exe`** with **`--headless`** and then **`powershell.exe … -File`** for the `.ps1` script. Plain `-WindowStyle Hidden` is not enough: `powershell.exe` is a console program, so Windows can show a console or flash a window before PowerShell hides it (and Windows Terminal as the default host can make that look like a pop-up). Headless `conhost` avoids that.
+- **`setup_site_startup_task.ps1`** registers the second task (**`WatchlistLocalSite`**) the same way, so fixing startup scripts alone requires **re-running both setup scripts once** so Task Scheduler picks up the new program/arguments (`schtasks /Query /TN \WatchlistGitHubPagesSync /V` and `/TN WatchlistLocalSite`).
+- Re-running either setup script also removes stale watchlist startup tasks whose actions still point at older repo paths (including legacy tasks that invoked `powershell.exe` directly).
 
 ### TMDb credentials (posters, streaming providers)
 
@@ -123,6 +124,7 @@ If watch listings stay empty after fixing credentials, delete **`data/tmdb_watch
 ### Troubleshooting startup sync
 
 - Confirm the task exists: `schtasks /Query /TN WatchlistGitHubPagesSync`
+- Verify the task action uses headless launcher: `schtasks /Query /TN WatchlistGitHubPagesSync /V` — **Task To Run** should list **`conhost.exe`** with **`--headless`**, then the path to `powershell.exe`, then `-File …\startup_sync.ps1`. Same pattern for **`WatchlistLocalSite`** and `start_site.ps1`.
 - Read the log: `scripts/logs/startup_sync.log` (look for Python or git errors)
 - Run history: `scripts/logs/startup_sync_attempts.log` — one line per run, comma-separated ISO timestamp and exit code (`timestamp,exit_code`)
 - To start the local Flask site at logon, run `.\scripts\setup_site_startup_task.ps1` (creates task `WatchlistLocalSite`). Optional delay: `-LogonDelayMinutes` (0–1439) on `setup_startup_task.ps1` and `setup_site_startup_task.ps1`
@@ -130,6 +132,9 @@ If watch listings stay empty after fixing credentials, delete **`data/tmdb_watch
 - Re-run both setup scripts after moving the repo path so stale task actions get cleaned up automatically
 - At logon, `py -3.12` must resolve (Windows Launcher). If not, install Python 3.12 or change `startup_sync.ps1` to use a full path to `python.exe`
 - IMDb uses Selenium; if refresh fails right after logon, try adding a short delay in Task Scheduler (task Properties → Triggers → Delay task for) so the desktop and browser drivers are ready, or pass `-LogonDelayMinutes` when registering the task
+- If a **Chrome** window appears during refresh (not PowerShell): headless IMDb can retry once in **visible** mode by default. To forbid that popup, set **`IMDB_ALLOW_VISIBLE_FALLBACK=0`** in `.env` or user environment so the Flask site and **`startup_sync`** runs stay fully headless (see `.env.example`).
+
+**Note:** `conhost.exe --headless` requires a recent Windows 10 / Windows 11 build. Older Windows may still see a flash; alternatives are documented in discussions of [PowerShell issue #3028](https://github.com/PowerShell/PowerShell/issues/3028) (for example a `wscript` launcher).
 
 ## Verification checklist
 
