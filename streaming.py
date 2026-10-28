@@ -7,6 +7,7 @@ import re
 import time
 from typing import Any, Callable
 
+import api_budget
 import config
 import posters as posters_mod
 import title_hints
@@ -263,9 +264,19 @@ def enrich_rows_with_streaming(
                     api_calls += 1
 
         if tmdb_id is None:
-            skipped += 1
-            row["streaming"] = {}
-            disk[key] = {"tmdb_id": None, "streaming": {}, "fetched_at": now}
+            # A failed lookup (network error, or the api_budget guard cutting
+            # TMDb calls) also lands here. Never let it erase providers we
+            # already had, and never cache the failure as a fresh empty entry
+            # (that poisoned 75 rows on Oct 28, 2026 when the daily TMDb
+            # budget ran out mid-refresh).
+            if isinstance(entry, dict) and entry.get("streaming"):
+                row["streaming"] = entry["streaming"]
+                enriched += 1
+            else:
+                skipped += 1
+                row["streaming"] = {}
+                if api_budget.allow("tmdb"):
+                    disk[key] = {"tmdb_id": None, "streaming": {}, "fetched_at": now}
             continue
 
         if api_calls >= max_calls:
@@ -279,6 +290,12 @@ def enrich_rows_with_streaming(
         raw_regions = _fetch_watch_providers_raw(tmdb_id)
         api_calls += 1
         slim = _trim_results_by_region(raw_regions, region)
+        if not slim and isinstance(entry, dict) and entry.get("streaming"):
+            # Empty response (failure or budget cut): keep the cached data
+            # instead of overwriting it with nothing.
+            row["streaming"] = entry["streaming"]
+            enriched += 1
+            continue
         row["streaming"] = slim
         disk[key] = {"tmdb_id": tmdb_id, "streaming": slim, "fetched_at": now}
         enriched += 1

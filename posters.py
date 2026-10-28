@@ -1,14 +1,23 @@
-"""Poster lookups with local JSON cache (no-key first)."""
+"""Poster lookups with local JSON cache (no-key first).
+
+Cache format v2 (Oct 28, 2026): posters.json maps a key to
+{"url": str|None, "source": str, "checked_at": "YYYY-MM-DD"|None}.
+Rows with a known IMDb id are keyed "imdb:<ttid>", which cannot collide
+across remakes that share a title; rows without an id keep the legacy
+title key. Legacy v1 values (plain strings) are upgraded on load.
+"""
 from __future__ import annotations
 
 import json
 import os
 import re
 import time
+from datetime import date, datetime
 from typing import Callable
 import requests
 from bs4 import BeautifulSoup
 
+import api_budget
 import config
 import title_hints
 import tmdb_client
@@ -39,7 +48,29 @@ def _normalize(title: str) -> str:
     return t
 
 
-def _load_cache() -> dict[str, str | None]:
+def _entry(url, source, checked_at=None) -> dict:
+    return {"url": url, "source": source, "checked_at": checked_at}
+
+
+def _normalize_entry(value) -> dict:
+    if isinstance(value, dict):
+        return _entry(value.get("url"), str(value.get("source") or "legacy"), value.get("checked_at"))
+    return _entry(value, "legacy", None)
+
+
+def _entry_fresh(entry: dict) -> bool:
+    """Fresh = verified recently enough that we trust it without a re-check."""
+    checked = entry.get("checked_at")
+    if not checked:
+        return False
+    try:
+        age = (date.today() - datetime.strptime(str(checked), "%Y-%m-%d").date()).days
+    except ValueError:
+        return False
+    return age <= config.POSTER_CACHE_REVALIDATE_DAYS
+
+
+def _load_cache() -> dict[str, dict]:
     path = config.POSTER_CACHE_PATH
     if not os.path.isfile(path):
         return {}
@@ -47,13 +78,13 @@ def _load_cache() -> dict[str, str | None]:
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
         if isinstance(data, dict):
-            return data
+            return {k: _normalize_entry(v) for k, v in data.items()}
     except (json.JSONDecodeError, OSError):
         pass
     return {}
 
 
-def _save_cache(cache: dict[str, str | None]) -> None:
+def _save_cache(cache: dict[str, dict]) -> None:
     os.makedirs(os.path.dirname(config.POSTER_CACHE_PATH), exist_ok=True)
     tmp = config.POSTER_CACHE_PATH + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:
@@ -205,6 +236,8 @@ def _fetch_omdb_poster(
 ) -> str | None:
     if not config.OMDB_API_KEY:
         return None
+    if not api_budget.allow("omdb"):
+        return None
     params: dict[str, str] = {"apikey": config.OMDB_API_KEY}
     tid = (imdb_id or "").strip()
     if tid:
@@ -215,6 +248,7 @@ def _fetch_omdb_poster(
             params["y"] = str(year)
     else:
         return None
+    api_budget.record("omdb")
     try:
         r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
     except requests.RequestException:
@@ -451,6 +485,8 @@ def enrich_rows_with_posters(
     id_cache = _load_id_cache()
     id_overrides = title_hints.load_imdb_id_overrides(config.IMDB_ID_OVERRIDES_PATH)
     lb_posters = _get_letterboxd_poster_map(log=log)
+    revalidations_left = max(0, config.POSTER_REVALIDATE_MAX_PER_RUN)
+    today = date.today().isoformat()
     stats = {
         "resolved_total": 0,
         "resolved_letterboxd": 0,
@@ -481,17 +517,42 @@ def enrich_rows_with_posters(
             stats["resolved_letterboxd"] += 1
             continue
 
-        if cache_key in cache and cache[cache_key]:
-            row["poster_url"] = cache[cache_key]
-            if cache[cache_key]:
+        # Identity first: a row with a known IMDb id uses ONLY the id-keyed
+        # cache entry. Title-keyed entries are never consulted for such rows,
+        # because a bare title can belong to a different film (the Godzilla
+        # 1954 vs 2014 collision).
+        early_imdb_id = (row.get("imdb_id") or "").strip()
+        if not early_imdb_id:
+            ob = title_hints.normalize_metadata_key(title)
+            early_imdb_id = (id_overrides.get(cache_key) or id_overrides.get(ob) or "").strip()
+        id_key = f"imdb:{early_imdb_id}" if early_imdb_id else None
+        if id_key:
+            entry = cache.get(id_key)
+            if entry and entry.get("url"):
+                if not _entry_fresh(entry) and revalidations_left > 0 and config.TMDB_API_CONFIGURED:
+                    revalidations_left -= 1
+                    verified = _fetch_tmdb_poster_by_imdb_find(early_imdb_id)
+                    if verified:
+                        entry = _entry(verified, "tmdb_find", today)
+                        cache[id_key] = entry
+                row["poster_url"] = entry["url"]
                 row["poster_source"] = "cache"
                 stats["resolved_total"] += 1
                 stats["resolved_cache"] += 1
+                continue
+        elif cache_key in cache and cache[cache_key].get("url"):
+            row["poster_url"] = cache[cache_key]["url"]
+            row["poster_source"] = "cache"
+            stats["resolved_total"] += 1
+            stats["resolved_cache"] += 1
             continue
 
         stats["new_network_lookups"] += 1
         if stats["new_network_lookups"] > max(1, config.POSTER_MAX_NETWORK_LOOKUPS):
-            cache[cache_key] = None
+            if id_key:
+                cache[id_key] = _entry(None, "none", today)
+            else:
+                cache[cache_key] = _entry(None, "none", today)
             row["poster_url"] = None
             row["poster_source"] = "none"
             stats["unresolved"] += 1
@@ -499,12 +560,9 @@ def enrich_rows_with_posters(
         poster = None
         source = "none"
 
-        imdb_id = (row.get("imdb_id") or "").strip()
+        imdb_id = early_imdb_id
         year_hint = title_hints.year_hint_from_row(row)
         search_title = title_hints.title_for_external_search(title)
-        override_base = title_hints.normalize_metadata_key(title)
-        if not imdb_id:
-            imdb_id = (id_overrides.get(cache_key) or id_overrides.get(override_base) or "").strip()
         if not imdb_id and cache_key in id_cache:
             imdb_id = id_cache[cache_key] or ""
         if not imdb_id:
@@ -516,7 +574,7 @@ def enrich_rows_with_posters(
             if config.TMDB_API_CONFIGURED:
                 poster = _fetch_tmdb_poster_by_imdb_find(imdb_id)
                 if poster:
-                    source = "tmdb"
+                    source = "tmdb_find"
             if not poster:
                 poster = _fetch_imdb_poster_by_id(imdb_id)
                 if poster:
@@ -542,7 +600,10 @@ def enrich_rows_with_posters(
             if poster:
                 source = "tmdb"
 
-        cache[cache_key] = poster
+        if imdb_id:
+            cache[f"imdb:{imdb_id}"] = _entry(poster, source, today)
+        else:
+            cache[cache_key] = _entry(poster, source, today)
         row["poster_url"] = poster
         row["poster_source"] = source
         if poster:
@@ -551,7 +612,7 @@ def enrich_rows_with_posters(
                 stats["resolved_imdb"] += 1
             elif source == "tmdb_web":
                 stats["resolved_tmdb"] += 1
-            elif source == "tmdb":
+            elif source in ("tmdb", "tmdb_find"):
                 stats["resolved_tmdb"] += 1
             elif source == "omdb":
                 stats["resolved_omdb"] += 1

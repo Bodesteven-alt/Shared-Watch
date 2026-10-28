@@ -18,6 +18,7 @@ from bs4 import BeautifulSoup
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+import api_budget  # noqa: E402
 import config  # noqa: E402
 import streaming  # noqa: E402
 import title_hints  # noqa: E402
@@ -580,6 +581,8 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
     }
     if not OMDB_API_KEY:
         return out
+    if not api_budget.allow("omdb"):
+        return out
     params = {"apikey": OMDB_API_KEY}
     if imdb_id:
         params["i"] = imdb_id
@@ -587,6 +590,7 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
         params["t"] = title.strip()
     else:
         return out
+    api_budget.record("omdb")
     try:
         r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
     except requests.RequestException:
@@ -852,6 +856,38 @@ def main() -> int:
             )
     id_overrides = title_hints.load_imdb_id_overrides(config.IMDB_ID_OVERRIDES_PATH)
 
+    # TTL refresh (Oct 28, 2026): metadata used to be re-fetched only when a
+    # row was incomplete, so ratings and vote counts froze forever (issue #6).
+    # Complete entries older than META_REFRESH_TTL_DAYS become eligible; the
+    # oldest META_REFRESH_MAX_PER_RUN are approved for this run and the rest
+    # keep cached values and rotate in on later runs. No API bursts.
+    _now = datetime.now(timezone.utc)
+    _stale_candidates: list[tuple[int, str]] = []
+    for mk, mv in meta_cache.items():
+        if mk.startswith("_") or not isinstance(mv, dict):
+            continue
+        if mv.get("year") is None or not mv.get("genres") or mv.get("rating_imdb_10") is None:
+            continue  # incomplete entries already force-refresh in the loop
+        age_days = 10**9
+        stamp = mv.get("meta_fetched_at")
+        if stamp:
+            try:
+                age_days = (_now - datetime.fromisoformat(str(stamp))).days
+            except ValueError:
+                age_days = 10**9
+        if age_days > config.META_REFRESH_TTL_DAYS:
+            _stale_candidates.append((age_days, mk))
+    _stale_candidates.sort(reverse=True)
+    stale_approved = {
+        mk for _, mk in _stale_candidates[: max(0, config.META_REFRESH_MAX_PER_RUN)]
+    }
+    if stale_approved:
+        print(
+            f"Metadata TTL: refreshing {len(stale_approved)} stalest entries "
+            f"(TTL {config.META_REFRESH_TTL_DAYS}d, cap {config.META_REFRESH_MAX_PER_RUN}/run, "
+            f"{len(_stale_candidates)} eligible)"
+        )
+
     rows = cache.get("rows") or []
     stats = cache.get("stats") or {}
     posters_resolved = sum(1 for r in rows if r.get("poster_url"))
@@ -894,6 +930,7 @@ def main() -> int:
             or c.get("imdb_id") != imdb_id
             or "year" not in c
             or meta_incomplete
+            or norm in stale_approved
             or (
                 imdb_id
                 and c.get("rating_imdb_10") is not None
@@ -981,6 +1018,7 @@ def main() -> int:
                 "content_type": merged_ct,
                 "rating_letterboxd_5": prev_meta.get("rating_letterboxd_5"),
                 "rating_count_letterboxd": prev_meta.get("rating_count_letterboxd"),
+                "meta_fetched_at": datetime.now(timezone.utc).isoformat(),
             }
             meta_cache[norm] = c
         elif not imdb_id and needs_refresh:
@@ -1031,6 +1069,7 @@ def main() -> int:
                 "content_type": content_type,
                 "rating_letterboxd_5": None,
                 "rating_count_letterboxd": None,
+                "meta_fetched_at": datetime.now(timezone.utc).isoformat(),
             }
             meta_cache[norm] = c
         elif not c:
@@ -1179,6 +1218,11 @@ def main() -> int:
         print("  OMDb API: enabled")
     else:
         print("  OMDb API: not configured (add key to data/omdb_api_key.txt for better coverage)")
+    _budget = api_budget.summary()
+    print(
+        "  API budget today: "
+        + ", ".join(f"{p} {_budget[p]['used']}/{_budget[p]['cap']}" for p in ("tmdb", "omdb"))
+    )
     # #region agent log
     try:
         _imdb_src_n = sum(1 for m in movies if m.get("source") == "imdb")

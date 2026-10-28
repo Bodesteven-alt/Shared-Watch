@@ -24,10 +24,17 @@ log() { echo "[$(date -Is)] $*" >> "$LOG"; }
 finish() {
   local code=$1
   echo "$(date -Is),$code" >> "$ATTEMPTS"
+  printf '{"finished_at": "%s", "exit_code": %s}\n' "$(date -Is)" "$code" > "$LOG_DIR/last_run_status.json"
   log "Exit code $code"
   exit $code
 }
 cd "$REPO" || finish 1
+# Daily snapshot of the pipeline state files (kept 14 days) so a bad run or
+# a corrupt cache can be rolled back by hand.
+SNAP_DIR="$REPO/data/backups/$(date +%F)"
+mkdir -p "$SNAP_DIR"
+cp -f data/cache.json data/posters.json data/imdb_ids.json data/imdb_metadata_cache.json data/tmdb_watch_providers_cache.json "$SNAP_DIR/" 2>/dev/null || true
+find "$REPO/data/backups" -maxdepth 1 -type d -mtime +14 -exec rm -rf {} + 2>/dev/null || true
 export SELENIUM_BROWSER=chrome
 export SELENIUM_HEADLESS=0
 export IMDB_ALLOW_VISIBLE_FALLBACK=0
@@ -42,6 +49,14 @@ log "Refresh completed"
 log "--- export ---"
 "$PY" scripts/export_watchlist.py >>"$LOG" 2>&1 || finish $?
 log "Export completed"
+log "--- validation gate ---"
+git show HEAD:docs/data/watchlist.json > "$LOG_DIR/prev_watchlist.json" 2>/dev/null || rm -f "$LOG_DIR/prev_watchlist.json"
+if ! "$PY" scripts/validate_export.py docs/data/watchlist.json "$LOG_DIR/prev_watchlist.json" >>"$LOG" 2>&1; then
+  log "VALIDATION FAILED: reverting docs, publish aborted, last good export stays live"
+  git checkout -- docs/data/watchlist.json docs/index.html >>"$LOG" 2>&1
+  finish 1
+fi
+log "Validation passed"
 if [ ! -d .git ]; then log "Not a git repo, skipping push"; finish 0; fi
 git add -- docs/data/watchlist.json docs/index.html >>"$LOG" 2>&1
 if git diff --cached --quiet; then log "No data changes to commit"; finish 0; fi

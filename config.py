@@ -101,6 +101,18 @@ OWNED_STREAMING_SERVICES_PATH = os.path.join(
 STREAMING_MAX_NETWORK_LOOKUPS = int(os.environ.get("STREAMING_MAX_NETWORK_LOOKUPS", "200") or "200")
 # Drop cache entries older than this many days (0 = never expire by age).
 STREAMING_CACHE_MAX_AGE_DAYS = int(os.environ.get("STREAMING_CACHE_MAX_AGE_DAYS", "14") or "0")
+# Daily API budgets, enforced by api_budget.py at the tmdb_client / OMDb choke
+# points. OMDb's free tier allows 1,000 calls/day; we cap ourselves at 250.
+TMDB_API_DAILY_CAP = int(os.environ.get("TMDB_API_DAILY_CAP", "600") or "600")
+OMDB_API_DAILY_CAP = int(os.environ.get("OMDB_API_DAILY_CAP", "250") or "250")
+# Poster cache entries keyed by IMDb id are revalidated against TMDb /find
+# once they are older than this many days, at most this many per run.
+POSTER_CACHE_REVALIDATE_DAYS = int(os.environ.get("POSTER_CACHE_REVALIDATE_DAYS", "180") or "180")
+POSTER_REVALIDATE_MAX_PER_RUN = int(os.environ.get("POSTER_REVALIDATE_MAX_PER_RUN", "20") or "20")
+# Exporter metadata (ratings, votes, genres) is re-fetched once it is older
+# than this many days, oldest first, at most this many rows per export run.
+META_REFRESH_TTL_DAYS = int(os.environ.get("META_REFRESH_TTL_DAYS", "21") or "21")
+META_REFRESH_MAX_PER_RUN = int(os.environ.get("META_REFRESH_MAX_PER_RUN", "40") or "40")
 
 
 def _clean_tmdb_secret(value: str) -> str:

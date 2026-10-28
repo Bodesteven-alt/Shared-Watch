@@ -7,6 +7,7 @@ from typing import Any
 
 import requests
 
+import api_budget
 import config
 
 _TMDB_V3_BASE = "https://api.themoviedb.org/3"
@@ -42,8 +43,15 @@ def tmdb_v3_get(
     else:
         auth_mode = "api_key"
 
+    def _budgeted_get(params_q, hdrs) -> requests.Response:
+        # Daily budget guard (api_budget): never fire a TMDb call past the cap.
+        if not api_budget.allow("tmdb"):
+            raise requests.RequestException("tmdb daily budget exhausted")
+        api_budget.record("tmdb")
+        return requests.get(url, params=params_q, headers=hdrs, timeout=20)
+
     def _do_get() -> requests.Response:
-        return requests.get(url, params=q, headers=headers, timeout=20)
+        return _budgeted_get(q, headers)
 
     try:
         r = _do_get()
@@ -53,11 +61,9 @@ def tmdb_v3_get(
     # TMDb sometimes returns 401 when both Bearer and api_key are sent but one is wrong or mismatched.
     if r.status_code == 401 and token and api_key:
         try:
-            rb = requests.get(
-                url,
-                params=dict(params or {}),
-                headers={"Accept": "application/json", "Authorization": f"Bearer {token}"},
-                timeout=20,
+            rb = _budgeted_get(
+                dict(params or {}),
+                {"Accept": "application/json", "Authorization": f"Bearer {token}"},
             )
             if rb.status_code == 200:
                 _log.warning(
@@ -68,12 +74,7 @@ def tmdb_v3_get(
             else:
                 qk: dict[str, Any] = dict(params or {})
                 qk["api_key"] = api_key
-                rk = requests.get(
-                    url,
-                    params=qk,
-                    headers={"Accept": "application/json"},
-                    timeout=20,
-                )
+                rk = _budgeted_get(qk, {"Accept": "application/json"})
                 if rk.status_code == 200:
                     _log.warning(
                         "TMDb HTTP 401 with Bearer+api_key for %s; api_key-only retry succeeded",
