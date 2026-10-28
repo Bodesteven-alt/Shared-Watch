@@ -24,6 +24,7 @@
 
   const GRID_BATCH_SIZE = 24;
   let gridRowsBuffer = [];
+  let lastSortedRows = [];
   let gridDisplayedCount = 0;
   let gridRenderGeneration = 0;
   let gridLoadObserver = null;
@@ -257,6 +258,16 @@
   }
 
   let selectedGenre = "all";
+  let onlyNew = false;
+
+  const NEW_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+  function isNewMovie(m) {
+    if (!m || !m.added) return false;
+    const t = new Date(m.added).getTime();
+    if (!Number.isFinite(t)) return false;
+    const age = Date.now() - t;
+    return age >= 0 && age <= NEW_WINDOW_MS;
+  }
 
   function renderGenreList() {
     const listEl = getGenreListEl();
@@ -597,6 +608,7 @@
   function isDefaultState() {
     return (
       selectedGenre === "all" &&
+      !onlyNew &&
       selectedServiceIds.size === 0 &&
       sortField === "title" &&
       sortDir === "asc" &&
@@ -620,6 +632,8 @@
         }
       }
     }
+
+    if (params.get("nw") === "1") onlyNew = true;
 
     const gRaw = params.get("genre");
     if (gRaw) {
@@ -670,6 +684,7 @@
       if (active.length) p.set("src", active.join(","));
     }
     if (selectedGenre !== "all") p.set("genre", selectedGenre);
+    if (onlyNew) p.set("nw", "1");
     if (selectedServiceIds.size > 0) {
       p.set("svc", [...selectedServiceIds].sort((a, b) => a - b).join(","));
     }
@@ -1076,6 +1091,7 @@
     if (selectedGenre !== "all" && !(m.genres || []).includes(selectedGenre)) {
       return false;
     }
+    if (onlyNew && !isNewMovie(m)) return false;
     if (!movieMatchesServiceFilter(m)) return false;
     return true;
   }
@@ -1536,13 +1552,13 @@
             ? "card--src-imdb"
             : "";
     return `
-      <article class="card ${srcCard}">
+      <article class="card ${srcCard}" data-row-idx="${i}">
         <div class="poster">
           ${m.poster_url ? `<img src="${escapeAttr(m.poster_url)}" alt="${escapeAttr(m.title || "")} poster" loading="lazy" referrerpolicy="no-referrer">` : "No poster"}
         </div>
         <div class="movie-content">
           <div class="movie-main">
-            <div class="title">${escapeHtmlText(m.title || "")}</div>
+            <div class="title">${escapeHtmlText(m.title || "")}${isNewMovie(m) ? ' <span class="new-badge">NEW</span>' : ""}</div>
             ${cardMetaLineHtml(m)}
             ${ratingRowHtml}
           </div>
@@ -1637,6 +1653,10 @@
     updateSourceCountUi(filtered);
     const rows = [...filtered];
     sortRows(rows);
+    lastSortedRows = rows;
+    emptyEl.textContent = onlyNew
+      ? "Nothing new in the last 7 days. New additions show up after the morning sync."
+      : "No movies match your filters.";
 
     if (!rows.length) {
       flushWatchPortalBeforeRender();
@@ -1892,6 +1912,74 @@
     scrollTopBtn.classList.toggle("scroll-top-btn--visible", visible);
     scrollTopBtn.tabIndex = visible ? 0 : -1;
   }
+  const newBtn = document.getElementById("newBtn");
+  if (newBtn) {
+    newBtn.setAttribute("aria-pressed", onlyNew ? "true" : "false");
+    newBtn.addEventListener("click", () => {
+      onlyNew = !onlyNew;
+      newBtn.setAttribute("aria-pressed", onlyNew ? "true" : "false");
+      scheduleRender();
+    });
+  }
+
+  const surpriseBtn = document.getElementById("surpriseBtn");
+  if (surpriseBtn) {
+    surpriseBtn.addEventListener("click", () => {
+      const rows = lastSortedRows;
+      if (!rows.length) return;
+      const idx = Math.floor(Math.random() * rows.length);
+      const gen = gridRenderGeneration;
+      let guard = 0;
+      while (
+        gridDisplayedCount <= idx &&
+        gridDisplayedCount < gridRowsBuffer.length &&
+        guard < 200
+      ) {
+        loadMoreGridRows(gen);
+        guard++;
+      }
+      requestAnimationFrame(() => {
+        const card = gridEl.querySelector(`[data-row-idx="${idx}"]`);
+        if (!card) return;
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
+        card.classList.add("card--surprise");
+        setTimeout(() => card.classList.remove("card--surprise"), 2600);
+      });
+    });
+  }
+
+  const shareBtn = document.getElementById("shareBtn");
+  if (shareBtn) {
+    shareBtn.addEventListener("click", async () => {
+      const url = window.location.href;
+      const label = shareBtn.querySelector(".sortbtn-label");
+      const orig = label ? label.textContent : "";
+      const flash = (msg) => {
+        if (!label) return;
+        label.textContent = msg;
+        setTimeout(() => {
+          label.textContent = orig;
+        }, 1600);
+      };
+      if (navigator.share) {
+        try {
+          await navigator.share({ title: "Our Watch List", url });
+          flash("Shared!");
+          return;
+        } catch (err) {
+          if (err && err.name === "AbortError") return;
+        }
+      }
+      try {
+        await navigator.clipboard.writeText(url);
+        flash("Link copied!");
+      } catch {
+        window.prompt("Copy this link:", url);
+      }
+    });
+  }
+
   if (scrollTopBtn) {
     window.addEventListener("scroll", updateScrollTopBtn, { passive: true });
     window.addEventListener("resize", updateScrollTopBtn);

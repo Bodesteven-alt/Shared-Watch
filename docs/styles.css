@@ -646,3 +646,12 @@ main#mainContent:focus-visible {
    against the whole document, so every infinite-scroll batch re-stretched
    them and the visible background color shifted while scrolling. */
 body{background-attachment:fixed}
+
+/* Action bar: New this week / Surprise me / Share shelf (added Oct 28, 2026) */
+.actionbar{display:flex;gap:.32rem;margin-top:.6rem;width:100%;max-width:100%;box-sizing:border-box}
+.actionbar .sortbtn{flex:1 1 0;min-width:0}
+.sortbtn[aria-pressed="true"]{background:linear-gradient(135deg,#ff71ce,#b967ff);border:1px solid rgba(255,113,206,0.45);color:#fff;box-shadow:0 0 12px rgba(255,113,206,0.25)}
+.new-badge{display:inline-block;font-size:.58rem;font-weight:700;letter-spacing:.06em;line-height:1;padding:.16rem .42rem;border-radius:999px;color:#14102e;background:linear-gradient(90deg,var(--cyan),#7dffb0);vertical-align:.18em;white-space:nowrap}
+.card--surprise{animation:surprisePulse 1.15s ease-in-out 2}
+@keyframes surprisePulse{0%,100%{box-shadow:0 0 0 0 rgba(1,205,254,0)}50%{box-shadow:0 0 0 3px rgba(1,205,254,.8),0 0 24px rgba(255,113,206,.5)}}
+@media (prefers-reduced-motion:reduce){.card--surprise{animation:none;outline:3px solid rgba(1,205,254,.8)}}

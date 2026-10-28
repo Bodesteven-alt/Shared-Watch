@@ -33,7 +33,7 @@ cd "$REPO" || finish 1
 # a corrupt cache can be rolled back by hand.
 SNAP_DIR="$REPO/data/backups/$(date +%F)"
 mkdir -p "$SNAP_DIR"
-cp -f data/cache.json data/posters.json data/imdb_ids.json data/imdb_metadata_cache.json data/tmdb_watch_providers_cache.json "$SNAP_DIR/" 2>/dev/null || true
+cp -f data/cache.json data/posters.json data/imdb_ids.json data/imdb_metadata_cache.json data/tmdb_watch_providers_cache.json data/first_seen.json "$SNAP_DIR/" 2>/dev/null || true
 find "$REPO/data/backups" -maxdepth 1 -type d -mtime +14 -exec rm -rf {} + 2>/dev/null || true
 export SELENIUM_BROWSER=chrome
 export SELENIUM_HEADLESS=0

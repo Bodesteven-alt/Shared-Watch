@@ -1167,6 +1167,34 @@ def main() -> int:
 
     streaming_nonempty = sum(1 for m in movies if _streaming_has_providers(m))
 
+    # First-seen tracking for the site's "New this week" view.
+    # data/first_seen.json maps a stable movie key (IMDb ID when known,
+    # else normalized title+year) to the date the title first appeared in
+    # an export. The first run that finds no file treats every current
+    # title as baseline (added = None) so the existing list does not all
+    # light up as new; titles appearing in later runs are stamped with
+    # that run's local date. Pure bookkeeping, no API calls.
+    first_seen_path = ROOT / "data" / "first_seen.json"
+    first_seen_raw = load_json(first_seen_path, None)
+    first_seen_baseline = not isinstance(first_seen_raw, dict)
+    first_seen = {} if first_seen_baseline else dict(first_seen_raw)
+    today_local = datetime.now().astimezone().date().isoformat()
+    first_seen_changed = first_seen_baseline
+    for m in movies:
+        _iid = str(m.get("imdb_id") or "").strip()
+        if _iid:
+            _key = f"imdb:{_iid}"
+        else:
+            _key = "title:{}|{}".format(
+                str(m.get("title") or "").strip().lower(), m.get("year") or ""
+            )
+        if _key not in first_seen:
+            first_seen[_key] = None if first_seen_baseline else today_local
+            first_seen_changed = True
+        m["added"] = first_seen[_key]
+    if first_seen_changed:
+        save_json(first_seen_path, first_seen)
+
     updated_at = cache.get("updated_at")
     if not updated_at:
         updated_at = datetime.now(timezone.utc).isoformat()

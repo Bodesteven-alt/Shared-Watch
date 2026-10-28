@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=80">
+  <link rel="stylesheet" href="./styles.css?v=81">
 </head>
 <body>
   <main class="wrap" id="mainContent" tabindex="-1">
@@ -157,6 +157,12 @@
           <div id="servicesPopup" class="services-popup hidden" role="dialog" aria-label="Streaming services"></div>
         </div>
       </section>
+
+      <section class="actionbar" aria-label="List actions">
+        <button id="newBtn" type="button" class="sortbtn" aria-pressed="false"><span class="sortbtn-label">✨ New this week</span></button>
+        <button id="surpriseBtn" type="button" class="sortbtn"><span class="sortbtn-label">🎲 Surprise me</span></button>
+        <button id="shareBtn" type="button" class="sortbtn"><span class="sortbtn-label">🔗 Share shelf</span></button>
+      </section>
     </div>
 
     <section id="grid" class="grid grid--loading" aria-busy="true" aria-label="Movie list">
@@ -228,6 +234,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=65"></script>
+  <script src="./app.js?v=66"></script>
 </body>
 </html>
