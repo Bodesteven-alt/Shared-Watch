@@ -641,3 +641,8 @@ main#mainContent:focus-visible {
 .footer-ratings-note a:hover {
   color: var(--text);
 }
+
+/* Background pinned to the viewport: the radial glows used to be sized
+   against the whole document, so every infinite-scroll batch re-stretched
+   them and the visible background color shifted while scrolling. */
+body{background-attachment:fixed}
