@@ -1,0 +1,20 @@
+[Unit]
+Description=Our Watch List - local Flask UI (loopback only)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/shared-watch
+Environment=PATH=%h/tools/xvfb/usr/bin:%h/.local/bin:/usr/local/bin:/usr/bin:/bin
+Environment=AUTO_REFRESH_MINUTES=0
+Environment=AUTO_REFRESH_ON_START=0
+Environment=SELENIUM_BROWSER=chrome
+Environment=SELENIUM_HEADLESS=0
+Environment=IMDB_ALLOW_VISIBLE_FALLBACK=0
+Environment=SELENIUM_CHROME_USER_DATA_DIR=%h/shared-watch/data/chrome_imdb_profile
+ExecStart=%h/tools/xvfb/usr/bin/xvfb-run -a --server-args="-screen 0 1280x900x24" %h/shared-watch/.venv/bin/python app.py
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

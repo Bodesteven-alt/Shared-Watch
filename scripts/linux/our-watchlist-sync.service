@@ -1,0 +1,9 @@
+[Unit]
+Description=Our Watch List - refresh, export, and push watchlist data
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/shared-watch
+ExecStart=%h/shared-watch/scripts/sync_watchlist.sh

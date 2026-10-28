@@ -1,0 +1,10 @@
+[Unit]
+Description=Daily Our Watch List sync at 06:15 America/Chicago
+
+[Timer]
+OnCalendar=*-*-* 06:15:00 America/Chicago
+Persistent=true
+RandomizedDelaySec=120
+
+[Install]
+WantedBy=timers.target

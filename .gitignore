@@ -13,3 +13,4 @@ data/tmdb_watch_providers_cache.json
 scripts/logs/
 debug-*.log
 data/chrome_imdb_profile/
+data/*.log
