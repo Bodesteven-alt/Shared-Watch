@@ -655,3 +655,21 @@ body{background-attachment:fixed}
 .card--surprise{animation:surprisePulse 1.15s ease-in-out 2}
 @keyframes surprisePulse{0%,100%{box-shadow:0 0 0 0 rgba(1,205,254,0)}50%{box-shadow:0 0 0 3px rgba(1,205,254,.8),0 0 24px rgba(255,113,206,.5)}}
 @media (prefers-reduced-motion:reduce){.card--surprise{animation:none;outline:3px solid rgba(1,205,254,.8)}}
+
+/* Search panel, expanding design (added Oct 28, 2026) */
+.search-panel{margin-bottom:.6rem;border:1px solid var(--line);border-radius:14px;background:rgba(22,33,62,.94);padding:.6rem;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.search-panel.hidden{display:none}
+.search-panel__row{display:flex;gap:.5rem;align-items:center}
+.search-panel__field{flex:1;display:flex;align-items:center;gap:.45rem;border:1px solid var(--purple);border-radius:999px;padding:.3rem .8rem;background:rgba(11,6,24,.55);min-width:0}
+.search-panel__icon{flex-shrink:0}
+.search-panel__field input{flex:1;min-width:0;border:none;background:transparent;color:var(--text);font:inherit;font-size:1rem;padding:.3rem 0;outline:none}
+.search-panel__cancel{flex-shrink:0;border:none;background:transparent;color:var(--acc);font:inherit;font-weight:600;cursor:pointer;padding:.3rem .4rem}
+.search-panel__chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.55rem}
+.search-chip{border:1px solid var(--line);background:rgba(42,26,74,.6);color:var(--text);border-radius:12px;padding:.45rem .7rem;font:inherit;font-size:.85rem;cursor:pointer}
+.search-panel__meta{margin:.5rem 0 0;font-size:.8rem;color:var(--muted);min-height:1em}
+
+/* Surprise me spotlight bar (added Oct 28, 2026) */
+.spotlight-bar{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin-top:.9rem;border:1px solid rgba(1,205,254,.45);border-radius:12px;background:rgba(22,33,62,.9);padding:.5rem .7rem}
+.spotlight-bar.hidden{display:none}
+.spotlight-bar__text{flex:1;min-width:140px;font-weight:600}
+.spotlight-bar__btn{border:1px solid var(--line);background:rgba(42,26,74,.65);color:var(--text);border-radius:999px;padding:.35rem .7rem;font:inherit;font-size:.85rem;cursor:pointer}

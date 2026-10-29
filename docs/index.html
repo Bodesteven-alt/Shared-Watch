@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=81">
+  <link rel="stylesheet" href="./styles.css?v=82">
 </head>
 <body>
   <main class="wrap" id="mainContent" tabindex="-1">
@@ -25,6 +25,24 @@
     </div>
 
     <div class="controls-sticky-wrap">
+      <section id="searchPanel" class="search-panel hidden" aria-label="Search movies">
+        <div class="search-panel__row">
+          <div class="search-panel__field">
+            <span class="search-panel__icon" aria-hidden="true">🔍</span>
+            <input id="searchInput" type="search" placeholder="Search title, year, or genre" autocomplete="off" aria-label="Search movies">
+          </div>
+          <button id="searchCancel" type="button" class="search-panel__cancel">Cancel</button>
+        </div>
+        <div class="search-panel__chips" role="group" aria-label="Quick searches">
+          <button type="button" class="search-chip" data-q="Horror">Horror</button>
+          <button type="button" class="search-chip" data-q="Comedy">Comedy</button>
+          <button type="button" class="search-chip" data-q="1990s">1990s</button>
+          <button type="button" class="search-chip" data-q="1970s">1970s</button>
+          <button type="button" class="search-chip" data-q="Godzilla">Godzilla</button>
+        </div>
+        <p id="searchMeta" class="search-panel__meta" role="status"></p>
+      </section>
+
       <section class="source-filters" id="sourceFiltersRow" aria-label="Filter by list source">
         <button id="filterLb" class="srcbtn active" data-source="letterboxd" type="button">
           <span class="srcbtn-inner">
@@ -159,10 +177,17 @@
       </section>
 
       <section class="actionbar" aria-label="List actions">
+        <button id="searchBtn" type="button" class="sortbtn" aria-expanded="false" aria-controls="searchPanel"><span class="sortbtn-label">🔍 Search</span></button>
         <button id="newBtn" type="button" class="sortbtn" aria-pressed="false"><span class="sortbtn-label">✨ New this week</span></button>
         <button id="surpriseBtn" type="button" class="sortbtn"><span class="sortbtn-label">🎲 Surprise me</span></button>
         <button id="shareBtn" type="button" class="sortbtn"><span class="sortbtn-label">🔗 Share shelf</span></button>
       </section>
+    </div>
+
+    <div id="spotlightBar" class="spotlight-bar hidden" role="status">
+      <span id="spotlightText" class="spotlight-bar__text"></span>
+      <button id="spotlightAgain" type="button" class="spotlight-bar__btn">🎲 Again</button>
+      <button id="spotlightAll" type="button" class="spotlight-bar__btn">Show all</button>
     </div>
 
     <section id="grid" class="grid grid--loading" aria-busy="true" aria-label="Movie list">
@@ -234,6 +259,6 @@
       window.addEventListener("resize", apply);
     })();
   </script>
-  <script src="./app.js?v=67"></script>
+  <script src="./app.js?v=68"></script>
 </body>
 </html>

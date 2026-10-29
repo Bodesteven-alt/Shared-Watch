@@ -20,6 +20,9 @@
   const servicesSheetBackdrop = document.getElementById("servicesSheetBackdrop");
   const sortSheetBackdrop = document.getElementById("sortSheetBackdrop");
   const scrollTopBtn = document.getElementById("scrollTopBtn");
+  const searchPanelEl = document.getElementById("searchPanel");
+  const searchInputEl = document.getElementById("searchInput");
+  const searchMetaEl = document.getElementById("searchMeta");
   const mainContentEl = document.getElementById("mainContent");
 
   const GRID_BATCH_SIZE = 24;
@@ -259,6 +262,38 @@
 
   let selectedGenre = "all";
   let onlyNew = false;
+  let searchQuery = "";
+  let spotlightMovie = null;
+
+  function normalizeSearchText(s) {
+    return String(s || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+  function stripLeadingArticle(s) {
+    return s.replace(/^(?:the|an|a)\s+/i, "");
+  }
+  function movieMatchesSearch(m) {
+    const q = normalizeSearchText(searchQuery).trim();
+    if (!q) return true;
+    const titleFull = normalizeSearchText(m.title);
+    const titleBare = stripLeadingArticle(titleFull);
+    const yearStr = m.year != null ? String(m.year) : "";
+    const genres = (m.genres || []).map(normalizeSearchText);
+    return q.split(/\s+/).every((term) => {
+      const bare = stripLeadingArticle(term);
+      if (bare && (titleBare.includes(bare) || titleFull.includes(term))) return true;
+      if (yearStr && yearStr.startsWith(term)) return true;
+      if (genres.some((g) => g.includes(term))) return true;
+      const dm = term.match(/^(\d{4})s$/);
+      if (dm && m.year != null) {
+        const base = Number(dm[1]);
+        if (m.year >= base && m.year <= base + 9) return true;
+      }
+      return false;
+    });
+  }
 
   const NEW_WINDOW_DAYS = 7;
   function isNewMovie(m) {
@@ -619,6 +654,7 @@
     return (
       selectedGenre === "all" &&
       !onlyNew &&
+      searchQuery.trim() === "" &&
       selectedServiceIds.size === 0 &&
       sortField === "title" &&
       sortDir === "asc" &&
@@ -644,6 +680,9 @@
     }
 
     if (params.get("nw") === "1") onlyNew = true;
+
+    const qRaw = params.get("q");
+    if (qRaw) searchQuery = qRaw;
 
     const gRaw = params.get("genre");
     if (gRaw) {
@@ -695,6 +734,7 @@
     }
     if (selectedGenre !== "all") p.set("genre", selectedGenre);
     if (onlyNew) p.set("nw", "1");
+    if (searchQuery.trim()) p.set("q", searchQuery.trim());
     if (selectedServiceIds.size > 0) {
       p.set("svc", [...selectedServiceIds].sort((a, b) => a - b).join(","));
     }
@@ -1102,6 +1142,7 @@
       return false;
     }
     if (onlyNew && !isNewMovie(m)) return false;
+    if (!movieMatchesSearch(m)) return false;
     if (!movieMatchesServiceFilter(m)) return false;
     return true;
   }
@@ -1661,12 +1702,26 @@
 
     const filtered = getPreSortFilteredRows();
     updateSourceCountUi(filtered);
-    const rows = [...filtered];
+    let rows = [...filtered];
     sortRows(rows);
     lastSortedRows = rows;
-    emptyEl.textContent = onlyNew
-      ? "Nothing new in the last 7 days. New additions show up after the morning sync."
-      : "No movies match your filters.";
+    if (spotlightMovie) {
+      const hit = rows.find((r) => r === spotlightMovie);
+      if (hit) rows = [hit];
+      else spotlightMovie = null;
+    }
+    updateSpotlightBar();
+    if (searchMetaEl) {
+      const q = searchQuery.trim();
+      searchMetaEl.textContent = q
+        ? `${filtered.length} result${filtered.length === 1 ? "" : "s"} for "${q}"`
+        : "";
+    }
+    emptyEl.textContent = searchQuery.trim()
+      ? `No movies match "${searchQuery.trim()}".`
+      : onlyNew
+        ? "Nothing new in the last 7 days. New additions show up after the morning sync."
+        : "No movies match your filters.";
 
     if (!rows.length) {
       flushWatchPortalBeforeRender();
@@ -1932,30 +1987,61 @@
     });
   }
 
-  const surpriseBtn = document.getElementById("surpriseBtn");
-  if (surpriseBtn) {
-    surpriseBtn.addEventListener("click", () => {
-      const rows = lastSortedRows;
-      if (!rows.length) return;
-      const idx = Math.floor(Math.random() * rows.length);
-      const gen = gridRenderGeneration;
+  function updateSpotlightBar() {
+    const bar = document.getElementById("spotlightBar");
+    if (!bar) return;
+    if (spotlightMovie) {
+      bar.classList.remove("hidden");
+      const txt = document.getElementById("spotlightText");
+      if (txt) {
+        txt.textContent = `🎲 Your pick: ${spotlightMovie.title} (${spotlightMovie.year || "?"})`;
+      }
+    } else {
+      bar.classList.add("hidden");
+    }
+  }
+
+  function pickSurprise() {
+    const rows = lastSortedRows;
+    if (!rows.length) return;
+    let pick = rows[Math.floor(Math.random() * rows.length)];
+    if (rows.length > 1) {
       let guard = 0;
-      while (
-        gridDisplayedCount <= idx &&
-        gridDisplayedCount < gridRowsBuffer.length &&
-        guard < 200
-      ) {
-        loadMoreGridRows(gen);
+      while (pick === spotlightMovie && guard < 6) {
+        pick = rows[Math.floor(Math.random() * rows.length)];
         guard++;
       }
+    }
+    spotlightMovie = pick;
+    scheduleRender();
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        const card = gridEl.querySelector(`[data-row-idx="${idx}"]`);
-        if (!card) return;
-        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        card.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" });
-        card.classList.add("card--surprise");
-        setTimeout(() => card.classList.remove("card--surprise"), 2600);
+        if (gridEl) {
+          const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+          gridEl.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+          const card = gridEl.querySelector("article.card");
+          if (card) {
+            card.classList.add("card--surprise");
+            setTimeout(() => card.classList.remove("card--surprise"), 2600);
+          }
+        }
       });
+    });
+  }
+
+  const surpriseBtn = document.getElementById("surpriseBtn");
+  if (surpriseBtn) {
+    surpriseBtn.addEventListener("click", pickSurprise);
+  }
+  const spotlightAgain = document.getElementById("spotlightAgain");
+  if (spotlightAgain) {
+    spotlightAgain.addEventListener("click", pickSurprise);
+  }
+  const spotlightAll = document.getElementById("spotlightAll");
+  if (spotlightAll) {
+    spotlightAll.addEventListener("click", () => {
+      spotlightMovie = null;
+      scheduleRender();
     });
   }
 
@@ -1988,6 +2074,62 @@
         window.prompt("Copy this link:", url);
       }
     });
+  }
+
+  const searchBtn = document.getElementById("searchBtn");
+  const searchCancelBtn = document.getElementById("searchCancel");
+  function setSearchOpen(open, focus) {
+    if (!searchPanelEl) return;
+    searchPanelEl.classList.toggle("hidden", !open);
+    if (searchBtn) searchBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    if (open && focus && searchInputEl) searchInputEl.focus();
+  }
+  function clearSearch() {
+    if (searchInputEl) searchInputEl.value = "";
+    if (searchQuery !== "") {
+      searchQuery = "";
+      scheduleRender();
+    }
+  }
+  if (searchBtn && searchPanelEl) {
+    searchBtn.addEventListener("click", () => {
+      const open = searchPanelEl.classList.contains("hidden");
+      setSearchOpen(open, open);
+    });
+  }
+  if (searchInputEl) {
+    searchInputEl.addEventListener("input", () => {
+      searchQuery = searchInputEl.value;
+      scheduleRender();
+    });
+    searchInputEl.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        clearSearch();
+        setSearchOpen(false, false);
+        if (searchBtn) searchBtn.focus();
+      }
+    });
+  }
+  if (searchCancelBtn) {
+    searchCancelBtn.addEventListener("click", () => {
+      clearSearch();
+      setSearchOpen(false, false);
+    });
+  }
+  if (searchPanelEl) {
+    searchPanelEl.querySelectorAll(".search-chip").forEach((chip) => {
+      chip.addEventListener("click", () => {
+        const q = chip.getAttribute("data-q") || "";
+        if (searchInputEl) searchInputEl.value = q;
+        searchQuery = q;
+        scheduleRender();
+        if (searchInputEl) searchInputEl.focus();
+      });
+    });
+  }
+  if (searchQuery.trim() && searchInputEl) {
+    searchInputEl.value = searchQuery;
+    setSearchOpen(true, false);
   }
 
   if (scrollTopBtn) {
