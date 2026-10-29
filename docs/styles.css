@@ -673,3 +673,23 @@ body{background-attachment:fixed}
 .spotlight-bar.hidden{display:none}
 .spotlight-bar__text{flex:1;min-width:140px;font-weight:600}
 .spotlight-bar__btn{border:1px solid var(--line);background:rgba(42,26,74,.65);color:var(--text);border-radius:999px;padding:.35rem .7rem;font:inherit;font-size:.85rem;cursor:pointer}
+
+/* Small-screen text-fit pass (Oct 28, 2026): no label clips or hides.
+   Found by the 20-width sweep: Letterboxd pill label clipped under
+   360px, long service names overflowed their popup cells at every
+   width, and the 4-across action bar only fit by shrinking text to
+   ~10px, which real phones with larger text settings override. */
+@media (max-width:640px){
+  .actionbar{flex-wrap:wrap}
+  .actionbar .sortbtn{flex:1 1 40%}
+}
+@media (max-width:560px){
+  .srcbtn{flex-direction:column;gap:.05rem;padding:.45rem .3rem}
+  .srcbtn-count{line-height:1.15}
+}
+@media (max-width:380px){
+  .srcbtn-label{font-size:.82rem}
+}
+.service-option{align-items:flex-start;min-width:0}
+.service-option>span{min-width:0;white-space:normal;overflow-wrap:break-word;line-height:1.25}
+.service-option input{margin-top:.18rem;flex-shrink:0}
