@@ -684,7 +684,8 @@ body{background-attachment:fixed}
   .actionbar .sortbtn{flex:1 1 40%}
 }
 @media (max-width:560px){
-  .srcbtn{flex-direction:column;gap:.05rem;padding:.45rem .3rem}
+  .srcbtn{padding:.45rem .3rem}
+  .srcbtn-inner{flex-direction:column;gap:.05rem}
   .srcbtn-count{line-height:1.15}
 }
 @media (max-width:380px){
