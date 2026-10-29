@@ -283,7 +283,8 @@
     const genres = (m.genres || []).map(normalizeSearchText);
     return q.split(/\s+/).every((term) => {
       const bare = stripLeadingArticle(term);
-      if (bare && (titleBare.includes(bare) || titleFull.includes(term))) return true;
+      if (!bare) return true;
+      if (titleBare.includes(bare) || titleFull.includes(term)) return true;
       if (yearStr && yearStr.startsWith(term)) return true;
       if (genres.some((g) => g.includes(term))) return true;
       const dm = term.match(/^(\d{4})s$/);
