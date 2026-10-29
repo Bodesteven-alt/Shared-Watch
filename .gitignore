@@ -14,3 +14,6 @@ scripts/logs/
 debug-*.log
 data/chrome_imdb_profile/
 data/*.log
+
+# Local startup log (machine details, not published data)
+data/startup.log

@@ -250,7 +250,7 @@ def _fetch_omdb_poster(
         return None
     api_budget.record("omdb")
     try:
-        r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
+        r = requests.get("https://www.omdbapi.com/", params=params, timeout=12)
     except requests.RequestException:
         return None
     if r.status_code != 200:

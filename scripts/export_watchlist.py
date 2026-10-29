@@ -592,7 +592,7 @@ def fetch_omdb_metadata(imdb_id: str | None = None, title: str | None = None) ->
         return out
     api_budget.record("omdb")
     try:
-        r = requests.get("http://www.omdbapi.com/", params=params, timeout=12)
+        r = requests.get("https://www.omdbapi.com/", params=params, timeout=12)
     except requests.RequestException:
         return out
     if r.status_code != 200:

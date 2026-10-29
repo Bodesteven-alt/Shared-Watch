@@ -126,6 +126,12 @@
   }
   const movies = Array.isArray(data.movies) ? data.movies : [];
 
+  // Normalize field shapes the rest of the app assumes (security audit SW-02):
+  // a non-array genres value would otherwise crash search rendering.
+  for (const m of movies) {
+    if (!Array.isArray(m.genres)) m.genres = [];
+  }
+
   if (data.updated_at) {
     dataUpdatedAtMs = new Date(data.updated_at).getTime();
     if (!Number.isFinite(dataUpdatedAtMs)) dataUpdatedAtMs = null;
