@@ -260,13 +260,23 @@
   let selectedGenre = "all";
   let onlyNew = false;
 
-  const NEW_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+  const NEW_WINDOW_DAYS = 7;
   function isNewMovie(m) {
     if (!m || !m.added) return false;
-    const t = new Date(m.added).getTime();
-    if (!Number.isFinite(t)) return false;
-    const age = Date.now() - t;
-    return age >= 0 && age <= NEW_WINDOW_MS;
+    const raw = String(m.added).trim();
+    let t;
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) {
+      const parts = raw.split("-").map(Number);
+      t = new Date(parts[0], parts[1] - 1, parts[2]);
+    } else {
+      t = new Date(raw);
+    }
+    if (Number.isNaN(t.getTime())) return false;
+    const now = new Date();
+    const startToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const startAdded = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+    const days = Math.round((startToday - startAdded) / 86400000);
+    return days >= 0 && days <= NEW_WINDOW_DAYS;
   }
 
   function renderGenreList() {
