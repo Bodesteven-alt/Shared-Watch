@@ -2194,6 +2194,10 @@
       positionServicesHint();
     }
     window.addEventListener("resize", onHintResize);
+    window.addEventListener("scroll", () => dismissServicesHintUi(), {
+      once: true,
+      passive: true,
+    });
     let hintDismissed = false;
     function dismissServicesHintUi() {
       if (hintDismissed) return;

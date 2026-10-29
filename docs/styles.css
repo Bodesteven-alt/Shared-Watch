@@ -694,3 +694,14 @@ body{background-attachment:fixed}
 .service-option{align-items:flex-start;min-width:0}
 .service-option>span{min-width:0;white-space:normal;overflow-wrap:break-word;line-height:1.25}
 .service-option input{margin-top:.18rem;flex-shrink:0}
+
+/* Layout QA fixes (Oct 28, 2026, Steven approved the bundle) */
+/* 1) Bigger tap targets on every card: WATCH was 21px tall. */
+.watch-summary{display:inline-flex;align-items:center;min-height:36px;padding:.4rem .85rem}
+.rating-stars-toggle{min-height:32px;padding:.4rem .28rem}
+/* 2) Desktop services popup: 540px wide, providers in 3 columns
+      (was a 200px single column for 86 providers). */
+@media (min-width:768px){
+  .services-popup{width:min(540px,calc(100vw - 24px));max-width:min(540px,calc(100vw - 24px))}
+  .services-popup .services-sheet-body{display:grid;grid-template-columns:1fr 1fr 1fr;column-gap:.4rem}
+}
