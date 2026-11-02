@@ -40,7 +40,33 @@ def _load_providers_cache() -> dict[str, Any]:
         return {}
 
 
+def _streaming_has_providers(streaming: Any) -> bool:
+    """True only if some region has at least one flatrate/rent/buy entry.
+
+    An empty dict, or a region block whose lists are all empty, means
+    "no provider data" and must never count as a cache hit or be
+    persisted. Caching those as fresh entries poisoned 165 titles on
+    Oct 28, 2026: the daily sync then made 0 API calls for them and
+    the validation gate blocked every publish from Oct 29 onward.
+    """
+    if not isinstance(streaming, dict):
+        return False
+    for block in streaming.values():
+        if not isinstance(block, dict):
+            continue
+        for kind in ("flatrate", "rent", "buy"):
+            if block.get(kind):
+                return True
+    return False
+
+
 def _save_providers_cache(cache: dict[str, Any]) -> None:
+    # Invariant: empty provider results are never written to disk.
+    cache = {
+        key: entry
+        for key, entry in cache.items()
+        if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming"))
+    }
     path = config.TMDB_WATCH_PROVIDERS_CACHE_PATH
     os.makedirs(os.path.dirname(path), exist_ok=True)
     tmp = path + ".tmp"
@@ -209,14 +235,14 @@ def enrich_rows_with_streaming(
             continue
 
         entry = disk.get(key)
-        if isinstance(entry, dict) and entry.get("streaming") is not None and _cache_entry_fresh(entry, now):
+        if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming")) and _cache_entry_fresh(entry, now):
             row["streaming"] = entry["streaming"]
             cached += 1
             enriched += 1
             continue
 
         if api_calls >= max_calls:
-            if isinstance(entry, dict) and entry.get("streaming"):
+            if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming")):
                 row["streaming"] = entry["streaming"]
                 enriched += 1
             else:
@@ -269,18 +295,20 @@ def enrich_rows_with_streaming(
             # already had, and never cache the failure as a fresh empty entry
             # (that poisoned 75 rows on Oct 28, 2026 when the daily TMDb
             # budget ran out mid-refresh).
-            if isinstance(entry, dict) and entry.get("streaming"):
+            if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming")):
                 row["streaming"] = entry["streaming"]
                 enriched += 1
             else:
                 skipped += 1
                 row["streaming"] = {}
-                if api_budget.allow("tmdb"):
-                    disk[key] = {"tmdb_id": None, "streaming": {}, "fetched_at": now}
+                # Never cache a failed lookup as an empty entry. It will
+                # be retried on the next run instead of poisoning the
+                # cache for the full 14 day TTL.
+                disk.pop(key, None)
             continue
 
         if api_calls >= max_calls:
-            if isinstance(entry, dict) and entry.get("streaming"):
+            if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming")):
                 row["streaming"] = entry["streaming"]
                 enriched += 1
             else:
@@ -290,11 +318,18 @@ def enrich_rows_with_streaming(
         raw_regions = _fetch_watch_providers_raw(tmdb_id)
         api_calls += 1
         slim = _trim_results_by_region(raw_regions, region)
-        if not slim and isinstance(entry, dict) and entry.get("streaming"):
-            # Empty response (failure or budget cut): keep the cached data
-            # instead of overwriting it with nothing.
-            row["streaming"] = entry["streaming"]
-            enriched += 1
+        if not _streaming_has_providers(slim):
+            # Empty response (failure, budget cut, or genuinely no US
+            # providers): never cache it. Keep prior provider data if
+            # we had any, otherwise leave the row bare and let the
+            # next run retry the lookup.
+            if isinstance(entry, dict) and _streaming_has_providers(entry.get("streaming")):
+                row["streaming"] = entry["streaming"]
+                enriched += 1
+            else:
+                row["streaming"] = {}
+                disk.pop(key, None)
+                skipped += 1
             continue
         row["streaming"] = slim
         disk[key] = {"tmdb_id": tmdb_id, "streaming": slim, "fetched_at": now}
